@@ -1,0 +1,68 @@
+Kernel to Samsung Galaxy Tab2 Stock
+
+Copyright by their respective authors.
+Code not attributable to other is on my own authorship
+
+Credits to Kernel-Team, Google, Samsung and anyone else with merits.
+
+*** HOW TO COMPILE ***
+
+# Sets environment
+export DIRE=$PWD/SamKernel
+export KERNELDIR=$DIRE/Kernel
+export ARCH=arm
+
+# Select toolchain you like to use
+export CROSS_DIR=/opt/toolchains/Linaro-arm-eabi-4.7/bin
+# or
+export CROSS_DIR=/opt/toolchains/Google-arm-eabi-4.7/bin
+
+export CROSS_COMPILE=$CROSS_DIR/arm-eabi-
+export ARM_CROSS_COMPILE=$CROSS_COMPILE
+
+# Create directories
+mkdir -p $DIRE
+mkdir -p $DIRE/Modules
+mkdir -p $DIRE/Zimage
+mkdir -p $KERNELDIR
+mkdir -p $DIRE/PowerVRSGX
+
+# Get omaplfb sources
+cd $DIRE/PowerVRSGX
+git clone -b d-jb-mr1-release --depth 1 git://git.omapzoom.org/device/ti/proprietary-open.git
+
+# Get kernel sources
+cd $KERNELDIR
+git clone https://github.com/Dhollmen/Espresso-Kernel
+
+# Copy config file for your tablet model
+cp ./arch/arm/configs/android_espresso10_omap4430_r02_user_defconfig
+# or
+cp ./arch/arm/configs/android_espresso_omap4430_r04_user_defconfig
+
+# Compile
+make ARCH=arm -j<n>      ##  n = CPU cores + 1
+
+# Copy kernel image and modules
+rm -fr $DIRE/Modules/*
+cp ./arch/arm/boot/zImage $DIRE/Zimage/
+find . -type f -name *.ko -exec cp {} $DIRE/Modules/ \;
+
+# Compile omaplfb
+cd 	$DIRE/PowerVRSGX
+
+rm -fr  eurasia_km
+tar -xzf proprietary-open/omap4/sgx_src/eurasia_km.tgz
+rm -rf eurasia_km/eurasiacon/binary*
+
+cd eurasia_km/eurasiacon/build/linux2/omap4430_android/
+make ARCH=arm TARGET_PRODUCT="blaze_tablet" BUILD=release \
+	 TARGET_SGX=540 PLATFORM_VERSION=4.0
+
+# Copy and strip modules
+cp  ../../../binary2_540_120_omap4430_android_release/target/pvrsrvkm_sgx540_120.ko \
+    $DIRE/Modules
+
+$"$CROSS_COMPILE"strip --strip-unneeded $DIRE/Modules/*.ko
+
+cd $DIRE
