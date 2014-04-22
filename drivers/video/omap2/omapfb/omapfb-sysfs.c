@@ -272,8 +272,6 @@ static ssize_t store_overlays(struct device *dev, struct device_attribute *attr,
 		if (found)
 			continue;
 
-		DBG("detaching %d\n", ofbi->overlays[i]->id);
-
 		omapfb_get_mem_region(ofbi->region);
 
 		omapfb_overlay_enable(ovl, 0);
@@ -534,7 +532,6 @@ int omapfb_create_sysfs(struct omapfb2_device *fbdev)
 	int i;
 	int r;
 
-	DBG("create sysfs for fbs\n");
 	for (i = 0; i < fbdev->num_fbs; i++) {
 		int t;
 		for (t = 0; t < ARRAY_SIZE(omapfb_attrs); t++) {
@@ -556,7 +553,6 @@ void omapfb_remove_sysfs(struct omapfb2_device *fbdev)
 {
 	int i, t;
 
-	DBG("remove sysfs for fbs\n");
 	for (i = 0; i < fbdev->num_fbs; i++) {
 		for (t = 0; t < ARRAY_SIZE(omapfb_attrs); t++)
 			device_remove_file(fbdev->fbs[i]->dev,

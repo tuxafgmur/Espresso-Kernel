@@ -13,7 +13,6 @@
  * GNU General Public License for more details.
  *
  * Author: Mike Chan (mike@android.com)
- *
  */
 
 #include <linux/cpu.h>
@@ -30,6 +29,7 @@
 #include <linux/slab.h>
 #include <linux/input.h>
 #include <asm/cputime.h>
+
 #ifdef CONFIG_HAS_EARLYSUSPEND
 #include <linux/earlysuspend.h>
 #endif
@@ -407,7 +407,6 @@ static int cpufreq_interactive_up_task(void *data)
 	unsigned long flags;
 	struct cpufreq_interactive_cpuinfo *pcpu;
 
-	pr_info("[%s] start!!\n", __func__);
 	while (1) {
 		set_current_state(TASK_INTERRUPTIBLE);
 		spin_lock_irqsave(&up_cpumask_lock, flags);
@@ -417,7 +416,6 @@ static int cpufreq_interactive_up_task(void *data)
 			schedule();
 
 			if (kthread_should_stop()) {
-				pr_info("[%s] should stop!!\n", __func__);
 				break;
 			}
 
@@ -844,7 +842,6 @@ static void cpufreq_early_suspend(struct early_suspend *h)
 
 static void cpufreq_late_resume(struct early_suspend *h)
 {
-
 	go_hispeed_load = save_go_hispeed_load;
 	return;
 }
@@ -900,8 +897,6 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		if (!cpu_online(policy->cpu))
 			return -EINVAL;
 
-		pr_info("[%s] CPUFREQ_GOV_START\n", __func__);
-
 		freq_table =
 			cpufreq_frequency_get_table(policy->cpu);
 
@@ -932,8 +927,7 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		if (atomic_inc_return(&active_count) > 1)
 			return 0;
 
-		up_task = kthread_create(cpufreq_interactive_up_task, NULL,
-				"kinteractiveup");
+		up_task = kthread_create(cpufreq_interactive_up_task, NULL, "kinteractiveup");
 		if (IS_ERR(up_task))
 			return PTR_ERR(up_task);
 
@@ -947,8 +941,7 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 
 		rc = input_register_handler(&cpufreq_interactive_input_handler);
 		if (rc)
-			pr_warn("%s: failed to register input handler\n",
-				__func__);
+			pr_warn("%s: failed to register input handler\n", __func__);
 
 		idle_notifier_register(&cpufreq_interactive_idle_nb);
 
@@ -987,7 +980,6 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		kthread_stop(up_task);
 		put_task_struct(up_task);
 		up_task = NULL;
-		pr_info("[%s] CPUFREQ_GOV_STOP\n", __func__);
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
 		register_early_suspend(&interactive_early_suspend);

@@ -1,7 +1,7 @@
 Kernel to Samsung Galaxy Tab2 Stock
 
 Copyright by their respective authors.
-Code not attributable to other is on my own authorship
+Code not attributable to other is on my own authorship.
 
 Credits to Kernel-Team, Google, Samsung and anyone else with merits.
 
@@ -29,7 +29,7 @@ mkdir -p $DIRE/PowerVRSGX
 
 # Get omaplfb sources
 cd $DIRE/PowerVRSGX
-git clone -b d-jb-mr1-release --depth 1 git://git.omapzoom.org/device/ti/proprietary-open.git
+git clone -b d-jb-mr2.0-release git://git.omapzoom.org/device/ti/proprietary-open.git
 
 # Get kernel sources
 cd $KERNELDIR
@@ -57,7 +57,7 @@ rm -rf eurasia_km/eurasiacon/binary*
 
 cd eurasia_km/eurasiacon/build/linux2/omap4430_android/
 make ARCH=arm TARGET_PRODUCT="blaze_tablet" BUILD=release \
-	 TARGET_SGX=540 PLATFORM_VERSION=4.0
+	 TARGET_SGX=540 PLATFORM_VERSION=4.1
 
 # Copy and strip modules
 cp  ../../../binary2_540_120_omap4430_android_release/target/pvrsrvkm_sgx540_120.ko \

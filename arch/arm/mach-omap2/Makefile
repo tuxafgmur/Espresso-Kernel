@@ -17,6 +17,8 @@
 # 	- smartreflex-class1p5.o
 # 	- pm44xx.o
 
+plus_sec				:= $(call as-instr,.arch_extension sec,+sec)
+
 # Common support
 obj-y := id.o io.o control.o mux.o devices.o serial.o gpmc.o timer-gp.o pm.o \
 	 common.o gpio.o dma.o wd_timer.o omap_pmic.o dmtimer.o
@@ -27,26 +29,24 @@ hwmod-common				= omap_hwmod.o \
 clock-common				= clock.o clock_common_data.o \
 					  clkt_dpll.o clkt_clksel.o
 
-obj-$(CONFIG_ARCH_OMAP2) += $(omap-2-3-common) $(hwmod-common)
-obj-$(CONFIG_ARCH_OMAP3) += $(omap-2-3-common) $(hwmod-common)
-obj-$(CONFIG_ARCH_OMAP4) += prm44xx.o $(hwmod-common)
-obj-$(CONFIG_ARCH_OMAP4) += emif.o lpddr2_jedec_data.o lpddr2_elpida_data.o
+obj-$(CONFIG_ARCH_OMAP2) 		+= $(omap-2-3-common) $(hwmod-common)
+obj-$(CONFIG_ARCH_OMAP3) 		+= $(omap-2-3-common) $(hwmod-common)
+obj-$(CONFIG_ARCH_OMAP4) 		+= prm44xx.o $(hwmod-common)
+obj-$(CONFIG_ARCH_OMAP4) 		+= emif.o lpddr2_jedec_data.o lpddr2_elpida_data.o
 
-obj-$(CONFIG_OMAP_MCBSP) += mcbsp.o
+obj-$(CONFIG_OMAP_MCBSP) 		+= mcbsp.o
 
-obj-$(CONFIG_TWL4030_CORE) += omap_twl.o
-obj-$(CONFIG_OMAP_TPS6236X) += omap_tps6236x.o
-obj-$(CONFIG_OMAP_TEMP_SENSOR) +=temp_sensor_device.o
-obj-$(CONFIG_OMAP4_PCB_SENSOR) += pcb_temp_sensor_device.o
+obj-$(CONFIG_TWL4030_CORE) 		+= omap_twl.o
+obj-$(CONFIG_OMAP_TPS6236X) 		+= omap_tps6236x.o
+obj-$(CONFIG_OMAP_TEMP_SENSOR) 		+=temp_sensor_device.o
+obj-$(CONFIG_OMAP4_PCB_SENSOR) 		+= pcb_temp_sensor_device.o
 
 # SMP support ONLY available for OMAP4
 obj-$(CONFIG_SMP)			+= omap-smp.o omap-headsmp.o
 obj-$(CONFIG_LOCAL_TIMERS)		+= timer-mpu.o
 obj-$(CONFIG_HOTPLUG_CPU)		+= omap-hotplug.o
-obj-$(CONFIG_ARCH_OMAP4)		+= omap44xx-smc.o omap4-common.o \
-					   omap-wakeupgen.o
+obj-$(CONFIG_ARCH_OMAP4)		+= omap44xx-smc.o omap4-common.o omap-wakeupgen.o
 
-plus_sec := $(call as-instr,.arch_extension sec,+sec)
 AFLAGS_omap-headsmp.o			:=-Wa,-march=armv7-a$(plus_sec)
 AFLAGS_omap44xx-smc.o			:=-Wa,-march=armv7-a$(plus_sec)
 
@@ -333,7 +333,7 @@ endif
 obj-$(CONFIG_ION_OMAP)			+= omap4_ion.o
 obj-$(CONFIG_ARCH_OMAP4)		+= omap_dmm.o
 obj-$(CONFIG_OMAP_FIQ_DEBUGGER)		+= omap_fiq_debugger.o
-obj-$(CONFIG_OMAP_RAM_CONSOLE)         += omap_ram_console.o
+obj-$(CONFIG_OMAP_RAM_CONSOLE)         	+= omap_ram_console.o
 obj-$(CONFIG_ARCH_OMAP4)		+= omap_gcxxx.o
 
 include arch/arm/mach-omap2/Makefile.sec

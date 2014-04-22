@@ -557,8 +557,12 @@ static int dss_disable_device(struct device *dev, void *data)
 {
 	struct omap_dss_device *dssdev = to_dss_device(dev);
 
-	if (dssdev->state != OMAP_DSS_DISPLAY_DISABLED)
-		dssdev->driver->disable(dssdev);
+	if (dssdev->state != OMAP_DSS_DISPLAY_DISABLED) {
+		if (dssdev->driver->shutdown)
+			dssdev->driver->shutdown(dssdev);
+		else
+			dssdev->driver->disable(dssdev);
+	}
 
 	return 0;
 }

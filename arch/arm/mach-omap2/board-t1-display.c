@@ -1705,8 +1705,11 @@ static const unsigned short ld9040_sm2_a2_22_30_dimming[] = {
 static const unsigned short *psm2_a2_22Gamma_set[] = {
 	ld9040_sm2_a2_22_50,
 	ld9040_sm2_a2_22_60,
+	ld9040_sm2_a2_22_60,
+	ld9040_sm2_a2_22_70,
 	ld9040_sm2_a2_22_70,
 	ld9040_sm2_a2_22_80,
+	ld9040_sm2_a2_22_90,
 	ld9040_sm2_a2_22_100,
 	ld9040_sm2_a2_22_110,
 	ld9040_sm2_a2_22_120,
@@ -1724,9 +1727,6 @@ static const unsigned short *psm2_a2_22Gamma_set[] = {
 	ld9040_sm2_a2_22_240,
 	ld9040_sm2_a2_22_250,
 	ld9040_sm2_a2_22_260,
-	ld9040_sm2_a2_22_270,
-	ld9040_sm2_a2_22_280,
-	ld9040_sm2_a2_22_290,
 	ld9040_sm2_a2_22_300,
 };
 
@@ -2490,8 +2490,11 @@ static const unsigned short ld9040_sm2_a2_19_30_dimming[] = {
 static const unsigned short *psm2_a2_19Gamma_set[] = {
 	ld9040_sm2_a2_19_50,
 	ld9040_sm2_a2_19_60,
+	ld9040_sm2_a2_19_60,
+	ld9040_sm2_a2_19_70,
 	ld9040_sm2_a2_19_70,
 	ld9040_sm2_a2_19_80,
+	ld9040_sm2_a2_19_90,
 	ld9040_sm2_a2_19_100,
 	ld9040_sm2_a2_19_110,
 	ld9040_sm2_a2_19_120,
@@ -2509,9 +2512,6 @@ static const unsigned short *psm2_a2_19Gamma_set[] = {
 	ld9040_sm2_a2_19_240,
 	ld9040_sm2_a2_19_250,
 	ld9040_sm2_a2_19_260,
-	ld9040_sm2_a2_19_270,
-	ld9040_sm2_a2_19_280,
-	ld9040_sm2_a2_19_290,
 	ld9040_sm2_a2_19_300,
 };
 
@@ -3273,8 +3273,11 @@ static const unsigned short ld9040_sm2_a1_22_30_dimming[] = {
 static const unsigned short *psm2_a1_22Gamma_set[] = {
 	ld9040_sm2_a1_22_50,
 	ld9040_sm2_a1_22_60,
+	ld9040_sm2_a1_22_60,
+	ld9040_sm2_a1_22_70,
 	ld9040_sm2_a1_22_70,
 	ld9040_sm2_a1_22_80,
+	ld9040_sm2_a1_22_90,
 	ld9040_sm2_a1_22_100,
 	ld9040_sm2_a1_22_110,
 	ld9040_sm2_a1_22_120,
@@ -3292,9 +3295,6 @@ static const unsigned short *psm2_a1_22Gamma_set[] = {
 	ld9040_sm2_a1_22_240,
 	ld9040_sm2_a1_22_250,
 	ld9040_sm2_a1_22_260,
-	ld9040_sm2_a1_22_270,
-	ld9040_sm2_a1_22_280,
-	ld9040_sm2_a1_22_290,
 	ld9040_sm2_a1_22_300,
 };
 
@@ -4056,8 +4056,11 @@ static const unsigned short ld9040_sm2_a1_19_30_dimming[] = {
 static const unsigned short *psm2_a1_19Gamma_set[] = {
 	ld9040_sm2_a1_19_50,
 	ld9040_sm2_a1_19_60,
+	ld9040_sm2_a1_19_60,
+	ld9040_sm2_a1_19_70,
 	ld9040_sm2_a1_19_70,
 	ld9040_sm2_a1_19_80,
+	ld9040_sm2_a1_19_90,
 	ld9040_sm2_a1_19_100,
 	ld9040_sm2_a1_19_110,
 	ld9040_sm2_a1_19_120,
@@ -4075,9 +4078,6 @@ static const unsigned short *psm2_a1_19Gamma_set[] = {
 	ld9040_sm2_a1_19_240,
 	ld9040_sm2_a1_19_250,
 	ld9040_sm2_a1_19_260,
-	ld9040_sm2_a1_19_270,
-	ld9040_sm2_a1_19_280,
-	ld9040_sm2_a1_19_290,
 	ld9040_sm2_a1_19_300,
 };
 

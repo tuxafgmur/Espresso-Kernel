@@ -190,8 +190,8 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 export KBUILD_BUILDHOST := $(SUBARCH)
-ARCH		?= $(SUBARCH)
-CROSS_COMPILE	?= /opt/toolchains/arm-2010q1/bin/arm-none-linux-gnueabi-
+ARCH		?=arm
+CROSS_COMPILE	?= $(CONFIG_CROSS_COMPILE:"%"=%)
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -243,8 +243,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fno-unswitch-loops -fno-inline-functions -fomit-frame-pointer
+HOSTCXXFLAGS = -O2 -fno-unswitch-loops -fno-inline-functions
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -342,12 +342,31 @@ KALLSYMS	= scripts/kallsyms
 PERL		= perl
 CHECK		= sparse
 
-CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
-		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
-AFLAGS_MODULE   =
-LDFLAGS_MODULE  =
-CFLAGS_KERNEL	=
+CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__  -Wbitwise -Wno-return-void $(CF)
+MODFLAGS        = -DMODULE \
+                  -march=armv7-a \
+                  -mfpu=neon \
+                  -mtune=cortex-a9 \
+                  -O2 \
+                  -fno-unswitch-loops \
+                  -fno-inline-functions
+
+ifdef CONFIG_GCC_48_FIXES
+  MODFLAGS  +=  -fno-aggressive-loop-optimizations  -Wno-sizeof-pointer-memaccess
+endif
+
+CFLAGS_MODULE   = $(MODFLAGS)
+AFLAGS_MODULE   = $(MODFLAGS)
+LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
+CFLAGS_KERNEL  =  -march=armv7-a \
+                  -mfpu=neon \
+                  -mtune=cortex-a9 \
+                  -O2
+
+ifdef CONFIG_GCC_48_FIXES
+CFLAGS_KERNEL  +=  -fno-aggressive-loop-optimizations -Wno-sizeof-pointer-memaccess
+endif
+
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
@@ -360,14 +379,23 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
+ifdef CONFIG_GCC_48_FIXES
+  KBUILD_CPPFLAGS  +=  -fno-aggressive-loop-optimizations -Wno-sizeof-pointer-memaccess
+endif
+
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks
-KBUILD_AFLAGS_KERNEL :=
-KBUILD_CFLAGS_KERNEL :=
-KBUILD_AFLAGS   := -D__ASSEMBLY__
+
+ifdef CONFIG_GCC_48_FIXES
+  KBUILD_CFLAGS  +=  -fno-aggressive-loop-optimizations -Wno-sizeof-pointer-memaccess
+endif
+
+KBUILD_AFLAGS_KERNEL  :=
+KBUILD_CFLAGS_KERNEL  :=
+KBUILD_AFLAGS         := -D__ASSEMBLY__
 KBUILD_AFLAGS_MODULE  := -DMODULE
 KBUILD_CFLAGS_MODULE  := -DMODULE
 KBUILD_LDFLAGS_MODULE := -T $(srctree)/scripts/module-common.lds
@@ -556,9 +584,21 @@ all: vmlinux
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
-else
-KBUILD_CFLAGS	+= -O2
+ifdef CONFIG_OPTIMIZE_SIZE_GCC_48_FIXES
+KBUILD_CFLAGS  +=  -fno-aggressive-loop-optimizations -Wno-sizeof-pointer-memaccess
 endif
+else
+KBUILD_CFLAGS	+= -O2 -fno-unswitch-loops -fno-inline-functions
+endif
+
+KBUILD_CFLAGS += -Wno-maybe-uninitialized \
+		 -Wno-enum-compare \
+		 -Wno-address \
+		 -Wno-unused-variable \
+		 -Wno-unused-value \
+		 -Wno-format \
+		 -Wno-declaration-after-statement \
+		 -Wno-deprecated-declarations
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
 
@@ -590,6 +630,9 @@ endif
 
 ifdef CONFIG_DEBUG_INFO
 KBUILD_CFLAGS	+= -g
+ifdef CONFIG_GCC_48_FIXES
+KBUILD_CFLAGS  += -gdwarf-2
+endif
 KBUILD_AFLAGS	+= -gdwarf-2
 endif
 

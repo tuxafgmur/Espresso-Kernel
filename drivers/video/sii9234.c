@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
- *
  */
 
 #include <linux/delay.h>
@@ -51,8 +50,9 @@
 /* for factory test process */
 #define CONFIG_SS_FACTORY
 
-/* duplicating defines here from linux/otg_id.h ; so that
- * other callbacks can use the same values
+/*
+ * duplicating defines here from linux/otg_id.h;
+ * so that other callbacks can use the same values
  */
 #define MHL_CON_UNHANDLED		0
 #define MHL_CON_HANDLED			1
@@ -356,6 +356,11 @@
 #define CON_ATTACHED			0x01
 #define CON_POWER_ATTACHED		0x02
 
+#ifdef CONFIG_SII9234_RCP
+/* MHL feature flags */
+#define MHL_FEATURE_FLAG_RCP_SUPPORT	(1 << 0)
+#endif
+
 enum rgnd_state {
 	RGND_UNKNOWN = 0,
 	RGND_OPEN,
@@ -448,6 +453,9 @@ struct sii9234_data {
 	u8				devcap[DEVCAP_COUNT_MAX];
 	u8				link_mode;
 	struct input_dev		*input_dev;
+#ifdef CONFIG_SII9234_RCP
+	struct mutex			input_lock;
+#endif
 	struct work_struct		redetect_work;
 	struct	mutex			irq_lock;
 };
@@ -523,27 +531,6 @@ static int tpi_write_reg(struct sii9234_data *sii9234, unsigned int offset,
 {
 	return i2c_smbus_write_byte_data(sii9234->pdata->tpi_client, offset,
 			value);
-}
-
-static int tpi_read_reg(struct sii9234_data *sii9234, unsigned int offset,
-		u8 *value)
-{
-	int ret;
-
-	if (!value)
-		return -EINVAL;
-
-	ret = i2c_smbus_write_byte(sii9234->pdata->tpi_client, offset);
-	if (ret < 0)
-		return ret;
-
-	ret = i2c_smbus_read_byte(sii9234->pdata->tpi_client);
-	if (ret < 0)
-		return ret;
-
-	*value = ret & 0x000000FF;
-
-	return 0;
 }
 
 static int hdmi_rx_write_reg(struct sii9234_data *sii9234, unsigned int offset,
@@ -810,6 +797,52 @@ static void sii9234_hdmi_init(struct sii9234_data *sii9234)
 	hdmi_rx_write_reg(sii9234, 0x31, 0x0A);
 }
 
+#ifdef CONFIG_SII9234_RCP
+static int sii9234_register_input_device(struct sii9234_data *sii9234)
+{
+	struct input_dev *input;
+	int ret;
+
+	input = input_allocate_device();
+	if (!input) {
+		pr_err("sii9234: failed to allocate input device.\n");
+		return -ENOMEM;
+	}
+
+	set_bit(EV_KEY, input->evbit);
+	bitmap_fill(input->keybit, KEY_MAX);
+
+	input_set_drvdata(input, sii9234);
+	input->name = "sii9234_rcp";
+	input->id.bustype = BUS_I2C;
+
+	pr_debug("sii9234: registering input device\n");
+	ret = input_register_device(input);
+	if (ret < 0) {
+		pr_err("sii9234: fail to register input device\n");
+		input_free_device(input);
+		return ret;
+	}
+
+	mutex_lock(&sii9234->input_lock);
+	sii9234->input_dev = input;
+	mutex_unlock(&sii9234->input_lock);
+
+	return 0;
+}
+
+static void sii9234_unregister_input_device(struct sii9234_data *sii9234)
+{
+	mutex_lock(&sii9234->input_lock);
+	if (sii9234->input_dev) {
+		pr_debug("sii9234: unregistering input device\n");
+		input_unregister_device(sii9234->input_dev);
+		sii9234->input_dev = NULL;
+	}
+	mutex_unlock(&sii9234->input_lock);
+}
+#endif
+
 static void sii9234_mhl_tx_ctl_int(struct sii9234_data *sii9234)
 {
 	mhl_tx_write_reg(sii9234, MHL_TX_MHLTX_CTL1_REG, 0xD0);
@@ -824,6 +857,9 @@ static void sii9234_power_down(struct sii9234_data *sii9234)
 	if (sii9234->claimed)
 		sii9234->pdata->connect(false, NULL);
 
+#ifdef CONFIG_SII9234_RCP
+	sii9234_unregister_input_device(sii9234);
+#endif
 	sii9234->state = STATE_DISCONNECTED;
 	sii9234->claimed = false;
 
@@ -860,8 +896,7 @@ static int sii9234_tmds_control(struct sii9234_data *sii9234, bool enable)
 		if (ret < 0)
 			return ret;
 		pr_debug("sii9234 MHL HPD low, disabled TMDS\n");
-		ret = mhl_tx_clear_reg(sii9234, MHL_TX_INT_CTRL_REG,
-							(1<<4) | (1<<5));
+		ret = mhl_tx_clear_reg(sii9234, MHL_TX_INT_CTRL_REG, (1<<4) | (1<<5));
 		mhl_tx_write_reg(sii9234, MHL_TX_MHLTX_CTL2_REG, 0xC0);
 	}
 
@@ -889,11 +924,9 @@ static void cbus_req_abort_error(struct sii9234_data *sii9234)
 		if (abort_reason & MAX_FAIL) {
 			u8 msc_retry_thr_val = 0;
 			pr_cont(" Retry Threshold exceeded");
-			cbus_read_reg(sii9234,
-					MSC_RETRY_FAIL_LIM_REG,
+			cbus_read_reg(sii9234, MSC_RETRY_FAIL_LIM_REG,
 					&msc_retry_thr_val);
-			pr_cont("Retry Threshold value is:%d",
-					msc_retry_thr_val);
+			pr_cont("Retry Threshold value is:%d", msc_retry_thr_val);
 		}
 	}
 	pr_cont("\n");
@@ -973,9 +1006,13 @@ static bool cbus_ddc_abort_error(struct sii9234_data *sii9234)
 static void rcp_key_report(struct sii9234_data *sii9234, u8 key)
 {
 	pr_debug("sii9234: report rcp key: %d\n", key);
-	input_report_key(sii9234->input_dev, (unsigned int)key + 1, 1);
-	input_report_key(sii9234->input_dev, (unsigned int)key + 1, 0);
-	input_sync(sii9234->input_dev);
+	mutex_lock(&sii9234->input_lock);
+	if (sii9234->input_dev) {
+		input_report_key(sii9234->input_dev, (unsigned int)key + 1, 1);
+		input_report_key(sii9234->input_dev, (unsigned int)key + 1, 0);
+		input_sync(sii9234->input_dev);
+	}
+	mutex_unlock(&sii9234->input_lock);
 }
 
 static void cbus_process_rcp_key(struct sii9234_data *sii9234, u8 key)
@@ -1639,6 +1676,11 @@ static int sii9234_detection_init(struct sii9234_data *sii9234)
 	sii9234->pdata->dongle = DONGLE_9292;
 #endif
 	sii9234->pdata->connect(true, ret >= 0 ? sii9234->devcap : NULL);
+#ifdef CONFIG_SII9234_RCP
+	if (sii9234->devcap[MHL_DEVCAP_FEATURE_FLAG] &
+			MHL_FEATURE_FLAG_RCP_SUPPORT)
+		sii9234_register_input_device(sii9234);
+#endif
 	mutex_unlock(&sii9234->lock);
 
 	return MHL_CON_HANDLED;
@@ -2358,7 +2400,7 @@ static CLASS_ATTR(test_result, 0664 , sysfs_check_mhl_command, NULL);
 
 static ssize_t sii9234_swing_level_show(struct device *dev,
 					struct device_attribute *attr,
-					char *buf, size_t size)
+					char *buf)
 {
 	struct sii9234_data *sii9234 = dev_get_drvdata(dev);
 
@@ -2399,9 +2441,6 @@ static int __devinit sii9234_mhl_tx_i2c_probe(struct i2c_client *client,
 	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
 	struct sii9234_data *sii9234;
 	int ret;
-#ifdef CONFIG_SII9234_RCP
-	struct input_dev *input;
-#endif
 #ifdef CONFIG_SS_FACTORY
 	struct class *sec_mhl;
 	struct device *sec_mhl_dev;
@@ -2416,19 +2455,11 @@ static int __devinit sii9234_mhl_tx_i2c_probe(struct i2c_client *client,
 		return -ENOMEM;
 	}
 
-#ifdef CONFIG_SII9234_RCP
-	input = input_allocate_device();
-	if (!input) {
-		dev_err(&client->dev, "failed to allocate input device.\n");
-		ret = -ENOMEM;
-		goto err_exit0;
-	}
-#endif
 	sii9234->pdata = client->dev.platform_data;
 	sii9234->pdata->mhl_tx_client = client;
 	if (!sii9234->pdata) {
 		ret = -EINVAL;
-		goto err_exit1;
+		goto err_exit0;
 	}
 
 	i2c_set_clientdata(client, sii9234);
@@ -2438,30 +2469,18 @@ static int __devinit sii9234_mhl_tx_i2c_probe(struct i2c_client *client,
 	init_waitqueue_head(&sii9234->wq);
 	mutex_init(&sii9234->lock);
 	mutex_init(&sii9234->msc_lock);
+#ifdef CONFIG_SII9234_RCP
+	mutex_init(&sii9234->input_lock);
+#endif
 	mutex_init(&sii9234->irq_lock);
 
 	ret = request_threaded_irq(client->irq, NULL, sii9234_irq_thread,
 				   IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
 				   "sii9234", sii9234);
 	if (ret < 0)
-		goto err_exit1;
+		goto err_exit0;
 
 	disable_irq(client->irq);
-#ifdef CONFIG_SII9234_RCP
-	set_bit(EV_KEY, input->evbit);
-	bitmap_fill(input->keybit, KEY_MAX);
-
-	sii9234->input_dev = input;
-	input_set_drvdata(input, sii9234);
-	input->name = "sii9234_rcp";
-	input->id.bustype = BUS_I2C;
-
-	ret = input_register_device(input);
-	if (ret < 0) {
-		dev_err(&client->dev, "fail to register input device\n");
-		goto err_exit1;
-	}
-#endif
 
 #ifdef CONFIG_USB_SWITCH_FSA9480
 	sii9234->otg_id_nb.detect = sii9234_fsa_callback;
@@ -2473,7 +2492,7 @@ static int __devinit sii9234_mhl_tx_i2c_probe(struct i2c_client *client,
 	ret = otg_id_register_notifier(&sii9234->otg_id_nb);
 	if (ret < 0) {
 		dev_err(&client->dev, "Unable to register notifier\n");
-		goto err_exit2;
+		goto err_exit0;
 	}
 #endif
 #ifdef CONFIG_SEC_30PIN_CON
@@ -2490,43 +2509,35 @@ static int __devinit sii9234_mhl_tx_i2c_probe(struct i2c_client *client,
 	if (IS_ERR(&sec_mhl)) {
 		dev_err(&client->dev, "failed to create class sec_mhl\n");
 		ret = -ENOMEM;
-		goto err_exit2;
+		goto err_exit0;
 	}
 
 	ret = class_create_file(sec_mhl, &class_attr_test_result);
 	if (ret) {
 		dev_err(&client->dev, "failed to create file test_result\n");
 		ret = -ENOMEM;
-		goto err_exit3;
+		goto err_exit1;
 	}
 
 	sec_mhl_dev = device_create(sec_mhl, NULL, 0, NULL, "mhl_swing");
 	if (IS_ERR(&sec_mhl_dev)) {
 		dev_err(&client->dev, "failed to create device sec_mhl_dev\n");
 		ret = -ENOMEM;
-		goto err_exit3;
+		goto err_exit1;
 	}
 	dev_set_drvdata(sec_mhl_dev, sii9234);
-	ret = sysfs_create_file(&sec_mhl_dev->kobj, &dev_attr_swing_level);
+	ret = sysfs_create_file(&sec_mhl_dev->kobj, &dev_attr_swing_level.attr);
 	if (ret) {
 		dev_err(&client->dev, "failed to create swing_level attribute file\n");
-		goto err_exit3;
+		goto err_exit1;
 	}
 #endif
 
 	return 0;
 
-err_exit3:
+err_exit1:
 #ifdef CONFIG_SS_FACTORY
 	class_destroy(sec_mhl);
-#endif
-err_exit2:
-#ifdef CONFIG_SII9234_RCP
-	input_unregister_device(input);
-#endif
-err_exit1:
-#ifdef CONFIG_SII9234_RCP
-	input_free_device(input);
 #endif
 err_exit0:
 	kfree(sii9234);

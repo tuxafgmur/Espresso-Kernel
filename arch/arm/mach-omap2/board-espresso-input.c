@@ -375,12 +375,12 @@ void __init omap4_espresso_input_init(void)
 				ARRAY_SIZE(espresso_i2c3_boardinfo));
 
 	espresso_create_sec_key_dev();
-
+#ifdef CONFIG_SEC_DEBUG
 	if (sec_debug_get_level()) {
 		espresso_gpio_keypad_keys_info_high.flags |= GPIOEDF_PRINT_KEYS;
 		espresso_gpio_keypad_keys_info_low.flags |= GPIOEDF_PRINT_KEYS;
 	}
-
+#endif
 	platform_device_register(&espresso_gpio_keypad_device);
 
 	espresso_ts_pdata.set_dvfs = espresso_set_dvfs;
