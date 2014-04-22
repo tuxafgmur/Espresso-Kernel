@@ -15,6 +15,7 @@ current limit is controllable).
 (C) 2008  Wolfson Microelectronics PLC.
 Author: Liam Girdwood <lrg@slimlogic.co.uk>
 
+
 Nomenclature
 ============
 
@@ -26,8 +27,10 @@ Some terms used in this document:-
 
                    Input Voltage -> Regulator -> Output Voltage
 
+
   o PMIC         - Power Management IC. An IC that contains numerous regulators
                    and often contains other subsystems.
+
 
   o Consumer     - Electronic device that is supplied power by a regulator.
                    Consumers can be classified into two types:-
@@ -39,6 +42,7 @@ Some terms used in this document:-
 
                    Dynamic: consumer needs to change it's supply voltage or
                    current limit to meet operation demands.
+
 
   o Power Domain - Electronic circuit that is supplied its input power by the
                    output power of a regulator, switch or by another power
@@ -77,6 +81,7 @@ Some terms used in this document:-
                    and a "supplies" relationship:
 
                    Domain-1 --> Domain-2
+
 
   o Constraints  - Constraints are used to define power levels for performance
                    and hardware protection. Constraints exist at three levels:
@@ -119,11 +124,13 @@ Some terms used in this document:-
                    If the regulator request passes all the constraint tests
                    then the new regulator value is applied.
 
+
 Design
 ======
 
 The framework is designed and targeted at SoC based devices but may also be
 relevant to non SoC devices and is split into the following four interfaces:-
+
 
    1. Consumer driver interface.
 

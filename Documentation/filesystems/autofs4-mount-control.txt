@@ -1,3 +1,4 @@
+
 Miscellaneous Device control operations for the autofs4 kernel module
 ====================================================================
 
@@ -108,6 +109,7 @@ in use and is also used to access autofs file system information held
 in the mount super block. So the use of a file handle needs to be
 retained.
 
+
 The Solution
 ============
 
@@ -160,6 +162,7 @@ appropriate status to the daemon. At the moment we just expire one
 mount at a time. A Generic Netlink implementation would exclude this
 possibility for future development due to the requirements of the
 message bus architecture.
+
 
 autofs4 Miscellaneous Device mount control interface
 ====================================================
@@ -214,6 +217,7 @@ not a valid descriptor or doesn't correspond to an autofs mount point
 an error of -EBADF, -ENOTTY or -EINVAL (not an autofs descriptor) is
 returned.
 
+
 The ioctls
 ==========
 
@@ -224,6 +228,7 @@ distribution tar available for download from kernel.org in directory
 
 The device node ioctl operations implemented by this interface are:
 
+
 AUTOFS_DEV_IOCTL_VERSION
 ------------------------
 
@@ -232,6 +237,7 @@ implementation. It requires an initialized struct autofs_dev_ioctl as an
 input parameter and sets the version information in the passed in structure.
 It returns 0 on success or the error -EINVAL if a version mismatch is
 detected.
+
 
 AUTOFS_DEV_IOCTL_PROTOVER_CMD and AUTOFS_DEV_IOCTL_PROTOSUBVER_CMD
 ------------------------------------------------------------------
@@ -242,6 +248,7 @@ with the ioctlfd field set to a valid autofs mount point descriptor
 and sets the requested version number in structure field arg1. These
 commands return 0 on success or one of the negative error codes if
 validation fails.
+
 
 AUTOFS_DEV_IOCTL_OPENMOUNT and AUTOFS_DEV_IOCTL_CLOSEMOUNT
 ----------------------------------------------------------
@@ -258,6 +265,7 @@ with close(2) so any open descriptors will also be closed at process exit.
 The close call is included in the implemented operations largely for
 completeness and to provide for a consistent user space implementation.
 
+
 AUTOFS_DEV_IOCTL_READY_CMD and AUTOFS_DEV_IOCTL_FAIL_CMD
 --------------------------------------------------------
 
@@ -268,6 +276,7 @@ call and the arg1 field set to the wait queue token number, received
 by user space in the foregoing mount or expire request. The arg2 field
 is set to the status to be returned. For the ready call this is always
 0 and for the fail call it is set to the errno of the operation.
+
 
 AUTOFS_DEV_IOCTL_SETPIPEFD_CMD
 ------------------------------
@@ -285,6 +294,7 @@ the arg1 field set to descriptor of the pipe. On success the call
 also sets the process group id used to identify the controlling process
 (eg. the owning automount(8) daemon) to the process group of the caller.
 
+
 AUTOFS_DEV_IOCTL_CATATONIC_CMD
 ------------------------------
 
@@ -295,6 +305,7 @@ and any remaining waits in the queue released.
 The call requires an initialized struct autofs_dev_ioctl with the
 ioctlfd field set to the descriptor obtained from the open call.
 
+
 AUTOFS_DEV_IOCTL_TIMEOUT_CMD
 ----------------------------
 
@@ -302,6 +313,7 @@ Set the expire timeout for mounts within an autofs mount point.
 
 The call requires an initialized struct autofs_dev_ioctl with the
 ioctlfd field set to the descriptor obtained from the open call.
+
 
 AUTOFS_DEV_IOCTL_REQUESTER_CMD
 ------------------------------
@@ -320,6 +332,7 @@ re-connect to mounts that may have used the original process uid and
 gid (or string variations of them) for mount lookups within the map entry.
 This call provides the ability to obtain this uid and gid so they may be
 used by user space for the mount map lookups.
+
 
 AUTOFS_DEV_IOCTL_EXPIRE_CMD
 ---------------------------
@@ -345,6 +358,7 @@ Checks if an autofs mount point is in use.
 The call requires an initialized struct autofs_dev_ioctl with the
 ioctlfd field set to the descriptor obtained from the open call and
 it returns the result in the arg1 field, 1 for busy and 0 otherwise.
+
 
 AUTOFS_DEV_IOCTL_ISMOUNTPOINT_CMD
 ---------------------------------
@@ -376,3 +390,4 @@ type is also given we are looking for a particular autofs mount and if
 a match isn't found a fail is returned. If the the located path is the
 root of a mount 1 is returned along with the super magic of the mount
 or 0 otherwise.
+

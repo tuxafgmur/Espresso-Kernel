@@ -35,4 +35,5 @@ not easily. The monitor parameters are easily changed, the params program
 setup is assembly outl's, and the kernel is a configuration item specific to
 the itsy. (i.e. grep for CONFIG_SA1100_ITSY and you'll find where it is.)
 
+
 This should get you a properly booting 2.4 kernel on the itsy.

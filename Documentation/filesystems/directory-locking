@@ -33,8 +33,10 @@ rules:
 	* if target exists - lock it.
 	* call the method.
 
+
 The rules above obviously guarantee that all directories that are going to be
 read, modified or removed by method will be locked by caller.
+
 
 If no directory is its own ancestor, the scheme above is deadlock-free.
 Proof:
@@ -87,6 +89,7 @@ to (2) the order hadn't changed since we had acquired filesystem lock.
 But locking rules for cross-directory rename guarantee that we do not
 try to acquire lock on descendent before the lock on ancestor.
 Contradiction.  I.e.  deadlock is impossible.  Q.E.D.
+
 
 	These operations are guaranteed to avoid loop creation.  Indeed,
 the only operation that could introduce loops is cross-directory rename.

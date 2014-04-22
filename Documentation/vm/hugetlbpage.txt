@@ -1,3 +1,4 @@
+
 The intent of this file is to give a brief summary of hugetlbpage support in
 the Linux kernel.  This support is built on top of multiple page size support
 that is provided by most modern architectures.  For example, i386
@@ -162,6 +163,7 @@ Inside each of these directories, the same set of files will exist:
 
 which function as described above for the default huge page-sized case.
 
+
 Interaction of Task Memory Policy with Huge Page Allocation/Freeing
 
 Whether huge pages are allocated and freed via the /proc interface or
@@ -253,6 +255,7 @@ resources exist, regardless of the task's mempolicy or cpuset constraints.
 Note that the number of overcommit and reserve pages remain global quantities,
 as we don't know until fault time, when the faulting task's mempolicy is
 applied, from which node the huge page allocation will be attempted.
+
 
 Using Huge Pages
 

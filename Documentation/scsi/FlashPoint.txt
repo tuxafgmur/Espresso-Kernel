@@ -2,8 +2,11 @@ The BusLogic FlashPoint SCSI Host Adapters are now fully supported on Linux.
 The upgrade program described below has been officially terminated effective
 31 March 1997 since it is no longer needed.
 
+
+
 	  MYLEX INTRODUCES LINUX OPERATING SYSTEM SUPPORT FOR ITS
 	      BUSLOGIC FLASHPOINT LINE OF SCSI HOST ADAPTERS
+
 
 FREMONT, CA, -- October 8, 1996 -- Mylex Corporation has expanded Linux
 operating system support to its BusLogic brand of FlashPoint Ultra SCSI

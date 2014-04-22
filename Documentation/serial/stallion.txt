@@ -12,6 +12,8 @@ Copyright (C) 1994-1999,  Stallion Technologies.
 Version:   5.5.1
 Date:      28MAR99
 
+
+
 1. INTRODUCTION
 
 There are two drivers that work with the different families of Stallion
@@ -42,6 +44,8 @@ If you require DIP switch settings, EISA or MCA configuration files, or any
 other information related to Stallion boards then have a look at Stallion's
 web pages at http://www.stallion.com.
 
+
+
 2. INSTALLATION
 
 The drivers can be used as loadable modules or compiled into the kernel.
@@ -62,6 +66,7 @@ If you have pre-built Stallion driver modules then the module argument
 configuration method should be used. A lot of Linux distributions come with
 pre-built driver modules in /lib/modules/X.Y.Z/misc for the kernel in use.
 That makes things pretty simple to get going.
+
 
 2.1 MODULE DRIVER CONFIGURATION:
 
@@ -137,6 +142,7 @@ into your system startup scripts so that the drivers are loaded and configured
 on each system boot. Typically the start up script would be something like
 /etc/modprobe.conf.
 
+
 2.2 STATIC DRIVER CONFIGURATION:
 
 For static driver configuration you need to modify the driver source code.
@@ -178,6 +184,7 @@ up these may come out on the console, or just be logged to
 /var/adm/messages or /var/log/syslog. You should check the messages to
 confirm that all is well.
 
+
 2.3 SHARING INTERRUPTS
 
 It is possible to share interrupts between multiple EasyIO and
@@ -209,6 +216,7 @@ You must complete both the above steps for this to work. When you reboot
 or load the driver your EasyIO and EasyConnection 8/32 boards will be
 sharing interrupts.
 
+
 2.4 USING HIGH SHARED MEMORY
 
 The EasyConnection 8/64-EI, ONboard and Stallion boards are capable of
@@ -221,6 +229,8 @@ addressing limit).
 The higher than 1Mb memory addresses are fully supported by this driver.
 Just enter the address as you normally would for a lower than 1Mb address
 (in the driver's board configuration structure).
+
+
 
 2.5 TROUBLE SHOOTING
 
@@ -235,6 +245,8 @@ if there is a conflict you may need to change the IRQ used for a board. There
 are no interrupts to worry about for ONboard, Brumby or EasyConnection 8/64
 (ISA, EISA and MCA) boards. The memory region on EasyConnection 8/64 and
 ONboard boards is software programmable, but not on the Brumby boards.
+
+
 
 3. USING THE DRIVERS
 
@@ -278,6 +290,7 @@ If you are using the modularized version of the driver you might want to put
 the modprobe calls in the startup script as well (before the download lines
 obviously).
 
+
 3.2 USING THE SERIAL PORTS
 
 Once the driver is installed you will need to setup some device nodes to
@@ -312,6 +325,8 @@ maximum baud rate of 38400.
 
 If you are unfamiliar with how to use serial ports, then get the Serial-HOWTO
 by Greg Hankins. It will explain everything you need to know!
+
+
 
 4. NOTES
 
@@ -359,10 +374,12 @@ The ports of the EasyIO-8M board do not have DCD or DTR signals. So these
 ports cannot be used as real modem devices. Generally, when using these
 ports you should only use the cueX devices.
 
-The driver utility package contains a couple of very useful programs. One
+The driver utility package contains a couple of very useful programs. One 
 is a serial port statistics collection and display program - very handy
 for solving serial port problems. The other is an extended option setting
 program that works with the intelligent boards.
+
+
 
 5. DISCLAIMER
 
@@ -372,3 +389,4 @@ Pty. Ltd. for its use, nor any infringements of patents or other rights
 of third parties resulting from its use. Stallion Technologies reserves
 the right to modify the design of its products and will endeavour to change
 the information in manuals and accompanying documentation accordingly.
+

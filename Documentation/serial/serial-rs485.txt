@@ -73,6 +73,7 @@
 		}
 	}
 
+
 4. USAGE FROM USER-LEVEL
 
    From user-level, RS485 configuration can be get/set using the previous

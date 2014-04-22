@@ -36,6 +36,7 @@ SMC9196 interrupts until it has finished transferring its multi-sector
 data, which can be a long time.  Note also that since we loop in the
 SA1111 IRQ handler, SA1111 IRQs can hold off SMC9196 IRQs indefinitely.
 
+
 The new approach brings several new ideas...
 
 We introduce the concept of a "parent" and a "child".  For example,
@@ -163,3 +164,4 @@ Please note that this will not solve all problems - some of them are
 hardware based.  Mixing level-based and edge-based IRQs on the same
 parent signal (eg neponset) is one such area where a software based
 solution can't provide the full answer to low IRQ latency.
+

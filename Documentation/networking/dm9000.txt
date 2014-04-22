@@ -4,6 +4,7 @@ DM9000 Network driver
 Copyright 2008 Simtec Electronics,
 	  Ben Dooks <ben@simtec.co.uk> <ben-linux@fluff.org>
 
+
 Introduction
 ------------
 
@@ -14,6 +15,7 @@ The driver supports three DM9000 variants, the DM9000E which is the first chip
 supported as well as the newer DM9000A and DM9000B devices. It is currently
 maintained and tested by Ben Dooks, who should be CC: to any patches for this
 driver.
+
 
 Defining the platform device
 ----------------------------
@@ -80,6 +82,7 @@ static struct platform_device bast_device_dm9k = {
 
 The platform data is defined in include/linux/dm9000.h and described below.
 
+
 Platform data
 -------------
 
@@ -121,6 +124,7 @@ DM9000_PLATF_SIMPLE_PHY
 	"Force simple NSR based PHY polling" allows this flag to be
 	forced on at build time.
 
+
 PHY Link state polling
 ----------------------
 
@@ -142,6 +146,7 @@ as much information.
 When using an external PHY, the driver currently has to poll the MII
 link status as there is no method for getting an interrupt on link change.
 
+
 DM9000A / DM9000B
 -----------------
 
@@ -153,6 +158,7 @@ by the same driver. The features are:
       the internal PHY.
 
    2) TCP/UDP checksum offloading, which the driver does not currently support.
+
 
 ethtool
 -------

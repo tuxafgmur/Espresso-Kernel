@@ -18,6 +18,7 @@ storage.
 For snapshot merge the contents of the COW storage are merged back into
 the origin device.
 
+
 There are three dm targets available:
 snapshot, snapshot-origin, and snapshot-merge.
 
@@ -27,6 +28,7 @@ which will normally have one or more snapshots based on it.
 Reads will be mapped directly to the backing device. For each write, the
 original data will be saved in the <COW device> of each snapshot to keep
 its visible content unchanged, at least until the <COW device> fills up.
+
 
 *) snapshot <origin> <COW device> <persistent?> <chunksize>
 
@@ -43,6 +45,7 @@ after reboot).
 The difference is that for transient snapshots less metadata must be
 saved on disk - they can be kept in memory by the kernel.
 
+
 * snapshot-merge <origin> <COW device> <persistent> <chunksize>
 
 takes the same table arguments as the snapshot target except it only
@@ -58,6 +61,7 @@ will continue while I/O is flowing to it.  Changes to the <origin> are
 deferred until the merging snapshot's corresponding chunk(s) have been
 merged.  Once merging has started the snapshot device, associated with
 the "snapshot" target, will return -EIO when accessed.
+
 
 How snapshot is used by LVM2
 ============================
@@ -91,6 +95,7 @@ brw-------  1 root root 254, 12 29 ago 18:15 /dev/mapper/volumeGroup-snap-cow
 brw-------  1 root root 254, 13 29 ago 18:15 /dev/mapper/volumeGroup-snap
 brw-------  1 root root 254, 10 29 ago 18:14 /dev/mapper/volumeGroup-base
 
+
 How snapshot-merge is used by LVM2
 ==================================
 A merging snapshot assumes the role of the "snapshot-origin" while
@@ -117,6 +122,7 @@ volumeGroup-base: 0 2097152 snapshot-merge 254:11 254:12 P 16
 brw-------  1 root root 254, 11 29 ago 18:15 /dev/mapper/volumeGroup-base-real
 brw-------  1 root root 254, 12 29 ago 18:16 /dev/mapper/volumeGroup-base-cow
 brw-------  1 root root 254, 10 29 ago 18:16 /dev/mapper/volumeGroup-base
+
 
 How to determine when a merging is complete
 ===========================================

@@ -31,7 +31,7 @@
 #include <linux/debugfs.h>
 
 #include "ion_priv.h"
-#include "../pvr/ion.h"
+#include "ion.h"
 #define DEBUG
 
 /* this function should only be called while dev->lock is held */

@@ -2,6 +2,7 @@ In Linux 2.5 kernels (and later), USB device drivers have additional control
 over how DMA may be used to perform I/O operations.  The APIs are detailed
 in the kernel usb programming guide (kerneldoc, from the source code).
 
+
 API OVERVIEW
 
 The big picture is that USB drivers can continue to ignore most DMA issues,
@@ -25,6 +26,7 @@ OR:  they can now be DMA-aware.
 - There's a new "generic DMA API", parts of which are usable by USB device
   drivers.  Never use dma_set_mask() on any USB interface or device; that
   would potentially break all devices sharing that bus.
+
 
 ELIMINATING COPIES
 
@@ -79,6 +81,7 @@ and effects like cache-trashing can impose subtle penalties.
   high memory to "normal" DMA memory.  If you can come up with a good way
   to fix this issue (for x86_32 machines with over 1 GByte of memory),
   feel free to submit patches.
+
 
 WORKING WITH EXISTING BUFFERS
 

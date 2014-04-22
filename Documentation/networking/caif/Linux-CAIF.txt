@@ -4,6 +4,7 @@ copyright (C) ST-Ericsson AB 2010
 Author: Sjur Brendeland/ sjur.brandeland@stericsson.com
 License terms: GNU General Public License (GPL) version 2
 
+
 Introduction
 ------------
 CAIF is a MUX protocol used by ST-Ericsson cellular modems for
@@ -14,12 +15,14 @@ The Utility Channels are general purpose pipes between modem and host.
 ST-Ericsson modems support a number of transports between modem
 and host. Currently, UART and Loopback are available for Linux.
 
+
 Architecture:
 ------------
 The implementation of CAIF is divided into:
 * CAIF Socket Layer, Kernel API, and  Net Device.
 * CAIF Core Protocol Implementation
 * CAIF Link Layer, implemented as NET devices.
+
 
   RTNL
    !
@@ -40,6 +43,7 @@ The implementation of CAIF is divided into:
 	  !    	 !	    ! TTY !	  <- Link Layer (Net Devices)
 	  +------+	    +-----+
 
+
 Using the Kernel API
 ----------------------
 The Kernel API is used for accessing CAIF channels from the
@@ -50,6 +54,7 @@ The receive callback gives a CAIF packet as a SKB. The control
 callback will
 notify of channel initialization complete, and flow-on/flow-
 off.
+
 
   struct caif_device caif_dev = {
     .caif_config = {
@@ -63,6 +68,7 @@ off.
   caif_transmit(&caif_dev, skb);
 
 See the caif_kernel.h for details about the CAIF kernel API.
+
 
 I M P L E M E N T A T I O N
 ===========================
@@ -139,6 +145,8 @@ The CAIF Protocol implementation contains:
       - CFSERL CAIF Serial layer. Handles concatenation/split of frames
 	into CAIF Frames with correct length.
 
+
+
 		    +---------+
 		    | Config  |
 		    | CFCNFG  |
@@ -166,6 +174,7 @@ The CAIF Protocol implementation contains:
 	    |	      |	    | CFSERL  |
 	    +---------+	    +---------+
 
+
 In this layered approach the following "rules" apply.
       - All layers embed the same structure "struct cflayer"
       - A layer does not depend on any other layer's private data.
@@ -175,6 +184,7 @@ In this layered approach the following "rules" apply.
 		 layer->up->receive(layer->up, packet);
       - In order to send data downwards, each layer should do
 		 layer->dn->transmit(layer->dn, packet);
+
 
 Linux Driver Implementation
 ===========================
@@ -189,6 +199,7 @@ function is called in order to transmit data.
 
 The layer on top of the CAIF Core implementation is
 sometimes referred to as the "Client layer".
+
 
 Configuration of Link Layer
 ---------------------------

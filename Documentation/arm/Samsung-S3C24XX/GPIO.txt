@@ -14,6 +14,7 @@ Introduction
 
   See Documentation/arm/Samsung/GPIO.txt for the core implemetation.
 
+
 GPIOLIB
 -------
 
@@ -36,6 +37,7 @@ GPIOLIB
   s3c2410_gpio_getcfg()		s3c_gpio_getcfg()
   s3c2410_gpio_pullup()		s3c_gpio_setpull()
 
+
 GPIOLIB conversion
 ------------------
 
@@ -53,7 +55,7 @@ s3c2410 api, then here are some notes on the process.
    as they have the same arguments, and can either take the pin specific
    values, or the more generic special-function-number arguments.
 
-3) s3c2410_gpio_pullup() changs have the problem that whilst the
+3) s3c2410_gpio_pullup() changs have the problem that whilst the 
    s3c2410_gpio_pullup(x, 1) can be easily translated to the
    s3c_gpio_setpull(x, S3C_GPIO_PULL_NONE), the s3c2410_gpio_pullup(x, 0)
    are not so easy.
@@ -79,6 +81,7 @@ The s3c2410_gpio and gpio_ calls have always operated on the same gpio
 numberspace, so there is no problem with converting the gpio numbering
 between the calls.
 
+
 Headers
 -------
 
@@ -97,6 +100,7 @@ Headers
   is passed to them, for speed of use, they may not always ensure
   that the user supplied data to them is correct.
 
+
 PIN Numbers
 -----------
 
@@ -108,6 +112,7 @@ PIN Numbers
   from gpio pin number to register base address as in earlier kernels. This
   is due to the number space required for newer SoCs where the later
   GPIOs are not contiguous.
+
 
 Configuring a pin
 -----------------
@@ -127,6 +132,7 @@ Configuring a pin
 
    The s3c_gpio_cfgpin() call is a functional replacement for this call.
 
+
 Reading the current configuration
 ---------------------------------
 
@@ -139,6 +145,7 @@ Reading the current configuration
 
   The s3c_gpio_getcfg() call should be a functional replacement for
   this call.
+
 
 Configuring a pull-up resistor
 ------------------------------
@@ -156,6 +163,7 @@ Configuring a pull-up resistor
   ability to encode whether the pull is up or down. Currently there
   is no 'just on' state, so up or down must be selected.
 
+
 Getting the state of a PIN
 --------------------------
 
@@ -168,6 +176,7 @@ Getting the state of a PIN
 
   This call is now implemented by the relevant gpiolib calls, convert
   your board or driver to use gpiolib.
+
 
 Setting the state of a PIN
 --------------------------
@@ -182,6 +191,7 @@ Setting the state of a PIN
   This call is now implemented by the relevant gpiolib calls, convert
   your board or driver to use gpiolib.
 
+
 Getting the IRQ number associated with a PIN
 --------------------------------------------
 
@@ -195,8 +205,10 @@ Getting the IRQ number associated with a PIN
   This call is now implemented by the relevant gpiolib calls, convert
   your board or driver to use gpiolib.
 
+
 Authour
 -------
+
 
 Ben Dooks, 03 October 2004
 Copyright 2004 Ben Dooks, Simtec Electronics

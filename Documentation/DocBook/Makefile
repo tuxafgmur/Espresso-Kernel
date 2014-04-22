@@ -6,15 +6,7 @@
 # To add a new book the only step required is to add the book to the
 # list of DOCBOOKS.
 
-DOCBOOKS := z8530book.xml mcabook.xml device-drivers.xml \
-	    kernel-hacking.xml kernel-locking.xml deviceiobook.xml \
-	    writing_usb_driver.xml networking.xml \
-	    kernel-api.xml filesystems.xml lsm.xml usb.xml kgdb.xml \
-	    gadget.xml libata.xml mtdnand.xml librs.xml rapidio.xml \
-	    genericirq.xml s390-drivers.xml uio-howto.xml scsi.xml \
-	    80211.xml debugobjects.xml sh.xml regulator.xml \
-	    alsa-driver-api.xml writing-an-alsa-driver.xml \
-	    tracepoint.xml media.xml drm.xml
+DOCBOOKS := 
 
 ###
 # The build process is as follows (targets):
@@ -24,9 +16,11 @@ DOCBOOKS := z8530book.xml mcabook.xml device-drivers.xml \
 #                        +--> DIR=file  (htmldocs) [by xmlto]
 #                        +--> man/      (mandocs)  [by xmlto]
 
+
 # for PDF and PS output you can choose between xmlto and docbook-utils tools
 PDF_METHOD	= $(prefer-db2x)
 PS_METHOD	= $(prefer-db2x)
+
 
 ###
 # The targets that may be used.
@@ -144,6 +138,7 @@ quiet_cmd_db2pdf = PDF     $@
       cmd_db2pdf = $(subst TYPE,pdf, $($(PDF_METHOD)template))
 %.pdf : %.xml
 	$(call cmd,db2pdf)
+
 
 index = index.html
 main_idx = Documentation/DocBook/$(index)

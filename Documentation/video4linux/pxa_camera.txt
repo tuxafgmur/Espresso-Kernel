@@ -8,6 +8,7 @@ Constraints
      This is due to DMA constraints, which transfers only planes of 8 byte
      multiples.
 
+
 Global video workflow
 ---------------------
   a) QCI stopped

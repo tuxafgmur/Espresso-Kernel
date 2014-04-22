@@ -539,12 +539,14 @@ static int if_getconfig(char *ifname)
 		metric = 0;
 	} else
 		metric = ifr.ifr_metric;
+	printf("The result of SIOCGIFMETRIC is %d\n", metric);
 
 	strcpy(ifr.ifr_name, ifname);
 	if (ioctl(skfd, SIOCGIFMTU, &ifr) < 0)
 		mtu = 0;
 	else
 		mtu = ifr.ifr_mtu;
+	printf("The result of SIOCGIFMTU is %d\n", mtu);
 
 	strcpy(ifr.ifr_name, ifname);
 	if (ioctl(skfd, SIOCGIFDSTADDR, &ifr) < 0) {
@@ -1100,3 +1102,4 @@ static int set_if_addr(char *master_ifname, char *slave_ifname)
  *  compile-command: "gcc -Wall -Wstrict-prototypes -O -I/usr/src/linux/include ifenslave.c -o ifenslave"
  * End:
  */
+

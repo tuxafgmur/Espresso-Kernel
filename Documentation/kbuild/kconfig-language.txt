@@ -172,7 +172,7 @@ module state. Dependency expressions have the following syntax:
            <expr> '&&' <expr>                   (6)
            <expr> '||' <expr>                   (7)
 
-Expressions are listed in decreasing order of precedence.
+Expressions are listed in decreasing order of precedence. 
 
 (1) Convert the symbol into an expression. Boolean and tristate symbols
     are simply converted into the respective expression values. All
@@ -239,6 +239,7 @@ MODVERSIONS directly depends on MODULES, this means it's only visible if
 MODULES is different from 'n'. The comment on the other hand is always
 visible when MODULES is visible (the (empty) dependency of MODULES is
 also part of the comment dependencies).
+
 
 Kconfig syntax
 --------------
@@ -334,6 +335,7 @@ mainmenu:
 This sets the config program's title bar if the config program chooses
 to use it. It should be placed at the top of the configuration, before any
 other statement.
+
 
 Kconfig hints
 -------------

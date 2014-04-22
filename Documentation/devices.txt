@@ -1,3 +1,4 @@
+
 		    LINUX ALLOCATED DEVICES (2.6+ version)
 
 	     Maintained by Alan Cox <device@lanana.org>
@@ -37,6 +38,7 @@ least not without contacting me first.
 I do not have any information about these devices beyond what appears
 on this list.  Any such information requests will be deleted without
 reply.
+
 
 	  **** DEVICE DRIVERS AUTHORS PLEASE READ THIS ****
 
@@ -79,6 +81,7 @@ device names and numbers in any way public, at least to the point
 where it would be at all difficult to get them changed.
 
 Your cooperation is appreciated.
+
 
   0		Unnamed devices (e.g. non-device mounts)
 		  0 = reserved as null device number
@@ -1428,6 +1431,7 @@ Your cooperation is appreciated.
 		Partitions are handled the same way as for Mylex
 		DAC960 (see major number 48) except that the limit on
 		partitions is 15.
+
 
  77 char	ComScire Quantum Noise Generator
 		  0 = /dev/qng		ComScire Quantum Noise Generator
@@ -3165,6 +3169,7 @@ form (absolute or relative) as is indicated here.  Links are
 classified as "hard" or "symbolic" depending on the preferred type of
 link; if possible, the indicated type of link should be used.
 
+
 	Compulsory links
 
 These links should exist on all systems:
@@ -3343,3 +3348,4 @@ for the slaves; the slaves are named with decimal integers (/dev/pts/#
 in our notation).  This removes the problem of exhausting the
 namespace and enables the kernel to automatically create the device
 nodes for the slaves on demand using the "devpts" filesystem.
+

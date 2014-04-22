@@ -224,6 +224,7 @@ int hwspinlock_example2(void)
 	return ret;
 }
 
+
 4. API for implementors
 
   int hwspin_lock_register(struct hwspinlock *hwlock);

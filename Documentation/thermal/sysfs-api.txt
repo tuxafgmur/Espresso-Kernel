@@ -7,6 +7,7 @@ Updated: 2 January 2008
 
 Copyright (c)  2008 Intel Corporation
 
+
 0. Introduction
 
 The generic thermal sysfs provides a set of interfaces for thermal zone
@@ -124,6 +125,7 @@ Thermal cooling device sys I/F, created once it's registered:
     |---type:			Type of the cooling device(processor/fan/...)
     |---max_state:		Maximum cooling state of the cooling device
     |---cur_state:		Current cooling state of the cooling device
+
 
 Then next two dynamic attributes are created/removed in pairs. They represent
 the relationship between a thermal zone and its associated cooling device.

@@ -16,6 +16,7 @@ rule so that nice +19 level would be _exactly_ 1 jiffy. To better
 understand it, the timeslice graph went like this (cheesy ASCII art
 alert!):
 
+
                    A
              \     | [timeslice length]
               \    |

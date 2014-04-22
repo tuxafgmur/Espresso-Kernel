@@ -8,6 +8,7 @@ This question is most often faced by driver writers who have to
 deal with hardware delays and who may not be the most intimately
 familiar with the inner workings of the Linux Kernel.
 
+
 Inserting Delays
 ----------------
 
@@ -51,6 +52,7 @@ NON-ATOMIC CONTEXT:
 	Unlike the *delay family, the underlying mechanism
 	driving each of these calls varies, thus there are
 	quirks you should be aware of.
+
 
 	SLEEPING FOR "A FEW" USECS ( < ~10us? ):
 		* Use udelay

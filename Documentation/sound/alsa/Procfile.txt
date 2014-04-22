@@ -12,6 +12,7 @@ check the files listed in the following sections.
 Each card has its subtree cardX, where X is from 0 to 7. The
 card-specific files are stored in the card* subdirectories.
 
+
 Global Information
 ------------------
 
@@ -43,12 +44,14 @@ pcm
 timer
 	Lists the currently available timer devices
 
+
 oss/devices
 	Lists the OSS device mappings.
 
 oss/sndstat
 	Provides the output compatible with /dev/sndstat.
 	You can symlink this to /dev/sndstat.
+
 
 Card Specific Files
 -------------------
@@ -75,6 +78,7 @@ oss_mixer file appears here, too.  This shows the current mapping of
 OSS mixer elements to the ALSA control elements.  You can change the
 mapping by writing to this device.  Read OSS-Emulation.txt for
 details.
+
 
 PCM Proc Files
 --------------
@@ -142,6 +146,7 @@ card*/pcm*/sub*/sw_params
 card*/pcm*/sub*/prealloc
 	The buffer pre-allocation information.
 
+
 AC97 Codec Information
 ----------------------
 
@@ -158,12 +163,14 @@ card*/codec97#0/ac97#?-?+regs
 
 	# echo 02 9f1f > /proc/asound/card0/codec97#0/ac97#0-0+regs
 
+
 USB Audio Streams
 -----------------
 
 card*/stream*
 	Shows the assignment and the current status of each audio stream
 	of the given card.  This information is very useful for debugging.
+
 
 HD-Audio Codecs
 ---------------
@@ -181,6 +188,7 @@ card*/eld#*
 	Only do this if you are sure the HDMI sink provided value is wrong.
 	And if that makes your HDMI audio work, please report to us so that we
 	can fix it in future kernel releases.
+
 
 Sequencer Information
 ---------------------
@@ -201,6 +209,7 @@ seq/timer
 
 seq/oss
 	Lists the OSS-compatible sequencer stuffs.
+
 
 Help For Debugging?
 -------------------
@@ -227,6 +236,7 @@ for USB audio/midi,
 
   - output of lsusb -v
   - stream* files in card directory
+
 
 The ALSA bug-tracking system is found at:
 

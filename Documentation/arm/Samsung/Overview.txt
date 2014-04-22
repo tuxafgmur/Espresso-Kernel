@@ -17,6 +17,7 @@ Introduction
   - S5PC100
   - S5PC110 / S5PV210
 
+
 S3C24XX Systems
 ---------------
 
@@ -25,6 +26,7 @@ S3C24XX Systems
 
   See Documentation/arm/Samsung-S3C24XX/Overview.txt for more information
   on the implementation details and specific support.
+
 
 Configuration
 -------------
@@ -36,6 +38,7 @@ Configuration
   s5pc100_defconfig - S5PC100 specific default configuration
   s5pc110_defconfig - S5PC110 specific default configuration
   s5pv210_defconfig - S5PV210 specific default configuration
+
 
 Layout
 ------
@@ -55,6 +58,7 @@ Layout
   S5P specific systems. Not all S5Ps use all the features in this directory
   due to differences in the hardware.
 
+
 Layout changes
 --------------
 
@@ -67,6 +71,9 @@ Layout changes
   in plat-s5p or plat-samsung, with the S5PC110 support added with S5PV210
   the only user was the S5PC100. The S5PC100 specific items where moved to
   arch/arm/mach-s5pc100.
+
+
+
 
 Port Contributors
 -----------------
@@ -82,6 +89,7 @@ Port Contributors
   Guillaume Gourat (NexVision)
   Christer Weinigel (wingel) (Acer N30)
   Lucas Correia Villa Real (S3C2400 port)
+
 
 Document Author
 ---------------

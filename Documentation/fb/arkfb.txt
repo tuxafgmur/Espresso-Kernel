@@ -1,5 +1,7 @@
+
 	arkfb - fbdev driver for ARK Logic chips
 	========================================
+
 
 Supported Hardware
 ==================
@@ -9,6 +11,7 @@ Supported Hardware
 
 	- only BIOS initialized VGA devices supported
 	- probably not working on big endian
+
 
 Supported Features
 ==================
@@ -38,6 +41,7 @@ with interleaved planes (1 byte interleave), MSB first. Both modes support
 Suspend/resume works on systems that initialize video card during resume and
 if device is active (for example used by fbcon).
 
+
 Missing Features
 ================
 (alias TODO list)
@@ -53,6 +57,7 @@ Missing Features
 	* vsync synchronization
 	* feature connector support
 	* acceleration support (8514-like 2D)
+
 
 Known bugs
 ==========

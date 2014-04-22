@@ -19,6 +19,7 @@ In effect, this driver turns the parallel port interface on the eval board
 into a SPI bus with a single device, which will be driven by the generic
 LM70 driver (drivers/hwmon/lm70.c).
 
+
 Hardware Interfacing
 --------------------
 The schematic for this particular board (the LM70EVAL-LLP) is
@@ -69,6 +70,7 @@ reflected on pin 13 as a High level.
 
 So: the getmiso inline routine in this driver takes this fact into account,
 inverting the value read at pin 13.
+
 
 Thanks to
 ---------

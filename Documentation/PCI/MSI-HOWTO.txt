@@ -14,6 +14,7 @@ the advantages of using MSI over traditional interrupt mechanisms, how
 to change your driver to use MSI or MSI-X and some basic diagnostics to
 try if a device doesn't support MSIs.
 
+
 2. What are MSIs?
 
 A Message Signaled Interrupt is a write from the device to a special
@@ -26,6 +27,7 @@ per device than MSI and allows interrupts to be independently configured.
 
 Devices may support both MSI and MSI-X, but only one can be enabled at
 a time.
+
 
 3. Why use MSIs?
 
@@ -57,6 +59,7 @@ infrequent conditions (such as errors) their own interrupt which allows
 the driver to handle the normal interrupt handling path more efficiently.
 Other possible designs include giving one interrupt to each packet queue
 in a network card or each port in a storage controller.
+
 
 4. How to use MSIs
 
@@ -280,6 +283,7 @@ Using 'lspci -v' (as root) may show some devices with "MSI", "Message
 Signalled Interrupts" or "MSI-X" capabilities.  Each of these capabilities
 has an 'Enable' flag which will be followed with either "+" (enabled)
 or "-" (disabled).
+
 
 5. MSI quirks
 

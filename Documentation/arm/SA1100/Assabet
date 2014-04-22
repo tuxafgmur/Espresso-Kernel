@@ -7,6 +7,7 @@ http://developer.intel.com
 Also some notes from John G Dorsey <jd5q@andrew.cmu.edu>:
 http://www.cs.cmu.edu/~wearable/software/assabet.html
 
+
 Building the kernel
 -------------------
 
@@ -17,6 +18,7 @@ To build the kernel with current defaults:
 	make zImage
 
 The resulting kernel image should be available in linux/arch/arm/boot/zImage.
+
 
 Installing a bootloader
 -----------------------
@@ -56,6 +58,7 @@ ftp://ftp.handhelds.org/pub/linux/arm/sa-1100-patches/
 Look for redboot-assabet*.tgz.  Some installation infos are provided in
 redboot-assabet*.txt.
 
+
 Initial RedBoot configuration
 -----------------------------
 
@@ -77,6 +80,7 @@ a static IP address, etc, use this command:
 
 	fconfig -i
 
+
 Writing a kernel image into flash
 ---------------------------------
 
@@ -92,6 +96,7 @@ If you rather want to use Y-Modem upload over the serial port:
 To write it to flash:
 
 	fis create "Linux kernel" -b 0x100000 -l 0xc0000
+
 
 Booting the kernel
 ------------------
@@ -114,6 +119,7 @@ or loaded as described previously.  To boot the kernel:
 
 The ramdisk image could be stored into flash as well, but there are better
 solutions for on-flash filesystems as mentioned below.
+
 
 Using JFFS2
 -----------
@@ -203,6 +209,7 @@ many tools to deal with flash memory as well, to erase it for example.  JFFS2
 can then be mounted directly on a freshly erased partition and files can be
 copied over directly.  Etc...
 
+
 RedBoot scripting
 -----------------
 
@@ -229,9 +236,12 @@ Update RedBoot non-volatile configuration - are you sure (y/n)? y
 
 Then, rebooting the Assabet is just a matter of waiting for the login prompt.
 
+
+
 Nicolas Pitre
 nico@fluxnic.net
 June 12, 2001
+
 
 Status of peripherals in -rmk tree (updated 14/10/2001)
 -------------------------------------------------------
@@ -287,3 +297,4 @@ Neponset:
    PM:			Not tested.
 
 More stuff can be found in the -np (Nicolas Pitre's) tree.
+

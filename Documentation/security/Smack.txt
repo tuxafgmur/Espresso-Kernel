@@ -1,3 +1,5 @@
+
+
     "Good for you, you've decided to clean the elevator!"
     - The Elevator, from Dark Star
 
@@ -441,6 +443,7 @@ Internet access, you can have :
 echo 127.0.0.1      -CIPSO > /smack/netlabel
 echo 192.168.0.0/16 -CIPSO > /smack/netlabel
 echo 0.0.0.0/0      @      > /smack/netlabel
+
 
 Writing Applications for Smack
 

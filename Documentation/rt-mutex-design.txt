@@ -16,6 +16,7 @@ The goal of this document is to help others understand the priority
 inheritance (PI) algorithm that is used, as well as reasons for the
 decisions that were made to implement PI in the manner that was done.
 
+
 Unbounded Priority Inversion
 ----------------------------
 
@@ -51,6 +52,7 @@ C    +----+
 
 B         +-------->
                 B now keeps A from running.
+
 
 Priority Inheritance (PI)
 -------------------------
@@ -111,6 +113,7 @@ top pi waiter - The highest priority process waiting on one of the mutexes
 
 Note:  task and process are used interchangeably in this document, mostly to
        differentiate between two processes that are being described together.
+
 
 PI chain
 --------
@@ -176,6 +179,7 @@ again.
                          |
                    F->L5-+
 
+
 Plist
 -----
 
@@ -196,6 +200,7 @@ list, the head of the list is a different element than the nodes of a list.
 So the head of the list is declared as struct plist_head and nodes that will
 be added to the list are declared as struct plist_node.
 
+
 Mutex Waiter List
 -----------------
 
@@ -204,6 +209,7 @@ has a plist to store these waiters by priority.  This list is protected by
 a spin lock that is located in the struct of the mutex. This lock is called
 wait_lock.  Since the modification of the waiter list is never done in
 interrupt context, the wait_lock can be taken without disabling interrupts.
+
 
 Task PI List
 ------------
@@ -222,6 +228,7 @@ This list is stored in the task structure of a process as a plist called
 pi_list.  This list is protected by a spin lock also in the task structure,
 called pi_lock.  This lock may also be taken in interrupt context, so when
 locking the pi_lock, interrupts must be disabled.
+
 
 Depth of the PI Chain
 ---------------------
@@ -299,6 +306,7 @@ amount of data.  So to prevent this, the implementation not only implements
 a maximum lock depth, but also only holds at most two different locks at a
 time, as it walks the PI chain.  More about this below.
 
+
 Mutex owner and flags
 ---------------------
 
@@ -312,6 +320,7 @@ in Documentation/rt-mutex.txt, but will also be briefly described here.
 Bit 0 is used as the "Pending Owner" flag.  This is described later.
 Bit 1 is used as the "Has Waiters" flags.  This is also described later
   in more detail, but is set whenever there are waiters on a mutex.
+
 
 cmpxchg Tricks
 --------------
@@ -344,6 +353,7 @@ help out extremely to keep the fast path short.
 The use of rt_mutex_cmpxchg with the flags in the owner field help optimize
 the system for architectures that support it.  This will also be explained
 later in this document.
+
 
 Priority adjustments
 --------------------
@@ -386,6 +396,7 @@ would decrease/unboost the priority of the task.  That is because the pi_list
 always contains the highest priority task that is waiting on a mutex owned
 by the task, so we only need to compare the priority of that top pi waiter
 to the normal priority of the given task.
+
 
 High level overview of the PI chain walk
 ----------------------------------------
@@ -506,6 +517,7 @@ Note: One might think that the owner of this mutex might have changed
       If you don't quite understand the above, that's OK. You don't have to,
       unless you really want to make a proof out of it ;)
 
+
 Pending Owners and Lock stealing
 --------------------------------
 
@@ -538,6 +550,7 @@ priority process comes in and tries to grab that mutex.  If a higher priority
 process does come along and wants that mutex, we let the higher priority
 process "steal" the mutex from the pending owner (only if it is still pending)
 and continue with the mutex.
+
 
 Taking of a mutex (The walk through)
 ------------------------------------
@@ -698,6 +711,7 @@ pi_list of the owner.  If this process was a high priority process, then
 the rt_mutex_adjust_prio_chain needs to be executed again on the owner,
 but this time it will be lowering the priorities.
 
+
 Unlocking the Mutex
 -------------------
 
@@ -747,10 +761,12 @@ of the pending owner.
 
 Finally we unlock the pi_lock of the pending owner and wake it up.
 
+
 Contact
 -------
 
 For updates on this document, please email Steven Rostedt <rostedt@goodmis.org>
+
 
 Credits
 -------

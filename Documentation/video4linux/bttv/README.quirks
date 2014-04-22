@@ -1,3 +1,4 @@
+
 Below is what the bt878 data book says about the PCI bug compatibility
 modes of the bt878 chip.
 
@@ -32,6 +33,7 @@ bus. The duration to empty the entire video PCI FIFO onto the PCI bus is
 very short compared to the bus access latency the audio PCI FIFO can
 tolerate.
 
+
 430FX Compatibility Mode
 ------------------------
 
@@ -63,6 +65,7 @@ be removed at the end of the transaction: for example, when the bus is
 idle (FRAME and IRDY). The arbiter decision may then continue
 asynchronously until GNT is again asserted.
 
+
 Interfacing with Non-PCI 2.1 Compliant Core Logic
 -------------------------------------------------
 
@@ -77,3 +80,4 @@ also has the side effect of not being able to take advantage of bus
 parking, thus lowering arbitration performance. The Bt879 drivers must
 query for these non-compliant devices, and set the EN_VSFX bit only if
 required.
+

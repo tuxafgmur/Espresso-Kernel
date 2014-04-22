@@ -11,6 +11,7 @@ Contents:
  - Mechanism.
  - Debugging.
 
+
 ========
 OVERVIEW
 ========
@@ -31,6 +32,7 @@ It does not yet support the following AFS features:
 
 This code is extracted from the CIFS filesystem.
 
+
 ===========
 COMPILATION
 ===========
@@ -38,6 +40,7 @@ COMPILATION
 The module should be enabled by turning on the kernel configuration options:
 
 	CONFIG_DNS_RESOLVER	- tristate "DNS Resolver support"
+
 
 ==========
 SETTING UP
@@ -56,6 +59,7 @@ To direct a query for query type 'foo', a line of the following should be added
 before the more general line given above as the first match is the one taken.
 
 	create	dns_resolver  	foo:*	*	/usr/sbin/dns.foo %k
+
 
 =====
 USAGE
@@ -98,12 +102,14 @@ implemented in the module can be called after doing:
      If _expiry is non-NULL, the expiry time (TTL) of the result will be
      returned also.
 
+
 ===============================
 READING DNS KEYS FROM USERSPACE
 ===============================
 
 Keys of dns_resolver type can be read from userspace using keyctl_read() or
 "keyctl read/print/pipe".
+
 
 =========
 MECHANISM
@@ -135,6 +141,7 @@ that is indicated instead.
 
 See <file:Documentation/security/keys-request-key.txt> for further
 information about request-key function.
+
 
 =========
 DEBUGGING

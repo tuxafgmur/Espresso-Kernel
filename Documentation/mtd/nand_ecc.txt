@@ -11,6 +11,7 @@ Bad! I was hooked.
 I decided to annotate my steps in this file. Perhaps it is useful to someone
 or someone learns something from it.
 
+
 The problem
 ===========
 
@@ -95,6 +96,7 @@ nicer picture.(but they use line parity as term where I use row parity)
 Oh well, I'm graphically challenged, so suffer with me for a moment :-)
 And I could not reuse the ST picture anyway for copyright reasons.
 
+
 Attempt 0
 =========
 
@@ -142,6 +144,7 @@ for (i = 0; i < 256; i++)
     cp5 = bit7 ^ bit6 ^ bit5 ^ bit4 ^ cp5
 }
 
+
 Analysis 0
 ==========
 
@@ -159,6 +162,7 @@ all cp calculation out of the if loop.
 
 Similarly we can first xor the bytes for the various rows.
 This leads to:
+
 
 Attempt 1
 =========
@@ -248,6 +252,7 @@ I also introduced the parity lookup. I expected this to be the fastest
 way to calculate the parity, but I will investigate alternatives later
 on.
 
+
 Analysis 1
 ==========
 
@@ -283,6 +288,7 @@ that the I/O buffers in the nand driver are aligned properly (and
 otherwise that should be fixed to get maximum performance).
 
 Let's give it a try...
+
 
 Attempt 2
 =========
@@ -375,6 +381,7 @@ examples I kinda deviated from my regular programming style by allowing
 multiple statements on a line, not using { } in then and else blocks
 with only a single statement and by using operators like ^=
 
+
 Analysis 2
 ==========
 
@@ -422,6 +429,7 @@ with
 And after that the code takes about 30% more time, although the number of
 statements is reduced. This is also reflected in the assembly code.
 
+
 Analysis 3
 ==========
 
@@ -434,6 +442,7 @@ Well, it was expected not to be easy so maybe instead move to a
 different track: let's move back to the code from attempt2 and do some
 loop unrolling. This will eliminate a few if statements. I'll try
 different amounts of unrolling to see what works best.
+
 
 Attempt 4
 =========
@@ -457,6 +466,7 @@ For 4 the code starts with:
         rp6 ^= cur;
         ...
 
+
 Analysis 4
 ==========
 
@@ -476,6 +486,7 @@ that rp5 = par ^ rp4. So no need to keep both rp4 and rp5 around. We can
 eliminate rp5 (or rp4, but I already foresaw another optimisation).
 The same holds for rp6/7, rp8/9, rp10/11 rp12/13 and rp14/15.
 
+
 Attempt 5
 =========
 
@@ -485,6 +496,7 @@ Of course after the loop we need to correct things by adding code like:
     rp5 = par ^ rp4;
 Also the initial assignments (rp5 = 0; etc) could be removed.
 Along the line I also removed the initialisation of rp0/1/2/3.
+
 
 Analysis 5
 ==========
@@ -496,6 +508,7 @@ of the processor time compared to the current code in the linux kernel.
 However, still I thought there was more. I didn't like all the if
 statements. Why not keep a running parity and only keep the last if
 statement. Time for yet another version!
+
 
 Attempt 6
 =========
@@ -539,6 +552,7 @@ rp4 ^= cur; rp6 = cur;
 I removed the rp6 = cur; statement and did rp6 ^= tmppar; on next
 statement. A similar change was done for rp8 and rp10
 
+
 Analysis 6
 ==========
 
@@ -563,6 +577,7 @@ and later do rp8 = rp8 ^ tmppar ^ notrp8;
 (where notrp8 is the value of rp8 before those 4 lines).
 Again a use of the commutative property of xor.
 Time for a new test!
+
 
 Attempt 7
 =========
@@ -600,7 +615,9 @@ The new code now looks like:
     rp4 ^= rp4_6;
     rp6 ^= rp4_6;
 
+
 Not a big change, but every penny counts :-)
+
 
 Analysis 7
 ==========
@@ -612,10 +629,12 @@ have to do with caching again.
 Guess that is what there is to win within the loop. Maybe unrolling one
 more time will help. I'll keep the optimisations from 7 for now.
 
+
 Attempt 8
 =========
 
 Unrolled the loop one more time.
+
 
 Analysis 8
 ==========
@@ -629,6 +648,7 @@ But if rp4 = rp5 we do not need rp5 etc. We can just write the even bits
 in the result byte and then do something like
     code[0] |= (code[0] << 1);
 Lets test this.
+
 
 Attempt 9
 =========
@@ -657,6 +677,7 @@ you will get different results. No warranties!
 But of course there is no such thing as a free lunch. The codesize almost
 tripled (from 562 bytes to 1434 bytes). Then again, it is not that much.
 
+
 Correcting errors
 =================
 
@@ -671,6 +692,7 @@ introduced by this is about a factor 2 on my system when a repair had to
 be done, and 1% or so if no repair had to be done.
 Code size increased from 330 bytes to 686 bytes for this function.
 (gcc 4.2, -O3)
+
 
 Conclusion
 ==========

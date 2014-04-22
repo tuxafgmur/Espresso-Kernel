@@ -14,6 +14,7 @@ Wireless USB device that supports wired-mode Cable-Based-Association.
 
 Works in conjunction with the wusb-cba.ko driver from http://linuxuwb.org.
 
+
 DEVICE
 
  sysfs path to the device to authenticate; for example, both this
@@ -63,6 +64,7 @@ Examples:
 
 EOF
 }
+
 
 # Defaults
 # FIXME: CHID should come from a database :), band group from the host

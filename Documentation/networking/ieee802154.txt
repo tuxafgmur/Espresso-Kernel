@@ -1,4 +1,6 @@
+
 		Linux IEEE 802.15.4 implementation
+
 
 Introduction
 ============
@@ -11,6 +13,7 @@ Currently only IEEE 802.15.4 layer is implemented. We have chosen
 to use plain Berkeley socket API, the generic Linux networking stack
 to transfer IEEE 802.15.4 messages and a special protocol over genetlink
 for configuration/management
+
 
 Socket API
 ==========
@@ -25,6 +28,7 @@ or git tree at git://linux-zigbee.git.sourceforge.net/gitroot/linux-zigbee).
 
 One can use SOCK_RAW for passing raw data towards device xmit function. YMMV.
 
+
 MLME - MAC Level Management
 ============================
 
@@ -32,6 +36,7 @@ Most of IEEE 802.15.4 MLME interfaces are directly mapped on netlink commands.
 See the include/net/nl802154.h header. Our userspace tools package
 (see above) provides CLI configuration utility for radio interfaces and simple
 coordinator for IEEE 802.15.4 networks as an example users of MLME protocol.
+
 
 Kernel side
 =============
@@ -44,6 +49,7 @@ Like with WiFi, there are several types of devices implementing IEEE 802.15.4.
    comparation, automagic ACK handling, address matching, etc.
 
 Those types of devices require different approach to be hooked into Linux kernel.
+
 
 HardMAC
 =======
@@ -63,6 +69,7 @@ required.
 
 We provide an example of simple HardMAC driver at drivers/ieee802154/fakehard.c
 
+
 SoftMAC
 =======
 
@@ -70,3 +77,4 @@ We are going to provide intermediate layer implementing IEEE 802.15.4 MAC
 in software. This is currently WIP.
 
 See header include/net/mac802154.h and several drivers in drivers/ieee802154/.
+

@@ -11,6 +11,7 @@ Contents:
 	7) FAQ
 	8) Implementation
 
+
 1) Overview
 -----------
 
@@ -33,6 +34,7 @@ precise
 	b. slave mount
 	c. private mount
 	d. unbindable mount
+
 
 2a) A shared mount can be replicated to as many mountpoints and all the
 replicas continue to be exactly same.
@@ -69,6 +71,7 @@ replicas continue to be exactly same.
 
 	And the same is true even when /dev/sd0 is mounted on /mnt/a. The
 	contents will be visible under /tmp/a too.
+
 
 2b) A slave mount is like a shared mount except that mount and umount events
 	only propagate towards it.
@@ -112,9 +115,11 @@ replicas continue to be exactly same.
 	Note how the mount event has not propagated to the mount at
 	/mnt
 
+
 2c) A private mount does not forward or receive propagation.
 
 	This is the mount we are familiar with. Its the default type.
+
 
 2d) A unbindable mount is a unbindable private mount
 
@@ -129,6 +134,7 @@ replicas continue to be exactly same.
 
 	Binding a unbindable mount is a invalid operation.
 
+
 3) Setting mount states
 
 	The mount command (util-linux package) can be used to set mount
@@ -138,6 +144,7 @@ replicas continue to be exactly same.
 	mount --make-slave mountpoint
 	mount --make-private mountpoint
 	mount --make-unbindable mountpoint
+
 
 4) Use cases
 ------------
@@ -178,6 +185,7 @@ replicas continue to be exactly same.
 		process will not show up in any other namespace. However mounts
 		done in the parent namespace under /myprivatetree still shows
 		up in the process's namespace.
+
 
 	Apart from the above semantics this feature provides the
 	building blocks to solve the following problems:
@@ -253,6 +261,7 @@ replicas continue to be exactly same.
 		/mnt or /tmp reflect in all the other mounts of its peer
 		group.
 
+
 	(2) Slave mounts
 
 		A 'slave mount' is defined as a vfsmount that receives
@@ -295,6 +304,7 @@ replicas continue to be exactly same.
 		A 'unbindable mount' is defined as vfsmount that does not
 		receive or forward any propagation events and cannot
 		be bind mounted.
+
 
    	State diagram:
    	The state diagram below explains the state transition of a mount,
@@ -435,6 +445,8 @@ replicas continue to be exactly same.
 	     / \ 		in the new location.
 	    D' E'
 
+
+
 5d) Move semantics
 
 	Consider the following command
@@ -522,6 +534,7 @@ replicas continue to be exactly same.
 	The above operation is the same as bind operation with the exception
 	that the source mount is always a private mount.
 
+
 5f) Unmount semantics
 
 	Consider the following command
@@ -574,6 +587,7 @@ replicas continue to be exactly same.
 
 	If 'A' is unbindable mount, then 'B' is a unbindable mount too.
 
+
 6) Quiz
 
 	A. What is the result of the following command sequence?
@@ -587,6 +601,7 @@ replicas continue to be exactly same.
 		Should they all be identical? or should /mnt and /mnt/1 be
 		identical only?
 
+
 	B. What is the result of the following command sequence?
 
 		mount --make-rshared /
@@ -594,6 +609,7 @@ replicas continue to be exactly same.
 		mount --rbind / /v/1
 
 		what should be the content of /v/1/v/1 be?
+
 
 	C. What is the result of the following command sequence?
 
@@ -713,6 +729,7 @@ replicas continue to be exactly same.
 
 			  I wont' draw the tree..but it has 24 vfsmounts
 
+
 		at step i the number of vfsmounts is V[i] = i*V[i-1].
 		This is an exponential function. And this tree has way more
 		mounts than what we really needed in the first place.
@@ -827,6 +844,7 @@ replicas continue to be exactly same.
 	[ NOTE: Though it looks like a forest, if we consider all the shared
 	mounts as a conceptual entity called 'pnode', it becomes a tree]
 
+
 		        A <--> B <--> C <---> D
 		       /|\	      /|      |\
 		      / F G	     J K      H I
@@ -855,6 +873,7 @@ replicas continue to be exactly same.
 	J and K's ->mnt_master points to struct vfsmount of C
 	and finally D's ->mnt_slave_list links with ->mnt_slave of 'H' and 'I'
 	'H' and 'I' have their ->mnt_master pointing to struct vfsmount of 'D'.
+
 
 	NOTE: The propagation tree is orthogonal to the mount tree.
 
@@ -912,6 +931,7 @@ replicas continue to be exactly same.
 
 	NOTE: all the propagation related functionality resides in the file
 	pnode.c
+
 
 ------------------------------------------------------------------------
 

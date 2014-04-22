@@ -3,6 +3,7 @@ Fault injection capabilities infrastructure
 
 See also drivers/md/faulty.c and "every_nth" module option for scsi_debug.
 
+
 Available fault injection capabilities
 --------------------------------------
 
@@ -233,3 +234,4 @@ trap "echo 0 > /sys/kernel/debug/$FAILTYPE/probability" SIGINT SIGTERM EXIT
 
 echo "Injecting errors into the module $module... (interrupt to stop)"
 sleep 1000000
+

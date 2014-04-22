@@ -10,6 +10,7 @@ http://www.intersil.com/data/fn/fn7464.pdf
 
 Author: Daniel Mack <daniel@caiaq.de>
 
+
 Description
 -----------
 The ISL29003 is an integrated light sensor with a 16-bit integrating type
@@ -22,6 +23,7 @@ The driver allows to set the lux range, the bit resolution, the operational
 mode (see below) and the power state of device and can read the current lux
 value, of course.
 
+
 Detection
 ---------
 
@@ -29,6 +31,7 @@ The ISL29003 does not have an ID register which could be used to identify
 it, so the detection routine will just try to read from the configured I2C
 addess and consider the device to be present as soon as it ACKs the
 transfer.
+
 
 Sysfs entries
 -------------
@@ -56,3 +59,4 @@ power_state:
 
 lux (read only):
 	returns the value from the last sensor reading
+

@@ -6,6 +6,7 @@ rfkill - RF kill switch support
 3. Kernel API
 4. Userspace support
 
+
 1. Introduction
 
 The rfkill subsystem provides a generic interface to disabling any radio
@@ -23,6 +24,7 @@ whether they can be changed or not:
  - hard block: read-only radio block that cannot be overriden by software
  - soft block: writable radio block (need not be readable) that is set by
                the system software.
+
 
 2. Implementation details
 
@@ -49,7 +51,9 @@ instead of keeping track of calls to set_block(). In fact, drivers should
 use the return value of rfkill_set_hw_state() unless the hardware actually
 keeps track of soft and hard block separately.
 
+
 3. Kernel API
+
 
 Drivers for radio transmitters normally implement an rfkill driver.
 
@@ -75,6 +79,8 @@ Calling rfkill_set_hw_state() when a state change happens is required from
 rfkill drivers that control devices that can be hard-blocked unless they also
 assign the poll_hw_block() callback (then the rfkill core will poll the
 device). Don't do this unless you cannot get the event in any other way.
+
+
 
 5. Userspace support
 
@@ -109,6 +115,7 @@ RFKILL_TYPE
 
 The contents of these variables corresponds to the "name", "state" and
 "type" sysfs files explained above.
+
 
 For further details consult Documentation/ABI/stable/dev-rfkill and
 Documentation/ABI/stable/sysfs-class-rfkill.

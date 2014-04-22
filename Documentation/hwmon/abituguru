@@ -39,6 +39,7 @@ Authors:
 	(Initial reverse engineering done by Olle Sandberg
 	 <ollebull@gmail.com>)
 
+
 Module Parameters
 -----------------
 
@@ -66,6 +67,7 @@ Module Parameters
 Notice if you need any of the first three options above please insmod the
 driver with verbose set to 3 and mail me <j.w.r.degoede@hhs.nl> the output of:
 dmesg | grep abituguru
+
 
 Description
 -----------

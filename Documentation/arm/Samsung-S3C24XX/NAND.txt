@@ -22,7 +22,9 @@ each 256 byte block in an 2KiB page. This means that more than
 one error in a page can be rectified. It also means that the
 OOB layout remains the default kernel layout for these flashes.
 
+
 Document Author
 ---------------
 
 Ben Dooks, Copyright 2007 Simtec Electronics
+

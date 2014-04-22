@@ -1,5 +1,6 @@
 RCU on Uniprocessor Systems
 
+
 A common misconception is that, on UP systems, the call_rcu() primitive
 may immediately invoke its function.  The basis of this misconception
 is that since there is only one CPU, it should not be necessary to
@@ -8,6 +9,7 @@ anything else to be happening on.  Although this approach will -sort- -of-
 work a surprising amount of the time, it is a very bad idea in general.
 This document presents three examples that demonstrate exactly how bad
 an idea this is.
+
 
 Example 1: softirq Suicide
 
@@ -25,6 +27,7 @@ your kernel.
 
 This same problem can occur if call_rcu() is invoked from a hardware
 interrupt handler.
+
 
 Example 2: Function-Call Fatality
 
@@ -45,6 +48,7 @@ all RCU read-side critical sections currently executing have completed.
 
 Quick Quiz #1: why is it -not- legal to invoke synchronize_rcu() in
 	this case?
+
 
 Example 3: Death by Deadlock
 
@@ -74,6 +78,7 @@ or API changes would be required.
 
 Quick Quiz #2: What locking restriction must RCU callbacks respect?
 
+
 Summary
 
 Permitting call_rcu() to immediately invoke its arguments breaks RCU,
@@ -88,6 +93,7 @@ RCU.
 
 Quick Quiz #3: Why can't synchronize_rcu() return immediately on
 	UP systems running preemptable RCU?
+
 
 Answer to Quick Quiz #1:
 	Why is it -not- legal to invoke synchronize_rcu() in this case?

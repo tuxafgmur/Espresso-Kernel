@@ -15,6 +15,7 @@ The interface  to  the  networking  parts  of  the  kernel  is  located  in
 /proc/sys/net. The following table shows all possible subdirectories.You may
 see only some of them, depending on your kernel's configuration.
 
+
 Table : Subdirectories in /proc/sys/net
 ..............................................................................
  Directory Content             Directory  Content
@@ -117,10 +118,12 @@ There is only one file in this directory.
 unix_dgram_qlen limits the max number of datagrams queued in Unix domain
 socket's buffer. It will not take effect unless PF_UNIX flag is specified.
 
+
 3. /proc/sys/net/ipv4 - IPV4 settings
 -------------------------------------------------------
 Please see: Documentation/networking/ip-sysctl.txt and ipvs-sysctl.txt for
 descriptions of these entries.
+
 
 4. Appletalk
 -------------------------------------------------------
@@ -165,6 +168,7 @@ interface.
 /proc/net/atalk_route lists  each  known  network  route.  It lists the target
 (network) that the route leads to, the router (may be directly connected), the
 route flags, and the device the route is using.
+
 
 5. IPX
 -------------------------------------------------------

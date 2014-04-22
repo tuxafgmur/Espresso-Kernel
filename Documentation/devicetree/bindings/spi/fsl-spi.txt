@@ -32,6 +32,7 @@ Example:
 			 &gpio 19 1>;	// device reg=<1>
 	};
 
+
 * eSPI (Enhanced Serial Peripheral Interface)
 
 Required properties:

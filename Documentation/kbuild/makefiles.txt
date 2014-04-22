@@ -83,6 +83,7 @@ any built-in or modular targets.
 scripts/Makefile.* contains all the definitions/rules etc. that
 are used to build the kernel based on the kbuild makefiles.
 
+
 === 2 Who does what
 
 People have four different relationships with the kernel Makefiles.
@@ -106,6 +107,7 @@ as well as kbuild Makefiles.
 These people need to know about all aspects of the kernel Makefiles.
 
 This document is aimed towards normal developers and arch developers.
+
 
 === 3 The kbuild files
 
@@ -349,6 +351,7 @@ more details, with real examples.
 		AFLAGS_crunch-bits.o := -Wa,-mcpu=ep9312
 		AFLAGS_iwmmxt.o      := -Wa,-mcpu=iwmmxt
 
+
 --- 3.9 Dependency tracking
 
 	Kbuild tracks dependencies on the following:
@@ -408,6 +411,7 @@ more details, with real examples.
 		$(obj)/vmImage: $(obj)/vmlinux.gz
 			$(call if_changed,uimage)
 			@$(kecho) 'Kernel: $@ is ready'
+
 
 --- 3.11 $(CC) support functions
 
@@ -589,6 +593,7 @@ more details, with real examples.
 	Example:
 		#Makefile
 		LDFLAGS_vmlinux += $(call really-ld-option, -X)
+
 
 === 4 Host Program support
 
@@ -850,6 +855,7 @@ When kbuild executes, the following steps are followed (roughly):
    - This includes building boot records
    - Preparing initrd images and the like
 
+
 --- 6.1 Set variables to tweak the build to the architecture
 
     LDFLAGS		Generic $(LD) options
@@ -931,6 +937,7 @@ When kbuild executes, the following steps are followed (roughly):
 		KBUILD_CFLAGS += $(call cc-option,-fno-unit-at-a-time)
 		...
 
+
 	The first example utilises the trick that a config option expands
 	to 'y' when selected.
 
@@ -982,12 +989,14 @@ When kbuild executes, the following steps are followed (roughly):
 	See also chapter XXX-TODO that describe how kbuild supports
 	generating offset header files.
 
+
 --- 6.3 List directories to visit when descending
 
 	An arch Makefile cooperates with the top Makefile to define variables
 	which specify how to build the vmlinux file.  Note that there is no
 	corresponding arch-specific section for modules; the module-building
 	machinery is all architecture-independent.
+
 
     head-y, init-y, core-y, libs-y, drivers-y, net-y
 
@@ -1008,6 +1017,7 @@ When kbuild executes, the following steps are followed (roughly):
 		core-y += arch/sparc64/kernel/
 		libs-y += arch/sparc64/prom/ arch/sparc64/lib/
 		drivers-$(CONFIG_OPROFILE)  += arch/sparc64/oprofile/
+
 
 --- 6.4 Architecture-specific boot images
 
@@ -1078,6 +1088,7 @@ When kbuild executes, the following steps are followed (roughly):
 
 	In this example, extra-y is used to list object files that
 	shall be built, but shall not be linked as part of built-in.o.
+
 
 --- 6.6 Commands useful for building a boot image
 
@@ -1185,6 +1196,7 @@ When kbuild executes, the following steps are followed (roughly):
 	BUILD    arch/i386/boot/bzImage
 
 	will be displayed with "make KBUILD_VERBOSE=0".
+
 
 --- 6.8 Preprocessing linker scripts
 
@@ -1343,6 +1355,7 @@ The top Makefile exports the following variables:
 
 	    make ARCH=m68k ...
 
+
     INSTALL_PATH
 
 	This variable defines a place for the arch Makefiles to install
@@ -1367,6 +1380,7 @@ The top Makefile exports the following variables:
 	default option --strip-debug will be used.  Otherwise,
 	INSTALL_MOD_STRIP value will be used as the option(s) to the strip
 	command.
+
 
 === 9 Makefile language
 
@@ -1399,3 +1413,6 @@ Language QA by Jan Engelhardt <jengelh@gmx.de>
 - Describe how kbuild supports shipped files with _shipped.
 - Generating offset header files.
 - Add more variables to section 7?
+
+
+

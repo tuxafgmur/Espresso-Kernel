@@ -1,3 +1,4 @@
+
 What is sisfb?
 ==============
 
@@ -7,6 +8,7 @@ graphics chips. Supported are:
 - SiS 300 series: SiS 300/305, 540, 630(S), 730(S)
 - SiS 315 series: SiS 315/H/PRO, 55x, (M)65x, 740, (M)661(F/M)X, (M)741(GX)
 - SiS 330 series: SiS 330 ("Xabre"), (M)760
+
 
 Why do I need a framebuffer driver?
 ===================================
@@ -28,6 +30,7 @@ a graphical console, you don't need sisfb on kernels >=2.6.3.
 Sidenote: Since this seems to be a commonly made mistake: sisfb and vesafb
 cannot be active at the same time! Do only select one of them in your kernel
 configuration.
+
 
 How are parameters passed to sisfb?
 ===================================
@@ -57,6 +60,7 @@ Additionally: If you give more than one argument to the in-kernel sisfb, the
 arguments are separated with ",". For example:
 
    video=sisfb:mode:1024x768x16,rate:75,mem:12288
+
 
 How do I use it?
 ================
@@ -102,6 +106,7 @@ You should *not* compile-in vesafb. And please do not use the "vga=" keyword
 in lilo's or grub's configuration file; mode selection is done using the
 "mode" or "vesa" keywords as a parameter. See above and below.
 
+
 X11
 ===
 
@@ -110,6 +115,7 @@ driver but the dedicated "sis" X driver. The "sis" X driver and sisfb are
 developed by the same person (Thomas Winischhofer) and cooperate well with
 each other.
 
+
 SVGALib
 =======
 
@@ -117,6 +123,7 @@ SVGALib, if directly accessing the hardware, never restores the screen
 correctly, especially on laptops or if the output devices are LCD or TV.
 Therefore, use the chipset "FBDEV" in SVGALib configuration. This will make
 SVGALib use the framebuffer device for mode switches and restoration.
+
 
 Configuration
 =============
@@ -147,3 +154,5 @@ noypan=1").
 --
 Thomas Winischhofer <thomas@winischhofer.net>
 May 27, 2004
+
+

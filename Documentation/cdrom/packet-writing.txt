@@ -19,6 +19,7 @@ Getting started quick
 - Now you can mount /dev/pktcdvd/dev_name and copy files to it. Enjoy!
 	# mount /dev/pktcdvd/dev_name /cdrom -t udf -o rw,noatime
 
+
 Packet writing for DVD-RW media
 -------------------------------
 
@@ -32,6 +33,7 @@ You can then use the disc the same way you would use a CD-RW disc:
 
 	# pktsetup dev_name /dev/hdc
 	# mount /dev/pktcdvd/dev_name /cdrom -t udf -o rw,noatime
+
 
 Packet writing for DVD+RW media
 -------------------------------
@@ -59,12 +61,14 @@ generates aligned writes.
 	# mkudffs /dev/pktcdvd/dev_name
 	# mount /dev/pktcdvd/dev_name /cdrom -t udf -o rw,noatime
 
+
 Packet writing for DVD-RAM media
 --------------------------------
 
 DVD-RAM discs are random writable, so using the pktcdvd driver is not
 necessary. However, using the pktcdvd driver can improve performance
 in the same way it does for DVD+RW media.
+
 
 Notes
 -----
@@ -85,6 +89,7 @@ Notes
 
   to create an ext2 filesystem on the disc.
 
+
 Using the pktcdvd sysfs interface
 ---------------------------------
 
@@ -101,9 +106,11 @@ this interface. (see http://tom.ist-im-web.de/download/pktcdvd )
 	# umount /dvdram
 	# pktcdvd -r dev_name
 
+
 For a description of the sysfs interface look into the file:
 
   Documentation/ABI/testing/sysfs-block-pktcdvd
+
 
 Using the pktcdvd debugfs interface
 -----------------------------------
@@ -115,6 +122,8 @@ To read pktcdvd device infos in human readable form, do:
 For a description of the debugfs interface look into the file:
 
   Documentation/ABI/testing/debugfs-pktcdvd
+
+
 
 Links
 -----

@@ -178,6 +178,7 @@ We have done the best we can without a datasheet.
 Please do not send mail to the author or the sensors group asking for
 a datasheet or ideas on how to convince Asus. We can't help.
 
+
 NOTES:
 -----
   783s has no in1 so that in[2-6] are compatible with the 781d/782d.
@@ -206,6 +207,7 @@ Data sheet updates:
 		011: master / 4096
 		100: master / 8192
 
+
 Answers from Winbond tech support
 ---------------------------------
 >
@@ -221,6 +223,7 @@ Table which can be gotten by thermistor vendor. Therefore we will calculate
 them and obtain 32-byte data, and you can fill the 32-byte data to the
 register in Bank0.CR51 of W83781D.
 
+
 > 2) In the W83782D data sheet, it mentions that pins 38, 39, and 40 are
 >    programmable to be either thermistor or Pentium II diode inputs.
 >    How do I program them for diode inputs? I can't find any register
@@ -232,11 +235,13 @@ register in Bank0.CR51 of W83781D.
       	thermistor                0		 0		0
  	diode 		          1		 1		1
 
+
 (error) CR[59h] 		bit 4(VTIN1)	bit 2(VTIN2)   bit 3(VTIN3)
 (right) CR[59h] 		bit 4(VTIN1)	bit 5(VTIN2)   bit 6(VTIN3)
 
  	PII thermal diode         1		 1		1
  	2N3904	diode	          0		 0		0
+
 
 Asus Clones
 -----------
@@ -344,6 +349,7 @@ in3=r(0x23)*0.016*1.68
 in4=r(0x24)*0.016*4
 in5=255
 in6=255
+
 
 # PWM
 

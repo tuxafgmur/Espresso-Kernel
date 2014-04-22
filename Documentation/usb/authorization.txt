@@ -1,3 +1,4 @@
+
 Authorizing (or not) your USB devices to connect to the system
 
 (C) 2007 Inaky Perez-Gonzalez <inaky@linux.intel.com> Intel Corporation
@@ -35,6 +36,7 @@ connect. Wireless USB hosts deauthorize by default all new connected
 devices (this is so because we need to do an authentication phase
 before authorizing).
 
+
 Example system lockdown (lame)
 -----------------------
 
@@ -56,6 +58,7 @@ Hookup an script to udev, for new USB devices
  then
    echo 1 > $device_path/authorized
  done
+
 
 Now, device_is_my_type() is where the juice for a lockdown is. Just
 checking if the class, type and protocol match something is the worse
@@ -80,8 +83,10 @@ function device_is_my_type()
    fi
 }
 
+
 Of course, this is lame, you'd want to do a real certificate
 verification stuff with PKI, so you don't depend on a shared secret,
 etc, but you get the idea. Anybody with access to a device gadget kit
 can fake descriptors and device info. Don't trust that. You are
 welcome.
+

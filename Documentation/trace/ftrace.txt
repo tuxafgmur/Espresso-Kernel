@@ -25,10 +25,12 @@ task to run after it was woken up, the time interrupts are
 disabled, and more (ftrace allows for tracer plugins, which
 means that the list of tracers can always grow).
 
+
 Implementation Details
 ----------------------
 
 See ftrace-design.txt for details for arch porters and such.
+
 
 The File System
 ---------------
@@ -62,6 +64,7 @@ That's it! (assuming that you have ftrace configured into your kernel)
 After mounting the debugfs, you can see a directory called
 "tracing".  This directory contains the control and output files
 of ftrace. Here is a list of some of the key files:
+
 
  Note: all time values are in microseconds.
 
@@ -180,6 +183,7 @@ of ftrace. Here is a list of some of the key files:
 	"set_ftrace_notrace". (See the section "dynamic ftrace"
 	below for more details.)
 
+
 The Tracers
 -----------
 
@@ -233,6 +237,7 @@ Here is the list of current tracers that may be configured.
 	This is the "trace nothing" tracer. To remove all
 	tracers from tracing simply echo "nop" into
 	current_tracer.
+
 
 Examples of using the tracer
 ----------------------------
@@ -295,6 +300,7 @@ irqsoff latency trace v1.1.5 on 2.6.26-rc8
   <idle>-0     0d.s.   97us : __do_softirq (do_softirq)
   <idle>-0     0d.s1   98us : trace_hardirqs_on (do_softirq)
 
+
 This shows that the current tracer is "irqsoff" tracing the time
 for which interrupts were disabled. It gives the trace version
 and the version of the kernel upon which this was executed on
@@ -354,6 +360,7 @@ The above is mostly meaningful for kernel developers.
 
   The rest is the same as the 'trace' file.
 
+
 trace_options
 -------------
 
@@ -383,6 +390,7 @@ Here are the available options:
 
   noprint-parent:
    bash-4000  [01]  1477.606694: simple_strtoul
+
 
   sym-offset - Display not only the function name, but also the
 	       offset in the function. For example, instead of
@@ -472,6 +480,7 @@ When ftrace_enabled is set the tracers will also record the
 functions that are within the trace. The descriptions of the
 tracers will also show an example with ftrace enabled.
 
+
 irqsoff
 -------
 
@@ -521,6 +530,7 @@ irqsoff latency trace v1.1.5 on 2.6.26
     bash-3730  1d...    0us : _write_lock_irq (sys_setpgid)
     bash-3730  1d..1    1us+: _write_unlock_irq (sys_setpgid)
     bash-3730  1d..2   14us : trace_hardirqs_on (sys_setpgid)
+
 
 Here we see that that we had a latency of 12 microsecs (which is
 very good). The _write_lock_irq in sys_setpgid disabled
@@ -575,11 +585,14 @@ irqsoff latency trace v1.1.5 on 2.6.26-rc8
       ls-4339  0d..1   50us : get_page_from_freelist (__alloc_pages_internal)
       ls-4339  0d..2   51us : trace_hardirqs_on (__alloc_pages_internal)
 
+
+
 Here we traced a 50 microsecond latency. But we also see all the
 functions that were called during that time. Note that by
 enabling function tracing, we incur an added overhead. This
 overhead may extend the latency times. But nevertheless, this
 trace has provided some very helpful debugging information.
+
 
 preemptoff
 ----------
@@ -625,6 +638,7 @@ preemptoff latency trace v1.1.5 on 2.6.26-rc8
     sshd-4261  0d.h.    0us+: irq_enter (do_IRQ)
     sshd-4261  0d.s.   29us : _local_bh_enable (__do_softirq)
     sshd-4261  0d.s1   30us : trace_preempt_on (__do_softirq)
+
 
 This has some more changes. Preemption was disabled when an
 interrupt came in (notice the 'h'), and was enabled while doing
@@ -689,6 +703,7 @@ preemptoff latency trace v1.1.5 on 2.6.26-rc8
     sshd-4261  0d.s.   63us : _local_bh_enable (__do_softirq)
     sshd-4261  0d.s1   64us : trace_preempt_on (__do_softirq)
 
+
 The above is an example of the preemptoff trace with
 ftrace_enabled set. Here we see that interrupts were disabled
 the entire time. The irq_enter code lets us know that we entered
@@ -704,6 +719,7 @@ in effect). The code does not copy the preempt count, but
 because interrupts are disabled, we do not need to worry about
 it. Having a tracer like this is good for letting people know
 what really happens inside the kernel.
+
 
 preemptirqsoff
 --------------
@@ -771,6 +787,8 @@ preemptirqsoff latency trace v1.1.5 on 2.6.26-rc8
       ls-4860  0d.s.  294us : _local_bh_enable (__do_softirq)
       ls-4860  0d.s1  294us : trace_preempt_on (__do_softirq)
 
+
+
 The trace_hardirqs_off_thunk is called from assembly on x86 when
 interrupts are disabled in the assembly code. Without the
 function tracing, we do not know if interrupts were enabled
@@ -778,6 +796,7 @@ within the preemption points. We do see that it started with
 preemption enabled.
 
 Here is a trace with ftrace_enabled set:
+
 
 # tracer: preemptirqsoff
 #
@@ -861,6 +880,7 @@ preemptirqsoff latency trace v1.1.5 on 2.6.26-rc8
     sshd-4261  0d.s.  105us : _local_bh_enable (__do_softirq)
     sshd-4261  0d.s1  105us : trace_preempt_on (__do_softirq)
 
+
 This is a very interesting trace. It started with the preemption
 of the ls task. We see that the task had the "need_resched" bit
 set via the 'N' in the trace.  Interrupts were disabled before
@@ -869,6 +889,7 @@ schedule took place to run sshd.  When the interrupts were
 enabled, we took an interrupt. On return from the interrupt
 handler, the softirq ran. We took another interrupt while
 running the softirq as we see from the capital 'H'.
+
 
 wakeup
 ------
@@ -924,6 +945,7 @@ wakeup latency trace v1.1.5 on 2.6.26-rc8
 #     \   /    |||||   \   |   /
   <idle>-0     1d.h4    0us+: try_to_wake_up (wake_up_process)
   <idle>-0     1d..4    4us : schedule (cpu_idle)
+
 
 Running this on an idle system, we see that it only took 4
 microseconds to perform the task switch.  Note, since the trace
@@ -1038,6 +1060,7 @@ ftrace_enabled is set; otherwise this tracer is a nop.
             bash-4003  [00]   123.638720: add_preempt_count <-_spin_lock_irq
 [...]
 
+
 Note: function tracer uses ring buffers to store the above
 entries. The newest data may overwrite the oldest data.
 Sometimes using echo to stop the trace is not sufficient because
@@ -1059,6 +1082,7 @@ int main(int argc, char *argv[]) {
 	}
 	[...]
 }
+
 
 Single thread tracing
 ---------------------
@@ -1183,6 +1207,7 @@ int main (int argc, char **argv)
         return 0;
 }
 
+
 hw-branch-tracer (x86 only)
 ---------------------------
 
@@ -1202,6 +1227,7 @@ following format:
    0  scheduler_tick+0x17c/0x1bf	  <-  scheduler_tick+0x148/0x1bf
    2  run_posix_cpu_timers+0x9e/0x72a	  <-  run_posix_cpu_timers+0x5e/0x72a
    0  scheduler_tick+0x1b6/0x1bf	  <-  scheduler_tick+0x1aa/0x1bf
+
 
 The tracer may be used to dump the trace for the oops'ing cpu on
 a kernel oops into the system log. To enable this,
@@ -1254,6 +1280,7 @@ dereference in a kernel module:
 [57848.106019] RIP: 0010:[<ffffffffa0000006>]  [<ffffffffa0000006>] open+0x6/0x14 [oops]
 [57848.106019] RSP: 0018:ffff880235457d48  EFLAGS: 00010246
 [...]
+
 
 function graph tracer
 ---------------------------
@@ -1309,6 +1336,7 @@ This tracer is useful in several situations:
  0)   0.570 us    |        expand_files();
  0)   0.586 us    |        _spin_unlock();
 
+
 There are several columns that can be dynamically
 enabled/disabled. You can use every combination of options you
 want, depending on your needs.
@@ -1358,6 +1386,7 @@ want, depending on your needs.
   + means that the function exceeded 10 usecs.
   ! means that the function exceeded 100 usecs.
 
+
 - The task/pid field displays the thread cmdline and pid which
   executed the function. It is default disabled.
 
@@ -1379,6 +1408,7 @@ want, depending on your needs.
   0)    sh-4802     |   4.040 us    |                    }
   0)    sh-4802     |   5.151 us    |                  }
   0)    sh-4802     | + 49.370 us   |                }
+
 
 - The absolute time field is an absolute timestamp given by the
   system clock since it started. A snapshot of this time is
@@ -1406,6 +1436,7 @@ want, depending on your needs.
   360.774529 |   1)               |                                        bit_waitqueue() {
   360.774530 |   1)   0.594 us    |                                          __phys_addr();
 
+
 You can put some comments on specific functions by using
 trace_printk() For example, if you want to put a comment inside
 the __might_sleep() function, you just have to include
@@ -1418,6 +1449,7 @@ will produce:
  1)               |             __might_sleep() {
  1)               |                /* I'm a comment! */
  1)   1.449 us    |             }
+
 
 You might find other useful features for this tracer in the
 following "dynamic ftrace" section such as tracing only specific
@@ -1512,6 +1544,7 @@ To see which functions are being traced, you can cat the file:
 hrtimer_interrupt
 sys_nanosleep
 
+
 Perhaps this is not enough. The filters also allow simple wild
 cards. Only the following are currently available
 
@@ -1545,6 +1578,7 @@ Produces:
           <idle>-0     [00]  1480.612037: hrtimer_get_next_event <-get_next_timer_interrupt
           <idle>-0     [00]  1480.612382: hrtimer_get_next_event <-get_next_timer_interrupt
 
+
 Notice that we lost the sys_nanosleep.
 
  # cat set_ftrace_filter
@@ -1564,6 +1598,7 @@ hrtimer_wakeup
 hrtimer_get_remaining
 hrtimer_get_res
 hrtimer_init_sleeper
+
 
 This is because the '>' and '>>' act just like they do in bash.
 To rewrite the filters, use '>'
@@ -1601,6 +1636,7 @@ hrtimer_get_remaining
 hrtimer_get_res
 hrtimer_init_sleeper
 
+
 The set_ftrace_notrace prevents those functions from being
 traced.
 
@@ -1623,6 +1659,7 @@ Produces:
             bash-4043  [01]   115.281649: try_to_wake_up <-wake_up_process
 
 We can see that there's no more lock or preempt tracing.
+
 
 Dynamic ftrace with the function graph tracer
 ---------------------------------------------
@@ -1684,6 +1721,7 @@ this special filter via:
 
  echo > set_graph_function
 
+
 Filter commands
 ---------------
 
@@ -1724,6 +1762,7 @@ The following commands are supported:
 
    echo '!__schedule_bug:traceoff' > set_ftrace_filter
 
+
 trace_pipe
 ----------
 
@@ -1757,10 +1796,12 @@ different. The trace is live.
             bash-4043  [00] 41.267110: try_to_wake_up <-wake_up_process
             bash-4043  [00] 41.267111: select_task_rq_rt <-try_to_wake_up
 
+
 Note, reading the trace_pipe file will block until more input is
 added. By changing the tracer, trace_pipe will issue an EOF. We
 needed to set the function tracer _before_ we "cat" the
 trace_pipe file.
+
 
 trace entries
 -------------

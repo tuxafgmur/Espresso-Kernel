@@ -9,6 +9,7 @@ Datasheet:
 
 Author: Hemanth V <hemanthv@ti.com>
 
+
 Description
 -----------
 CMA3000 Tri-axis accelerometer supports Motion detect, Measurement and
@@ -81,6 +82,7 @@ Supported events:
       Min        0
       Max        1
   Event type 4 (Misc)
+
 
 Register/Platform parameters Description
 ----------------------------------------

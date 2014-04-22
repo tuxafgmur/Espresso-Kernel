@@ -19,6 +19,7 @@ Module Parameters
 			what your BIOS use). DANGEROUS! This should be a bit
 			faster, but freeze some systems (i.e. my Laptop).
 
+
 Description
 -----------
 
@@ -45,3 +46,4 @@ Mark M. Hoffman <mhoffman@lightlink.com>
 - bug fixes
 
 To anyone else which I forgot here ;), thanks!
+

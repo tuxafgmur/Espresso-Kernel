@@ -1,5 +1,6 @@
 			ACPI Debug Output
 
+
 The ACPI CA, the Linux ACPI core, and some ACPI drivers can generate debug
 output.  This document describes how to use this facility.
 

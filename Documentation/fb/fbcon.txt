@@ -260,6 +260,7 @@ Variation 2:
     a. Before detaching fbcon, do:
 	echo <ID> > /sys/class/tty/console/bind
 
+
        vbetool vbemode get
 
     b. Take note of the mode number
@@ -287,6 +288,7 @@ VGASTATE=/tmp/vgastate
 
 # path to vbetool
 VBETOOL=/usr/local/bin
+
 
 for (( i = 0; i < 16; i++))
 do

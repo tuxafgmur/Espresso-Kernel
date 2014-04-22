@@ -38,6 +38,7 @@ This document contains the following sections:
 	(15) Index and data file invalidation
 	(16) FS-Cache specific page flags.
 
+
 =============================
 NETWORK FILESYSTEM DEFINITION
 =============================
@@ -75,6 +76,7 @@ itself:
 		.name		= "afs",
 	};
 
+
 ================
 INDEX DEFINITION
 ================
@@ -108,6 +110,7 @@ There are some limits on indices:
 
  (3) The depth of the index tree should be judged with care as the search
      function is recursive.  Too many layers will run the kernel out of stack.
+
 
 =================
 OBJECT DEFINITION
@@ -268,6 +271,7 @@ This has the following fields:
 
      This function is not required for indices as they're not permitted data.
 
+
 ===================================
 NETWORK FILESYSTEM (UN)REGISTRATION
 ===================================
@@ -290,6 +294,7 @@ For kAFS, registration is done as follows:
 The last step is, of course, unregistration:
 
 	void fscache_unregister_netfs(struct fscache_netfs *netfs);
+
 
 ================
 CACHE TAG LOOKUP
@@ -315,6 +320,7 @@ Any representation so obtained must be released by passing it to this function:
 
 The tag will be retrieved by FS-Cache when it calls the object definition
 operation select_cache().
+
 
 ==================
 INDEX REGISTRATION
@@ -369,6 +375,7 @@ that index, creating another index for vnodes (AFS inode equivalents):
 				       &afs_volume_cache_index_def,
 				       volume);
 
+
 ======================
 DATA FILE REGISTRATION
 ======================
@@ -381,6 +388,7 @@ the object definition should be something other than index type.
 		fscache_acquire_cookie(volume->cache,
 				       &afs_vnode_cache_object_def,
 				       vnode);
+
 
 =================================
 MISCELLANEOUS OBJECT REGISTRATION
@@ -399,6 +407,7 @@ it would be some other type of object such as a data file.
 
 Miscellaneous objects might be used to store extended attributes or directory
 entries for example.
+
 
 ==========================
 SETTING THE DATA FILE SIZE
@@ -421,6 +430,7 @@ This operation schedules an attribute adjustment to happen asynchronously at
 some point in the future, and as such, it may happen after the function returns
 to the caller.  The attribute adjustment excludes read and write operations.
 
+
 =====================
 PAGE READ/ALLOC/WRITE
 =====================
@@ -438,6 +448,7 @@ Note:
  (3) A page should only be written to the cache if previous read or allocated.
 
 This permits the cache to maintain its page tracking in proper order.
+
 
 PAGE READ
 ---------
@@ -506,6 +517,7 @@ to store the page:
 This function may also return -ENOMEM or -EINTR, in which case it won't have
 read any data from the cache.
 
+
 PAGE ALLOCATE
 -------------
 
@@ -523,6 +535,7 @@ before writing to the cache.
 
 The mark_pages_cached() cookie operation will be called on the page if
 successful.
+
 
 PAGE WRITE
 ----------
@@ -564,6 +577,7 @@ is also possible for the PG_fscache_write bit to be cleared when no write took
 place if unforeseen circumstances arose (such as a disk error).
 
 Writing takes place asynchronously.
+
 
 MULTIPLE PAGE READ
 ------------------
@@ -607,6 +621,7 @@ Note that a return of -ENODATA, -ENOBUFS or any other error does not preclude
 some of the pages being read and some being allocated.  Those pages will have
 been marked appropriately and will need uncaching.
 
+
 ==============
 PAGE UNCACHING
 ==============
@@ -638,6 +653,7 @@ to see if a page is being written to the cache, and:
 
 to wait for it to finish if it is.
 
+
 When releasepage() is being implemented, a special FS-Cache function exists to
 manage the heuristics of coping with vmscan trying to eject pages, which may
 conflict with the cache trying to write pages to the cache (which may itself
@@ -656,6 +672,7 @@ To make a page available for release, this function may wait for an outstanding
 storage request to complete, or it may attempt to cancel the storage request -
 in which case the page will not be stored in the cache this time.
 
+
 BULK INODE PAGE UNCACHE
 -----------------------
 
@@ -670,6 +687,7 @@ This takes the netfs cookie that the pages were cached with and the inode that
 the pages are attached to.  This function will wait for pages to finish being
 written to the cache and for the cache to finish with the page generally.  No
 error is returned.
+
 
 ==========================
 INDEX AND DATA FILE UPDATE
@@ -687,6 +705,7 @@ transfer the data.
 
 Note that partial updates may happen automatically at other times, such as when
 data blocks are added to a data file object.
+
 
 ===============================
 MISCELLANEOUS COOKIE OPERATIONS
@@ -725,6 +744,7 @@ There are a number of operations that can be used to control cookies:
      Note that this doesn't pin an object in a cache; it can still be culled to
      make space if it's not in use.
 
+
 =====================
 COOKIE UNREGISTRATION
 =====================
@@ -746,6 +766,7 @@ One very important note - relinquish must NOT be called for a cookie unless all
 the cookies for "child" indices, objects and pages have been relinquished
 first.
 
+
 ================================
 INDEX AND DATA FILE INVALIDATION
 ================================
@@ -753,6 +774,7 @@ INDEX AND DATA FILE INVALIDATION
 There is no direct way to invalidate an index subtree or a data file.  To do
 this, the caller should relinquish and retire the cookie they have, and then
 acquire a new one.
+
 
 ===========================
 FS-CACHE SPECIFIC PAGE FLAG

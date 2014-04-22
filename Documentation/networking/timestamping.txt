@@ -84,6 +84,7 @@ received. hwtimetrans may be non-monotonic even for the same NIC.
 Filled in if SOF_TIMESTAMPING_SYS_HARDWARE is set. Requires support
 by the network device and will be empty without that support.
 
+
 SIOCSHWTSTAMP:
 
 Hardware time stamping must also be initialized for each device driver
@@ -150,6 +151,7 @@ enum {
 	 * the include file /include/linux/net_tstamp.h
 	 */
 };
+
 
 DEVICE IMPLEMENTATION
 

@@ -466,11 +466,11 @@ are doing anyway :)
 
 ==============================================================
 
-shmmax:
+shmmax: 
 
 This value can be used to query and set the run time limit
 on the maximum shared memory segment size that can be created.
-Shared memory segments up to 1Gb are now supported in the
+Shared memory segments up to 1Gb are now supported in the 
 kernel.  This value defaults to SHMMAX.
 
 ==============================================================
@@ -484,7 +484,7 @@ tunable to zero will disable the softlockup detection altogether.
 
 ==============================================================
 
-tainted:
+tainted: 
 
 Non-zero if the kernel has been tainted.  Numeric values, which
 can be ORed together:
@@ -554,3 +554,4 @@ parity/ECC error get propogated.
 A small number of systems do generate NMI's for bizarre random reasons such as
 power management so the default is off. That sysctl works like the existing
 panic controls already in that directory.
+

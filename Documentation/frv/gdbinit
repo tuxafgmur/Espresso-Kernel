@@ -20,6 +20,7 @@ printf "amr11: L:%08lx P:%08lx\n",__debug_mmu.damr[0xb].L,__debug_mmu.damr[0xb].
 
 end
 
+
 define _tlb
 printf "tlb[0x00]: %08lx %08lx  %08lx %08lx\n",__debug_mmu.tlb[0x0].L,__debug_mmu.tlb[0x0].P,__debug_mmu.tlb[0x40+0x0].L,__debug_mmu.tlb[0x40+0x0].P
 printf "tlb[0x01]: %08lx %08lx  %08lx %08lx\n",__debug_mmu.tlb[0x1].L,__debug_mmu.tlb[0x1].P,__debug_mmu.tlb[0x40+0x1].L,__debug_mmu.tlb[0x40+0x1].P
@@ -86,6 +87,7 @@ printf "tlb[0x3d]: %08lx %08lx  %08lx %08lx\n",__debug_mmu.tlb[0x3d].L,__debug_m
 printf "tlb[0x3e]: %08lx %08lx  %08lx %08lx\n",__debug_mmu.tlb[0x3e].L,__debug_mmu.tlb[0x3e].P,__debug_mmu.tlb[0x40+0x3e].L,__debug_mmu.tlb[0x40+0x3e].P
 printf "tlb[0x3f]: %08lx %08lx  %08lx %08lx\n",__debug_mmu.tlb[0x3f].L,__debug_mmu.tlb[0x3f].P,__debug_mmu.tlb[0x40+0x3f].L,__debug_mmu.tlb[0x40+0x3f].P
 end
+
 
 define _pgd
 p (pgd_t[0x40])*(pgd_t*)(__debug_mmu.damr[0x3].L)

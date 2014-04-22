@@ -66,6 +66,7 @@ have been preceded by at least an ADD uevent for the same fileystem,
 and unlike the other uevents is generated automatically by the kernel's
 kobject subsystem.
 
+
 Information common to all GFS2 uevents (uevent environment variables)
 ----------------------------------------------------------------------
 
@@ -94,3 +95,6 @@ numeric journal id in all GFS2 uevents.
 With recent versions of gfs2-utils, mkfs.gfs2 writes a UUID
 into the filesystem superblock. If it exists, this will
 be included in every uevent relating to the filesystem.
+
+
+

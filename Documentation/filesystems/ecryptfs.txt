@@ -24,12 +24,14 @@ Userspace requirements include:
    http://people.redhat.com/~dhowells/keyutils/
  - Libgcrypt
 
+
 NOTES
 
 In the beta/experimental releases of eCryptfs, when you upgrade
 eCryptfs, you should copy the files to an unencrypted location and
 then copy the files back into the new eCryptfs mount to migrate the
 files.
+
 
 MOUNT-WIDE PASSPHRASE
 
@@ -59,6 +61,7 @@ above.
 
 cat /mnt/crypt/hello.txt
 
+
 NOTES
 
 eCryptfs version 0.1 should only be mounted on (1) empty directories
@@ -68,6 +71,7 @@ then behavior is undefined. Do not run eCryptfs in higher verbosity
 levels unless you are doing so for the sole purpose of debugging or
 development, since secret values will be written out to the system log
 in that case.
+
 
 Mike Halcrow
 mhalcrow@us.ibm.com

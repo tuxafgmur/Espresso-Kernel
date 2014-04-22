@@ -31,6 +31,7 @@ Supported chips:
 
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
 
+
 Module Parameters
 -----------------
 
@@ -38,6 +39,7 @@ Module Parameters
   Default: 1250 (mV)
   Reference voltage on VREF_ADC pin in mV. It should not be necessary to set
   this parameter unless a non-default reference voltage is used.
+
 
 Description
 -----------
@@ -52,6 +54,7 @@ limit.
 
 Support for SMM465, SMM764, and SMM766 has been implemented but is untested.
 
+
 Usage Notes
 -----------
 
@@ -64,6 +67,7 @@ Example: the following will load the driver for an SMM665 at address 0x57
 on I2C bus #1:
 $ modprobe smm665
 $ echo smm665 0x57 > /sys/bus/i2c/devices/i2c-1/new_device
+
 
 Sysfs entries
 -------------

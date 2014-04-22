@@ -14,6 +14,7 @@ Contents
 - Known Issues
 - Support
 
+
 In This Release
 ===============
 
@@ -30,6 +31,7 @@ The following features are now available in supported kernels:
 
 Channel Bonding documentation can be found in the Linux kernel source:
 /Documentation/networking/bonding.txt
+
 
 Identifying Your Adapter
 ========================
@@ -83,6 +85,7 @@ Event Log Message Level:  The driver uses the message level flag to log events
 
    ethtool -s eth? msglvl n
 
+
 Additional Configurations
 =========================
 
@@ -117,6 +120,7 @@ Additional Configurations
   messages, set the dmesg level to eight.
 
   NOTE: This setting is not saved across reboots.
+
 
   Ethtool
   -------
@@ -162,6 +166,7 @@ Additional Configurations
   (2) installing the interfaces in separate broadcast domains (either
       in different switches or in a switch partitioned to VLANs).
 
+
 Support
 =======
 
@@ -176,6 +181,7 @@ For general information, go to the Intel support website at:
 If an issue is identified with the released source code on the supported
 kernel with a supported adapter, email the specific information related to the
 issue to e1000-devel@lists.sourceforge.net.
+
 
 License
 =======

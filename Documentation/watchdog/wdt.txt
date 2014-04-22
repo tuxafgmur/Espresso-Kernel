@@ -46,4 +46,5 @@ Overheat           X               o
 The external event interfaces on the WDT boards are not currently supported.
 Minor numbers are however allocated for it.
 
+
 Example Watchdog Driver:  see Documentation/watchdog/src/watchdog-simple.c

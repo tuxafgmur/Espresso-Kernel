@@ -19,6 +19,7 @@ duce the overhead to a minimum. It does not depend on any (other)
 network driver, and can be used on wifi as well as ethernet  lan,
 vpn,  etc ... (anything with ethernet-style layer 2).
 
+
 CONFIGURATION
 -------------
 
@@ -62,6 +63,7 @@ To deactivate an interface you have  to  write  "none"  into  its
 
 # echo none > /sys/class/net/eth0/batman_adv/mesh_iface
 
+
 All  mesh  wide  settings  can be found in batman's own interface
 folder:
 
@@ -70,11 +72,13 @@ folder:
 #  bonding          gw_mode       orig_interval
 #  fragmentation    gw_sel_class  vis_mode
 
+
 There is a special folder for debugging information:
 
 #  ls /sys/kernel/debug/batman_adv/bat0/
 #  gateways     socket        transtable_global  vis_data
 #  originators  softif_neigh  transtable_local
+
 
 Some of the files contain all sort of status information  regard-
 ing  the  mesh  network.  For  example, you can view the table of
@@ -98,6 +102,7 @@ In very mobile scenarios, you might want to adjust the originator
 interval to a lower value. This will make the mesh  more  respon-
 sive to topology changes, but will also increase the overhead.
 
+
 USAGE
 -----
 
@@ -120,6 +125,7 @@ Note:  In  order to avoid problems remove all IP addresses previ-
 ously assigned to interfaces now used by batman advanced, e.g.
 
 # ifconfig eth0 0.0.0.0
+
 
 VISUALIZATION
 -------------
@@ -165,6 +171,7 @@ The TT entries are showing which hosts are connected to the mesh
 via bat0 or being bridged into the mesh network.  The PRIMARY/SEC
 values are only applied on primary interfaces
 
+
 LOGGING/DEBUGGING
 -----------------
 
@@ -203,6 +210,7 @@ The debug output can be changed at runtime  using  the  file
 
 will enable debug messages for when routes or TTs change.
 
+
 BATCTL
 ------
 
@@ -216,6 +224,7 @@ interfaces to the kernel module settings.
 For more information, please see the manpage (man batctl).
 
 batctl is available on http://www.open-mesh.org/
+
 
 CONTACT
 -------

@@ -1,11 +1,15 @@
+
 			Low Level Serial API
 			--------------------
+
 
 This document is meant as a brief overview of some aspects of the new serial
 driver.  It is not complete, any questions you have should be directed to
 <rmk@arm.linux.org.uk>
 
 The reference implementation is contained within amba_pl011.c.
+
+
 
 Low Level Serial Hardware Driver
 --------------------------------
@@ -15,6 +19,7 @@ information (defined by uart_port) and a set of control methods (defined
 by uart_ops) to the core serial driver.  The low level driver is also
 responsible for handling interrupts for the port, and providing any
 console support.
+
 
 Console Support
 ---------------
@@ -27,6 +32,7 @@ There is also a helper function (uart_write_console) which performs a
 character by character write, translating newlines to CRLF sequences.
 Driver writers are recommended to use this function rather than implementing
 their own version.
+
 
 Locking
 -------
@@ -54,6 +60,7 @@ access to the info->tmpbuf bouncebuffer used for port writes.
 
 The port_sem semaphore is used to protect against ports being added/
 removed or reconfigured at inappropriate times.
+
 
 uart_ops
 --------

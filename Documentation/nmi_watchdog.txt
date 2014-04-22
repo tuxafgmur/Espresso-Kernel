@@ -1,3 +1,4 @@
+
 [NMI watchdog is available for x86 and x86-64 architectures]
 
 Is your system locking up unpredictably? No keyboard activity, just
@@ -79,3 +80,4 @@ on x86 SMP boxes.
 [ feel free to send bug reports, suggestions and patches to
   Ingo Molnar <mingo@redhat.com> or the Linux SMP mailing
   list at <linux-smp@vger.kernel.org> ]
+

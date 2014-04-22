@@ -3,6 +3,7 @@ Driver for I2C radios for the Silicon Labs Si4713 FM Radio Transmitters
 Copyright (c) 2009 Nokia Corporation
 Contact: Eduardo Valentin <eduardo.valentin@nokia.com>
 
+
 Information about the Device
 ============================
 This chip is a Silicon Labs product. It is a I2C device, currently on 0x63 address.
@@ -172,3 +173,4 @@ The tool can be found in v4l-dvb repository under v4l2-apps/util directory.
 
 Example for setting rds ps name:
 # v4l2-ctl -d /dev/radio0 --set-ctrl=rds_ps_name="Dummy"
+

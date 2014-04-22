@@ -1,10 +1,12 @@
 CONFIG_RCU_TRACE debugfs Files and Formats
 
+
 The rcutree and rcutiny implementations of RCU provide debugfs trace
 output that summarizes counters and state.  This information is useful for
 debugging RCU itself, and can sometimes also help to debug abuses of RCU.
 The following sections describe the debugfs files and formats, first
 for rcutree and next for rcutiny.
+
 
 CONFIG_TREE_RCU and CONFIG_TREE_PREEMPT_RCU debugfs Files and Formats
 
@@ -205,6 +207,7 @@ o	"ca" is the number of RCU callbacks that have been adopted due to
 There is also an rcu/rcudata.csv file with the same information in
 comma-separated-variable spreadsheet format.
 
+
 The output of "cat rcu/rcugp" looks as follows:
 
 rcu_sched: completed=33062  gpnum=33063
@@ -229,6 +232,7 @@ o	"gpnum" is the number of grace periods that have started.  It is
 	then there is no grace period in progress, in other words, RCU
 	is idle.  On the other hand, if the two fields differ (as they
 	do for "rcu_sched" above), then an RCU grace period is in progress.
+
 
 The output of "cat rcu/rcuhier" looks as follows, with very long lines:
 
@@ -329,6 +333,7 @@ o	Each element of the form "1/1 0:127 ^0" represents one struct
 		"^0", indicating that it corresponds to bit zero in
 		the first entry at the middle level.
 
+
 The output of "cat rcu/rcu_pending" looks as follows:
 
 rcu_sched:
@@ -392,6 +397,7 @@ o	"nn" is the number of times that this CPU needed nothing.  Alert
 	closely matches the rcu_bh "np" number for that same CPU.  This
 	is due to short-circuit evaluation in rcu_pending().
 
+
 The output of "cat rcu/rcutorture" looks as follows:
 
 rcutorture test sequence: 0 (test in progress)
@@ -402,6 +408,7 @@ since boot.  If a test is currently running, the "(test in progress)"
 string will appear as shown above.  The second line shows the number of
 update cycles that the current test has started, or zero if there is
 no test in progress.
+
 
 The output of "cat rcu/rcuboost" looks as follows:
 
@@ -496,6 +503,7 @@ o	"ny" counts the number of times we balked because it was
 
 o	"nos" counts the number of times we balked for other
 	reasons, e.g., the grace period ended first.
+
 
 CONFIG_TINY_RCU and CONFIG_TINY_PREEMPT_RCU debugfs Files and Formats
 

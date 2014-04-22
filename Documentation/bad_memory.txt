@@ -1,6 +1,7 @@
 March 2008
 Jan-Simon Moeller, dl9pf@gmx.de
 
+
 How to deal with bad memory e.g. reported by memtest86+ ?
 #########################################################
 
@@ -14,6 +15,7 @@ There are three possibilities I know of:
 3) Use BadRAM or memmap
 
 This Howto is about number 3) .
+
 
 BadRAM
 ######
@@ -40,3 +42,4 @@ With the numbers of the example above:
 memmap=64K$0x18690000
  or
 memmap=0x10000$0x18690000
+

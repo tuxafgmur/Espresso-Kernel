@@ -6,6 +6,7 @@ To use it, enable NETFILTER_TPROXY, the socket match and the TPROXY target in
 your kernel config. You will need policy routing too, so be sure to enable that
 as well.
 
+
 1. Making non-local sockets work
 ================================
 
@@ -39,6 +40,7 @@ bind(fd, &name, sizeof(name));
 A trivial patch for netcat is available here:
 http://people.netfilter.org/hidden/tproxy/netcat-ip_transparent-support.patch
 
+
 2. Redirecting traffic
 ======================
 
@@ -59,12 +61,14 @@ add rules like this to the iptables ruleset above:
 Note that for this to work you'll have to modify the proxy to enable (SOL_IP,
 IP_TRANSPARENT) for the listening socket.
 
+
 3. Iptables extensions
 ======================
 
 To use tproxy you'll need to have the 'socket' and 'TPROXY' modules
 compiled for iptables. A patched version of iptables is available
 here: http://git.balabit.hu/?p=bazsi/iptables-tproxy.git
+
 
 4. Application support
 ======================

@@ -365,6 +365,7 @@ maps this page at its virtual address.
 	architectures.  On incoherent architectures, this should flush
 	the kernel cache for page (using page_address(page)).
 
+
   void flush_icache_range(unsigned long start, unsigned long end)
   	When the kernel stores into addresses that it will execute
 	out of (eg when loading modules), this function is called.

@@ -1,3 +1,4 @@
+
         VIA Integration Graphic Chip Console Framebuffer Driver
 
 [Platform]
@@ -174,6 +175,7 @@ Notes:
        instead of calling common ioctl function FBIOPUT_VSCREENINFO since
        viafb doesn't support multi-head well, or it will cause screen crush.
 
+
 [Configure viafb with "fbset" tool]
 -----------------------------------
     "fbset" is an inbox utility of Linux.
@@ -194,6 +196,7 @@ Notes:
 
        example,
            # fbset -depth 16
+
 
 [Configure viafb via /proc]
 ---------------------------
@@ -241,7 +244,9 @@ Notes:
         Replace all iga1 output devices by CRT
         # echo CRT > /proc/viafb/iga1/output_devices
 
+
 [Bootup with viafb]:
 --------------------
     Add the following line to your grub.conf:
     append = "video=viafb:viafb_mode=1024x768,viafb_bpp=32,viafb_refresh=85"
+

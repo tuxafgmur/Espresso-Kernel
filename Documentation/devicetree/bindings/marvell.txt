@@ -95,6 +95,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     };
      };
 
+
    b) Marvell Discovery ethernet controller
 
    The Discover ethernet controller is described with two levels
@@ -150,6 +151,8 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     local-mac-address = [ 00 00 00 00 00 00 ];
      };
 
+
+
    c) Marvell Discovery PHY nodes
 
    Required properties:
@@ -167,6 +170,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-parent = <&PIC>;
 	     reg = <1>;
      };
+
 
    d) Marvell Discovery SDMA nodes
 
@@ -189,6 +193,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupts = <36>;
 	     interrupt-parent = <&PIC>;
      };
+
 
    e) Marvell Discovery BRG nodes
 
@@ -216,6 +221,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     current-speed = <9600>;
      };
 
+
    f) Marvell Discovery CUNIT nodes
 
    Represent the Serial Communications Unit device hardware.
@@ -227,6 +233,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
      cunit@f200 {
 	     reg = <0xf200 0x200>;
      };
+
 
    g) Marvell Discovery MPSCROUTING nodes
 
@@ -240,6 +247,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     reg = <0xb400 0xc>;
      };
 
+
    h) Marvell Discovery MPSCINTR nodes
 
    Represent the Discovery's MPSC DMA interrupt hardware registers
@@ -252,6 +260,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
      mpsintr@b800 {
 	     reg = <0xb800 0x100>;
      };
+
 
    i) Marvell Discovery MPSC nodes
 
@@ -291,6 +300,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-parent = <&PIC>;
      };
 
+
    j) Marvell Discovery Watch Dog Timer nodes
 
    Represent the Discovery's watchdog timer hardware
@@ -304,6 +314,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     compatible = "marvell,mv64360-wdt";
 	     reg = <0xb410 0x8>;
      };
+
 
    k) Marvell Discovery I2C nodes
 
@@ -325,6 +336,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-parent = <&PIC>;
      };
 
+
    l) Marvell Discovery PIC (Programmable Interrupt Controller) nodes
 
    Represent the Discovery's PIC hardware
@@ -345,6 +357,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-controller;
      };
 
+
    m) Marvell Discovery MPP (Multipurpose Pins) multiplexing nodes
 
    Represent the Discovery's MPP hardware
@@ -359,6 +372,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     reg = <0xf000 0x10>;
      };
 
+
    n) Marvell Discovery GPP (General Purpose Pins) nodes
 
    Represent the Discovery's GPP hardware
@@ -372,6 +386,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     compatible = "marvell,mv64360-gpp";
 	     reg = <0xf100 0x20>;
      };
+
 
    o) Marvell Discovery PCI host bridge node
 
@@ -423,6 +438,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     >;
      };
 
+
    p) Marvell Discovery CPU Error nodes
 
    Represent the Discovery's CPU error handler device.
@@ -441,6 +457,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupts = <3>;
 	     interrupt-parent = <&PIC>;
      };
+
 
    q) Marvell Discovery SRAM Controller nodes
 
@@ -461,6 +478,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-parent = <&PIC>;
      };
 
+
    r) Marvell Discovery PCI Error Handler nodes
 
    Represent the Discovery's PCI error handler device.
@@ -480,6 +498,7 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupt-parent = <&PIC>;
      };
 
+
    s) Marvell Discovery Memory Controller nodes
 
    Represent the Discovery's memory controller device.
@@ -498,3 +517,5 @@ prefixed with the string "marvell,", for Marvell Technology Group Ltd.
 	     interrupts = <17>;
 	     interrupt-parent = <&PIC>;
      };
+
+

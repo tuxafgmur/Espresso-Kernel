@@ -11,6 +11,7 @@ information you need to know on them from:
 
 This document gives an overview and warns on some corner cases.
 
+
 Structure of the header
 -----------------------
 
@@ -32,6 +33,7 @@ forward 4 bytes each time.
 
 Note also that the it_len member __le16 is set to the total number of bytes
 covered by the ieee80211_radiotap_header and any arguments following.
+
 
 Requirements for arguments
 --------------------------
@@ -70,6 +72,7 @@ ieee80211_radiotap_header.
    consisting of two u16s of total length 4.  When this happens, the padding
    rule is applied dealing with a u16, NOT dealing with a 4-byte single entity.
 
+
 Example valid radiotap header
 -----------------------------
 
@@ -79,6 +82,7 @@ Example valid radiotap header
 	0x6c, // <-- rate (in 500kHz units)
 	0x0c, //<-- tx power
 	0x01 //<-- antenna
+
 
 Using the Radiotap Parser
 -------------------------

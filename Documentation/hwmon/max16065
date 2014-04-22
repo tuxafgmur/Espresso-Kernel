@@ -23,7 +23,9 @@ Supported chips:
     Datasheet:
 	http://datasheets.maxim-ic.com/en/ds/MAX16070-MAX16071.pdf
 
+
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
+
 
 Description
 -----------
@@ -51,6 +53,7 @@ MAX16066, MAX16070, and MAX16071 support an additional limit which is
 configurable as either low or high secondary limit. MAX16065, MAX16066,
 MAX16070, and MAX16071 also support supply current monitoring.
 
+
 Usage Notes
 -----------
 
@@ -58,6 +61,7 @@ This driver does not probe for devices, since there is no register which
 can be safely used to identify the chip. You will have to instantiate
 the devices explicitly. Please see Documentation/i2c/instantiating-devices for
 details.
+
 
 Sysfs entries
 -------------

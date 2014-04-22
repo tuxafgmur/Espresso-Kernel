@@ -26,6 +26,7 @@ unable to test against these cards:
 	* IDA-2
 	* IAES
 
+
 EISA Controllers:
 -----------------
 
@@ -43,6 +44,7 @@ If you were loading the driver as a module, you'd give load it like this:
 	modprobe cpqarray eisa=0x1000,0x2000
 
 You can use EISA and PCI adapters at the same time.
+
 
 Device Naming:
 --------------
@@ -80,10 +82,12 @@ The device naming scheme is:
 /dev/ida/c1d1p2		Controller 1, disk 1, partition 2
 /dev/ida/c1d1p3		Controller 1, disk 1, partition 3
 
+
 Changelog:
 ==========
 
 10-28-2004 :	General cleanup, syntax fixes for in-kernel driver version.
 		James Nelson <james4765@gmail.com>
+
 
 1999 :		Original Document

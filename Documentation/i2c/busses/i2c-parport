@@ -1,6 +1,6 @@
 Kernel driver i2c-parport
 
-Author: Jean Delvare <khali@linux-fr.org>
+Author: Jean Delvare <khali@linux-fr.org> 
 
 This is a unified driver for several i2c-over-parallel-port adapters,
 such as the ones made by Philips, Velleman or ELV. This driver is
@@ -31,6 +31,7 @@ parameter is missing, the driver will simply fail to initialize.
 
 SMBus alert support is available on adapters which have this line properly
 connected to the parallel port's interrupt pin.
+
 
 Building your own adapter
 -------------------------
@@ -64,10 +65,10 @@ SDA  ----------x----x---| o---x---------------------------  pin 13
                                      |R|  |R|
                                      | |  | |
                                      ---  ---
-                                      |    |
+                                      |    | 
                                      ###  ###
                                      GND  GND
-
+        
 Remarks:
  - This is the exact pinout and electronics used on the Analog Devices
    evaluation boards.
@@ -82,11 +83,12 @@ Remarks:
    all connected lines MUST BE driven at the same state, else you'll short
    circuit the output buffers! So plugging the I2C adapter after loading
    the i2c-parport module might be a good safety since data line state
-   prior to init may be unknown.
+   prior to init may be unknown. 
  - This is 5V!
  - Obviously you cannot read SCL (so it's not really standard-compliant).
    Pretty easy to add, just copy the SDA part and use another input pin.
    That would give (ELV compatible pinout):
+
 
 Device                                                      PC
 Side          ______________________________Vdd (+)         Side
@@ -99,7 +101,7 @@ Side          ______________________________Vdd (+)         Side
                |    |            |    |
                |    |      |\    |    |
 SCL  ----------x--------x--| o---x------------------------  pin 15
-                    |   |  |/         |
+                    |   |  |/         | 
                     |   |             |
                     |   |   /|        |
                     |   ---o |-------------x--------------  pin 2
@@ -119,12 +121,14 @@ SDA  ---------------x---x--| o--------x-------------------  pin 10
                                           |R|  |R|
                                           | |  | |
                                           ---  ---
-                                           |    |
+                                           |    | 
                                           ###  ###
                                           GND  GND
 
+
 If possible, you should use the same pinout configuration as existing
 adapters do, so you won't even have to change the code.
+
 
 Similar (but different) drivers
 -------------------------------
@@ -138,6 +142,7 @@ This driver is also NOT the same as the i2c-pcf-epp driver found in the
 lm_sensors package. The i2c-pcf-epp driver doesn't use the parallel port as
 an I2C bus directly. Instead, it uses it to control an external I2C bus
 master. That driver was not ported to Linux 2.6 (yet) either.
+
 
 Legacy documentation for Velleman adapter
 -----------------------------------------
@@ -156,6 +161,7 @@ many more, using /dev/velleman.
   http://home.wanadoo.nl/hihihi/libk8005.htm
   http://struyve.mine.nu:8080/index.php?block=k8000
   http://sourceforge.net/projects/libk8005/
+
 
 One For All JP1 parallel port adapter
 -------------------------------------

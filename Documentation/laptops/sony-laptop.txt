@@ -29,6 +29,7 @@ brightness:
 				to get real brightness value
 	max_brightness		the maximum brightness value
 
+
 Platform specific:
 ------------------
 Loading the sony-laptop module will create a
@@ -64,6 +65,7 @@ powers off the sound card,
 	# echo "1" > /sys/devices/platform/sony-laptop/audiopower
 powers on the sound card.
 
+
 RFkill control:
 ---------------
 More recent Vaio models expose a consistent set of ACPI methods to
@@ -71,6 +73,7 @@ control radio frequency emitting devices. If you are a lucky owner of
 such a laptop you will find the necessary rfkill devices under
 /sys/class/rfkill. Check those starting with sony-* in
 	# grep . /sys/class/rfkill/*/{state,name}
+
 
 Development:
 ------------

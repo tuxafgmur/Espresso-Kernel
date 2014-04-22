@@ -1,3 +1,4 @@
+
 	Real Time Clock (RTC) Drivers for Linux
 	=======================================
 
@@ -29,6 +30,7 @@ same functionality.  For example, not every RTC is hooked up to an
 IRQ, so they can't all issue alarms; and where standard PC RTCs can
 only issue an alarm up to 24 hours in the future, other hardware may
 be able to schedule one any time in the upcoming century.
+
 
 	Old PC/AT-Compatible driver:  /dev/rtc
 	--------------------------------------
@@ -84,9 +86,9 @@ a different value to /proc/sys/dev/rtc/max-user-freq. Note that the
 interrupt handler is only a few lines of code to minimize any possibility
 of this effect.
 
-Also, if the kernel time is synchronized with an external source, the
-kernel will write the time back to the CMOS clock every 11 minutes. In
-the process of doing this, the kernel briefly turns off RTC periodic
+Also, if the kernel time is synchronized with an external source, the 
+kernel will write the time back to the CMOS clock every 11 minutes. In 
+the process of doing this, the kernel briefly turns off RTC periodic 
 interrupts, so be aware of this if you are doing serious work. If you
 don't synchronize the kernel time with an external source (via ntp or
 whatever) then the kernel will keep its hands off the RTC, allowing you
@@ -101,6 +103,7 @@ probably a lot more useful to people interested in writing applications
 that will be using this driver.  See the code at the end of this document.
 
 (The original /dev/rtc driver was written by Paul Gortmaker.)
+
 
 	New portable "RTC Class" drivers:  /dev/rtcN
 	--------------------------------------------
@@ -201,6 +204,7 @@ Some common examples:
 
 If all else fails, check out the rtc-test.c driver!
 
+
 -------------------- 8< ---------------- 8< -----------------------------
 
 /*
@@ -226,12 +230,14 @@ If all else fails, check out the rtc-test.c driver!
 #include <stdlib.h>
 #include <errno.h>
 
+
 /*
  * This expects the new RTC class driver framework, working with
  * clocks that will often not be clones of what the PC-AT had.
  * Use the command line to specify another RTC if you need one.
  */
 static const char default_rtc[] = "/dev/rtc0";
+
 
 int main(int argc, char **argv)
 {

@@ -666,6 +666,7 @@ http://www.redhat.com/magazine/005mar05/features/kprobes/
 http://www-users.cs.umn.edu/~boutcher/kprobes/
 http://www.linuxsymposium.org/2006/linuxsymposium_procv2.pdf (pages 101-115)
 
+
 Appendix A: The kprobes debugfs interface
 
 With recent kernels (> 2.6.20) the list of registered kprobes is visible
@@ -697,6 +698,7 @@ file. Note that this knob just disarms and arms all kprobes and doesn't
 change each probe's disabling state. This means that disabled kprobes (marked
 [DISABLED]) will be not enabled if you turn ON all kprobes by this knob.
 
+
 Appendix B: The kprobes sysctl interface
 
 /proc/sys/debug/kprobes-optimization: Turn kprobes optimization ON/OFF.
@@ -710,3 +712,4 @@ probes registered after that will not be optimized.  Note that this
 knob *changes* the optimized state. This means that optimized probes
 (marked [OPTIMIZED]) will be unoptimized ([OPTIMIZED] tag will be
 removed). If the knob is turned on, they will be optimized again.
+

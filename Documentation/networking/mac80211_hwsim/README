@@ -5,6 +5,7 @@ This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 2 as
 published by the Free Software Foundation.
 
+
 Introduction
 
 mac80211_hwsim is a Linux kernel module that can be used to simulate
@@ -40,6 +41,7 @@ A global monitoring netdev, hwsim#, is created independent of
 mac80211. This interface can be used to monitor all transmitted frames
 regardless of channel.
 
+
 Simple example
 
 This example shows how to use mac80211_hwsim to simulate two radios:
@@ -47,6 +49,7 @@ one to act as an access point and the other as a station that
 associates with the AP. hostapd and wpa_supplicant are used to take
 care of WPA2-PSK authentication. In addition, hostapd is also
 processing access point side of association.
+
 
 # Build mac80211_hwsim as part of kernel configuration
 
@@ -58,6 +61,7 @@ hostapd hostapd.conf
 
 # Run wpa_supplicant (station) for wlan1
 wpa_supplicant -Dwext -iwlan1 -c wpa_supplicant.conf
+
 
 More test cases are available in hostap.git:
 git://w1.fi/srv/git/hostap.git and mac80211_hwsim/tests subdirectory

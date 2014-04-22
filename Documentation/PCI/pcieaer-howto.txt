@@ -3,6 +3,7 @@
 		Yanmin Zhang	<yanmin.zhang@intel.com>
 				07/29/2006
 
+
 1. Overview
 
 1.1 About this guide
@@ -35,6 +36,7 @@ driver provides three basic functions:
 
 AER driver only attaches root ports which support PCI-Express AER
 capability.
+
 
 2. User Guide
 
@@ -78,6 +80,7 @@ Below shows an example:
 In the example, 'Requester ID' means the ID of the device who sends
 the error message to root port. Pls. refer to pci express specs for
 other fields.
+
 
 3. Developer Guide
 
@@ -243,6 +246,7 @@ with the PCI Express AER Root driver?
 
 A: It could call the helper functions to enable AER in devices and
 cleanup uncorrectable status register. Pls. refer to section 3.3.
+
 
 4. Software error injection
 

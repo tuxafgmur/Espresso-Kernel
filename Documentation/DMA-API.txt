@@ -18,6 +18,7 @@ Part I - dma_ API
 
 To get the dma_ API, you must #include <linux/dma-mapping.h>
 
+
 Part Ia - Using large dma-coherent buffers
 ------------------------------------------
 
@@ -61,6 +62,7 @@ the consistent allocate.
 Note that unlike their sibling allocation calls, these routines
 may only be called with IRQs enabled.
 
+
 Part Ib - Using small dma-coherent buffers
 ------------------------------------------
 
@@ -72,6 +74,7 @@ or more using dma_alloc_coherent(), you can use DMA pools.  These work
 much like a struct kmem_cache, except that they use the dma-coherent allocator,
 not __get_free_pages().  Also, they understand common hardware constraints
 for alignment, like queue heads needing to be aligned on N-byte boundaries.
+
 
 	struct dma_pool *
 	dma_pool_create(const char *name, struct device *dev,
@@ -88,6 +91,7 @@ in bytes, and must be a power of two).  If your device has no boundary
 crossing restrictions, pass 0 for alloc; passing 4096 says memory allocated
 from this pool must not cross 4KByte boundaries.
 
+
 	void *dma_pool_alloc(struct dma_pool *pool, gfp_t gfp_flags,
 			dma_addr_t *dma_handle);
 
@@ -98,6 +102,7 @@ pass GFP_KERNEL to allow blocking.  Like dma_alloc_coherent(), this returns
 two values:  an address usable by the cpu, and the dma address usable by the
 pool's device.
 
+
 	void dma_pool_free(struct dma_pool *pool, void *vaddr,
 			dma_addr_t addr);
 
@@ -105,11 +110,13 @@ This puts memory back into the pool.  The pool is what was passed to
 the pool allocation routine; the cpu (vaddr) and dma addresses are what
 were returned when that routine allocated the memory being freed.
 
+
 	void dma_pool_destroy(struct dma_pool *pool);
 
 The pool destroy() routines free the resources of the pool.  They must be
 called in a context which can sleep.  Make sure you've freed all allocated
 memory back to the pool before you destroy it.
+
 
 Part Ic - DMA addressing limitations
 ------------------------------------
@@ -155,6 +162,7 @@ opportunity to use smaller descriptors as necessary.
 Requesting the required mask does not alter the current mask.  If you
 wish to take advantage of it, you should issue a dma_set_mask()
 call to set the mask to the value returned.
+
 
 Part Id - Streaming DMA mappings
 --------------------------------
@@ -409,6 +417,7 @@ void whizco_dma_map_sg_attrs(struct device *dev, dma_addr_t dma_addr,
 		/* twizzle the frobnozzle */
 	....
 
+
 Part II - Advanced dma_ usage
 -----------------------------
 
@@ -499,7 +508,7 @@ DMA_MEMORY_INCLUDES_CHILDREN - make the declared memory be allocated by
 dma_alloc_coherent of any child devices of this one (for memory residing
 on a bridge).
 
-DMA_MEMORY_EXCLUSIVE - only allocate memory from the declared regions.
+DMA_MEMORY_EXCLUSIVE - only allocate memory from the declared regions. 
 Do not allow dma_alloc_coherent() to fall back to system memory when
 it's out of memory in the declared region.
 

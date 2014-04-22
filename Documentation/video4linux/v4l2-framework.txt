@@ -4,6 +4,7 @@ Overview of the V4L2 driver framework
 This text documents the various structures provided by the V4L2 framework and
 their relationships.
 
+
 Introduction
 ------------
 
@@ -33,6 +34,7 @@ So this framework sets up the basic building blocks that all drivers
 need and this same framework should make it much easier to refactor
 common code into utility functions shared by all drivers.
 
+
 Structure of a driver
 ---------------------
 
@@ -59,6 +61,7 @@ This is a rough schematic of how it all relates:
 	  |
 	  \-filehandle instances
 
+
 Structure of the framework
 --------------------------
 
@@ -71,6 +74,7 @@ and in the future a v4l2_fh struct will keep track of filehandle instances
 The V4L2 framework also optionally integrates with the media framework. If a
 driver sets the struct v4l2_device mdev field, sub-devices and video nodes
 will automatically appear in the media framework as entities.
+
 
 struct v4l2_device
 ------------------
@@ -366,6 +370,7 @@ contain several subdevs that use an I2C bus, but also a subdev that is
 controlled through GPIO pins. This distinction is only relevant when setting
 up the device, but once the subdev is registered it is completely transparent.
 
+
 V4L2 sub-device userspace API
 -----------------------------
 
@@ -420,6 +425,7 @@ Private ioctls
 	All ioctls not in the above list are passed directly to the sub-device
 	driver through the core::ioctl operation.
 
+
 I2C sub-device drivers
 ----------------------
 
@@ -471,6 +477,7 @@ the remove() callbacks are called of the i2c devices on that adapter.
 After that the corresponding v4l2_subdev structures are invalid, so they
 have to be unregistered first. Calling v4l2_device_unregister_subdev(sd)
 from the remove() callback ensures that this is always done correctly.
+
 
 The bridge driver also has some helper functions it can use:
 
@@ -684,6 +691,7 @@ video_device was embedded in it. The vdev->release() callback will never
 be called if the registration failed, nor should you ever attempt to
 unregister the device if the registration failed.
 
+
 video_device cleanup
 --------------------
 
@@ -710,6 +718,7 @@ it has been initialized:
 	media_entity_cleanup(&vdev->entity);
 
 This can be done from the release callback.
+
 
 video_device helper functions
 -----------------------------
@@ -749,6 +758,7 @@ const char *video_device_node_name(struct video_device *vdev);
 The name is used as a hint by userspace tools such as udev. The function
 should be used where possible instead of accessing the video_device::num and
 video_device::minor fields.
+
 
 video buffer helper functions
 -----------------------------
@@ -854,6 +864,7 @@ void v4l2_fh_exit(struct v4l2_fh *fh)
   Uninitialise the file handle. After uninitialisation the v4l2_fh
   memory can be freed.
 
+
 If struct v4l2_fh is not embedded, then you can use these helper functions:
 
 int v4l2_fh_open(struct file *filp)
@@ -869,6 +880,7 @@ int v4l2_fh_release(struct file *filp)
 These two functions can be plugged into the v4l2_file_operation's open() and
 release() ops.
 
+
 Several drivers need to do something when the first file handle is opened and
 when the last file handle closes. Two helper functions were added to check
 whether the v4l2_fh struct is the only open filehandle of the associated
@@ -881,6 +893,7 @@ int v4l2_fh_is_singular(struct v4l2_fh *fh)
 int v4l2_fh_is_singular_file(struct file *filp)
 
   Same, but it calls v4l2_fh_is_singular with filp->private_data.
+
 
 V4L2 events
 -----------

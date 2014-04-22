@@ -16,6 +16,7 @@ Contents:
 
  (*) Asynchronous callback.
 
+
 ========
 OVERVIEW
 ========
@@ -30,6 +31,7 @@ and FS-Cache will create operations and pass them off to the appropriate cache
 backend for completion.
 
 To make use of this facility, <linux/fscache-cache.h> should be #included.
+
 
 ===============================
 OPERATION RECORD INITIALISATION
@@ -64,6 +66,7 @@ appropriate for the CPU time provision (see the Parameters section).
 FSCACHE_OP_WAITING may be set in op->flags prior to each submission of the
 operation and waited for afterwards.
 
+
 ==========
 PARAMETERS
 ==========
@@ -89,6 +92,7 @@ operations:
 		wait_on_bit(&op->flags, FSCACHE_OP_WAITING,
 			    fscache_wait_bit, TASK_UNINTERRUPTIBLE);
 
+
  (2) The operation may be fast asynchronous (FSCACHE_OP_FAST), in which case it
      will be given to keventd to process.  Such an operation is not permitted
      to sleep on I/O.
@@ -100,6 +104,7 @@ operations:
      initialised before submitting the operation:
 
 		INIT_WORK(&op->fast_work, do_some_work);
+
 
  (3) The operation may be slow asynchronous (FSCACHE_OP_SLOW), in which case it
      will be given to the slow work facility to process.  Such an operation is
@@ -113,6 +118,7 @@ operations:
 
 		fscache_operation_init_slow(op, processor)
 
+
 Furthermore, operations may be one of two types:
 
  (1) Exclusive (FSCACHE_OP_EXCLUSIVE).  Operations of this type may not run in
@@ -124,6 +130,7 @@ Furthermore, operations may be one of two types:
  (2) Shareable.  Operations of this type may be running simultaneously.  It's
      up to the operation implementation to prevent interference between other
      operations running at the same time.
+
 
 =========
 PROCEDURE
@@ -183,6 +190,7 @@ Operations are used through the following procedure:
 
      This can be used to allow other things to have use of the worker thread
      pools.
+
 
 =====================
 ASYNCHRONOUS CALLBACK

@@ -1,3 +1,5 @@
+
+
 		Supporting multiple CPU idle levels in kernel
 
 				cpuidle sysfs
@@ -16,6 +18,7 @@ following objects are visible instead.
 * current_governor
 In this case users can switch the governor at run time by writing
 to current_governor.
+
 
 Per logical CPU specific cpuidle information are under
 /sys/devices/system/cpu/cpuX/cpuidle
@@ -66,6 +69,7 @@ total 0
 -r--r--r-- 1 root root 4096 Feb  8 10:42 time
 -r--r--r-- 1 root root 4096 Feb  8 10:42 usage
 --------------------------------------------------------------------------------
+
 
 * desc : Small description about the idle state (string)
 * latency : Latency to exit out of this idle state (in microseconds)

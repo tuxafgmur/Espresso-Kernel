@@ -5,6 +5,7 @@ to start learning about RCU:
 2.	What is RCU? Part 2: Usage   http://lwn.net/Articles/263130/
 3.	RCU part 3: the RCU API      http://lwn.net/Articles/264090/
 
+
 What is RCU?
 
 RCU is a synchronization mechanism that was added to the Linux kernel
@@ -41,6 +42,7 @@ preferred method of learning.  If you need to know everything about
 everything, feel free to read the whole thing -- but if you are really
 that type of person, you have perused the source code and will therefore
 never need this document anyway.  ;-)
+
 
 1.  RCU OVERVIEW
 
@@ -107,6 +109,7 @@ and reclaimers, namely, in step (b) above.
 So how the heck can a reclaimer tell when a reader is done, given
 that readers are not doing any sort of synchronization operations???
 Read on to learn about how RCU's API makes this easy.
+
 
 2.  WHAT IS RCU'S CORE API?
 
@@ -284,6 +287,7 @@ rcu_dereference()
 The following diagram shows how each API communicates among the
 reader, updater, and reclaimer.
 
+
 	    rcu_assign_pointer()
 	    			    +--------+
 	    +---------------------->| reader |---------+
@@ -301,6 +305,7 @@ reader, updater, and reclaimer.
 	    				         +-----------+
 	      Defer:
 	      synchronize_rcu() & call_rcu()
+
 
 The RCU infrastructure observes the time sequence of rcu_read_lock(),
 rcu_read_unlock(), synchronize_rcu(), and call_rcu() invocations in
@@ -341,6 +346,7 @@ c.	RCU applied to scheduler and interrupt/NMI-handler tasks.
 
 Again, most uses will be of (a).  The (b) and (c) cases are important
 for specialized uses, but are relatively uncommon.
+
 
 3.  WHAT ARE SOME EXAMPLE USES OF CORE RCU API?
 
@@ -431,6 +437,7 @@ See checklist.txt for additional rules to follow when using RCU.
 And again, more-typical uses of RCU may be found in listRCU.txt,
 arrayRCU.txt, and NMI-RCU.txt.
 
+
 4.  WHAT IF MY UPDATING THREAD CANNOT BLOCK?
 
 In the example above, foo_update_a() blocks until a grace period elapses.
@@ -515,6 +522,7 @@ o	Use call_rcu() -after- removing a data element from an
 
 Again, see checklist.txt for additional rules governing the use of RCU.
 
+
 5.  WHAT ARE SOME SIMPLE IMPLEMENTATIONS OF RCU?
 
 One of the nice things about RCU is that it has extremely simple "toy"
@@ -532,6 +540,7 @@ production-quality implementation, and see:
 for papers describing the Linux kernel RCU implementation.  The OLS'01
 and OLS'02 papers are a good introduction, and the dissertation provides
 more details on the current implementation as of early 2004.
+
 
 5A.  "TOY" IMPLEMENTATION #1: LOCKING
 
@@ -579,6 +588,7 @@ forget about them when submitting patches making use of RCU!]
 					(_________p1); \
 					})
 
+
 The rcu_read_lock() and rcu_read_unlock() primitive read-acquire
 and release a global reader-writer lock.  The synchronize_rcu()
 primitive write-acquires this same lock, then immediately releases
@@ -598,6 +608,7 @@ so there can be no deadlock cycle.
 Quick Quiz #1:	Why is this argument naive?  How could a deadlock
 		occur when using this algorithm in a real-world Linux
 		kernel?  How could this deadlock be avoided?
+
 
 5B.  "TOY" EXAMPLE #2: CLASSIC RCU
 
@@ -651,6 +662,7 @@ Quick Quiz #2:	Give an example where Classic RCU's read-side
 Quick Quiz #3:  If it is illegal to block in an RCU read-side
 		critical section, what the heck do you do in
 		PREEMPT_RT, where normal spinlocks can block???
+
 
 6.  ANALOGY WITH READER-WRITER LOCKING
 
@@ -763,6 +775,7 @@ delete() can now block.  If this is a problem, there is a callback-based
 mechanism that never blocks, namely call_rcu(), that can be used in
 place of synchronize_rcu().
 
+
 7.  FULL LIST OF RCU APIs
 
 The RCU APIs are documented in docbook-format header comments in the
@@ -800,11 +813,13 @@ RCU:	Critical sections	Grace period		Barrier
 	rcu_dereference		synchronize_rcu_expedited
 				call_rcu
 
+
 bh:	Critical sections	Grace period		Barrier
 
 	rcu_read_lock_bh	call_rcu_bh		rcu_barrier_bh
 	rcu_read_unlock_bh	synchronize_rcu_bh
 	rcu_dereference_bh	synchronize_rcu_bh_expedited
+
 
 sched:	Critical sections	Grace period		Barrier
 
@@ -813,6 +828,7 @@ sched:	Critical sections	Grace period		Barrier
 	[preempt_disable]	synchronize_sched_expedited
 	[and friends]
 	rcu_dereference_sched
+
 
 SRCU:	Critical sections	Grace period		Barrier
 
@@ -863,6 +879,7 @@ f.	Otherwise, use RCU.
 
 Of course, this all assumes that you have determined that RCU is in fact
 the right tool for your job.
+
 
 8.  ANSWERS TO QUICK QUIZZES
 
@@ -958,9 +975,11 @@ Answer:		Just as PREEMPT_RT permits preemption of spinlock
 		Besides, how does the computer know what pizza parlor
 		the human being went to???
 
+
 ACKNOWLEDGEMENTS
 
 My thanks to the people who helped make this human-readable, including
 Jon Walpole, Josh Triplett, Serge Hallyn, Suzanne Wood, and Alan Stern.
+
 
 For more information, see http://www.rdrop.com/users/paulmck/RCU.

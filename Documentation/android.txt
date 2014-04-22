@@ -14,6 +14,7 @@ CONTENTS:
   1.3 Recommended enabled config options
 2. Contact
 
+
 1. Android
 ==========
 
@@ -24,6 +25,7 @@ top of the Linux kernel.
 To see a working defconfig look at msm_defconfig or goldfish_defconfig
 which can be found at http://android.git.kernel.org in kernel/common.git
 and kernel/msm.git
+
 
 1.1 Required enabled config options
 -----------------------------------
@@ -80,10 +82,12 @@ YAFFS_FS
 YAFFS_YAFFS1
 YAFFS_YAFFS2
 
+
 1.2 Required disabled config options
 ------------------------------------
 CONFIG_YAFFS_DISABLE_LAZY_LOAD
 DNOTIFY
+
 
 1.3 Recommended enabled config options
 ------------------------------
@@ -108,6 +112,7 @@ I2C_BOARDINFO
 LOG_BUF_SHIFT=17
 SERIAL_CORE
 SERIAL_CORE_CONSOLE
+
 
 2. Contact
 ==========

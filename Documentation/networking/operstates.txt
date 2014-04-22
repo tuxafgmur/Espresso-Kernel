@@ -1,3 +1,4 @@
+
 1. Introduction
 
 Linux distinguishes between administrative and operational state of an
@@ -16,6 +17,7 @@ influence operational state. To accommodate this, operational state is
 split into two parts: Two flags that can be set by the driver only, and
 a RFC2863 compatible state that is derived from these flags, a policy,
 and changeable from userspace under certain rules.
+
 
 2. Querying from userspace
 
@@ -70,6 +72,7 @@ described below.
 
 This TLV can also be queried via sysfs.
 
+
 3. Kernel driver API
 
 Kernel drivers have access to two flags that map to IFF_LOWER_UP and
@@ -97,6 +100,7 @@ flag, netif_dormant_off() to clear it and netif_dormant() to query.
 On device allocation, networking core sets the flags equivalent to
 netif_carrier_ok() and !netif_dormant().
 
+
 Whenever the driver CHANGES one of these flags, a workqueue event is
 scheduled to translate the flag combination to IFLA_OPERSTATE as
 follows:
@@ -113,6 +117,7 @@ netif_carrier_ok() && !netif_dormant():
  IF_OPER_UP if userspace interaction is disabled. Otherwise
  IF_OPER_DORMANT with the possibility for userspace to initiate the
  IF_OPER_UP transition afterwards.
+
 
 4. Setting from userspace
 
@@ -147,6 +152,7 @@ IFLA_OPERSTATE to a sane value.
 A routing daemon or dhcp client just needs to care for IFF_RUNNING or
 waiting for operstate to go IF_OPER_UP/IF_OPER_UNKNOWN before
 considering the interface / querying a DHCP address.
+
 
 For technical questions and/or comments please e-mail to Stefan Rompf
 (stefan at loplof.de).

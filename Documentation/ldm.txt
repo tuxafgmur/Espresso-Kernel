@@ -1,3 +1,4 @@
+
             LDM - Logical Disk Manager (Dynamic Disks)
             ------------------------------------------
 
@@ -31,6 +32,7 @@ supported with the Linux LDM driver.
 A newer approach that has been implemented with Vista is to put LDM on top of a
 GPT label disk.  This is not supported by the Linux LDM driver yet.
 
+
 Example
 -------
 
@@ -57,10 +59,11 @@ When Linux boots, you will see something like:
   hda: 102400 sectors w/32KiB Cache, CHS=50/64/32
   hda: [LDM] hda1 hda2 hda3 hda4 hda5 hda6 hda7
 
+
 Compiling LDM Support
 ---------------------
 
-To enable LDM, choose the following two options:
+To enable LDM, choose the following two options: 
 
   "Advanced partition selection" CONFIG_PARTITION_ADVANCED
   "Windows Logical Disk Manager (Dynamic Disk) support" CONFIG_LDM_PARTITION
@@ -80,12 +83,14 @@ If you have Dynamic Disks but don't enable the driver, then all you will see
 is a dummy MSDOS partition filling the whole disk.  You won't be able to mount
 any of the volumes on the disk.
 
+
 Booting
 -------
 
 If you enable LDM support, then lilo is capable of booting from any of the
 discovered partitions.  However, grub does not understand the LDM partitioning
 and cannot boot from a Dynamic Disk.
+
 
 More Documentation
 ------------------
@@ -101,3 +106,4 @@ me.
 Cheers,
     FlatCap - Richard Russon
     ldm@flatcap.org
+

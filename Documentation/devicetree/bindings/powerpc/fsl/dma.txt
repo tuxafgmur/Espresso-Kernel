@@ -15,6 +15,7 @@ Required properties:
 - interrupts        : <interrupt mapping for DMA IRQ>
 - interrupt-parent  : optional, if needed for interrupt mapping
 
+
 - DMA channel nodes:
         - compatible        : compatible list, contains 2 entries, first is
 			 "fsl,CHIP-dma-channel", where CHIP is the processor

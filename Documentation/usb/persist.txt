@@ -4,6 +4,7 @@
 
 		September 2, 2006 (Updated February 25, 2008)
 
+
 	What is the problem?
 
 According to the USB specification, when a USB bus is suspended the
@@ -61,6 +62,7 @@ the system can't be suspended at all.  (All right, it _can_ be
 suspended -- but it will crash as soon as it wakes up, which isn't
 much better.)
 
+
 	What is the solution?
 
 The kernel includes a feature called USB-persist.  It tries to work
@@ -107,6 +109,7 @@ automatically and permanently enabled and the power/persist file
 doesn't even exist, so you only have to worry about setting it for
 devices where it really matters.
 
+
 	Is this the best solution?
 
 Perhaps not.  Arguably, keeping track of mounted filesystems and
@@ -125,6 +128,7 @@ point in its favor!
 Furthermore, the USB-persist feature applies to _all_ USB devices, not
 just mass-storage devices.  It might turn out to be equally useful for
 other device types, such as network interfaces.
+
 
 	WARNING: USB-persist can be dangerous!!
 

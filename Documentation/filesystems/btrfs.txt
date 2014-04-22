@@ -1,3 +1,4 @@
+
 	BTRFS
 	=====
 
@@ -32,6 +33,8 @@ The main Btrfs features include:
     * Efficient incremental backup and FS mirroring (not yet implemented)
     * Online filesystem defragmentation
 
+
+
 	MAILING LIST
 	============
 
@@ -44,11 +47,15 @@ Mailing list archives are available from gmane:
 
 http://dir.gmane.org/gmane.comp.file-systems.btrfs
 
+
+
 	IRC
 	===
 
 Discussion of Btrfs also occurs on the #btrfs channel of the Freenode
 IRC network.
+
+
 
 	UTILITIES
 	=========

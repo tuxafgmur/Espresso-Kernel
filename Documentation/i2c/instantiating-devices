@@ -7,6 +7,7 @@ I2C bus segment, and what address these devices are using. For this
 reason, the kernel code must instantiate I2C devices explicitly. There are
 several ways to achieve this, depending on the context and requirements.
 
+
 Method 1: Declare the I2C devices by bus number
 -----------------------------------------------
 
@@ -48,6 +49,7 @@ by i2c-core.
 
 The devices will be automatically unbound and destroyed when the I2C bus
 they sit on goes away (if ever.)
+
 
 Method 2: Instantiate the devices explicitly
 --------------------------------------------
@@ -115,6 +117,7 @@ it on cleanup. This is done by calling i2c_unregister_device() on the
 pointer that was earlier returned by i2c_new_device() or
 i2c_new_probed_device().
 
+
 Method 3: Probe an I2C bus for certain devices
 ----------------------------------------------
 
@@ -162,6 +165,7 @@ was done there. Two significant differences are:
 Once again, method 3 should be avoided wherever possible. Explicit device
 instantiation (methods 1 and 2) is much preferred for it is safer and
 faster.
+
 
 Method 4: Instantiate from user-space
 -------------------------------------

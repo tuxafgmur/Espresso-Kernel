@@ -22,6 +22,7 @@ Supported chips:
 Authors:
     Juerg Haefliger <juergh@gmail.com>
 
+
 Module Parameters
 -----------------
 
@@ -33,6 +34,7 @@ Module Parameters
 			when probing for ISA devices. This is required for the
 			following boards:
 			- VIA EPIA SN18000
+
 
 Description
 -----------
@@ -58,6 +60,7 @@ accessible via SMBus, while the SCH311x and SCH5127 only provide access via
 the ISA bus. The driver will therefore register itself as an I2C client driver
 if it detects a DME1737, A8000, or SCH5027 and as a platform driver if it
 detects a SCH311x or SCH5127 chip.
+
 
 Voltage Monitoring
 ------------------
@@ -107,6 +110,7 @@ SCH5127:
 Each voltage input has associated min and max limits which trigger an alarm
 when crossed.
 
+
 Temperature Monitoring
 ----------------------
 
@@ -126,6 +130,7 @@ when crossed. Additionally, each temperature input has a fault attribute that
 returns 1 when a faulty diode or an unconnected input is detected and 0
 otherwise.
 
+
 Fan Monitoring
 --------------
 
@@ -137,6 +142,7 @@ generates. Supported values are 1, 2, and 4. Fan inputs 5-6 only support fans
 that generate 2 pulses per revolution. Fan inputs 5-6 also provide a max
 attribute that needs to be set to the maximum attainable RPM (fan at 100% duty-
 cycle) of the input. The chip adjusts the sampling rate based on this value.
+
 
 PWM Output Control
 ------------------
@@ -197,6 +203,7 @@ based on the temperature of the associated thermal zone:
 			min-speed	low-speed
 	min-speed	min-speed	min-speed
 			min-speed	min-speed
+
 
 Sysfs Attributes
 ----------------

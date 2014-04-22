@@ -1,3 +1,4 @@
+
 Explicit volatile write back cache control
 =====================================
 
@@ -15,6 +16,7 @@ The Linux block layer provides two simple mechanisms that let filesystems
 control the caching behavior of the storage device.  These mechanisms are
 a forced cache flush, and the Force Unit Access (FUA) flag for requests.
 
+
 Explicit cache flushes
 ----------------------
 
@@ -27,12 +29,14 @@ set on an otherwise empty bio structure, which causes only an explicit cache
 flush without any dependent I/O.  It is recommend to use
 the blkdev_issue_flush() helper for a pure cache flush.
 
+
 Forced Unit Access
 -----------------
 
 The REQ_FUA flag can be OR ed into the r/w flags of a bio submitted from the
 filesystem and will make sure that I/O completion for this request is only
 signaled after the data has been committed to non-volatile storage.
+
 
 Implementation details for filesystems
 --------------------------------------
@@ -41,6 +45,7 @@ Filesystems can simply set the REQ_FLUSH and REQ_FUA bits and do not have to
 worry if the underlying devices need any explicit cache flushing and how
 the Forced Unit Access is implemented.  The REQ_FLUSH and REQ_FUA flags
 may both be set on a single bio.
+
 
 Implementation details for make_request_fn based block drivers
 --------------------------------------------------------------
@@ -54,6 +59,7 @@ on non-empty bios can simply be ignored, and REQ_FLUSH requests without
 data can be completed successfully without doing any work.  Drivers for
 devices with volatile caches need to implement the support for these
 flags themselves without any help from the block layer.
+
 
 Implementation details for request_fn based block drivers
 --------------------------------------------------------------

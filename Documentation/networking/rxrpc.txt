@@ -27,6 +27,7 @@ Contents of this document:
 
  (*) AF_RXRPC kernel interface.
 
+
 ========
 OVERVIEW
 ========
@@ -46,6 +47,7 @@ layer which renders structured data to binary blobs and back again using XDR
 		+-------------+
 		|     UDP     |		Transport
 		+-------------+
+
 
 AF_RXRPC provides:
 
@@ -68,6 +70,7 @@ left to the application.  AF_RXRPC only deals in blobs.  Even the operation ID
 is just the first four bytes of the request blob, and as such is beyond the
 kernel's interest.
 
+
 Sockets of AF_RXRPC family are:
 
  (1) created as type SOCK_DGRAM;
@@ -75,8 +78,10 @@ Sockets of AF_RXRPC family are:
  (2) provided with a protocol of the type of underlying transport they're going
      to use - currently only PF_INET is supported.
 
+
 The Andrew File System (AFS) is an example of an application that uses this and
 that has both kernel (filesystem) and userspace (utility) components.
+
 
 ======================
 RXRPC PROTOCOL SUMMARY
@@ -154,6 +159,7 @@ An overview of the RxRPC protocol:
 
  (*) An call may be aborted by either end at any time up to its completion.
 
+
 =====================
 AF_RXRPC DRIVER MODEL
 =====================
@@ -194,6 +200,7 @@ About the AF_RXRPC driver:
 
  (*) If an ICMP error is received, all calls affected by that error will be
      aborted with an appropriate network error passed through recvmsg().
+
 
 Interaction with the user of the RxRPC socket:
 
@@ -270,6 +277,7 @@ Interaction with the user of the RxRPC socket:
  (*) The name of the key a client will use to secure its communications is
      nominated by a socket option.
 
+
 Notes on recvmsg:
 
  (*) If there's a sequence of data messages belonging to a particular call on
@@ -296,6 +304,7 @@ Notes on recvmsg:
  (4) If there is more data to be had on a call (it hasn't copied the last byte
      of the last data message in that phase yet), then MSG_MORE will be
      flagged.
+
 
 ================
 CONTROL MESSAGES
@@ -376,6 +385,7 @@ calls, to invoke certain actions and to report certain conditions.  These are:
      return error ENODATA.  If the user ID is already in use by another call,
      then error EBADSLT will be returned.
 
+
 ==============
 SOCKET OPTIONS
 ==============
@@ -421,6 +431,7 @@ AF_RXRPC sockets support a few socket options at the SOL_RXRPC level:
 	 Encrypted checksum plus entire packet padded and encrypted, including
 	 actual packet length.
 
+
 ========
 SECURITY
 ========
@@ -449,6 +460,7 @@ form:
 
 Where the ticket blob is just appended to the above structure.
 
+
 For the server, keys of type "rxrpc_s" must be made available to the server.
 They have a description of "<serviceID>:<securityIndex>" (eg: "52:2" for an
 rxkad key for the AFS VL service).  When such a key is created, it should be
@@ -463,6 +475,7 @@ incoming connections are made.  This can be seen in an example program that can
 be found at:
 
 	http://people.redhat.com/~dhowells/rxrpc/listen.c
+
 
 ====================
 EXAMPLE CLIENT USAGE
@@ -543,6 +556,7 @@ A client would issue an operation by:
      If an abort or error occurred, this will be returned in the control data
      buffer instead, and MSG_EOR will be flagged to indicate the end of that
      call.
+
 
 ====================
 EXAMPLE SERVER USAGE
@@ -649,6 +663,7 @@ A server would be set up to accept operations in the following manner:
 Note that all the communications for a particular service take place through
 the one server socket, using control messages on sendmsg() and recvmsg() to
 determine the call affected.
+
 
 =========================
 AF_RXRPC KERNEL INTERFACE

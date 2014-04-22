@@ -53,6 +53,7 @@ Introduction
   specific files, like spear300.c, spear310.c, spear320.c and spear600.c.
   mach-spear* also contains board specific files for each machine type.
 
+
   Document Author
   ---------------
 

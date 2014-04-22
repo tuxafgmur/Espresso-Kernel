@@ -28,6 +28,7 @@ kind/state.  The problem with this is that the system could have
 switched between various states multiple times between two timer
 interrupts yet the counter is incremented only for the last state.
 
+
 Example
 -------
 
@@ -48,6 +49,7 @@ closer to 99%.
 
 One can imagine many more situations where this behavior of the kernel
 will lead to quite erratic information inside `/proc/stat'.
+
 
 /* gcc -o hog smallhog.c */
 #include <time.h>
@@ -97,11 +99,13 @@ int main (void)
      return 0;
 }
 
+
 References
 ----------
 
 http://lkml.org/lkml/2007/2/12/6
 Documentation/filesystems/proc.txt (1.8)
+
 
 Thanks
 ------

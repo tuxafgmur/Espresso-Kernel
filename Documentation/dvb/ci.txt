@@ -38,6 +38,7 @@ This application requires the following to function properly as of now.
 (3) Currently ca_zap, and dst_test, both are meant for demonstration
   purposes only, they can become full fledged applications if necessary.
 
+
 * Cards that fall in this category
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At present the cards that fall in this category are the Twinhan and its
@@ -72,6 +73,7 @@ the application programmer it would be as simple as sending/receiving an
 array to/from the CI ioctls as defined in the Linux DVB API. No changes
 have been made in the API to accommodate this feature.
 
+
 * Why the need for another CI interface ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This is one of the most commonly asked question. Well a nice question.
@@ -94,6 +96,8 @@ typedef struct ca_slot_info {
 #define CA_CI_MODULE_READY   2
 } ca_slot_info_t;
 
+
+
 This CI interface follows the CI high level interface, which is not
 implemented by most applications. Hence this area is revisited.
 
@@ -109,6 +113,7 @@ means that no session management, link layer or a transport layer do
 exist in this case in the application to driver communication. It is
 as simple as that. The driver/hardware has to take care of that.
 
+
 With this High Level CI interface, the interface can be defined with the
 regular ioctls.
 
@@ -122,6 +127,7 @@ All these ioctls are also valid for the High level CI interface
 #define CA_SEND_MSG       _IOW('o', 133, ca_msg_t)
 #define CA_SET_DESCR      _IOW('o', 134, ca_descr_t)
 #define CA_SET_PID        _IOW('o', 135, ca_pid_t)
+
 
 On querying the device, the device yields information thus
 
@@ -152,10 +158,12 @@ Found CA descriptor @ program level
 ca_message length is 25 (0x19) bytes
 EN50221 CA MSG=[ 9f 80 32 19 03 01 2d d1 f0 08 01 09 06 06 04 05 50 ff f1 02 e0 c9 00 00 04 e1 2d 00 00]
 
+
 Not all ioctl's are implemented in the driver from the API, the other
 features of the hardware that cannot be implemented by the API are achieved
 using the CA_GET_MSG and CA_SEND_MSG ioctls. An EN50221 style wrapper is
 used to exchange the data to maintain compatibility with other hardware.
+
 
 /* a message to/from a CI-CAM */
 typedef struct ca_msg {
@@ -165,7 +173,12 @@ typedef struct ca_msg {
 	unsigned char msg[256];
 } ca_msg_t;
 
+
 The flow of data can be described thus,
+
+
+
+
 
 	App (User)
 	-----
@@ -191,6 +204,9 @@ The flow of data can be described thus,
 	  |    Hardware
 	  |
 	  v
+
+
+
 
 The High Level CI interface uses the EN50221 DVB standard, following a
 standard ensures futureproofness.

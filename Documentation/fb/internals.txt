@@ -1,3 +1,4 @@
+
 This is a first start for some documentation about frame buffer device
 internals.
 
@@ -31,6 +32,7 @@ are defined in <linux/fb.h>.
     Device independent colormap information. You can get and set the colormap
     using the FBIOGETCMAP and FBIOPUTCMAP ioctls.
 
+
 2. Inside the kernel
 
   - struct fb_info
@@ -43,13 +45,16 @@ are defined in <linux/fb.h>.
     Device dependent information that uniquely defines the video mode for this
     particular piece of hardware.
 
+
 --------------------------------------------------------------------------------
 
 	    ***  VISUALS USED BY THE FRAME BUFFER DEVICE API  ***
 
+
 Monochrome (FB_VISUAL_MONO01 and FB_VISUAL_MONO10)
 -------------------------------------------------
 Each pixel is either black or white.
+
 
 Pseudo color (FB_VISUAL_PSEUDOCOLOR and FB_VISUAL_STATIC_PSEUDOCOLOR)
 ---------------------------------------------------------------------
@@ -57,17 +62,21 @@ The whole pixel value is fed through a programmable lookup table that has one
 color (including red, green, and blue intensities) for each possible pixel
 value, and that color is displayed.
 
+
 True color (FB_VISUAL_TRUECOLOR)
 --------------------------------
 The pixel value is broken up into red, green, and blue fields.
 
+
 Direct color (FB_VISUAL_DIRECTCOLOR)
 ------------------------------------
-The pixel value is broken up into red, green, and blue fields, each of which
+The pixel value is broken up into red, green, and blue fields, each of which 
 are looked up in separate red, green, and blue lookup tables.
+
 
 Grayscale displays
 ------------------
 Grayscale and static grayscale are special variants of pseudo color and static
 pseudo color, where the red, green and blue components are always equal to
 each other.
+

@@ -1,3 +1,5 @@
+
+
 EDAC - Error Detection And Correction
 
 Written by Doug Thompson <dougthompson@xmission.com>
@@ -60,6 +62,7 @@ and various other hardware data paths. If the hardware reports it, then
 a edac_device device probably can be constructed to harvest and present
 that to userspace.
 
+
 PCI BUS SCANNING
 
 In addition, PCI Bus Parity and SERR Errors are scanned for on PCI devices
@@ -96,6 +99,7 @@ EDAC or added to it, in the following list:
 These errors are usually bus errors, ECC errors, thermal throttling
 and the like.
 
+
 ============================================================================
 EDAC VERSIONING
 
@@ -107,6 +111,7 @@ current release level of their respective modules.
 
 Thus, to "report" on what version a system is running, one must report both
 the CORE's and the MC driver's versions.
+
 
 LOADING
 
@@ -123,6 +128,7 @@ $> modprobe amd76x_edac
 loads both the amd76x_edac.ko memory controller module and the edac_mc.ko
 core module.
 
+
 ============================================================================
 EDAC sysfs INTERFACE
 
@@ -135,6 +141,7 @@ Within this directory there currently reside 2 'edac' components:
 
 	mc	memory controller(s) system
 	pci	PCI control and status system
+
 
 ============================================================================
 Memory Controller (mc) Model
@@ -151,6 +158,7 @@ of a given motherboard, memory controller and DIMM characteristics.
 Dual channels allows for 128 bit data transfers to the CPU from memory.
 Some newer chipsets allow for more than 2 channels, like Fully Buffered DIMMs
 (FB-DIMMs). The following example will assume 2 channels:
+
 
 		Channel 0	Channel 1
 	===================================
@@ -190,6 +198,7 @@ in EDAC's sysfs interface. Starting in directory
 /sys/devices/system/edac/mc each memory controller will be represented
 by its own 'mcX' directory, where 'X' is the index of the MC.
 
+
 	..../edac/mc/
 		   |
 		   |->mc0
@@ -199,6 +208,7 @@ by its own 'mcX' directory, where 'X' is the index of the MC.
 
 Under each 'mcX' directory each 'csrowX' is again represented by a
 'csrowX', where 'X' is the csrow index:
+
 
 	.../mc/mc0/
 		|
@@ -213,14 +223,17 @@ Channels, in order to have dual-channel mode be operational. Since
 both csrow2 and csrow3 are populated, this indicates a dual ranked
 set of DIMMs for channels 0 and 1.
 
+
 Within each of the 'mcX' and 'csrowX' directories are several
 EDAC control and attribute files.
 
 ============================================================================
 'mcX' DIRECTORIES
 
+
 In 'mcX' directories are EDAC control and attribute files for
 this 'X' instance of the memory controllers:
+
 
 Counter reset control file:
 
@@ -236,6 +249,7 @@ Counter reset control file:
 
 		This resets the counters on memory controller 0
 
+
 Seconds since last counter reset control file:
 
 	'seconds_since_reset'
@@ -244,6 +258,8 @@ Seconds since last counter reset control file:
 	last counter reset. This can be used with the error counters to
 	measure error rates.
 
+
+
 Memory Controller name attribute file:
 
 	'mc_name'
@@ -251,12 +267,14 @@ Memory Controller name attribute file:
 	This attribute file displays the type of memory controller
 	that is being utilized.
 
+
 Total memory managed by this memory controller attribute file:
 
 	'size_mb'
 
 	This attribute file displays, in count of megabytes, of memory
 	that this instance of memory controller manages.
+
 
 Total Uncorrectable Errors count attribute file:
 
@@ -267,12 +285,14 @@ Total Uncorrectable Errors count attribute file:
 	is set this counter will not have a chance to increment,
 	since EDAC will panic the system.
 
+
 Total UE count that had no information attribute fileY:
 
 	'ue_noinfo_count'
 
 	This attribute file displays the number of UEs that have occurred
 	with no information as to which DIMM slot is having errors.
+
 
 Total Correctable Errors count attribute file:
 
@@ -284,6 +304,7 @@ Total Correctable Errors count attribute file:
 	indications that a DIMM is beginning to fail. This count
 	field should be monitored for non-zero values and report
 	such information to the system administrator.
+
 
 Total Correctable Errors count attribute file:
 
@@ -316,11 +337,14 @@ Sdram memory scrubbing rate:
 	If configuration fails or memory scrubbing is not implemented, the value
 	of the attribute file will be -1.
 
+
+
 ============================================================================
 'csrowX' DIRECTORIES
 
 In the 'csrowX' directories are EDAC control and attribute files for
 this 'X' instance of csrow:
+
 
 Total Uncorrectable Errors count attribute file:
 
@@ -330,6 +354,7 @@ Total Uncorrectable Errors count attribute file:
 	errors that have occurred on this csrow. If panic_on_ue is set
 	this counter will not have a chance to increment, since EDAC
 	will panic the system.
+
 
 Total Correctable Errors count attribute file:
 
@@ -342,12 +367,14 @@ Total Correctable Errors count attribute file:
 	field should be monitored for non-zero values and report
 	such information to the system administrator.
 
+
 Total memory managed by this csrow attribute file:
 
 	'size_mb'
 
 	This attribute file displays, in count of megabytes, of memory
 	that this csrow contains.
+
 
 Memory Type attribute file:
 
@@ -359,12 +386,14 @@ Memory Type attribute file:
 		Registered-DDR
 		Unbuffered-DDR
 
+
 EDAC Mode of operation attribute file:
 
 	'edac_mode'
 
 	This attribute file will display what type of Error detection
 	and correction is being utilized.
+
 
 Device type attribute file:
 
@@ -378,6 +407,7 @@ Device type attribute file:
 		x4
 		x8
 
+
 Channel 0 CE Count attribute file:
 
 	'ch0_ce_count'
@@ -385,12 +415,14 @@ Channel 0 CE Count attribute file:
 	This attribute file will display the count of CEs on this
 	DIMM located in channel 0.
 
+
 Channel 0 UE Count attribute file:
 
 	'ch0_ue_count'
 
 	This attribute file will display the count of UEs on this
 	DIMM located in channel 0.
+
 
 Channel 0 DIMM Label control file:
 
@@ -408,6 +440,7 @@ Channel 0 DIMM Label control file:
 	motherboard specific and determination of this information
 	must occur in userland at this time.
 
+
 Channel 1 CE Count attribute file:
 
 	'ch1_ce_count'
@@ -415,12 +448,14 @@ Channel 1 CE Count attribute file:
 	This attribute file will display the count of CEs on this
 	DIMM located in channel 1.
 
+
 Channel 1 UE Count attribute file:
 
 	'ch1_ue_count'
 
 	This attribute file will display the count of UEs on this
 	DIMM located in channel 0.
+
 
 Channel 1 DIMM Label control file:
 
@@ -450,6 +485,7 @@ channel 1 "DIMM_B1": amd76x_edac
 EDAC MC0: CE page 0x1e5, offset 0xfb0, grain 8, syndrome 0xb741, row 0,
 channel 1 "DIMM_B1": amd76x_edac
 
+
 The structure of the message is:
 	the memory controller			(MC0)
 	Error type				(CE)
@@ -468,8 +504,10 @@ Both UEs and CEs with no info will lack all but memory controller,
 error type, a notice of "no info" and then an optional,
 driver-specific error message.
 
+
 ============================================================================
 PCI Bus Parity Detection
+
 
 On Header Type 00 devices the primary status is looked at
 for any parity error regardless of whether Parity is enabled on the
@@ -478,13 +516,16 @@ On Header Type 01 bridges, the secondary status register is also
 looked at to see if parity occurred on the bus on the other side of
 the bridge.
 
+
 SYSFS CONFIGURATION
 
 Under /sys/devices/system/edac/pci are control and attribute files as follows:
 
+
 Enable/Disable PCI Parity checking control file:
 
 	'check_pci_parity'
+
 
 	This control file enables or disables the PCI Bus Parity scanning
 	operation. Writing a 1 to this file enables the scanning. Writing
@@ -496,12 +537,14 @@ Enable/Disable PCI Parity checking control file:
 	Disable:
 	echo "0" >/sys/devices/system/edac/pci/check_pci_parity
 
+
 Parity Count:
 
 	'pci_parity_count'
 
 	This attribute file will display the number of parity errors that
 	have been detected.
+
 
 ============================================================================
 MODULE PARAMETERS
@@ -521,6 +564,7 @@ Panic on UE control file:
 
 	RUN TIME:  echo "1" > /sys/module/edac_core/parameters/edac_mc_panic_on_ue
 
+
 Log UE control file:
 
 	'edac_mc_log_ue'
@@ -533,6 +577,7 @@ Log UE control file:
 
 	RUN TIME: echo "1" > /sys/module/edac_core/parameters/edac_mc_log_ue
 
+
 Log CE control file:
 
 	'edac_mc_log_ce'
@@ -544,6 +589,7 @@ Log CE control file:
 	LOAD TIME: module/kernel parameter: edac_mc_log_ce=[0|1]
 
 	RUN TIME: echo "1" > /sys/module/edac_core/parameters/edac_mc_log_ce
+
 
 Polling period control file:
 
@@ -560,12 +606,15 @@ Polling period control file:
 
 	RUN TIME: echo "1000" > /sys/module/edac_core/parameters/edac_mc_poll_msec
 
+
 Panic on PCI PARITY Error:
 
 	'panic_on_pci_parity'
 
+
 	This control files enables or disables panicking when a parity
 	error has been detected.
+
 
 	module/kernel parameter: edac_panic_on_pci_pe=[0|1]
 
@@ -575,7 +624,10 @@ Panic on PCI PARITY Error:
 	Disable:
 	echo "0" > /sys/module/edac_core/parameters/edac_panic_on_pci_pe
 
+
+
 =======================================================================
+
 
 EDAC_DEVICE type of device
 
@@ -622,6 +674,7 @@ One or more instance directories are present. For the 'test_device_edac' case:
 
 	test-instance0
 
+
 In this directory there are two default counter attributes, which are totals of
 counter in deeper subdirectories.
 
@@ -635,12 +688,14 @@ or more blocks specified in each instance.
 
 	test-block0
 
+
 In this directory the default attributes are:
 
 	ce_count	which is counter of CE events for this 'block'
 			of hardware being monitored
 	ue_count	which is counter of UE events for this 'block'
 			of hardware being monitored
+
 
 The 'test_device_edac' device adds 4 attributes and 1 control:
 
@@ -653,8 +708,10 @@ The 'test_device_edac' device adds 4 attributes and 1 control:
 	test-block-bits-3	every 1000 cycles, this counter is bumped once,
 				and test-block-bits-2 is set to 0
 
+
 	reset-counters		writing ANY thing to this control will
 				reset all the above counters.
+
 
 Use of the 'test_device_edac' driver should any others to create their own
 unique drivers for their hardware systems.

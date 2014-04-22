@@ -44,6 +44,7 @@ Voltage regulators are controlled based on chip operational state.
 SYSFS
 -----
 
+
 chip_id
 	RO - shows detected chip type and version
 

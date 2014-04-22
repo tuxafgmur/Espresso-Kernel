@@ -10,6 +10,7 @@ Supported chips:
 Authors:
 	Tomaz Mertelj <tomaz.mertelj@guest.arnes.si>
 
+
 Description
 -----------
 
@@ -87,6 +88,7 @@ temp2_auto_point3_temp	rw	Above this temperature fan runs at maximum
 				and pwm1_auto_point2_pwm. Read it out after
 				writing to get actual value.
 
+
 Module parameters
 -----------------
 
@@ -97,3 +99,4 @@ If your board BIOS doesn't initialize the chip, or you want
 different settings, you can set the following parameters:
 init=1,
 pwminv: 0 default pwm output, 1 inverts pwm output.
+

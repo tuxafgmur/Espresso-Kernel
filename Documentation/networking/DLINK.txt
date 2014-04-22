@@ -1,5 +1,6 @@
 Released 1994-06-13
 
+
 	CONTENTS:
 
 	1. Introduction.
@@ -9,6 +10,7 @@ Released 1994-06-13
 	5. Problems and tuning.
 	6. Using the drivers with earlier releases.
 	7. Acknowledgments.
+
 
 	1. INTRODUCTION.
 
@@ -26,6 +28,7 @@ Released 1994-06-13
 	Depending on your machine, somewhat higher speeds can be achieved.
 
 	All comments/fixes to Bjorn Ekwall (bj0rn@blox.se).
+
 
 	2. LICENSE.
 
@@ -45,6 +48,7 @@ Released 1994-06-13
 	Software Foundation, Inc., 675 Mass Ave, Cambridge, MA
 	02139, USA.
 
+
 	3. FILES IN THIS RELEASE.
 
 	README.DLINK  This file.
@@ -62,6 +66,7 @@ Released 1994-06-13
 	Apply the patch by:
 	"cd /usr/src; patch -p0 < linux/drivers/net/dlink-patches"
 	The old source, "linux/drivers/net/d_link.c", can be removed.
+
 
 	4. INSTALLATION.
 
@@ -106,6 +111,7 @@ Released 1994-06-13
 	o The adapter can be configured with ifconfig eth?
 	  where the actual number is decided by the kernel
 	  when the drivers are initialized.
+
 
 	5. "PROBLEMS" AND TUNING,
 
@@ -152,6 +158,7 @@ Released 1994-06-13
 	  IF YOU HAVE PROBLEMS YOU CAN'T SOLVE: PLEASE COMPILE THE DRIVER
 	  WITH DEBUGGING ENABLED, AND SEND ME THE RESULTING OUTPUT!
 
+
 	6. USING THE DRIVERS WITH EARLIER RELEASES.
 
 	The later 1.1.X releases of the Linux kernel include some
@@ -166,6 +173,7 @@ Released 1994-06-13
 	- de600.c: change  "mark_bh(NET_BH)" to  "mark_bh(INET_BH)".
 	- de620.c: (maybe) change the code around "netif_rx(skb);" to be
 		   similar to the code around "dev_rint(...)" in de600.c
+
 
 	7. ACKNOWLEDGMENTS.
 
@@ -188,6 +196,7 @@ Released 1994-06-13
 	- Olav Kvittem <Olav.Kvittem@uninett.no>
 	- Germano Caronni <caronni@nessie.cs.id.ethz.ch>
 	- Jeremy Fitzhardinge <jeremy@suite.sw.oz.au>
+
 
 	Happy hacking!
 

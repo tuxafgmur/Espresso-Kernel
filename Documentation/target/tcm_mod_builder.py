@@ -741,6 +741,7 @@ def tcm_mod_dump_fabric_ops(proto_ident, fabric_mod_dir_var, fabric_mod_name):
 				buf += "					format_code);\n"
 				buf += "		break;\n"
 
+
 			buf += "	}\n\n"
 			buf += "	return ret;\n"
 			buf += "}\n\n"
@@ -955,6 +956,7 @@ def tcm_mod_dump_fabric_ops(proto_ident, fabric_mod_dir_var, fabric_mod_name):
 			buf += "	return cpu_to_le64((lun & 0xff) << 8);\n"
 			buf += "}\n\n"
 			bufi += "u64 " + fabric_mod_name + "_pack_lun(unsigned int);\n"
+
 
 	ret = p.write(buf)
 	if ret:

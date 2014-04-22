@@ -56,6 +56,7 @@ function find_shift(s)
     return substr(s, id+2)
 }
 
+
 BEGIN {
     if (ARGC < 2) {
 	print "too few arguments" > "/dev/stderr"

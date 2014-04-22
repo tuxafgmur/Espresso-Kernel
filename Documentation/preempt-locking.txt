@@ -3,7 +3,9 @@
 			 Robert Love <rml@tech9.net>
 			  Last Updated: 28 Aug 2002
 
+
 INTRODUCTION
+
 
 A preemptible kernel creates new locking issues.  The issues are the same as
 those under SMP: concurrency and reentrancy.  Thankfully, the Linux preemptible
@@ -12,8 +14,10 @@ requires explicit additional locking for very few additional situations.
 
 This document is for all kernel hackers.  Developing code in the kernel
 requires protecting these situations.
+ 
 
 RULE #1: Per-CPU data structures need explicit protection
+
 
 Two similar problems arise. An example code snippet:
 
@@ -29,7 +33,9 @@ protect these situations by disabling preemption around them.
 
 You can also use put_cpu() and get_cpu(), which will disable preemption.
 
+
 RULE #2: CPU state must be protected.
+
 
 Under preemption, the state of the CPU must be protected.  This is arch-
 dependent, but includes CPU structures and state not preserved over a context
@@ -44,7 +50,9 @@ Note, some FPU functions are already explicitly preempt safe.  For example,
 kernel_fpu_begin and kernel_fpu_end will disable and enable preemption.
 However, math_state_restore must be called with preemption disabled.
 
+
 RULE #3: Lock acquire and release must be performed by same task
+
 
 A lock acquired in one task must be released by the same task.  This
 means you can't do oddball things like acquire a lock and go off to
@@ -52,7 +60,9 @@ play while another task releases it.  If you want to do something
 like this, acquire and release the task in the same code path and
 have the caller wait on an event by the other task.
 
+
 SOLUTION
+
 
 Data protection under preemption is achieved by disabling preemption for the
 duration of the critical region.
@@ -103,7 +113,9 @@ critical variables.  Another example:
 This code is not preempt-safe, but see how easily we can fix it by simply
 moving the spin_lock up two lines.
 
+
 PREVENTING PREEMPTION USING INTERRUPT DISABLING
+
 
 It is possible to prevent a preemption event using local_irq_disable and
 local_irq_save.  Note, when doing so, you must be very careful to not cause

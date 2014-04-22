@@ -10,6 +10,7 @@ Elantech Touchpad Driver
 	received from Woody at Xandros and forwarded to me
 	by user StewieGriffin at the eeeuser.com forum
 
+
 Contents
 ~~~~~~~~
 
@@ -24,6 +25,8 @@ Contents
     4.2 Native absolute mode 6 byte packet format
         4.2.1 One finger touch
         4.2.2 Two finger touch
+
+
 
 1. Introduction
    ~~~~~~~~~~~~
@@ -55,7 +58,9 @@ mentioned below can be used immediately. But because there is no freely
 available Elantech documentation the information is provided here anyway for
 completeness sake.
 
+
 /////////////////////////////////////////////////////////////////////////////
+
 
 2. Extra knobs
    ~~~~~~~~~~~
@@ -189,6 +194,7 @@ For example:
 
          smart edge activation area width?
 
+
 4.2 Native relative mode 4 byte packet format
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -246,6 +252,7 @@ byte 3:
                        negative = up
                        positive = down
 
+
 4.3 Native absolute mode 4 byte packet format
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -299,10 +306,13 @@ byte 3:
 
          y9..y0 = absolute y value (vertical)
 
+
 /////////////////////////////////////////////////////////////////////////////
+
 
 5. Hardware version 2
    ==================
+
 
 5.1 Registers
     ~~~~~~~~~
@@ -336,6 +346,7 @@ For example:
          drag and drop release time out (short: 0x70 ... long 0x7e;
                                    0x7f = never i.e. tap again to release)
 
+
 5.2 Native absolute mode 6 byte packet format
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 5.2.1 Parity checking and packet re-synchronization
@@ -360,6 +371,7 @@ For all the other ones, there are just a few constant bits:
         if( ((packet[0] & 0x0C) != 0x04) ||
             ((packet[3] & 0x0f) != 0x02) )
 		// error detected
+
 
 In case an error is detected, all the packets are shifted by one (and packet[0] is discarded).
 
@@ -418,6 +430,7 @@ byte 5:
         y7  y6  y5  y4  y3  y2  y1  y0
 
          y9..y0 = absolute y value (vertical)
+
 
 4.2.2 Two finger touch
       ~~~~~~~~~~~~~~~~

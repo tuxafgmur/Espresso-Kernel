@@ -1,6 +1,7 @@
 The Linux NTFS filesystem driver
 ================================
 
+
 Table of contents
 =================
 
@@ -14,6 +15,7 @@ Table of contents
   - The Software RAID / MD driver
   - Limitations when using the MD driver
 - ChangeLog
+
 
 Overview
 ========
@@ -33,6 +35,7 @@ For fault tolerance and raid support (i.e. volume and stripe sets), you can
 use the kernel's Software RAID / MD driver.  See section "Using Software RAID
 with NTFS" for details.
 
+
 Web site
 ========
 
@@ -42,6 +45,7 @@ at http://www.linux-ntfs.org/
 The web site has a lot of additional information, such as a comprehensive
 FAQ, documentation on the NTFS on-disk format, information on the Linux-NTFS
 userspace utilities, etc.
+
 
 Features
 ========
@@ -206,6 +210,7 @@ mft_zone_multiplier=	Set the MFT zone multiplier for the volume (this
 				4		50%
 			Note this option is irrelevant for read-only mounts.
 
+
 Known bugs and (mis-)features
 =============================
 
@@ -216,8 +221,10 @@ Known bugs and (mis-)features
   problems with this approach so far.  If you find a problem with this, please
   let us know.
 
+
 Please send bug reports/comments/feedback/abuse to the Linux-NTFS development
 list at sourceforge: linux-ntfs-dev@lists.sourceforge.net
+
 
 Using NTFS volume and stripe sets
 =================================
@@ -226,6 +233,7 @@ For support of volume and stripe sets, you can either use the kernel's
 Device-Mapper driver or the kernel's Software RAID / MD driver.  The former is
 the recommended one to use for linear raid.  But the latter is required for
 raid level 5.  For striping and mirroring, either driver should work fine.
+
 
 The Device-Mapper driver
 ------------------------
@@ -366,6 +374,7 @@ It is advisable to do the mount read-only to see if the volume has been setup
 correctly to avoid the possibility of causing damage to the data on the ntfs
 volume.
 
+
 The Software RAID / MD driver
 -----------------------------
 
@@ -425,6 +434,7 @@ It is advisable to do the mount read-only to see if the md volume has been
 setup correctly to avoid the possibility of causing damage to the data on the
 ntfs volume.
 
+
 Limitations when using the Software RAID / MD driver
 -----------------------------------------------------
 
@@ -440,6 +450,7 @@ number of sectors BEFORE attempting to use it.  You have been warned!
 
 Even better is to simply use the Device-Mapper for linear raid and then you do
 not have this problem with odd numbers of sectors.
+
 
 ChangeLog
 =========
@@ -707,3 +718,4 @@ Note, a technical ChangeLog aimed at kernel hackers is in fs/ntfs/ChangeLog.
 	  so they can be executed.
 2.0.0:
 	- Started ChangeLog.
+

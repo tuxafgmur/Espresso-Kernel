@@ -1,5 +1,7 @@
+
 	s3fb - fbdev driver for S3 Trio/Virge chips
 	===========================================
+
 
 Supported Hardware
 ==================
@@ -16,6 +18,7 @@ Supported Hardware
 
 I tested s3fb on Trio64 (plain, V+ and V2/DX) and Virge (plain, VX, DX),
 all on i386.
+
 
 Supported Features
 ==================
@@ -47,6 +50,7 @@ with interleaved planes (1 byte interleave), MSB first. Both modes support
 Suspend/resume works on systems that initialize video card during resume and
 if device is active (for example used by fbcon).
 
+
 Missing Features
 ================
 (alias TODO list)
@@ -66,11 +70,13 @@ Missing Features
 	* acceleration support (8514-like 2D, Virge 3D, busmaster transfers)
 	* better values for some magic registers (performance issues)
 
+
 Known bugs
 ==========
 
 	* cursor disable in text mode doesn't work
 	* text mode broken on S3 Trio64 V2/DX
+
 
 --
 Ondrej Zajicek <santiago@crfreenet.org>

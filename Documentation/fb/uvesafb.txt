@@ -1,3 +1,4 @@
+
 uvesafb - A Generic Driver for VBE2+ compliant video cards
 ==========================================================
 
@@ -179,8 +180,10 @@ Device attributes:
 Uvesafb will set a video mode with the default refresh rate and timings
 from the Video BIOS if you set pixclock to 0 in fb_var_screeninfo.
 
+
 --
  Michal Januszewski <spock@gentoo.org>
  Last updated: 2009-03-30
 
  Documentation of the uvesafb options is loosely based on vesafb.txt.
+

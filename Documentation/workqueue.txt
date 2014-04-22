@@ -1,3 +1,4 @@
+
 Concurrency Managed Workqueue (cmwq)
 
 September, 2010		Tejun Heo <tj@kernel.org>
@@ -12,6 +13,7 @@ CONTENTS
 5. Example Execution Scenarios
 6. Guidelines
 7. Debugging
+
 
 1. Introduction
 
@@ -28,6 +30,7 @@ While there are work items on the workqueue the worker executes the
 functions associated with the work items one after the other.  When
 there is no work item left on the workqueue the worker becomes idle.
 When a new work item gets queued, the worker begins executing again.
+
 
 2. Why cmwq?
 
@@ -66,6 +69,7 @@ focus on the following goals.
 
 * Automatically regulate worker pool and level of concurrency so that
   the API users don't need to worry about such details.
+
 
 3. The Design
 
@@ -142,6 +146,7 @@ on code paths that handle memory reclaim are required to be queued on
 wq's that have a rescue-worker reserved for execution under memory
 pressure.  Else it is possible that the thread-pool deadlocks waiting
 for execution contexts to free up.
+
 
 4. Application Programming Interface (API)
 
@@ -267,6 +272,7 @@ behavior.  Work items on such wq are always queued to the unbound gcwq
 and only one work item can be active at any given time thus achieving
 the same ordering property as ST wq.
 
+
 5. Example Execution Scenarios
 
 The following example execution scenarios try to illustrate how cmwq
@@ -348,6 +354,7 @@ If q1 has WQ_CPU_INTENSIVE set,
  20		w1 wakes up and finishes
  25		w2 wakes up and finishes
 
+
 6. Guidelines
 
 * Do not forget to use WQ_MEM_RECLAIM if a wq may process work items
@@ -373,6 +380,7 @@ If q1 has WQ_CPU_INTENSIVE set,
 * Unless work items are expected to consume a huge amount of CPU
   cycles, using a bound wq is usually beneficial due to the increased
   level of locality in wq operations and work item execution.
+
 
 7. Debugging
 

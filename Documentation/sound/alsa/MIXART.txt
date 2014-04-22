@@ -1,6 +1,7 @@
     Alsa driver for Digigram miXart8 and miXart8AES/EBU soundcards
 	    Digigram <alsa@digigram.com>
 
+
 GENERAL
 =======
 
@@ -17,6 +18,7 @@ decoding, samplerate conversions and various effects.
 The driver don't work properly at all until the certain firmwares
 are loaded, i.e. no PCM nor mixer devices will appear.
 Use the mixartloader that can be found in the alsa-tools package.
+
 
 VERSION 0.1.0
 =============
@@ -56,6 +58,7 @@ Rem : for best audio quality try to keep a 0 attenuation on the PCM
 and AES volume controls which is set by 219 in the range from 0 to 255
 (about 86% with alsamixer)
 
+
 NOT YET IMPLEMENTED
 ===================
 
@@ -65,13 +68,14 @@ NOT YET IMPLEMENTED
 - on-board effects and samplerate conversions
 - linked streams
 
+
 FIRMWARE
 ========
 
 [As of 2.6.11, the firmware can be loaded automatically with hotplug
  when CONFIG_FW_LOADER is set.  The mixartloader is necessary only
  for older versions or when you build the driver into kernel.]
-
+ 
 For loading the firmware automatically after the module is loaded, use
 the post-install command.  For example, add the following entry to
 /etc/modprobe.conf for miXart driver:
@@ -87,6 +91,7 @@ configure).  There will be a miXart.conf file, which define the dsp image
 files.
 
 The firmware files are copyright by Digigram SA
+
 
 COPYRIGHT
 =========

@@ -11,6 +11,7 @@ reveal their parameters in /sys/module/${modulename}/parameters/. Some of these
 parameters may be changed at runtime by the command
 "echo -n ${value} > /sys/module/${modulename}/parameters/${parm}".
 
+
 	snd-ad1816a=	[HW,ALSA]
 
 	snd-ad1848=	[HW,ALSA]

@@ -51,6 +51,7 @@ http://www.alsa-project.org/~iwai/writing-an-alsa-driver/
 
 An example DMA driver is soc/pxa/pxa2xx-pcm.c
 
+
 SoC DAI Drivers
 ===============
 

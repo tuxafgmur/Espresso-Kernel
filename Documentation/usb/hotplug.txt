@@ -30,6 +30,7 @@ Because some of those actions rely on information about drivers (metadata)
 that is currently available only when the drivers are dynamically linked,
 you get the best hotplugging when you configure a highly modular system.
 
+
 KERNEL HOTPLUG HELPER (/sbin/hotplug)
 
 When you compile with CONFIG_HOTPLUG, you get a new kernel parameter:
@@ -49,7 +50,9 @@ Hotplug software and other resources is available at:
 
 Mailing list information is also available at that site.
 
+
 --------------------------------------------------------------------------
+
 
 USB POLICY AGENT
 
@@ -74,6 +77,7 @@ user mode daemon to detect changes in system configuration.
 Currently available policy agent implementations can load drivers for
 modules, and can invoke driver-specific setup scripts.  The newest ones
 leverage USB module-init-tools support.  Later agents might unload drivers.
+
 
 USB MODUTILS SUPPORT
 
@@ -140,3 +144,5 @@ match, and the third argument to probe() will be the entry that matched.
 
 If you don't provide an id_table for your driver, then your driver may get
 probed for each new device; the third parameter to probe() will be null.
+
+

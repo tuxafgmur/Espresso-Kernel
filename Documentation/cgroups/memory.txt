@@ -132,6 +132,7 @@ structure (mem_cgroup) associated with it.
 
              (Figure 1: Hierarchy of Accounting)
 
+
 Figure 1 shows the important aspects of the controller
 
 1. Accounting happens per cgroup
@@ -185,6 +186,7 @@ Exception: If CONFIG_CGROUP_CGROUP_MEM_RES_CTLR_SWAP is not used.
 When you do swapoff and make swapped-out pages of shmem(tmpfs) to
 be backed into memory in force, charges for pages are accounted against the
 caller of swapoff rather than the users of shmem.
+
 
 2.4 Swap Extension (CONFIG_CGROUP_MEM_RES_CTLR_SWAP)
 
@@ -356,6 +358,7 @@ rmdir() may return -EBUSY if freeing/moving fails. See 5.1 also.
 Charges recorded in swap information is not updated at removal of cgroup.
 Recorded information is discarded and a cgroup which uses swap (swapcache)
 will be charged as a new owner of it.
+
 
 5. Misc. interfaces.
 

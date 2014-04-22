@@ -1,3 +1,4 @@
+
 		Video issues with S3 resume
 		~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		  2003-2006, Pavel Machek
@@ -66,8 +67,8 @@ There are a few types of systems where video works after S3 resume:
   POSTing bios works. Ole Rohne has patch to do just that at
   http://dev.gentoo.org/~marineam/patch-radeonfb-2.6.11-rc2-mm2.
 
-(8) on some systems, you can use the video_post utility and or
-  do echo 3 > /sys/power/state  && /usr/sbin/video_post - which will
+(8) on some systems, you can use the video_post utility and or 
+  do echo 3 > /sys/power/state  && /usr/sbin/video_post - which will 
   initialize the display in console mode. If you are in X, you can switch
   to a virtual terminal and back to X using  CTRL+ALT+F1 - CTRL+ALT+F7 to get
   the display working in graphical mode again.
@@ -174,6 +175,7 @@ Known working desktop systems
 Mainboard	    Graphics card                 hack (or "how to do it")
 ------------------------------------------------------------------------------
 Asus A7V8X	    nVidia RIVA TNT2 model 64	  s3_bios,s3_mode (4)
+
 
 (*) from https://wiki.ubuntu.com/HoaryPMResults, not sure
     which options to use. If you know, please tell me.

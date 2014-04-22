@@ -1,6 +1,11 @@
+
+
 		Supporting multiple CPU idle levels in kernel
 
 				cpuidle drivers
+
+
+
 
 cpuidle driver hooks into the cpuidle infrastructure and handles the
 architecture/platform dependent part of CPU idle states. Driver

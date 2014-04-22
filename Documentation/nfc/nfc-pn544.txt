@@ -26,6 +26,7 @@ PN544 is controlled by sending messages from the userspace to the
 chip. The main function of the driver is just to pass those messages
 without caring about the message content.
 
+
 Protocols
 ---------
 

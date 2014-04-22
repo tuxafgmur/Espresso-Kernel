@@ -57,6 +57,7 @@ Updated the magic table to Linux 2.5.74.
 					<ffrederick@users.sourceforge.net>
 					09 Jul 2003
 
+
 Magic Name            Number      Structure            File
 ===========================================================================
 PG_MAGIC              'P'         pg_{read,write}_hdr include/linux/pg.h

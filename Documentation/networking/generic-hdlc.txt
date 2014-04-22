@@ -1,6 +1,7 @@
 Generic HDLC layer
 Krzysztof Halasa <khc@pm.waw.pl>
 
+
 Generic HDLC layer currently supports:
 1. Frame Relay (ANSI, CCITT, Cisco and no LMI)
    - Normal (routed) and Ethernet-bridged (Ethernet device emulation)
@@ -18,6 +19,7 @@ for your particular hardware.
 
 Ethernet device emulation (using HDLC or Frame-Relay PVC) is compatible
 with IEEE 802.1Q (VLANs) and 802.1D (Ethernet bridging).
+
 
 Make sure the hdlc.o and the hardware driver are loaded. It should
 create a number of "hdlc" (hdlc0 etc) network devices, one for each
@@ -44,6 +46,7 @@ or
 In Frame Relay mode, ifconfig master hdlc device up (without assigning
 any IP address to it) before using pvc devices.
 
+
 Setting interface:
 
 * v35 | rs232 | x21 | t1 | e1 - sets physical interface for a given port
@@ -54,6 +57,7 @@ Setting interface:
 * clock txint - RX clock external, TX clock internal
 * clock txfromrx - RX clock external, TX clock derived from RX clock
 * rate - sets clock rate in bps (for "int" or "txint" clock only)
+
 
 Setting protocol:
 
@@ -91,6 +95,9 @@ Frame-Relay only:
 * create ether n | delete ether n - adds a device for Ethernet-bridged
   frames. The device will be named pvceth0, pvceth1 etc.
 
+
+
+
 Board-specific issues
 ---------------------
 
@@ -109,6 +116,8 @@ If built into the kernel, these drivers need kernel (command line) parameters:
 	n2.hw=io,irq,ram,ports:...
 or
 	c101.hw=irq,ram:...
+
+
 
 If you have a problem with N2, C101 or PLX200SYN card, you can issue the
 "private" command to see port's packet descriptor rings (in kernel logs):

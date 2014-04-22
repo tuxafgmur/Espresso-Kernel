@@ -42,6 +42,7 @@ Will remove the element.  After removal it will update the aggregate target and
 call the notification tree if the target was changed as a result of removing
 the request.
 
+
 From user mode:
 Only processes can register a pm_qos request.  To provide for automatic
 cleanup of a process, the interface requires the process to register its
@@ -60,3 +61,6 @@ translates to a pm_qos_update_request call.
 
 To remove the user mode request for a target value simply close the device
 node.
+
+
+

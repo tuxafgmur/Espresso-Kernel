@@ -74,6 +74,7 @@ Laser turns off for SFP+ when ifconfig down
 "ifconfig down" turns off the laser for 82599-based SFP+ fiber adapters.
 "ifconfig up" turns on the later.
 
+
 82598-BASED ADAPTERS
 
 NOTES for 82598-Based Adapters:
@@ -98,6 +99,7 @@ Finisar    SFP+ LR bailed, 10g single rate                   FTLX1471D3BCL
 82598-based adapters support all passive direct attach cables that comply
 with SFF-8431 v4.1 and SFF-8472 v10.4 specifications. Active direct attach
 cables are not supported.
+
 
 Flow Control
 ------------
@@ -207,12 +209,14 @@ Additional Configurations
 
   Where n=the VF that attempted to do the spoofing.
 
+
 Performance Tuning
 ==================
 
 An excellent article on performance tuning can be found at:
 
 http://www.redhat.com/promo/summit/2008/downloads/pdf/Thursday/Mark_Wagner.pdf
+
 
 Known Issues
 ============
@@ -238,6 +242,7 @@ Known Issues
   when using qemu to create the KVM guest:
 
        "-cpu qemu64,model=13"
+
 
 Support
 =======

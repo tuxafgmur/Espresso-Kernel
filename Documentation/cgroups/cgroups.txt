@@ -161,6 +161,8 @@ Without this ability, he would have to split the cgroup into
 multiple separate ones and then associate the new cgroups with the
 new resource classes.
 
+
+
 1.3 How are cgroups implemented ?
 ---------------------------------
 
@@ -694,3 +696,4 @@ A: bash's builtin 'echo' command does not check calls to write() against
 Q: When I attach processes, only the first of the line gets really attached !
 A: We can only return one error code per call to write(). So you should also
    put only ONE pid.
+

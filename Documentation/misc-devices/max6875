@@ -10,6 +10,7 @@ Supported chips:
 
 Author: Ben Gardner <bgardner@wabtec.com>
 
+
 Description
 -----------
 
@@ -29,10 +30,12 @@ MAX6875        4       3       5
 
 See the datasheet for more information.
 
+
 Sysfs entries
 -------------
 
 eeprom        - 512 bytes of user-defined EEPROM space.
+
 
 General Remarks
 ---------------
@@ -49,6 +52,7 @@ $ echo max6875 0x50 > /sys/bus/i2c/devices/i2c-0/new_device
 The MAX6874/MAX6875 ignores address bit 0, so this driver attaches to multiple
 addresses.  For example, for address 0x50, it also reserves 0x51.
 The even-address instance is called 'max6875', the odd one is 'dummy'.
+
 
 Programming the chip using i2c-dev
 ----------------------------------
@@ -68,6 +72,7 @@ To write a 1 to register 0x45:
 To read register 0x45:
   value = i2c_smbus_read_byte_data(fd, 0x45);
 
+
 The configuration EEPROM is at addresses 0x8000 - 0x8045.
 The user EEPROM is at addresses 0x8100 - 0x82ff.
 
@@ -81,6 +86,7 @@ The data word is the lower part of the address or'd with data << 8.
 Example:
 To write 0x5a to address 0x8003:
   i2c_smbus_write_word_data(fd, 0x80, 0x5a03);
+
 
 Reading data from the EEPROM is a little more complicated.
 Use i2c_smbus_write_byte_data() to set the read address and then
@@ -101,3 +107,4 @@ The block read should read 16 bytes.
 0x84 is the block read command.
 
 See the datasheet for more details.
+

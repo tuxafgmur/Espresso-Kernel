@@ -4,12 +4,14 @@ Linux kernel media framework
 This document describes the Linux kernel media framework, its data structures,
 functions and their usage.
 
+
 Introduction
 ------------
 
 The media controller API is documented in DocBook format in
 Documentation/DocBook/v4l/media-controller.xml. This document will focus on
 the kernel-side implementation of the media framework.
+
 
 Abstract media device model
 ---------------------------
@@ -33,6 +35,7 @@ not be confused with physical pins at chip boundaries.
 A link is a point-to-point oriented connection between two pads, either
 on the same entity or on different entities. Data flows from a source
 pad to a sink pad.
+
 
 Media device
 ------------
@@ -86,6 +89,7 @@ Drivers unregister media device instances by calling
 	media_device_unregister(struct media_device *mdev);
 
 Unregistering a media device that hasn't been registered is *NOT* safe.
+
 
 Entities, pads and links
 ------------------------
@@ -213,6 +217,7 @@ Links have flags that describe the link capabilities and state.
 	MEDIA_LNK_FL_ENABLED must also be set since an immutable link is always
 	enabled.
 
+
 Graph traversal
 ---------------
 
@@ -264,6 +269,7 @@ connected to another pad through an enabled link
 
 Refer to the kerneldoc documentation for more information.
 
+
 Use count and power handling
 ----------------------------
 
@@ -275,6 +281,7 @@ track the number of users of every entity for power management needs.
 The use_count field is owned by media drivers and must not be touched by entity
 drivers. Access to the field must be protected by the media device graph_mutex
 lock.
+
 
 Links setup
 -----------
@@ -306,6 +313,7 @@ Link configuration must not have any side effect on other links. If an enabled
 link at a sink pad prevents another link at the same pad from being disabled,
 the link_setup operation must return -EBUSY and can't implicitly disable the
 first enabled link.
+
 
 Pipelines and media streams
 ---------------------------

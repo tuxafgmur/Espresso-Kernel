@@ -37,11 +37,13 @@ probe()/remove()
 ----------------
 probe/remove are optional. Do any machine specific probe here.
 
+
 suspend()/resume()
 ------------------
 The machine driver has pre and post versions of suspend and resume to take care
 of any machine audio tasks that have to be done before or after the codec, DAIs
 and DMA is suspended and resumed. Optional.
+
 
 Machine DAI Configuration
 -------------------------
@@ -74,6 +76,7 @@ static struct snd_soc_card snd_soc_corgi = {
 	.num_links = 1,
 };
 
+
 Machine Power Map
 -----------------
 
@@ -82,6 +85,7 @@ audio power map of the audio subsystem. This allows for automatic power up/down
 of speaker/HP amplifiers, etc. Codec pins can be connected to the machines jack
 sockets in the machine init function. See soc/pxa/spitz.c and dapm.txt for
 details.
+
 
 Machine Controls
 ----------------

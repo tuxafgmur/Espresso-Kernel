@@ -20,6 +20,7 @@ encoder chip:
 5) The driver is still a bit rough around the edges, this should
    improve over time.
 
+
 Firmware:
 
 You can obtain the firmware files here:

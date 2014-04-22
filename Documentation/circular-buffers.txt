@@ -5,6 +5,7 @@
 By: David Howells <dhowells@redhat.com>
     Paul E. McKenney <paulmck@linux.vnet.ibm.com>
 
+
 Linux provides a number of features that can be used to implement circular
 buffering.  There are two sets of such features:
 
@@ -18,6 +19,7 @@ To use these facilities, as discussed below, there needs to be just one
 producer and just one consumer.  It is possible to handle multiple producers by
 serialising them, and to handle multiple consumers by serialising them.
 
+
 Contents:
 
  (*) What is a circular buffer?
@@ -27,6 +29,7 @@ Contents:
  (*) Using memory barriers with circular buffers.
      - The producer.
      - The consumer.
+
 
 ==========================
 WHAT IS A CIRCULAR BUFFER?
@@ -57,6 +60,7 @@ buffer, provided that neither index overtakes the other.  The implementer must
 be careful, however, as a region more than one unit in size may wrap the end of
 the buffer and be broken into two segments.
 
+
 ============================
 MEASURING POWER-OF-2 BUFFERS
 ============================
@@ -80,6 +84,7 @@ The macros are:
      This returns the amount of space left in the buffer[1] into which items
      can be inserted.
 
+
  (*) Measure the maximum consecutive immediate space in a buffer:
 
 	CIRC_SPACE_TO_END(head_index, tail_index, buffer_size);
@@ -88,11 +93,13 @@ The macros are:
      which items can be immediately inserted without having to wrap back to the
      beginning of the buffer.
 
+
  (*) Measure the occupancy of a buffer:
 
 	CIRC_CNT(head_index, tail_index, buffer_size);
 
      This returns the number of items currently occupying a buffer[2].
+
 
  (*) Measure the non-wrapping occupancy of a buffer:
 
@@ -100,6 +107,7 @@ The macros are:
 
      This returns the number of consecutive items[2] that can be extracted from
      the buffer without having to wrap back to the beginning of the buffer.
+
 
 Each of these macros will nominally return a value between 0 and buffer_size-1,
 however:
@@ -125,6 +133,7 @@ however:
      independent and may be made on different CPUs - so the result in such a
      situation will merely be a guess, and may even be negative.
 
+
 ===========================================
 USING MEMORY BARRIERS WITH CIRCULAR BUFFERS
 ===========================================
@@ -141,6 +150,7 @@ There are two sides to this: the producer that fills the buffer, and the
 consumer that empties it.  Only one thing should be filling a buffer at any one
 time, and only one thing should be emptying a buffer at any one time, but the
 two sides can operate simultaneously.
+
 
 THE PRODUCER
 ------------
@@ -177,6 +187,7 @@ Note that wake_up() doesn't have to be the exact mechanism used, but whatever
 is used must guarantee a (write) memory barrier between the update of the head
 index and the change of state of the consumer, if a change of state occurs.
 
+
 THE CONSUMER
 ------------
 
@@ -207,11 +218,13 @@ This will instruct the CPU to make sure the index is up to date before reading
 the new item, and then it shall make sure the CPU has finished reading the item
 before it writes the new tail pointer, which will erase the item.
 
+
 Note the use of ACCESS_ONCE() in both algorithms to read the opposition index.
 This prevents the compiler from discarding and reloading its cached value -
 which some compilers will do across smp_read_barrier_depends().  This isn't
 strictly needed if you can be sure that the opposition index will _only_ be
 used the once.
+
 
 ===============
 FURTHER READING

@@ -12,6 +12,7 @@ Author: Jean Delvare <khali@linux-fr.org>
 Thanks to Amir Habibi at Candelis for setting up a test system, and to
 Michael Kress for testing several iterations of this driver.
 
+
 Description
 -----------
 
@@ -26,6 +27,7 @@ which are partly supported by this driver.
 The driver assumes that no more than one chip is present, which seems
 reasonable.
 
+
 Fan Monitoring
 --------------
 
@@ -36,6 +38,7 @@ An alarm is triggered if the rotation speed drops below a programmable
 limit. Another alarm is triggered if the speed is too low to be measured
 (including stalled or missing fan).
 
+
 Fan Speed Control
 -----------------
 
@@ -43,6 +46,7 @@ Fan speed can be controlled by PWM outputs. There are 4 possible modes:
 always off, always on, manual and automatic. The latter isn't supported
 by the driver: you can only return to that mode if it was the original
 setting, and the configuration interface is missing.
+
 
 Temperature Monitoring
 ----------------------

@@ -34,6 +34,7 @@ Supported chips:
         Microchip 24AA52  2K    0x50 - 0x57, SW write protect at 0x30-37
         ST        M34C02  2K    0x50 - 0x57, SW write protect at 0x30-37
 
+
 Authors:
         Frodo Looijaard <frodol@dds.nl>,
         Philip Edelbrock <phil@netroedge.com>,

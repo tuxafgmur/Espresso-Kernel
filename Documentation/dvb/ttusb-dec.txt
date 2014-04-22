@@ -28,11 +28,13 @@ To download the firmware, use the following commands:
 "get_dvb_firmware dec2540t"
 "get_dvb_firmware dec3000s"
 
+
 Compilation Notes for 2.4 kernels
 ---------------------------------
 For 2.4 kernels the firmware for the DECs is compiled into the driver itself.
 
 Copy the three files downloaded above into the build-2.4 directory.
+
 
 Hotplug Firmware Loading for 2.6 kernels
 ----------------------------------------

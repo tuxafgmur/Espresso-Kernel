@@ -16,12 +16,14 @@ Status for each path: <status> <fail-count> <in-flight>
 	<fail-count>: The number of path failures.
 	<in-flight>: The number of in-flight I/Os on the path.
 
+
 Algorithm
 =========
 
 dm-queue-length increments/decrements 'in-flight' when an I/O is
 dispatched/completed respectively.
 dm-queue-length selects a path with the minimum 'in-flight'.
+
 
 Examples
 ========

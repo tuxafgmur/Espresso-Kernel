@@ -38,6 +38,7 @@ Wed Jul 19 10:43:15 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 	* eata_dma.c (eata_queue)(eata_int_handler)(eata_scsi_done):
 	Changed handling of internal SCSI commands send to the HBA.
 
+
 Wed Jul 19 10:09:17 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 
 	* Linux 1.3.11 released.
@@ -71,6 +72,7 @@ Wed Jul 19 09:25:30 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 	* scsi_debug.c (scsi_debug_proc_info): Added support to control
 	device lockup simulation via /proc/scsi interface.
 
+
 Wed Jul 19 09:22:34 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 
 	* Linux 1.3.7 released.
@@ -93,6 +95,7 @@ Wed Jul 19 09:18:28 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 	* scsi.c (scsi_proc_info): Added, to support /proc/scsi/scsi.
 	(scan_scsis): Added some 'spaghetti' code to allow scanning for
 	single devices.
+	
 
 Thu Jun 20 15:20:27 1995  Michael Neuffer  <neuffer@goofy.zdv.uni-mainz.de>
 
@@ -150,6 +153,7 @@ Wed Apr 12 15:25:52 1995  Eric Youngdale  (eric@andante)
 	* st.c: Use bytes, not STP->buffer->buffer_size when reading
 	from tape.
 
+
 Tue Apr  4 09:42:08 1995  Eric Youngdale  (eric@andante)
 
 	* Linux 1.2.4 released.
@@ -181,6 +185,7 @@ Wed Mar 22 10:34:26 1995  Eric Youngdale  (eric@andante)
 
 	* u14-34f.c: Update to version 2.0.  Fixed same bug as in
 	eata.c.
+
 
 Mon Mar  6 11:11:20 1995  Eric Youngdale  (eric@andante)
 
@@ -574,6 +579,7 @@ Wed Jan  4 21:17:40 1995  Eric Youngdale  (eric@andante)
 
 	* sr_ioctl.c:  Support CDROMMULTISESSION ioctl.
 
+
 Sun Jan  1 19:55:21 1995  Eric Youngdale  (eric@andante)
 
 	* Linux 1.1.76 released.
@@ -583,6 +589,7 @@ Sun Jan  1 19:55:21 1995  Eric Youngdale  (eric@andante)
 	* scsi.c (scsi_free): Change datatype of "offset" to long.
 	  (scsi_malloc): Change a few more variables to long.  Who
 	  did this and why was it important?  64 bit machines?
+
 
 	Lots of changes to use save_state/restore_state instead of cli/sti.
 	Files changed include:
@@ -686,6 +693,7 @@ Fri Dec  2 11:24:53 1994  Eric Youngdale  (eric@andante)
 
 	* scsi.c (scsi_abort): Zero timeout field if we get the
 	NOT_RUNNING message back from low-level driver.
+
 
 	* scsi.c (scsi_done): Restore cmd_len, use_sg here.
 
@@ -823,6 +831,7 @@ Tue Nov 29 15:43:50 1994  Eric Youngdale  (eric@andante.aib.com)
 	count to 0, clear this bit to allow usage to continue, wake up
 	processes waiting.
 
+
 	* scsi_ioctl.c: If we have an info() function, call it, otherwise
 	if we have a "name" field, use it, else do nothing.
 
@@ -951,6 +960,7 @@ Sat Oct 29 20:57:36 1994  Eric Youngdale  (eric@andante.aib.com)
 	* aic7770.c, aha274x_seq.h, aha274x.seq, aha274x.h, aha274x.c,
 	README.aha274x: New files, new driver from John Aycock.
 
+
 Tue Oct 11 08:47:39 1994  Eric Youngdale  (eric@andante)
 
 	* Linux 1.1.54 released.
@@ -1030,6 +1040,7 @@ Tue Aug 16 17:29:35 1994  Eric Youngdale  (eric@andante)
 	mainly.
 
 	* pas16.c: Add a few patches (Drew?).
+
 
 Thu Aug 11 20:45:15 1994  Eric Youngdale  (eric@andante)
 
@@ -1151,6 +1162,7 @@ Tue Aug  2 11:29:14 1994  Eric Youngdale  (eric@esp22)
 	transfers.
 
 	* scsi_ioctl.h: Add ioctl to request synchronous transfers.
+
 
 Tue Jul 26 21:36:58 1994  Eric Youngdale  (eric@esp22)
 
@@ -1902,6 +1914,8 @@ Wed Mar 31 16:36:25 1993
     * wd7000.c: Ditto.
     Throughout: Use COMMAND_SIZE macro to determine length of scsi
     command.
+
+
 
 Sat Mar 13 17:31:29 1993
 

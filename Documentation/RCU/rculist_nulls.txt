@@ -92,6 +92,7 @@ atomic_set(&obj->refcnt, 1);
 hlist_add_head_rcu(&obj->obj_node, list);
 unlock_chain(); // typically a spin_unlock()
 
+
 3) Remove algo
 --------------
 Nothing special here, we can use a standard RCU hlist deletion.
@@ -104,6 +105,8 @@ if (put_last_reference_on(obj) {
    unlock_chain(); // typically a spin_unlock()
    kmem_cache_free(cachep, obj);
 }
+
+
 
 --------------------------------------------------------------------------
 With hlist_nulls we can avoid extra smp_rmb() in lockless_lookup()
@@ -118,6 +121,7 @@ is not the slot number, then we must restart the lookup at
 the beginning. If the object was moved to the same chain,
 then the reader doesn't care : It might eventually
 scan the list again without harm.
+
 
 1) lookup algo
 

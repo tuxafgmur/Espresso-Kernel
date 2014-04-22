@@ -1,3 +1,4 @@
+
 krefs allow you to add reference counters to your objects.  If you
 have objects that are used in multiple places and passed around, and
 you don't have refcounts, your code is almost certainly broken.  If
@@ -203,6 +204,7 @@ of the free operations that could take a long time or might claim the
 same lock.  Note that doing everything in the release routine is still
 preferred as it is a little neater.
 
+
 Corey Minyard <minyard@acm.org>
 
 A lot of this was lifted from Greg Kroah-Hartman's 2004 OLS paper and
@@ -210,3 +212,4 @@ presentation on krefs, which can be found at:
   http://www.kroah.com/linux/talks/ols_2004_kref_paper/Reprint-Kroah-Hartman-OLS2004.pdf
 and:
   http://www.kroah.com/linux/talks/ols_2004_kref_talk/
+

@@ -1,3 +1,4 @@
+
 The SGI XFS Filesystem
 ======================
 
@@ -11,6 +12,7 @@ and scalability.
 Refer to the documentation at http://oss.sgi.com/projects/xfs/
 for further details.  This implementation is on-disk compatible
 with the IRIX version of XFS.
+
 
 Mount Options
 =============
@@ -165,6 +167,7 @@ When mounting an XFS filesystem, the following options are accepted.
 	Data allocations will be rounded up to stripe width boundaries
 	when the current end of file is being extended and the file
 	size is larger than the stripe width size.
+
 
 sysctls
 =======

@@ -9,8 +9,10 @@ Introduction
 This guide outlines how to alter existing Linux 2.6 client drivers from
 the old to the new new binding methods.
 
+
 Example old-style driver
 ------------------------
+
 
 struct example_state {
 	struct i2c_client	client;
@@ -84,6 +86,7 @@ static struct i2c_driver example_driver = {
 	.resume		= example_resume,
 };
 
+
 Updating the client
 -------------------
 
@@ -154,6 +157,7 @@ attached by the core. Change the probe routine as so:
 -		return ret;
 -	}
 
+
 Remove the storage of 'struct i2c_client' from the 'struct example_state'
 as we are provided with the i2c_client in our example_probe. Instead we
 store a pointer to it for when it is needed.
@@ -218,6 +222,7 @@ static struct i2c_driver example_driver = {
 		.name		= "example",
 	},
 +	.id_table	= example_ids,
+
 
 Our driver should now look like this:
 

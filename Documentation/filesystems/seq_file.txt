@@ -4,6 +4,7 @@ The seq_file interface
 	This file is originally from the LWN.net Driver Porting series at
 	http://lwn.net/Articles/driver-porting/
 
+
 There are numerous ways for a device driver (or other kernel component) to
 provide information to the user or system administrator.  One useful
 technique is the creation of virtual files, in debugfs, /proc or elsewhere.
@@ -52,6 +53,7 @@ result. Yes, it is a thoroughly useless module, but the point is to show
 how the mechanism works without getting lost in other details.  (Those
 wanting to see the full source for this module can find it at
 http://lwn.net/Articles/22359/).
+
 
 The iterator interface
 
@@ -160,6 +162,7 @@ between the calls to start() and stop(), so holding a lock during that time
 is a reasonable thing to do. The seq_file code will also avoid taking any
 other locks while the iterator is active.
 
+
 Formatted output
 
 The seq_file code manages positioning within the output created by the
@@ -196,6 +199,7 @@ the path relative to the current process's filesystem root.  If a different
 root is desired, it can be used with seq_path_root().  Note that, if it
 turns out that path cannot be reached from root, the value of root will be
 changed in seq_file_root() to a root which *does* work.
+
 
 Making it all work
 
@@ -252,6 +256,7 @@ code, that is done in the initialization code in the usual way:
 
 And that is pretty much it.
 
+
 seq_list
 
 If your file will be iterating through a linked list, you may find these
@@ -267,6 +272,7 @@ routines useful:
 These helpers will interpret pos as a position within the list and iterate
 accordingly.  Your start() and next() functions need only invoke the
 seq_list_* helpers with a pointer to the appropriate list_head structure.
+
 
 The extra-simple version
 

@@ -70,24 +70,10 @@ config SERIAL_8250_CONSOLE
 
 	  If unsure, say N.
 
-config FIX_EARLYCON_MEM
-	bool
-	depends on X86
-	default y
-
 config SERIAL_8250_GSC
 	tristate
 	depends on SERIAL_8250 && GSC
 	default SERIAL_8250
-
-config SERIAL_8250_PCI
-	tristate "8250/16550 PCI device support" if EXPERT
-	depends on SERIAL_8250 && PCI
-	default SERIAL_8250
-	help
-	  This builds standard PCI serial support. You may be able to
-	  disable this feature if you only need legacy serial support.
-	  Saves about 9K.
 
 config SERIAL_8250_PNP
 	tristate "8250/16550 PNP device support" if EXPERT
@@ -101,20 +87,6 @@ config SERIAL_8250_HP300
 	tristate
 	depends on SERIAL_8250 && HP300
 	default SERIAL_8250
-
-config SERIAL_8250_CS
-	tristate "8250/16550 PCMCIA device support"
-	depends on PCMCIA && SERIAL_8250
-	---help---
-	  Say Y here to enable support for 16-bit PCMCIA serial devices,
-	  including serial port cards, modems, and the modem functions of
-	  multi-function Ethernet/modem cards. (PCMCIA- or PC-cards are
-	  credit-card size devices often used with laptops.)
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called serial_cs.
-
-	  If unsure, say N.
 
 config SERIAL_8250_NR_UARTS
 	int "Maximum number of 8250/16550 serial ports"
@@ -717,16 +689,6 @@ config SERIAL_MRST_MAX3110
 	  the Intel Moorestown platform. On other systems use the max3100
 	  driver.
 
-config SERIAL_MFD_HSU
-	tristate "Medfield High Speed UART support"
-	depends on PCI
-	select SERIAL_CORE
-
-config SERIAL_MFD_HSU_CONSOLE
-	boolean "Medfile HSU serial console support"
-	depends on SERIAL_MFD_HSU=y
-	select SERIAL_CORE_CONSOLE
-
 config SERIAL_BFIN
 	tristate "Blackfin serial port support"
 	depends on BLACKFIN
@@ -1094,8 +1056,7 @@ config SERIAL_PMACZILOG_TTYS
 
 	  If you enable this option, any z85c30 ports in the system will
 	  be registered as ttyS0 onwards as in the past, and you will be
-	  unable to use the 8250 module for PCMCIA or other 16C550-style
-	  UARTs.
+	  unable to use the 8250 module for 16C550-style UARTs.
 
 	  Say N unless you need the z85c30 ports on your (Power)Mac
 	  to appear as /dev/ttySn.

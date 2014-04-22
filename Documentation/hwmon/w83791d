@@ -46,6 +46,7 @@ Module Parameters
   to force the subclients of chip 0x2f on bus 0 to i2c addresses
   0x4a and 0x4b.
 
+
 Description
 -----------
 

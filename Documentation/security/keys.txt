@@ -28,6 +28,7 @@ This document has the following sections:
 	- Request-key callback service
 	- Garbage collection
 
+
 ============
 KEY OVERVIEW
 ============
@@ -44,6 +45,7 @@ Each key has a number of attributes:
 	- An expiry time.
 	- A payload.
 	- State.
+
 
  (*) Each key is issued a serial number of type key_serial_t that is unique for
      the lifetime of that key. All serial numbers are positive non-zero 32-bit
@@ -113,6 +115,7 @@ Each key has a number of attributes:
 
 Keys in the last three states are subject to garbage collection.  See the
 section on "Garbage collection".
+
 
 ====================
 KEY SERVICE OVERVIEW
@@ -191,6 +194,7 @@ The key service provides a number of features besides keys:
  (*) An optional filesystem is available through which the key database can be
      viewed and manipulated.
 
+
 ======================
 KEY ACCESS PERMISSIONS
 ======================
@@ -232,6 +236,7 @@ six of each set of eight bits are defined. These permissions granted are:
 For changing the ownership, group ID or permissions mask, being the owner of
 the key or having the sysadmin capability is sufficient.
 
+
 ===============
 SELINUX SUPPORT
 ===============
@@ -263,6 +268,7 @@ boot process, before root has a chance to log in.
 The keyrings associated with new threads are each labeled with the context of
 their associated thread, and both session and process keyrings are handled
 similarly.
+
 
 ================
 NEW PROCFS FILES
@@ -326,6 +332,7 @@ about the status of the key service:
 	<keys>/<max>		Key count quota
 	<bytes>/<max>		Key size quota
 
+
 Four new sysctl files have been added also for the purpose of controlling the
 quota limits on keys:
 
@@ -345,6 +352,7 @@ quota limits on keys:
 
 Root may alter these by writing each new limit as a decimal number string to
 the appropriate file.
+
 
 ===============================
 USERSPACE SYSTEM CALL INTERFACE
@@ -369,6 +377,7 @@ process making the call:
 	KEY_SPEC_GROUP_KEYRING		-6	GID-specific keyring
 	KEY_SPEC_REQKEY_AUTH_KEY	-7	assumed request_key()
 						  authorisation key
+
 
 The main syscalls are:
 
@@ -408,6 +417,7 @@ The main syscalls are:
 
      The ID of the new or updated key is returned if successful.
 
+
  (*) Search the process's keyrings for a key, potentially calling out to
      userspace to create it.
 
@@ -426,6 +436,7 @@ The main syscalls are:
 
      See also Documentation/security/keys-request-key.txt.
 
+
 The keyctl syscall functions are:
 
  (*) Map a special key ID to a real key ID for this process:
@@ -439,6 +450,7 @@ The keyctl syscall functions are:
 
      If the key does not yet exist, the key will be created if "create" is
      non-zero; and the error ENOKEY will be returned if "create" is zero.
+
 
  (*) Replace the session keyring this process subscribes to with a new one:
 
@@ -457,6 +469,7 @@ The keyctl syscall functions are:
 
      The ID of the new session keyring is returned if successful.
 
+
  (*) Update the specified key:
 
 	long keyctl(KEYCTL_UPDATE, key_serial_t key, const void *payload,
@@ -470,6 +483,7 @@ The keyctl syscall functions are:
      The payload is of length plen, and may be absent or empty as for
      add_key().
 
+
  (*) Revoke a key:
 
 	long keyctl(KEYCTL_REVOKE, key_serial_t key);
@@ -477,6 +491,7 @@ The keyctl syscall functions are:
      This makes a key unavailable for further operations. Further attempts to
      use the key will be met with error EKEYREVOKED, and the key will no longer
      be findable.
+
 
  (*) Change the ownership of a key:
 
@@ -490,6 +505,7 @@ The keyctl syscall functions are:
      group ID to something other than the calling process's group ID or one of
      its group list members.
 
+
  (*) Change the permissions mask on a key:
 
 	long keyctl(KEYCTL_SETPERM, key_serial_t key, key_perm_t perm);
@@ -499,6 +515,7 @@ The keyctl syscall functions are:
 
      Only bits the available bits are permitted; if any other bits are set,
      error EINVAL will be returned.
+
 
  (*) Describe a key:
 
@@ -528,6 +545,7 @@ The keyctl syscall functions are:
 
 	sscanf(buffer, "%[^;];%d;%d;%o;%s", type, &uid, &gid, &mode, desc);
 
+
  (*) Clear out a keyring:
 
 	long keyctl(KEYCTL_CLEAR, key_serial_t keyring);
@@ -535,6 +553,7 @@ The keyctl syscall functions are:
      This function clears the list of keys attached to a keyring. The calling
      process must have write permission on the keyring, and it must be a
      keyring (or else error ENOTDIR will result).
+
 
  (*) Link a key into a keyring:
 
@@ -554,6 +573,7 @@ The keyctl syscall functions are:
      type and description will be discarded from the keyring as the new one is
      added.
 
+
  (*) Unlink a key or keyring from another keyring:
 
 	long keyctl(KEYCTL_UNLINK, key_serial_t keyring, key_serial_t key);
@@ -564,6 +584,7 @@ The keyctl syscall functions are:
 
      If the keyring is not a keyring, error ENOTDIR will result; and if the key
      is not present, error ENOENT will be the result.
+
 
  (*) Search a keyring tree for a key:
 
@@ -588,6 +609,7 @@ The keyctl syscall functions are:
      Error ENOKEY, EKEYREVOKED or EKEYEXPIRED will be returned if the search
      fails. On success, the resulting key ID will be returned.
 
+
  (*) Read the payload data from a key:
 
 	long keyctl(KEYCTL_READ, key_serial_t keyring, char *buffer,
@@ -608,6 +630,7 @@ The keyctl syscall functions are:
 
      On a successful return, the function will always return the amount of data
      available rather than the amount copied.
+
 
  (*) Instantiate a partially constructed key.
 
@@ -635,6 +658,7 @@ The keyctl syscall functions are:
      The payload_iov and ioc arguments describe the payload data in an iovec
      array instead of a single buffer.
 
+
  (*) Negatively instantiate a partially constructed key.
 
 	long keyctl(KEYCTL_NEGATE, key_serial_t key,
@@ -656,6 +680,7 @@ The keyctl syscall functions are:
      If the key is rejected, future searches for it will return the specified
      error code until the rejected key expires.  Negating the key is the same
      as rejecting the key with ENOKEY as the error code.
+
 
  (*) Set the default request-key destination keyring.
 
@@ -687,6 +712,7 @@ The keyctl syscall functions are:
      the process keyring if there is one, otherwise the session keyring if
      there is one, otherwise the user default session keyring.
 
+
  (*) Set the timeout on a key.
 
 	long keyctl(KEYCTL_SET_TIMEOUT, key_serial_t key, unsigned timeout);
@@ -698,6 +724,7 @@ The keyctl syscall functions are:
      The process must have attribute modification access on a key to set its
      timeout. Timeouts may not be set with this function on negative, revoked
      or expired keys.
+
 
  (*) Assume the authority granted to instantiate a key
 
@@ -720,6 +747,7 @@ The keyctl syscall functions are:
 
      The assumed authoritative key is inherited across fork and exec.
 
+
  (*) Get the LSM security context attached to a key.
 
 	long keyctl(KEYCTL_GET_SECURITY, key_serial_t key, char *buffer,
@@ -740,6 +768,7 @@ The keyctl syscall functions are:
      A process must have view permission on the key for this function to be
      successful.
 
+
  (*) Install the calling process's session keyring on its parent.
 
 	long keyctl(KEYCTL_SESSION_TO_PARENT);
@@ -758,6 +787,7 @@ The keyctl syscall functions are:
 
      The keyring will be replaced next time the parent process leaves the
      kernel and resumes executing userspace.
+
 
 ===============
 KERNEL SERVICES
@@ -836,6 +866,7 @@ payload contents" for more information.
 
     See also Documentation/security/keys-request-key.txt.
 
+
 (*) To search for a key, passing auxiliary data to the upcaller, call:
 
 	struct key *request_key_with_auxdata(const struct key_type *type,
@@ -847,6 +878,7 @@ payload contents" for more information.
     This is identical to request_key(), except that the auxiliary data is
     passed to the key_type->request_key() op if it exists, and the callout_info
     is a blob of length callout_len, if given (the length may be 0).
+
 
 (*) A key can be requested asynchronously by calling one of:
 
@@ -879,6 +911,7 @@ payload contents" for more information.
     If intr is true, then the wait can be interrupted by a signal, in which
     case error ERESTARTSYS will be returned.
 
+
 (*) When it is no longer required, the key should be released using:
 
 	void key_put(struct key *key);
@@ -890,6 +923,7 @@ payload contents" for more information.
     These can be called from interrupt context. If CONFIG_KEYS is not set then
     the argument will not be parsed.
 
+
 (*) Extra references can be made to a key by calling the following function:
 
 	struct key *key_get(struct key *key);
@@ -899,12 +933,14 @@ payload contents" for more information.
     is NULL or CONFIG_KEYS is not set then the key will not be dereferenced and
     no increment will take place.
 
+
 (*) A key's serial number can be obtained by calling:
 
 	key_serial_t key_serial(struct key *key);
 
     If key is NULL or if CONFIG_KEYS is not set then 0 will be returned (in the
     latter case without parsing the argument).
+
 
 (*) If a keyring was found in the search, this can be further searched by:
 
@@ -920,6 +956,7 @@ payload contents" for more information.
     access through the permissions mask and is propagated to the returned key
     reference pointer if successful.
 
+
 (*) To check the validity of a key, this function can be called:
 
 	int validate_key(struct key *key);
@@ -929,6 +966,7 @@ payload contents" for more information.
     be returned. If the key is NULL or if CONFIG_KEYS is not set then 0 will be
     returned (in the latter case without parsing the argument).
 
+
 (*) To register a key type, the following function should be called:
 
 	int register_key_type(struct key_type *type);
@@ -936,9 +974,11 @@ payload contents" for more information.
     This will return error EEXIST if a type of the same name is already
     present.
 
+
 (*) To unregister a key type, call:
 
 	void unregister_key_type(struct key_type *type);
+
 
 Under some circumstances, it may be desirable to deal with a bundle of keys.
 The facility provides access to the keyring type for managing such a bundle:
@@ -949,6 +989,7 @@ This can be used with a function such as request_key() to find a specific
 keyring in a process's keyrings.  A keyring thus found can then be searched
 with keyring_search().  Note that it is not possible to use request_key() to
 search a specific keyring, so using keyrings in this way is of limited utility.
+
 
 ===================================
 NOTES ON ACCESSING PAYLOAD CONTENTS
@@ -997,6 +1038,7 @@ data:
      the payload. key->datalen cannot be relied upon to be consistent with the
      payload just dereferenced if the key's semaphore is not held.
 
+
 ===================
 DEFINING A KEY TYPE
 ===================
@@ -1016,6 +1058,7 @@ The structure has a number of fields, some of which are mandatory:
      The name of the key type. This is used to translate a key type name
      supplied by userspace into a pointer to the structure.
 
+
  (*) size_t def_datalen
 
      This is optional - it supplies the default payload data length as
@@ -1030,11 +1073,13 @@ The structure has a number of fields, some of which are mandatory:
      With the revised data length. Error EDQUOT will be returned if this is not
      viable.
 
+
  (*) int (*vet_description)(const char *description);
 
      This optional method is called to vet a key description.  If the key type
      doesn't approve of the key description, it may return an error, otherwise
      it should return 0.
+
 
  (*) int (*instantiate)(struct key *key, const void *data, size_t datalen);
 
@@ -1050,6 +1095,7 @@ The structure has a number of fields, some of which are mandatory:
      anything else from gaining access to the key.
 
      It is safe to sleep in this method.
+
 
  (*) int (*update)(struct key *key, const void *data, size_t datalen);
 
@@ -1072,6 +1118,7 @@ The structure has a number of fields, some of which are mandatory:
 
      It is safe to sleep in this method.
 
+
  (*) int (*match)(const struct key *key, const void *desc);
 
      This method is called to match a key against a description. It should
@@ -1083,6 +1130,7 @@ The structure has a number of fields, some of which are mandatory:
 
      It is not safe to sleep in this method; the caller may hold spinlocks.
 
+
  (*) void (*revoke)(struct key *key);
 
      This method is optional.  It is called to discard part of the payload
@@ -1091,6 +1139,7 @@ The structure has a number of fields, some of which are mandatory:
 
      It is safe to sleep in this method, though care should be taken to avoid
      a deadlock against the key semaphore.
+
 
  (*) void (*destroy)(struct key *key);
 
@@ -1102,6 +1151,7 @@ The structure has a number of fields, some of which are mandatory:
      type may have been changed before this function is called.
 
      It is not safe to sleep in this method; the caller may hold spinlocks.
+
 
  (*) void (*describe)(const struct key *key, struct seq_file *p);
 
@@ -1118,6 +1168,7 @@ The structure has a number of fields, some of which are mandatory:
      It is not safe to sleep in this method; the RCU read lock is held by the
      caller.
 
+
  (*) long (*read)(const struct key *key, char __user *buffer, size_t buflen);
 
      This method is optional. It is called by KEYCTL_READ to translate the
@@ -1132,6 +1183,7 @@ The structure has a number of fields, some of which are mandatory:
      prevent the key's payload changing. It is not necessary to use RCU locking
      when accessing the key's payload. It is safe to sleep in this method, such
      as might happen when the userspace buffer is accessed.
+
 
  (*) int (*request_key)(struct key_construction *cons, const char *op,
 			void *aux);
@@ -1171,6 +1223,7 @@ The structure has a number of fields, some of which are mandatory:
      (*) struct key *authkey;
 
      	 The authorisation key.
+
 
 ============================
 REQUEST-KEY CALLBACK SERVICE
@@ -1212,6 +1265,7 @@ service. This will be passed as the <callout_info> parameter. If no such
 information was made available, then "-" will be passed as this parameter
 instead.
 
+
 Similarly, the kernel may attempt to update an expired or a soon to expire key
 by executing:
 
@@ -1220,6 +1274,7 @@ by executing:
 
 In this case, the program isn't required to actually attach the key to a ring;
 the rings are provided for reference.
+
 
 ==================
 GARBAGE COLLECTION

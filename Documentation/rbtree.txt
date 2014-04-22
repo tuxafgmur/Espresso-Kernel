@@ -206,6 +206,7 @@ rb node using new children information. Note that if this new additional
 data affects the parent node's additional data, then callback function has
 to handle it and do the recursive updates.
 
+
 Interval tree is an example of augmented rb tree. Reference -
 "Introduction to Algorithms" by Cormen, Leiserson, Rivest and Stein.
 More details about interval trees:

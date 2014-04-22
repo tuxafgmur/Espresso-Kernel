@@ -2,6 +2,7 @@
                       The UDP-Lite protocol (RFC 3828)
   ===========================================================================
 
+
   UDP-Lite is a Standards-Track IETF transport protocol whose characteristic
   is a variable-length checksum. This has advantages for transport of multimedia
   (video, VoIP) over wireless networks, as partly damaged packets can still be
@@ -11,7 +12,7 @@
   For in-depth information, you can consult:
 
    o The UDP-Lite Homepage:
-	http://web.archive.org/web/*/http://www.erg.abdn.ac.uk/users/gerrit/udp-lite/
+	http://web.archive.org/web/*/http://www.erg.abdn.ac.uk/users/gerrit/udp-lite/ 
        From here you can also download some example application source code.
 
    o The UDP-Lite HOWTO on
@@ -23,13 +24,15 @@
 
    o The Protocol Spec, RFC 3828, http://www.ietf.org/rfc/rfc3828.txt
 
+
   I) APPLICATIONS
 
   Several applications have been ported successfully to UDP-Lite. Ethereal
-  (now called wireshark) has UDP-Litev4/v6 support by default.
+  (now called wireshark) has UDP-Litev4/v6 support by default. 
   Porting applications to UDP-Lite is straightforward: only socket level and
   IPPROTO need to be changed; senders additionally set the checksum coverage
   length (default = header length = 8). Details are in the next section.
+
 
   II) PROGRAMMING API
 
@@ -63,6 +66,7 @@
       checksummed. This is useful for RTP applications which have a 12-byte
       base header.
 
+
     * Receiver checksum coverage: UDPLITE_RECV_CSCOV
 
       This option is the receiver-side analogue. It is truly optional, i.e. not
@@ -80,6 +84,7 @@
   same manner as before, e.g. UDP_CORK or UDP_ENCAP.
 
   A detailed discussion of UDP-Lite checksum coverage options is in section IV.
+
 
   III) HEADER FILES
 
@@ -99,6 +104,7 @@
     #define UDPLITE_RECV_CSCOV     11
 
   Ready-made header files for various distros are in the UDP-Lite tarball.
+
 
   IV) KERNEL BEHAVIOUR WITH REGARD TO THE VARIOUS SOCKET OPTIONS
 
@@ -216,6 +222,7 @@
   performance over wireless (or generally noisy) links and thus smaller
   coverage lengths are likely to be expected.
 
+
   V) UDP-LITE RUNTIME STATISTICS AND THEIR MEANING
 
   Exceptional and error conditions are logged to syslog at the KERN_DEBUG
@@ -245,6 +252,7 @@
 
    These statistics derive from the UDP MIB (RFC 2013).
 
+
   VI) IPTABLES
 
   There is packet match support for UDP-Lite as well as support for the LOG target.
@@ -256,6 +264,7 @@
               iptables -A INPUT -p udplite -j LOG
 
   will produce logging output to syslog. Dropping and rejecting packets also works.
+
 
   VII) MAINTAINER ADDRESS
 

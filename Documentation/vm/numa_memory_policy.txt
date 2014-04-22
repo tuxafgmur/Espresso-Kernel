@@ -1,3 +1,4 @@
+
 What is Linux Memory Policy?
 
 In the Linux kernel, "memory policy" determines from which node the kernel will
@@ -386,6 +387,7 @@ Set [Task] Memory Policy:
 
 	See the set_mempolicy(2) man page for more details
 
+
 Get [Task] Memory Policy or Related Information
 
 	long get_mempolicy(int *mode,
@@ -397,6 +399,7 @@ Get [Task] Memory Policy or Related Information
 	on the 'flags' argument.
 
 	See the get_mempolicy(2) man page for more details
+
 
 Install VMA/Shared Policy for a Range of Task's Address Space
 
@@ -425,6 +428,7 @@ The numactl(8) tool is packaged with the run-time version of the library
 containing the memory policy system call wrappers.  Some distributions
 package the headers and compile-time libraries in a separate development
 package.
+
 
 MEMORY POLICIES AND CPUSETS
 

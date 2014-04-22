@@ -1,3 +1,4 @@
+
 Ext3 Filesystem
 ===============
 
@@ -154,6 +155,7 @@ nobh			(a) cache disk block mapping information
 			"nobh" option tries to avoid associating buffer
 			heads (supported only for "writeback" mode).
 
+
 Specification
 =============
 Ext3 shares all disk implementation with the ext2 filesystem, and adds
@@ -205,6 +207,7 @@ Ext2 partitions can be easily convert to ext3, with `tune2fs -j <dev>`.
 Ext3 is fully compatible with Ext2.  Ext3 partitions can easily be mounted as
 Ext2.
 
+
 External Tools
 ==============
 See manual pages to learn more.
@@ -213,6 +216,7 @@ tune2fs: 	create a ext3 journal on a ext2 partition with the -j flag.
 mke2fs: 	create a ext3 partition with the -j flag.
 debugfs: 	ext2 and ext3 file system debugger.
 ext2online:	online (mounted) ext2 and ext3 filesystem resizer
+
 
 References
 ==========

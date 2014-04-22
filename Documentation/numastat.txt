@@ -1,3 +1,4 @@
+
 Numa policy hit/miss statistics
 
 /sys/devices/system/node/node*/numastat
@@ -18,3 +19,4 @@ interleave_hit 		Interleaving wanted to allocate from this node
 For easier reading you can use the numastat utility from the numactl package
 (ftp://ftp.suse.com/pub/people/ak/numa/numactl*). Note that it only works
 well right now on machines with a small number of CPUs.
+

@@ -14,6 +14,7 @@ Description: 	The rfkill class subsystem folder.
 		Each registered rfkill driver is represented by an rfkillX
 		subfolder (X being an integer > 0).
 
+
 What:		/sys/class/rfkill/rfkill[0-9]+/name
 Date:		09-Jul-2007
 KernelVersion	v2.6.22
@@ -21,12 +22,14 @@ Contact:	linux-wireless@vger.kernel.org
 Description: 	Name assigned by driver to this key (interface or driver name).
 Values: 	arbitrary string.
 
+
 What: 		/sys/class/rfkill/rfkill[0-9]+/type
 Date:		09-Jul-2007
 KernelVersion	v2.6.22
 Contact:	linux-wireless@vger.kernel.org
 Description: 	Driver type string ("wlan", "bluetooth", etc).
 Values: 	See include/linux/rfkill.h.
+
 
 What:		/sys/class/rfkill/rfkill[0-9]+/persistent
 Date:		09-Jul-2007
@@ -37,6 +40,7 @@ Description: 	Whether the soft blocked state is initialised from non-volatile
 Values: 	A numeric value.
 		0: false
 		1: true
+
 
 What:		/sys/class/rfkill/rfkill[0-9]+/hard
 Date:		12-March-2010
@@ -49,6 +53,7 @@ Values: 	A numeric value.
 		1: active
 			The transmitter is forced off by something outside of
 			the driver's control.
+
 
 What:		/sys/class/rfkill/rfkill[0-9]+/soft
 Date:		12-March-2010

@@ -1,3 +1,4 @@
+
 README for the SCSI media changer driver
 ========================================
 
@@ -11,6 +12,7 @@ nor IDE drives.
 Userland tools available from here:
 	http://linux.bytesex.org/misc/changer.html
 
+
 General Information
 -------------------
 
@@ -20,6 +22,7 @@ and one for the device which actually reads and writes the data. The
 later may be anything, a MOD, a CD-ROM, a tape or whatever. For the
 changer device this is a "don't care", he *only* shuffles around the
 media, nothing else.
+
 
 The SCSI changer model is complex, compared to - for example - IDE-CD
 changers. But it allows to handle nearly all possible cases. It knows
@@ -39,6 +42,7 @@ None of these is limited to one: A huge Jukebox could have slots for
 123 CD-ROM's, 5 CD-ROM readers (and therefore 6 SCSI ID's: the changer
 and each CD-ROM) and 2 transport arms. No problem to handle.
 
+
 How it is implemented
 ---------------------
 
@@ -51,6 +55,7 @@ it should work with this driver too.
 
 Over time a few more ioctls where added, volume tag support for example
 wasn't covered by the NetBSD ioctl API.
+
 
 Current State
 -------------
@@ -72,6 +77,7 @@ changer command set should work out-of-the-box with this driver.  If it
 doesn't, it is a bug.  Either within the driver or within the firmware
 of the changer device.
 
+
 Using it
 --------
 
@@ -90,6 +96,7 @@ broken devices. So you can try:
   2) boot the kernel with "max_scsi_luns=1" on the command line
      (append="max_scsi_luns=1" in lilo.conf should do the trick)
 
+
 Trouble?
 --------
 
@@ -102,6 +109,7 @@ strings then.
 You can display these messages with the dmesg command (or check the
 logfiles).  If you email me some question because of a problem with the
 driver, please include these messages.
+
 
 Insmod options
 --------------
@@ -147,6 +155,7 @@ vendor_labels=
 	find the correct values as they are not covered by the SCSI-2
 	standard.
 
+
 Credits
 -------
 
@@ -167,5 +176,5 @@ Have fun,
 
    Gerd
 
---
+-- 
 Gerd Knorr <kraxel@bytesex.org>

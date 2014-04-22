@@ -3,6 +3,7 @@
 
                    Takashi Iwai <tiwai@suse.de>
 
+
 Front/Rear Multi-channel Playback
 ---------------------------------
 
@@ -53,6 +54,7 @@ There are two more controls regarding to the rear output.
 The "Exchange DAC" switch is used to exchange front and rear playback
 routes, i.e. the 2nd DAC is output from front output.
 
+
 4/6 Multi-Channel Playback
 --------------------------
 
@@ -90,14 +92,14 @@ There are some control switchs affecting to the speaker connections:
 "Line-In Mode"	- an enum control to change the behavior of line-in
 	jack.  Either "Line-In", "Rear Output" or "Bass Output" can
 	be selected.  The last item is available only with model 039
-	or newer.
+	or newer. 
 	When "Rear Output" is chosen, the surround channels 3 and 4
 	are output to line-in jack.
 "Mic-In Mode"	- an enum control to change the behavior of mic-in
 	jack.  Either "Mic-In" or "Center/LFE Output" can be
-	selected.
+	selected. 
 	When "Center/LFE Output" is chosen, the center and bass
-	channels (channels 5 and 6) are output to mic-in jack.
+	channels (channels 5 and 6) are output to mic-in jack. 
 
 Digital I/O
 -----------
@@ -135,6 +137,7 @@ but SPDIF is enabled only when the proper format (S16LE), sample rate
 (441100 or 48000) and channels (2) are used.  Otherwise it's turned
 off.  (Also don't forget to turn on "IEC958 Output Switch", too.)
 
+
 Additionally there are relevant control switches:
 
 "IEC958 Mix Analog" - Mix analog PCM playback and FM-OPL/3 streams and
@@ -166,6 +169,7 @@ Additionally there are relevant control switches:
 Note: When "PCM Playback Switch" is on, you'll hear the digital output
 stream through analog line-out.
 
+
 The AC3 (RAW DIGITAL) OUTPUT
 ----------------------------
 
@@ -184,6 +188,7 @@ the alsa-lib.  If you need to bypass the software conversion of IEC958
 subframes, pass the "soft_ac3=0" module option.  This doesn't matter
 on the newer models.
 
+
 ANALOG MIXER INTERFACE
 ----------------------
 
@@ -199,6 +204,7 @@ In addition to the standard SB mixer, CM8x38 provides more functions.
 - Mic capture volume
 - Aux playback volume/switch and capture switch
 - 3D control switch
+
 
 MIDI CONTROLLER
 ---------------
@@ -217,6 +223,7 @@ What's said as MIDI synth on Windows is a software synthesizer
 emulation.  On Linux use TiMidity or other softsynth program for
 playing MIDI music.
 
+
 FM OPL/3 Synth
 --------------
 
@@ -228,6 +235,7 @@ I don't know why..
 
 CMI8768 and newer chips do not have the FM synth.
 
+
 Joystick and Modem
 ------------------
 
@@ -236,6 +244,7 @@ joystick_port=1 module option.  The value 1 means the auto-detection.
 If the auto-detection fails, try to pass the exact I/O address.
 
 The modem is enabled dynamically via a card control switch "Modem".
+
 
 Debugging Information
 ---------------------

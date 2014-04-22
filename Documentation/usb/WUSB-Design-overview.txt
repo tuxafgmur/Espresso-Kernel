@@ -1,3 +1,4 @@
+
 Linux UWB + Wireless USB + WiNET
 
    (C) 2005-2006 Intel Corporation
@@ -16,6 +17,7 @@ Linux UWB + Wireless USB + WiNET
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    02110-1301, USA.
+
 
 Please visit http://bughost.org/thewiki/Design-overview.txt-1.8 for
 updated content.
@@ -47,6 +49,7 @@ and an Intel WiNET controller).
    3. Wireless USB Host Controller drivers
 
    4. Glossary
+
 
     Introduction
 
@@ -89,6 +92,7 @@ The different logical parts of this driver are:
       The Wireless USB spec defines means to control a UWB radio and to
       do the actual WUSB.
 
+
       HWA: Host Wire adapters, your Wireless USB dongle
 
 WUSB also defines a device called a Host Wire Adaptor (HWA), which in
@@ -120,6 +124,7 @@ The HWA itself is broken in two or three main interfaces:
       interface, winetX). The driver detects when there is a link up for
       their type and kick into gear.
 
+
       DWA: Device Wired Adaptor, a Wireless USB hub for wired devices
 
 These are the complement to HWAs. They are a USB host for connecting
@@ -131,6 +136,7 @@ We still offer no support for this; however, it should share a lot of
 code with the HWA-RC driver; there is a bunch of factorization work that
 has been done to support that in upcoming releases.
 
+
       WHCI: Wireless Host Controller Interface, the PCI WUSB host adapter
 
 This is your usual PCI device that implements WHCI. Similar in concept
@@ -141,12 +147,14 @@ Radio Control interface and the WUSB Host Controller interface per se.
 There is still no driver support for this, but will be in upcoming
 releases.
 
+
     The UWB stack
 
 The main mission of the UWB stack is to keep a tally of which devices
 are in radio proximity to allow drivers to connect to them. As well, it
 provides an API for controlling the local radio controllers (RCs from
 now on), such as to start/stop beaconing, scan, allocate bandwidth, etc.
+
 
       Devices and hosts: the basic structure
 
@@ -187,6 +195,7 @@ The HWA-RC (USB dongle) driver (drivers/uwb/hwa-rc.c) does this job for
 the USB connected HWA. Eventually, drivers/whci-rc.c will do the same
 for the PCI connected WHCI controller.
 
+
       Host Controller life cycle
 
 So let's say we connect a dongle to the system: it is detected and
@@ -207,6 +216,7 @@ the world [/drivers/uwb/lc-rc.c:uwb_rc_add()/].
 
 When a dongle is disconnected, /drivers/uwb/hwa-rc.c:hwarc_disconnect()/
 takes time of tearing everything down safely (or not...).
+
 
       On the air: beacons and enumerating the radio neighborhood
 
@@ -233,9 +243,11 @@ are received in some time, the device is considered gone and wiped out
 [uwbd calls periodically /uwb/beacon.c:uwb_beca_purge()/ that will purge
 the beacon cache of dead devices].
 
+
       Device lists
 
 All UWB devices are kept in the list of the struct bus_type uwb_bus.
+
 
       Bandwidth allocation
 
@@ -255,6 +267,7 @@ bandwidth management done by the UWB stack will include callbacks to the
 higher layers will enable the higher layers to use the reservations upon
 completion. [Note: The bandwidth reservation work is in progress and
 subject to change.]
+
 
     Wireless USB Host Controller drivers
 
@@ -402,6 +415,7 @@ a xfer abort request to the HC, cancel all the URBs we had submitted
 and not yet done and when all that is done, the xfer callback will be
 called--this will call the URB callback.
 
+
     Glossary
 
 *DWA* -- Device Wire Adapter
@@ -431,3 +445,4 @@ the host.
 
 Design-overview.txt-1.8 (last edited 2006-11-04 12:22:24 by
 InakyPerezGonzalez)
+

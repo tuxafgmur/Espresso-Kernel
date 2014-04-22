@@ -15,12 +15,14 @@ CONTENTS
  KNOWN ISSUES
  SUPPORT
 
+
 INTRODUCTION
 ============
 
  This document describes the Linux driver for Chelsio 10Gb Ethernet Network
  Controller. This driver supports the Chelsio N210 NIC and is backward
  compatible with the Chelsio N110 model 10Gb NICs.
+
 
 FEATURES
 ========
@@ -66,6 +68,7 @@ FEATURES
 
       ethtool -c <interface>
 
+
  TCP Segmentation Offloading (TSO) Support
  -----------------------------------------
 
@@ -88,6 +91,7 @@ FEATURES
   To view the status of TSO:
 
       ethtool -k <interface>
+
 
 PERFORMANCE
 ===========
@@ -173,6 +177,7 @@ PERFORMANCE
    Setting the min, max, and default receive buffer (RX_WINDOW) size is
    performed in the same manner as single connection.
 
+
 DRIVER MESSAGES
 ===============
 
@@ -190,6 +195,7 @@ DRIVER MESSAGES
 
   Link down:
      eth#: link is down
+
 
 KNOWN ISSUES
 ============
@@ -312,6 +318,7 @@ KNOWN ISSUES
       etc., you may want to try the runon tool provided by Tim Hockin's
       procstate utility. You could also try binding the interface to a
       particular CPU: runon 0 ifup eth0
+
 
 SUPPORT
 =======

@@ -27,6 +27,7 @@ The core re-uses the platform device system as the platform device
 system provides enough features to support the drivers without the
 need to create a new bus-type and the associated code to go with it.
 
+
 Resources
 ---------
 
@@ -49,6 +50,7 @@ given to it by aligning fb0 to the start of the area and fb1 to the end
 of it. Any memory left over in the middle is used for the acceleration
 functions, which are transient and thus their location is less critical
 as it can be moved.
+
 
 Configuration
 -------------

@@ -15,6 +15,7 @@ The Dell libsmbios project aims towards providing access to as much BIOS
 information as possible.  See http://linux.dell.com/libsmbios/main/ for
 more information about the libsmbios project.
 
+
 System Management Interrupt
 
 On some Dell systems, systems management software must access certain
@@ -39,6 +40,7 @@ a SMI using this driver:
    "2" to generate a raw SMI.
 4) Read system management command response from smi_data.
 5) Unlock smi_data.
+
 
 Host Control Action
 
@@ -65,6 +67,7 @@ power off host control action using this driver:
    (Driver will perform host control SMI when it is notified that the OS
    has finished shutting down.)
 
+
 Host Control SMI Type
 
 The following table shows the value to write to host_control_smi_type to
@@ -84,3 +87,5 @@ PowerEdge System    Host Control SMI Type
      1655MC           HC_SMITYPE_TYPE2
       700             HC_SMITYPE_TYPE3
       750             HC_SMITYPE_TYPE3
+
+

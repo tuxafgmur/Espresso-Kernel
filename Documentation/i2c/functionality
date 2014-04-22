@@ -1,11 +1,12 @@
 INTRODUCTION
 ------------
 
-Because not every I2C or SMBus adapter implements everything in the
+Because not every I2C or SMBus adapter implements everything in the 
 I2C specifications, a client can not trust that everything it needs
 is implemented when it is given the option to attach to an adapter:
 the client needs some way to check whether an adapter has the needed
-functionality.
+functionality. 
+
 
 FUNCTIONALITY CONSTANTS
 -----------------------
@@ -49,6 +50,7 @@ A few combinations of the above flags are also defined for your convenience:
                                   emulated by a real I2C adapter (using
                                   the transparent emulation layer)
 
+
 ADAPTER IMPLEMENTATION
 ----------------------
 
@@ -82,6 +84,7 @@ without having to care whether the said functions are implemented in
 hardware by the adapter, or emulated in software by i2c-core on top
 of an I2C adapter.
 
+
 CLIENT CHECKING
 ---------------
 
@@ -114,6 +117,7 @@ implemented in hardware by the underlying adapter or emulated in
 software by i2c-core. Client drivers don't have to care about this, as
 i2c-core will transparently implement SMBus transactions on top of I2C
 adapters.
+
 
 CHECKING THROUGH /DEV
 ---------------------

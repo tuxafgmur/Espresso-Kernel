@@ -2,9 +2,13 @@ all boards:
 
 Brooktree Bt848/848A/849/878/879: video capture chip
 
+
+
 Miro PCTV:
 
 Philips or Temic Tuner
+
+
 
 Hauppauge Win/TV pci (version 405):
 
@@ -23,6 +27,8 @@ TSA5522: 1.4 GHz I2C-bus controlled synthesizer, I2C 0xc2-0xc3
 NTSC:
 TDA5731: VHF, hyperband and UHF mixer/oscillator for TV and VCR 3-band tuners
 TSA5518: no datasheet available on Philips site
+
+
 
 STB TV pci:
 

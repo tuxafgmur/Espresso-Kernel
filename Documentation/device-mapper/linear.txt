@@ -10,6 +10,7 @@ Parameters: <dev path> <offset>
                 "major:minor" device-number.
     <offset>: Starting sector within the device.
 
+
 Example scripts
 ===============
 [[
@@ -17,6 +18,7 @@ Example scripts
 # Create an identity mapping for a device
 echo "0 `blockdev --getsize $1` linear $1 0" | dmsetup create identity
 ]]
+
 
 [[
 #!/bin/sh
@@ -26,6 +28,7 @@ size2=`blockdev --getsize $2`
 echo "0 $size1 linear $1 0
 $size1 $size2 linear $2 0" | dmsetup create joined
 ]]
+
 
 [[
 #!/usr/bin/perl -w

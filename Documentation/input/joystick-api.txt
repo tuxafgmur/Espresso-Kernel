@@ -18,6 +18,7 @@ By default, the device is opened in blocking mode.
 
 	int fd = open ("/dev/js0", O_RDONLY);
 
+
 2. Event Reading
 ~~~~~~~~~~~~~~~~
 
@@ -35,6 +36,7 @@ where js_event is defined as
 
 If the read is successful, it will return sizeof(struct js_event), unless
 you wanted to read more than one event per read as described in section 3.1.
+
 
 2.1 js_event.type
 ~~~~~~~~~~~~~~~~~
@@ -56,6 +58,7 @@ you can turn off the JS_EVENT_INIT bits
 
 	type &= ~JS_EVENT_INIT;				/* 0x01 */
 
+
 2.2 js_event.number
 ~~~~~~~~~~~~~~~~~~~
 
@@ -73,6 +76,7 @@ is, you have both an axis 0 and a button 0). Generally,
 Hats vary from one joystick type to another. Some can be moved in 8
 directions, some only in 4, The driver, however, always reports a hat as two
 independent axis, even if the hardware doesn't allow independent movement.
+
 
 2.3 js_event.value
 ~~~~~~~~~~~~~~~~~~
@@ -104,6 +108,7 @@ is much safer since it can't lose sync with the driver. As you would
 have to write a separate handler for JS_EVENT_INIT events in the first
 snippet, this ends up being shorter.
 
+
 2.4 js_event.time
 ~~~~~~~~~~~~~~~~~
 
@@ -111,6 +116,7 @@ The time an event was generated is stored in ``js_event.time''. It's a time
 in milliseconds since ... well, since sometime in the past.  This eases the
 task of detecting double clicks, figuring out if movement of axis and button
 presses happened at the same time, and similar.
+
 
 3. Reading
 ~~~~~~~~~~
@@ -125,6 +131,7 @@ admittedly, a long time;)
 	   man page.
 
 	b) open the device in non-blocking mode (O_NONBLOCK)
+
 
 3.1 O_NONBLOCK
 ~~~~~~~~~~~~~~
@@ -168,6 +175,7 @@ the actual state of the joystick.
  events. You can increment this size bumping up JS_BUFF_SIZE in
  joystick.h and recompiling the driver.]
 
+
 In the above code, you might as well want to read more than one event
 at a time using the typical read(2) functionality. For that, you would
 replace the read above with something like
@@ -179,6 +187,7 @@ In this case, read would return -1 if the queue was empty, or some
 other value in which the number of events read would be i /
 sizeof(js_event)  Again, if the buffer was full, it's a good idea to
 process the events and keep reading it until you empty the driver queue.
+
 
 4. IOCTLs
 ~~~~~~~~~
@@ -198,6 +207,7 @@ For example, to read the number of axes
 	char number_of_axes;
 	ioctl (fd, JSIOCGAXES, &number_of_axes);
 
+
 4.1 JSIOGCVERSION
 ~~~~~~~~~~~~~~~~~
 
@@ -208,6 +218,7 @@ JS_VERSION symbol
 
 	#ifdef JS_VERSION
 	#if JS_VERSION > 0xsomething
+
 
 4.2 JSIOCGNAME
 ~~~~~~~~~~~~~~
@@ -221,6 +232,7 @@ possible overrun should the name be too long.
 	if (ioctl(fd, JSIOCGNAME(sizeof(name)), name) < 0)
 		strncpy(name, "Unknown", sizeof(name));
 	printf("Name: %s\n", name);
+
 
 4.3 JSIOC[SG]CORR
 ~~~~~~~~~~~~~~~~~
@@ -246,6 +258,7 @@ and ``type''
 
 	#define JS_CORR_NONE            0x00    /* returns raw values */
 	#define JS_CORR_BROKEN          0x01    /* broken line */
+
 
 5. Backward compatibility
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -287,6 +300,7 @@ center, and 255 maximum value.
 The v0.8.0.2 driver also had an interface for 'digital joysticks', (now
 called Multisystem joysticks in this driver), under /dev/djsX. This driver
 doesn't try to be compatible with that interface.
+
 
 6. Final Notes
 ~~~~~~~~~~~~~~

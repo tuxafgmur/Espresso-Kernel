@@ -3,6 +3,7 @@ as kAFS which can be found in fs/afs/). This facility includes allowing
 in-kernel mounts to be performed and mountpoint degradation to be
 requested. The latter can also be requested by userspace.
 
+
 ======================
 IN-KERNEL AUTOMOUNTING
 ======================
@@ -54,6 +55,7 @@ And then if you look in the mountpoint catalogue, you'll see something like:
 	#root.cell. /afs/cambridge.redhat.com afs rw 0 0
 	#afsdoc. /afs/cambridge.redhat.com/afsdoc afs rw 0 0
 
+
 ===========================
 AUTOMATIC MOUNTPOINT EXPIRY
 ===========================
@@ -91,6 +93,7 @@ expiration list and will not expire.
 If a namespace is copied, all mountpoints contained therein will be copied,
 and the copies of those that are on an expiration list will be added to the
 same expiration list.
+
 
 =======================
 USERSPACE DRIVEN EXPIRY

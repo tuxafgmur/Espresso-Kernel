@@ -11,6 +11,7 @@ $modprobe caif
 $modprobe caif_socket
 $modprobe chnl_net
 
+
 === Preparing the setup with a STE modem ===
 
 If you are working on integration of CAIF you should make sure

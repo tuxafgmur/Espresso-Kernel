@@ -1,14 +1,19 @@
      CPU frequency and voltage scaling code in the Linux(TM) kernel
 
+
 		         L i n u x    C P U F r e q
 
 			     U S E R   G U I D E
 
+
 		    Dominik Brodowski  <linux@brodo.de>
+
+
 
    Clock scaling allows you to change the clock speed of the CPUs on the
     fly. This is a nice method to save battery power, because the lower
             the clock speed, the less power the CPU consumes.
+
 
 Contents:
 ---------
@@ -27,6 +32,8 @@ Contents:
 3. How to change the CPU cpufreq policy and/or speed
 3.1 Preferred interface: sysfs
 
+
+
 1. Supported Architectures and Processors
 =========================================
 
@@ -39,6 +46,7 @@ ARM Integrator
 ARM-SA1100
 ARM-SA1110
 Intel PXA
+
 
 1.2 x86
 -------
@@ -65,6 +73,7 @@ various processors on some ACPI 2.0-compatible systems [*]
 [*] Only if "ACPI Processor Performance States" are available
 to the ACPI<->BIOS interface.
 
+
 1.3 sparc64
 -----------
 
@@ -73,10 +82,12 @@ cpufreq:
 
 UltraSPARC-III
 
+
 1.4 ppc
 -------
 
 Several "PowerBook" and "iBook2" notebooks are supported.
+
 
 1.5 SuperH
 ----------
@@ -95,6 +106,7 @@ BF534, BF536, BF537, Rev 0.2 or higher
 BF561, Rev 0.3 or higher
 BF542, BF544, BF547, BF548, BF549, Rev 0.1 or higher
 
+
 2. "Policy" / "Governor" ?
 ==========================
 
@@ -104,12 +116,14 @@ user involvement. This guarantees very fast switching to a frequency
 which is high enough to serve the user's needs, but low enough to save
 power.
 
+
 2.1 Policy
 ----------
 
 On these systems, all you can do is select the lower and upper
 frequency limit as well as whether you want more aggressive
 power-saving or more instantly available processing power.
+
 
 2.2 Governor
 ------------
@@ -120,6 +134,7 @@ what speed the processor shall run within the boundaries. One such
 "governor" is the "userspace" governor. This one allows the user - or
 a yet-to-implement userspace program - to decide what specific speed
 the processor shall run at.
+
 
 3. How to change the CPU cpufreq policy and/or speed
 ====================================================
@@ -133,9 +148,9 @@ mounted it at /sys, the cpufreq interface is located in a subdirectory
 (e.g. /sys/devices/system/cpu/cpu0/cpufreq/ for the first CPU).
 
 cpuinfo_min_freq :		this file shows the minimum operating
-				frequency the processor can run at(in kHz)
+				frequency the processor can run at(in kHz) 
 cpuinfo_max_freq :		this file shows the maximum operating
-				frequency the processor can run at(in kHz)
+				frequency the processor can run at(in kHz) 
 cpuinfo_transition_latency	The time it takes on this CPU to
 				switch between two frequencies in nano
 				seconds. If unknown or known to be

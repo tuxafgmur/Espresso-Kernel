@@ -63,11 +63,13 @@ int cn_add_callback(struct cb_id *id, char *name, void (*callback) (struct cn_ms
  void (*callback) (struct cn..)	- connector's callback.
 				  cn_msg and the sender's credentials
 
+
 void cn_del_callback(struct cb_id *id);
 
  Unregisters new callback with connector core.
 
  struct cb_id *id		- unique connector's user identifier.
+
 
 int cn_netlink_send(struct cn_msg *msg, u32 __groups, int gfp_mask);
 
@@ -171,7 +173,7 @@ group number 12345, you must increment CN_NETLINK_USERS to that number.
 Additional 0xf numbers are allocated to be used by non-in-kernel users.
 
 Due to this limitation, group 0xffffffff does not work now, so one can
-not use add/remove connector's group notifications, but as far as I know,
+not use add/remove connector's group notifications, but as far as I know, 
 only cn_test.c test module used it.
 
 Some work in netlink area is still being done, so things can be changed in

@@ -26,6 +26,7 @@ Description:
 		NOTE: this field can be used in conjunction with microvolts
 		or microamps to determine configured regulator output levels.
 
+
 What:		/sys/class/regulator/.../status
 Description:
 		Some regulator directories will contain a field called
@@ -62,6 +63,7 @@ Description:
 		a regulator may be enabled by another user, even though
 		Linux did not enable it.
 
+
 What:		/sys/class/regulator/.../type
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -85,6 +87,7 @@ Description:
 		'unknown' means software cannot control either voltage or
 		current limit.
 
+
 What:		/sys/class/regulator/.../microvolts
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -99,6 +102,7 @@ Description:
 		output voltage level as this value is the same regardless of
 		whether the regulator is enabled or disabled.
 
+
 What:		/sys/class/regulator/.../microamps
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -112,6 +116,7 @@ Description:
 		NOTE: This value should not be used to determine the regulator
 		output current level as this value is the same regardless of
 		whether the regulator is enabled or disabled.
+
 
 What:		/sys/class/regulator/.../opmode
 Date:		April 2008
@@ -137,6 +142,7 @@ Description:
 		whether the regulator is enabled or disabled.  A "status"
 		attribute may be available to determine the actual mode.
 
+
 What:		/sys/class/regulator/.../min_microvolts
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -150,6 +156,7 @@ Description:
 		NOTE: this will return the string 'constraint not defined' if
 		the power domain has no min microvolts constraint defined by
 		platform code.
+
 
 What:		/sys/class/regulator/.../max_microvolts
 Date:		April 2008
@@ -165,6 +172,7 @@ Description:
 		the power domain has no max microvolts constraint defined by
 		platform code.
 
+
 What:		/sys/class/regulator/.../min_microamps
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -178,6 +186,7 @@ Description:
 		NOTE: this will return the string 'constraint not defined' if
 		the power domain has no min microamps constraint defined by
 		platform code.
+
 
 What:		/sys/class/regulator/.../max_microamps
 Date:		April 2008
@@ -193,6 +202,7 @@ Description:
 		the power domain has no max microamps constraint defined by
 		platform code.
 
+
 What:		/sys/class/regulator/.../name
 Date:		October 2008
 KernelVersion:	2.6.28
@@ -205,6 +215,7 @@ Description:
 		NOTE: this will be empty if no suitable name is provided
 		by platform or regulator drivers.
 
+
 What:		/sys/class/regulator/.../num_users
 Date:		April 2008
 KernelVersion:	2.6.26
@@ -213,6 +224,7 @@ Description:
 		Each regulator directory will contain a field called
 		num_users. This holds the number of consumer devices that
 		have called regulator_enable() on this regulator.
+
 
 What:		/sys/class/regulator/.../requested_microamps
 Date:		April 2008
@@ -223,6 +235,7 @@ Description:
 		requested_microamps. This holds the total requested load
 		current in microamps for this regulator from all its consumer
 		devices.
+
 
 What:		/sys/class/regulator/.../parent
 Date:		April 2008

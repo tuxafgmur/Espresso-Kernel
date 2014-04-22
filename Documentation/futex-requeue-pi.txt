@@ -55,6 +55,7 @@ upon a successful futex_wait system call, the caller would return to
 user space already holding the PI futex.  The glibc implementation
 would be modified as follows:
 
+
 /* caller must lock mutex */
 pthread_cond_wait_pi(cond, mutex)
 {

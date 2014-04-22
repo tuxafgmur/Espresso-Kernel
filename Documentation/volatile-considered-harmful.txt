@@ -102,6 +102,7 @@ Patches to remove volatile variables are generally welcome - as long as
 they come with a justification which shows that the concurrency issues have
 been properly thought through.
 
+
 NOTES
 -----
 

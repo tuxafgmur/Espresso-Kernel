@@ -1,7 +1,7 @@
 		Semantics and Behavior of Atomic and
 		         Bitmask Operations
 
-			  David S. Miller
+			  David S. Miller	 
 
 	This document is intended to serve as a guide to Linux port
 maintainers on how to implement atomic counter, bitops, and spinlock
@@ -190,6 +190,7 @@ atomic_add_unless requires explicit memory barriers around the operation
 unless it fails (returns 0).
 
 atomic_inc_not_zero, equivalent to atomic_add_unless(v, 1, 0)
+
 
 If a caller requires memory barrier semantics around an atomic_t
 operation which does not return a value, a set of interfaces are

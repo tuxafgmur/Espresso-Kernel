@@ -4,6 +4,7 @@
 Written by Geert Uytterhoeven <geert@linux-m68k.org>
 Last revised: September 5, 2003
 
+
 1. Introduction
 ---------------
 
@@ -17,6 +18,7 @@ There are two types of Zorro busses, Zorro II and Zorro III:
 
   - Zorro III is a 32-bit extension of Zorro II, which is backwards compatible
     with Zorro II. The Zorro III address space lies outside the first 16 MB.
+
 
 2. Probing for Zorro Devices
 ----------------------------
@@ -46,6 +48,7 @@ supports different types of boards, you can use a construct like:
 	...
     }
 
+
 3. Zorro Resources
 ------------------
 
@@ -61,6 +64,7 @@ Shortcuts to claim the whole device's address space are provided as well:
     zorro_request_device
     zorro_release_device
 
+
 4. Accessing the Zorro Address Space
 ------------------------------------
 
@@ -72,7 +76,7 @@ The treatment of these regions depends on the type of Zorro space:
 
   - Zorro II address space is always mapped and does not have to be mapped
     explicitly using z_ioremap().
-
+    
     Conversion from bus/physical Zorro II addresses to kernel virtual addresses
     and vice versa is done using:
 
@@ -81,10 +85,11 @@ The treatment of these regions depends on the type of Zorro space:
 
   - Zorro III address space must be mapped explicitly using z_ioremap() first
     before it can be accessed:
-
+ 
 	virt_addr = z_ioremap(bus_addr, size);
 	...
 	z_iounmap(virt_addr);
+
 
 5. References
 -------------
@@ -94,3 +99,4 @@ linux/include/asm-{m68k,ppc}/zorro.h
 linux/include/linux/zorro_ids.h
 linux/drivers/zorro
 /proc/bus/zorro
+

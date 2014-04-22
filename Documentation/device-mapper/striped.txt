@@ -19,6 +19,7 @@ One or more underlying devices can be specified. The striped device size must
 be a multiple of the chunk size and a multiple of the number of underlying
 devices.
 
+
 Example scripts
 ===============
 
@@ -54,3 +55,4 @@ for ($i = 0; $i < $num_devs; $i++) {
 
 `echo $table | dmsetup create $dev_name`;
 ]]
+

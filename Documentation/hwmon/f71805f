@@ -27,6 +27,7 @@ questions and providing additional documentation.
 Thanks to Chris Lin from Jetway for providing wiring schematics and
 answering technical questions.
 
+
 Description
 -----------
 
@@ -46,6 +47,7 @@ F71872F/FG, and is undistinguishable therefrom.
 
 The driver assumes that no more than one chip is present, which seems
 reasonable.
+
 
 Voltage Monitoring
 ------------------
@@ -90,6 +92,7 @@ accordingly.
 Each voltage measured has associated low and high limits, each of which
 triggers an alarm when crossed.
 
+
 Fan Monitoring
 --------------
 
@@ -104,6 +107,7 @@ The chip assumes 2 pulse-per-revolution fans.
 An alarm is triggered if the rotation speed drops below a programmable
 limit or is too low to be measured.
 
+
 Temperature Monitoring
 ----------------------
 
@@ -117,6 +121,7 @@ sensor. Each channel can be used for connecting either a thermal diode
 or a thermistor. The driver reports the currently selected mode, but
 doesn't allow changing it. In theory, the BIOS should have configured
 everything properly.
+
 
 Fan Control
 -----------

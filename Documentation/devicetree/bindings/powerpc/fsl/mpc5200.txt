@@ -147,6 +147,7 @@ PSC in i2s mode:  The mpc5200 and mpc5200b PSCs are not compatible when in
 i2s mode.  An 'mpc5200b-psc-i2s' node cannot include 'mpc5200-psc-i2s' in the
 compatible field.
 
+
 fsl,mpc5200-gpio and fsl,mpc5200-gpio-wkup nodes
 ------------------------------------------------
 Each GPIO controller node should have the empty property gpio-controller and

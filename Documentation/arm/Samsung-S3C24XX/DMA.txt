@@ -9,6 +9,7 @@ Introduction
    duty of managing channel mappings, and programming the
    channel generators is in one place.
 
+
 DMA Channel Ordering
 --------------------
 
@@ -35,6 +36,7 @@ DMA Channel Ordering
    to register a complete ordering set. The routine will
    copy the data, so the original can be discarded with
    __initdata.
+
 
 Authour
 -------

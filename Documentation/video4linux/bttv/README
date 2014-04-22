@@ -1,3 +1,4 @@
+
 Release notes for bttv
 ======================
 
@@ -7,6 +8,7 @@ You'll need at least these config options for bttv:
 	CONFIG_VIDEO_DEV=m
 
 The latest bttv version is available from http://bytesex.org/bttv/
+
 
 Make bttv work with your card
 -----------------------------
@@ -32,6 +34,7 @@ location of the file.
 If your card isn't listed in CARDLIST.bttv or if you have trouble making
 audio work, you should read the Sound-FAQ.
 
+
 Autodetecting cards
 -------------------
 
@@ -48,6 +51,7 @@ that every card really has one).  bt848 cards can't have a Subsystem
 ID and therefore can't be autodetected.  There is a list with the ID's
 in bttv-cards.c (in case you are intrested or want to mail patches
 with updates).
+
 
 Still doesn't work?
 -------------------
@@ -73,8 +77,10 @@ does'nt work") are pretty useless unless you include some details
 about your hardware and the TV sound scheme used in your country (or
 at least the country you are living in).
 
+
 Finally: If you mail some patches for bttv around the world (to
 linux-kernel/Alan/Linus/...), please Cc: me.
+
 
 Have fun with bttv,
 

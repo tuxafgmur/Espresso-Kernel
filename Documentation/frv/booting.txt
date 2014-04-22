@@ -21,6 +21,7 @@ one of two ways:
       can be used. A complete image can be built using the mkfs.jffs2 or
       similar program and then downloaded and stored into flash by RedBoot.
 
+
 ========================
 LOADING THE KERNEL IMAGE
 ========================
@@ -60,6 +61,7 @@ be loaded in one of three ways:
       program by Y-Modem.
 
       When finished, the image will then be ready to be executed.
+
 
 ==================
 BOOTING THE KERNEL

@@ -2,6 +2,7 @@ Driver for USB radios for the Silicon Labs Si470x FM Radio Receivers
 
 Copyright (c) 2009 Tobias Lorenz <tobias.lorenz@gmx.net>
 
+
 Information from Silicon Labs
 =============================
 Silicon Laboratories is the manufacturer of the radio ICs, that nowadays are the
@@ -12,6 +13,7 @@ Part of this reference design is also a radio application in binary and source
 code. The software also contains an automatic firmware upgrade to the most
 current version. Information on these can be downloaded here:
 http://www.silabs.com/usbradio
+
 
 Supported ICs
 =============
@@ -31,6 +33,7 @@ supported somewhen by the driver:
 More information on these can be downloaded here:
 http://www.silabs.com/products/mcu/Pages/USBFMRadioRD.aspx
 
+
 Supported USB devices
 =====================
 Currently the following USB radios (vendor:product) with the Silicon Labs si470x
@@ -39,6 +42,7 @@ chips are known to work:
 - 06e1:a155: ADS/Tech FM Radio Receiver (formerly Instant FM Music) (RDX-155-EF)
 - 1b80:d700: KWorld USB FM Radio SnapMusic Mobile 700 (FM700)
 - 10c5:819a: Sanei Electric, Inc. FM USB Radio (sold as DealExtreme.com PCear)
+
 
 Software
 ========
@@ -59,6 +63,7 @@ For processing RDS information, there is a project ongoing at:
 http://rdsd.berlios.de/
 
 There is currently no project for making TMC sentences human readable.
+
 
 Audio Listing
 =============
@@ -88,6 +93,7 @@ mount under /sys/module/radio_si470x/parameters. The contents of read-only files
 (0444) are not updated, even if space, band and de are changed using private
 video controls. The others are runtime changeable.
 
+
 Errors
 ======
 Increase tune_timeout, if you often get -EIO errors.
@@ -95,6 +101,7 @@ Increase tune_timeout, if you often get -EIO errors.
 When timed out or band limit is reached, hw_freq_seek returns -EAGAIN.
 
 If you get any errors from snd_usb_audio, please report them to the ALSA people.
+
 
 Open Issues
 ===========
@@ -110,6 +117,7 @@ for polling RDS information, but is currently not using the interrupt mode.
 There is a LED interface, which can be used to override the LED control
 programmed in the firmware. This can be made available using the LED support
 functions in the kernel.
+
 
 Other useful information and links
 ==================================

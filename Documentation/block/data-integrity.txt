@@ -122,6 +122,7 @@ This also means that applications such as fsck and mkfs will need
 access to manipulate the tags from user space.  A passthrough
 interface for this is being worked on.
 
+
 ----------------------------------------------------------------------
 4. BLOCK LAYER IMPLEMENTATION DETAILS
 
@@ -143,6 +144,7 @@ attached using bio_integrity_add_page().
 
 bio_free() will automatically free the bip.
 
+
 4.2 BLOCK DEVICE
 
 Because the format of the protection data is tied to the physical
@@ -159,6 +161,7 @@ Layered block devices will need to pick a profile that's appropriate
 for all subdevices.  blk_integrity_compare() can help with that.  DM
 and MD linear, RAID0 and RAID1 are currently supported.  RAID4/5/6
 will require extra work due to the application tag.
+
 
 ----------------------------------------------------------------------
 5.0 BLOCK LAYER INTEGRITY API
@@ -181,11 +184,13 @@ will require extra work due to the application tag.
 
     flags.
 
+
 5.2 INTEGRITY-AWARE FILESYSTEM
 
     A filesystem that is integrity-aware can prepare I/Os with IMD
     attached.  It can also use the application tag space if this is
     supported by the block device.
+
 
     int bdev_integrity_enabled(block_device, int rw);
 
@@ -195,6 +200,7 @@ will require extra work due to the application tag.
 
       bdev_integrity_enabled() honors the write_generate and
       read_verify flags in sysfs and will respond accordingly.
+
 
     int bio_integrity_prep(bio);
 
@@ -208,6 +214,7 @@ will require extra work due to the application tag.
 
       bio_integrity_prep() should only be called if
       bio_integrity_enabled() returned 1.
+
 
     int bio_integrity_tag_size(bio);
 
@@ -224,6 +231,7 @@ will require extra work due to the application tag.
       Another option is bdev_get_tag_size(block_device) which will
       return the number of available bytes per hardware sector.
 
+
     int bio_integrity_set_tag(bio, void *tag_buf, len);
 
       After a successful return from bio_integrity_prep(),
@@ -231,16 +239,19 @@ will require extra work due to the application tag.
       buffer to a bio.  Obviously this only makes sense if the I/O is
       a WRITE.
 
+
     int bio_integrity_get_tag(bio, void *tag_buf, len);
 
       Similarly, at READ I/O completion time the filesystem can
       retrieve the tag buffer using bio_integrity_get_tag().
+
 
 5.3 PASSING EXISTING INTEGRITY METADATA
 
     Filesystems that either generate their own integrity metadata or
     are capable of transferring IMD from user space can use the
     following calls:
+
 
     struct bip * bio_integrity_alloc(bio, gfp_mask, nr_pages);
 
@@ -249,6 +260,7 @@ will require extra work due to the application tag.
       stored in the integrity bio_vec list (similar to bio_alloc()).
 
       The integrity payload will be freed at bio_free() time.
+
 
     int bio_integrity_add_page(bio, page, len, offset);
 
@@ -269,6 +281,7 @@ will require extra work due to the application tag.
       contain the integrity metadata received from the storage device.
       It is up to the receiver to process them and verify data
       integrity upon completion.
+
 
 5.4 REGISTERING A BLOCK DEVICE AS CAPABLE OF EXCHANGING INTEGRITY
     METADATA

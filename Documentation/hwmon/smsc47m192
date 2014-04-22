@@ -14,6 +14,7 @@ Author: Hartmut Rick <linux@rick.claranet.de>
         Special thanks to Jean Delvare for careful checking
         of the code and many helpful comments and suggestions.
 
+
 Description
 -----------
 
@@ -46,6 +47,7 @@ the motherboard has this input wired to VID4.
 
 The temperature and voltage readings are updated once every 1.5 seconds.
 Reading them more often repeats the same values.
+
 
 sysfs interface
 ---------------

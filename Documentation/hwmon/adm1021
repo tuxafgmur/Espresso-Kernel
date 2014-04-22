@@ -43,6 +43,7 @@ Supported chips:
     Addresses scanned: I2C 0x18 - 0x1a, 0x29 - 0x2b, 0x4c - 0x4e
     Datasheet: Publicly available at the Onsemi website
 
+
 Authors:
         Frodo Looijaard <frodol@dds.nl>,
         Philip Edelbrock <phil@netroedge.com>
@@ -52,6 +53,7 @@ Module Parameters
 
 * read_only: int
   Don't set any values, read only mode
+
 
 Description
 -----------
@@ -84,6 +86,7 @@ This driver only updates its values each 1.5 seconds; reading it more often
 will do no harm, but will return 'old' values. It is possible to make
 ADM1021-clones do faster measurements, but there is really no good reason
 for that.
+
 
 Netburst-based Xeon support
 ---------------------------

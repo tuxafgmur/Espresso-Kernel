@@ -12,6 +12,7 @@ Authors: Jean Delvare <khali@linux-fr.org>
 Thanks to Sandeep Mehta, Tonko de Rooy and Daniel Ceregatti for testing.
 Thanks to Rudolf Marek for helping me investigate conversion issues.
 
+
 Module Parameters
 -----------------
 
@@ -28,6 +29,7 @@ chips.
 Also note that for the PC87366, initialization levels 2 and 3 don't enable
 all temperature channels, because some of them share pins with each other,
 so they can't be used at the same time.
+
 
 Description
 -----------
@@ -88,6 +90,7 @@ divider is selected. This is not only true for the measured speeds, but
 also for the programmable low limits, so don't be surprised if you try to
 set, say, fan1_min to 2900 and it finally reads 2909.
 
+
 Fan Control
 -----------
 
@@ -101,6 +104,7 @@ step by step and keep an eye on temperatures.
 
 One user reported problems with PWM. Changing PWM values would break fan
 speed readings. No explanation nor fix could be found.
+
 
 Temperature Monitoring
 ----------------------
@@ -127,6 +131,7 @@ manufacturers should choose one type and stick to it. So you will more
 likely have either channels 1 to 3 (thermal diodes) or 3 to 6 (internal
 thermal diode, and thermistors).
 
+
 Voltage Monitoring
 ------------------
 
@@ -151,6 +156,7 @@ The chipsets can handle two sets of VID inputs (on dual-CPU systems), but
 the driver will only export one for now. This may change later if there is
 a need.
 
+
 General Remarks
 ---------------
 
@@ -168,6 +174,7 @@ repeatedly sampling the battery voltage reduces its lifetime. National
 Semiconductor smartly designed their chipset so that in9 is sampled only
 once every 1024 sampling cycles (that is every 34 minutes at the default
 sampling rate), so the effect is attenuated, but still present.
+
 
 Limitations
 -----------

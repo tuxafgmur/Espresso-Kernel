@@ -10,7 +10,9 @@ Selecting IO schedulers
 Refer to Documentation/block/switching-sched.txt for information on
 selecting an io scheduler on a per-device basis.
 
+
 ********************************************************************************
+
 
 read_expire	(in ms)
 -----------
@@ -21,10 +23,12 @@ tunable. When a read request first enters the io scheduler, it is assigned
 a deadline that is the current time + the read_expire value in units of
 milliseconds.
 
+
 write_expire	(in ms)
 -----------
 
 Similar to read_expire mentioned above, but for writes.
+
 
 fifo_batch	(number of requests)
 ----------
@@ -39,6 +43,7 @@ throughput.  When low latency is the primary concern, smaller is better (where
 a value of 1 yields first-come first-served behaviour).  Increasing fifo_batch
 generally improves throughput, at the cost of latency variation.
 
+
 writes_starved	(number of dispatches)
 --------------
 
@@ -48,6 +53,7 @@ don't want to starve writes indefinitely either. So writes_starved controls
 how many times we give preference to reads over writes. When that has been
 done writes_starved number of times, we dispatch some writes based on the
 same criteria as reads.
+
 
 front_merges	(bool)
 ------------
@@ -63,4 +69,7 @@ Front merges may still occur due to the cached last_merge hint, but since
 that comes at basically 0 cost we leave that on. We simply disable the
 rbtree front sector lookup when the io scheduler merge function is called.
 
+
 Nov 11 2002, Jens Axboe <jens.axboe@oracle.com>
+
+

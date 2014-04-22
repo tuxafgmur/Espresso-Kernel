@@ -308,6 +308,7 @@ the underlying bus, although some devices may have such restrictions.
 Also, systems with caches that aren't DMA-coherent will work better
 when the underlying buffers don't share cache lines with other data.
 
+
 		 Using Consistent DMA mappings.
 
 To allocate and map large (PAGE_SIZE or so) consistent DMA regions,

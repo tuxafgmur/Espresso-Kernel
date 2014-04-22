@@ -19,6 +19,7 @@ The sources for various parts are compartmentalised at two different levels:
      The appropriate processor is selected by a CONFIG_MN10300_PROC_YYYY option
      from the "Processor support" choice menu in the arch/mn10300/Kconfig file.
 
+
  (2) Unit level
 
      The "unit level" is a processor plus all the external peripherals
@@ -40,6 +41,7 @@ The sources for various parts are compartmentalised at two different levels:
 
      The appropriate processor is selected by a CONFIG_MN10300_UNIT_ZZZZ option
      from the "Unit type" choice menu in the arch/mn10300/Kconfig file.
+
 
 ============
 COMPILE TIME

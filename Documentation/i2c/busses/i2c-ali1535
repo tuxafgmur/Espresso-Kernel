@@ -34,6 +34,7 @@ The whole M7101 device has to be enabled for the SMB to work. You can't
 just enable the SMB alone. The SMB and the ACPI have separate I/O spaces.
 We make sure that the SMB is enabled. We leave the ACPI alone.
 
+
 Features
 --------
 

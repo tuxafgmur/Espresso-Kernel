@@ -1678,6 +1678,7 @@ sub main_firmware_27($$$$)
 	write_hunk(812856, 192);
 }
 
+
 sub extract_firmware {
 	my $sourcefile_24 = "UDXTTM6000.sys";
 	my $hash_24 = "cb9deb5508a5e150af2880f5b0066d78";

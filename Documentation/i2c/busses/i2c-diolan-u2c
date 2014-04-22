@@ -19,6 +19,7 @@ connectivity to SPI devices.
 This driver only supports the I2C interface of U2C-12. The driver does not use
 interrupts.
 
+
 Module parameters
 -----------------
 

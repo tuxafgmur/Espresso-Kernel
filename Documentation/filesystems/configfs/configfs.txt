@@ -1,3 +1,4 @@
+
 configfs - Userspace-driven kernel object configuration.
 
 Joel Becker <joel.becker@oracle.com>
@@ -6,6 +7,7 @@ Updated: 31 March 2005
 
 Copyright (c) 2005 Oracle Corporation,
 	Joel Becker <joel.becker@oracle.com>
+
 
 [What is configfs?]
 
@@ -222,6 +224,7 @@ child item.
 	void config_group_init_type_name(struct config_group *group,
 					 const char *name,
 					 struct config_item_type *type);
+
 
 The config_group structure contains a config_item.  Properly configuring
 that item means that a group can behave as an item in its own right.
@@ -477,3 +480,5 @@ As rmdir(2) does not work in the "live" directory, an item must be
 shutdown, or "uncommitted".  Again, this is done via rename(2), this
 time from the "live" directory back to the "pending" one.  The subsystem
 is notified by the ct_group_ops->uncommit_object() method.
+
+

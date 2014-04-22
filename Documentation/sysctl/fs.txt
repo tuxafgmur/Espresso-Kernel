@@ -59,7 +59,7 @@ struct {
         int want_pages;        /* pages requested by system */
         int dummy[2];
 } dentry_stat = {0, 0, 45, 0,};
---------------------------------------------------------------
+-------------------------------------------------------------- 
 
 Dentries are dynamically allocated and deallocated, and
 nr_dentry seems to be 0 all the time. Hence it's safe to
@@ -194,11 +194,13 @@ aio-nr can grow to.
 
 ==============================================================
 
+
 2. /proc/sys/fs/binfmt_misc
 ----------------------------------------------------------
 
 Documentation for the files in /proc/sys/fs/binfmt_misc is
 in Documentation/binfmt_misc.txt.
+
 
 3. /proc/sys/fs/mqueue - POSIX message queues filesystem
 ----------------------------------------------------------
@@ -223,6 +225,7 @@ a queue must be less or equal then msg_max.
 maximum  message size value (it is every  message queue's attribute set during
 its creation).
 
+
 4. /proc/sys/fs/epoll - Configuration options for the epoll interface
 --------------------------------------------------------
 
@@ -239,3 +242,4 @@ Each "watch" costs roughly 90 bytes on a 32bit kernel, and roughly 160 bytes
 on a 64bit one.
 The current default value for  max_user_watches  is the 1/32 of the available
 low memory, divided for the "watch" cost in bytes.
+

@@ -8,6 +8,7 @@ device drivers only see through usbcore.  As a rule, all the HCDs should
 behave the same except for transfer speed dependent behaviors and the
 way certain faults are reported.
 
+
 **************************************************************************
 *                   Error codes returned by usb_submit_urb               *
 **************************************************************************
@@ -16,7 +17,7 @@ Non-USB-specific:
 
 0		URB submission went fine
 
--ENOMEM		no memory for allocation of internal structures
+-ENOMEM		no memory for allocation of internal structures	
 
 USB-specific:
 
@@ -61,6 +62,7 @@ USB-specific:
 
 -ENOEXEC	A control URB doesn't contain a Setup packet.
 
+
 **************************************************************************
 *                   Error codes returned by in urb->status               *
 *                   or in iso_frame_desc[n].status (for ISO)             *
@@ -81,6 +83,7 @@ flag is set.  Completion handlers for isochronous URBs should only see
 urb->status set to zero, -ENOENT, -ECONNRESET, -ESHUTDOWN, or -EREMOTEIO.
 Individual frame descriptor status fields may report more status codes.
 
+
 0			Transfer completed successfully
 
 -ENOENT			URB was synchronously unlinked by usb_unlink_urb
@@ -91,12 +94,12 @@ Individual frame descriptor status fields may report more status codes.
 -EPROTO (*, **)		a) bitstuff error
 			b) no response packet received within the
 			   prescribed bus turn-around time
-			c) unknown USB error
+			c) unknown USB error 
 
 -EILSEQ (*, **)		a) CRC mismatch
 			b) no response packet received within the
 			   prescribed bus turn-around time
-			c) unknown USB error
+			c) unknown USB error 
 
 			Note that often the controller hardware does not
 			distinguish among cases a), b), and c), so a
@@ -146,6 +149,7 @@ Individual frame descriptor status fields may report more status codes.
 			to some problem that could not be worked around,
 			such as a physical disconnect.
 
+
 (*) Error codes like -EPROTO, -EILSEQ and -EOVERFLOW normally indicate
 hardware problems such as bad devices (including firmware) or cables.
 
@@ -153,6 +157,8 @@ hardware problems such as bad devices (including firmware) or cables.
 controller use to indicate a transfer has failed because of device
 disconnect.  In the interval before the hub driver starts disconnect
 processing, devices may receive such fault reports for every request.
+
+
 
 **************************************************************************
 *              Error codes returned by usbcore-functions                 *

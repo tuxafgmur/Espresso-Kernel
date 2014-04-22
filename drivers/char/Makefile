@@ -33,9 +33,9 @@ obj-$(CONFIG_EFI_RTC)		+= efirtc.o
 obj-$(CONFIG_DS1302)		+= ds1302.o
 obj-$(CONFIG_XILINX_HWICAP)	+= xilinx_hwicap/
 ifeq ($(CONFIG_GENERIC_NVRAM),y)
-  obj-$(CONFIG_NVRAM)	+= generic_nvram.o
+  obj-$(CONFIG_NVRAM)		+= generic_nvram.o
 else
-  obj-$(CONFIG_NVRAM)	+= nvram.o
+  obj-$(CONFIG_NVRAM)		+= nvram.o
 endif
 obj-$(CONFIG_TOSHIBA)		+= toshiba.o
 obj-$(CONFIG_I8K)		+= i8k.o
@@ -51,8 +51,6 @@ obj-$(CONFIG_GPIO_TB0219)	+= tb0219.o
 obj-$(CONFIG_TELCLOCK)		+= tlclk.o
 
 obj-$(CONFIG_MWAVE)		+= mwave/
-obj-$(CONFIG_AGP)		+= agp/
-obj-$(CONFIG_PCMCIA)		+= pcmcia/
 obj-$(CONFIG_IPMI_HANDLER)	+= ipmi/
 
 obj-$(CONFIG_HANGCHECK_TIMER)	+= hangcheck-timer.o

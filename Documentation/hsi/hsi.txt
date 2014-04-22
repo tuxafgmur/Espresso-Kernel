@@ -16,6 +16,7 @@ devices through different device files, and a generic SW driver.
 
 Please refer to the MIPI specifications for more details on this device.
 
+
 I OMAP HSI driver API overview
 -----------------------------
 
@@ -89,6 +90,7 @@ The driver supports stream and frame transmission modes and synchronized and
 pipelined data flows.
 The driver implements the HSI support for the core MPU and not for the
 potential co-processors.
+
 
 II OMAP HSI API's
 -----------------
@@ -342,10 +344,12 @@ struct hsi_rx_config {
 	__u32 counters;   /* HSI: FB[31..24], TB[23..20], FT[19..0] / SSI: FT[8..0] */
 };
 
+
 III) FUTURE WORK
 ----------------
  - Move to generic framework
  - hsi-char documentation
+
 
 =================================================
 Acknowledgements: The OMAP HSI driver is based on OMAP SSI driver, written by
@@ -356,3 +360,4 @@ Contact: Djamil Elaidi <d-elaidi@ti.com>
 
 Copyright (C) 2008 Nokia Corporation.
 Copyright (C) 2011 Texas Instruments, Inc.
+

@@ -3,6 +3,7 @@ GETTING STARTED WITH KMEMCHECK
 
 Vegard Nossum <vegardno@ifi.uio.no>
 
+
 Contents
 ========
 0. Introduction
@@ -15,6 +16,7 @@ Contents
 3.4. Annotating false positives
 4. Reporting errors
 5. Technical description
+
 
 0. Introduction
 ===============
@@ -37,10 +39,12 @@ interactive desktop. kmemcheck will also cause the kernel to use about twice
 as much memory as normal. For this reason, kmemcheck is strictly a debugging
 feature.
 
+
 1. Downloading
 ==============
 
 As of version 2.6.31-rc1, kmemcheck is included in the mainline kernel.
+
 
 2. Configuring and compiling
 ============================
@@ -179,6 +183,7 @@ kmemcheck configuration variables:
 
 Now compile the kernel as usual.
 
+
 3. How to use
 =============
 
@@ -206,6 +211,7 @@ slub_debug=,dentry", then SLUB debugging will be used only for the "dentry"
 slab cache, and with kmemcheck tracking all the other caches. This is advanced
 usage, however, and is not generally recommended.
 
+
 3.2. Run-time enable/disable
 ============================
 
@@ -220,6 +226,7 @@ Use the file /proc/sys/kernel/kmemcheck for this purpose, e.g.:
 	$ echo 0 > /proc/sys/kernel/kmemcheck # disables kmemcheck
 
 The numbers are the same as for the kmemcheck= command-line option.
+
 
 3.3. Debugging
 ==============
@@ -418,7 +425,7 @@ Let's take a look at it:
 189 {
 190         struct sigqueue *q = NULL;
 191         struct user_struct *user;
-192
+192 
 193         /*
 194          * We won't get problems with the target's UID changing under us
 195          * because changing it requires RCU be used, and if t != current, the
@@ -439,7 +446,7 @@ Let's take a look at it:
 210                 q->flags = 0;
 211                 q->user = user;
 212         }
-213
+213 
 214         return q;
 215 }
 
@@ -528,7 +535,7 @@ initialized. This is the beginning of the struct:
 41         int si_signo;
 42         int si_errno;
 43         int si_code;
-44
+44                 
 45         union {
 ..
 92         } _sifields;
@@ -550,7 +557,7 @@ and _sifields. We can now get a fuller picture of the memory dump:
         /        _--------------------=> (padding)
        |        /        _------------=> _sifields(._kill._pid)
        |       |        /        _----=> _sifields(._kill._uid)
-       |       |       |        /
+       |       |       |        / 
 -------|-------|-------|-------|
 80000000000000000000000000000000000000000088ffff0000000000000000
  i i i i u u u u i i i i i i i i u u u u u u u u u u u u u u u u
@@ -625,6 +632,7 @@ Now, even though we didn't find an actual error here, the example is still a
 good one, because it shows how one would go about to find out what the report
 was all about.
 
+
 3.4. Annotating false positives
 ===============================
 
@@ -638,7 +646,7 @@ they are:
 	also to other functions that end up calling one of these) to indicate
 	that the allocation should not be tracked because it would lead to
 	a false positive report. This is a "big hammer" way of silencing
-	kmemcheck; after all, even if the false positive pertains to
+	kmemcheck; after all, even if the false positive pertains to 
 	particular field in a struct, for example, we will now lose the
 	ability to find (real) errors in other parts of the same struct.
 
@@ -681,6 +689,7 @@ they are:
 	return value of kmalloc() is checked -- in other words, passing NULL
 	as the first argument is legal (and will do nothing).
 
+
 4. Reporting errors
 ===================
 
@@ -699,6 +708,7 @@ please drop us a note privately! Kernel configs and steps to reproduce (if
 available) are of course a great help too.
 
 Happy hacking!
+
 
 5. Technical description
 ========================

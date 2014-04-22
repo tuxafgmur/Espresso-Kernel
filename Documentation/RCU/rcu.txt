@@ -1,5 +1,6 @@
 RCU Concepts
 
+
 The basic idea behind RCU (read-copy update) is to split destructive
 operations into two parts, one that prevents anyone from seeing the data
 item being destroyed, and one that actually carries out the destruction.
@@ -9,6 +10,7 @@ since dropped their references.  For example, an RCU-protected deletion
 from a linked list would first remove the item from the list, wait for
 a grace period to elapse, then free the element.  See the listRCU.txt
 file for more information on using RCU with linked lists.
+
 
 Frequently Asked Questions
 

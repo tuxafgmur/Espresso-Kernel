@@ -7,6 +7,7 @@ Each data server can be referenced by multiple devices.  Each device
 can be referenced by multiple layouts.  To keep all of this straight,
 we need to reference count.
 
+
 struct pnfs_layout_hdr
 ----------------------
 The on-the-wire command LAYOUTGET corresponds to struct

@@ -2,6 +2,7 @@
 		README for btmrvl driver
 =======================================================================
 
+
 All commands are used via debugfs interface.
 
 =====================
@@ -48,6 +49,7 @@ pscmd
 		echo 0 > /debug/btmrvl/config/psmode
 		echo 1 > /debug/btmrvl/config/pscmd
 
+
 hsmode=[n]
 hscmd
 	These commands are used to enable host sleep or wake up firmware
@@ -64,6 +66,7 @@ hscmd
 		# Wake up firmware
 		echo 0 > /debug/btmrvl/config/hsmode
 		echo 1 > /debug/btmrvl/config/hscmd
+
 
 ======================
 Get driver status:
@@ -87,6 +90,7 @@ hsstate
 txdnldrdy
 	This command displays the value of Tx download ready flag.
 
+
 =====================
 
 Use hcitool to issue raw hci command, refer to hcitool manual
@@ -103,10 +107,12 @@ Use hcitool to issue raw hci command, refer to hcitool manual
 
 =======================================================================
 
+
 SD8688 firmware:
 
 /lib/firmware/sd8688_helper.bin
 /lib/firmware/sd8688.bin
+
 
 The images can be downloaded from:
 

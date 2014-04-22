@@ -7,6 +7,7 @@ driver-specific ioctls and implementation notes.
 Questions and remarks can be sent to the Linux UVC development mailing list at
 linux-uvc-devel@lists.berlios.de.
 
+
 Extension Unit (XU) support
 ---------------------------
 
@@ -29,6 +30,7 @@ maximum flexibility.
 
 Both mechanisms complement each other and are described in more detail below.
 
+
 2. Control mappings
 
 The UVC driver provides an API for user space applications to define so-called
@@ -46,6 +48,7 @@ directly from the device.
 
 For details on the UVCIOC_CTRL_MAP ioctl please refer to the section titled
 "IOCTL reference" below.
+
 
 3. Driver specific XU control interface
 
@@ -78,6 +81,7 @@ application developers are encouraged to use UVCIOC_CTRL_QUERY instead.
 For details on the UVCIOC_CTRL_QUERY ioctl please refer to the section titled
 "IOCTL reference" below.
 
+
 4. Security
 
 The API doesn't currently provide a fine-grained access control facility. The
@@ -85,11 +89,13 @@ UVCIOC_CTRL_ADD and UVCIOC_CTRL_MAP ioctls require super user permissions.
 
 Suggestions on how to improve this are welcome.
 
+
 5. Debugging
 
 In order to debug problems related to XU controls or controls in general it is
 recommended to enable the UVC_TRACE_CONTROL bit in the module parameter 'trace'.
 This causes extra output to be written into the system log.
+
 
 6. IOCTL reference
 
@@ -153,6 +159,7 @@ Data types:
 	__u32	value		Menu entry value used by the device
 	__u8	name[32]	Menu entry name
 
+
 	* enum uvc_control_data_type
 
 	UVC_CTRL_DATA_TYPE_RAW		Raw control (byte array)
@@ -161,6 +168,7 @@ Data types:
 	UVC_CTRL_DATA_TYPE_BOOLEAN	Boolean
 	UVC_CTRL_DATA_TYPE_ENUM		Enumeration
 	UVC_CTRL_DATA_TYPE_BITMASK	Bitmask
+
 
 ---- UVCIOC_CTRL_QUERY - Query a UVC XU control ----
 

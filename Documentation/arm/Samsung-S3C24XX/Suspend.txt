@@ -1,6 +1,7 @@
 			S3C24XX Suspend Support
 			=======================
 
+
 Introduction
 ------------
 
@@ -8,6 +9,7 @@ Introduction
   in Self-Refresh mode, and all but the essential peripheral blocks are
   powered down. For more information on how this works, please look
   at the relevant CPU datasheet from Samsung.
+
 
 Requirements
 ------------
@@ -21,6 +23,7 @@ Requirements
   4) Any peripherals that are going to be powered down at the same
      time require suspend/resume support.
 
+
 Resuming
 --------
 
@@ -32,6 +35,7 @@ Resuming
   GSTATUS4 is currently left alone by the sleep code, and is free to
   use for any other purposes (for example, the EB2410ITX uses this to
   save memory configuration in).
+
 
 Machine Support
 ---------------
@@ -55,6 +59,7 @@ Machine Support
   The following is an example of code used for testing wakeup from
   an falling edge on IRQ_EINT0:
 
+
 static irqreturn_t button_irq(int irq, void *pw)
 {
 	return IRQ_HANDLED;
@@ -71,6 +76,7 @@ statuc void __init machine_init(void)
 
 	s3c_pm_init();
 }
+
 
 Debugging
 ---------
@@ -91,6 +97,7 @@ Debugging
      For example, if you transmit a character from the UART, the baud
      rate and uart controls must be setup beforehand.
 
+
 Configuration
 -------------
 
@@ -103,6 +110,7 @@ Configuration
     the actual suspend, giving detailed information on what is
     happening
 
+
   `S3C2410 PM Suspend Memory CRC`
 
     Allows the entire memory to be checksummed before and after the
@@ -114,13 +122,16 @@ Configuration
 
     This support requires the CRC32 function to be enabled.
 
+
   `S3C2410 PM Suspend CRC Chunksize (KiB)`
 
     Defines the size of memory each CRC chunk covers. A smaller value
     will mean that the CRC data block will take more memory, but will
     identify any faults with better precision
 
+
 Document Author
 ---------------
 
 Ben Dooks, Copyright 2004 Simtec Electronics
+

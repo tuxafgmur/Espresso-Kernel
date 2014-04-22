@@ -34,7 +34,7 @@ d_dname:	no		no		no		no
 d_automount:	no		no		yes		no
 d_manage:	no		no		yes (ref-walk)	maybe
 
---------------------------- inode_operations ---------------------------
+--------------------------- inode_operations --------------------------- 
 prototypes:
 	int (*create) (struct inode *,struct dentry *,int, struct nameidata *);
 	struct dentry * (*lookup) (struct inode *,struct dentry *, struct nameid
@@ -330,6 +330,7 @@ prototypes:
 	void (*fl_copy_lock)(struct file_lock *, struct file_lock *);
 	void (*fl_release_private)(struct file_lock *);
 
+
 locking rules:
 			file_lock_lock	may block
 fl_copy_lock:		yes		no
@@ -394,6 +395,7 @@ check_disk_change().
 
 swap_slot_free_notify is called with swap_lock and sometimes the page lock
 held.
+
 
 --------------------------- file_operations -------------------------------
 prototypes:

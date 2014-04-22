@@ -7,6 +7,7 @@
 ==  http://www.bu3sch.de/btgpio.php                          ==
 ===============================================================
 
+
 A generic digital 24-port PCI GPIO card can be built out of an ordinary
 Brooktree bt848, bt849, bt878 or bt879 based analog TV tuner card. The
 Brooktree chip is used in old analog Hauppauge WinTV PCI cards. You can easily
@@ -14,6 +15,7 @@ find them used for low prices on the net.
 
 The bt8xx chip does have 24 digital GPIO ports.
 These ports are accessible via 24 pins on the SMD chip package.
+
 
 ==============================================
 ==  How to physically access the GPIO pins  ==
@@ -62,3 +64,4 @@ The GPIO pins are marked with G00-G23
            | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
            ^
            This is pin 1
+

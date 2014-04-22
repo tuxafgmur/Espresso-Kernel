@@ -28,6 +28,7 @@ CONTENTS
      - try_to_munlock() reverse map scan.
      - Page reclaim in shrink_*_list().
 
+
 ============
 INTRODUCTION
 ============
@@ -42,6 +43,7 @@ implementation.  The latter design rationale is discussed in the context of an
 implementation description.  Admittedly, one can obtain the implementation
 details - the "what does it do?" - by reading the code.  One hopes that the
 descriptions below add value by provide the answer to "why does it do that?".
+
 
 ===================
 THE UNEVICTABLE LRU
@@ -72,6 +74,7 @@ The unevictable list addresses the following classes of unevictable pages:
 The infrastructure may also be able to handle other conditions that make pages
 unevictable, either by definition or by circumstance, in the future.
 
+
 THE UNEVICTABLE PAGE LIST
 -------------------------
 
@@ -99,6 +102,7 @@ LRU list for a few reasons:
      migration, unless we reworked migration code to find the unevictable pages
      itself.
 
+
 The unevictable list does not differentiate between file-backed and anonymous,
 swap-backed pages.  This differentiation is only important while the pages are,
 in fact, evictable.
@@ -111,6 +115,7 @@ unevictable pages are placed directly on the page's zone's unevictable list
 under the zone lru_lock.  This allows us to prevent the stranding of pages on
 the unevictable list when one task has the page isolated from the LRU and other
 tasks are changing the "evictability" state of the page.
+
 
 MEMORY CONTROL GROUP INTERACTION
 --------------------------------
@@ -136,6 +141,7 @@ effects:
      are unevictable, the evictable portion of the working set of the tasks in
      the control group may not fit into the available memory.  This can cause
      the control group to thrash or to OOM-kill tasks.
+
 
 MARKING ADDRESS SPACES UNEVICTABLE
 ----------------------------------
@@ -169,6 +175,7 @@ These are currently used in two places in the kernel:
      swapped out; the application must touch the pages manually if it wants to
      ensure they're in memory.
 
+
 DETECTING UNEVICTABLE PAGES
 ---------------------------
 
@@ -196,6 +203,7 @@ VM_LOCKED via is_mlocked_vma().  is_mlocked_vma() will SetPageMlocked() and
 update the appropriate statistics if the vma is VM_LOCKED.  This method allows
 efficient "culling" of pages in the fault path that are being faulted in to
 VM_LOCKED VMAs.
+
 
 VMSCAN'S HANDLING OF UNEVICTABLE PAGES
 --------------------------------------
@@ -227,6 +235,7 @@ event and movement of pages onto the unevictable list should be rare, these
 extra evictabilty checks should not occur in the majority of calls to
 putback_lru_page().
 
+
 =============
 MLOCKED PAGES
 =============
@@ -234,6 +243,7 @@ MLOCKED PAGES
 The unevictable page list is also useful for mlock(), in addition to ramfs and
 SYSV SHM.  Note that mlock() is only available in CONFIG_MMU=y situations; in
 NOMMU situations, all mappings are effectively mlocked.
+
 
 HISTORY
 -------
@@ -254,6 +264,7 @@ attempting to isolate them, thus abandoning the count of VM_LOCKED VMAs.  When
 Nick's patch was integrated with the Unevictable LRU work, the count was
 replaced by walking the reverse map to determine whether any VM_LOCKED VMAs
 mapped the page.  More on this below.
+
 
 BASIC MANAGEMENT
 ----------------
@@ -294,6 +305,7 @@ mlocked pages become unlocked and rescued from the unevictable list when:
      or
 
  (4) before a page is COW'd in a VM_LOCKED VMA.
+
 
 mlock()/mlockall() SYSTEM CALL HANDLING
 ---------------------------------------
@@ -341,6 +353,7 @@ is now mlocked and divert the page to the zone's unevictable list.  If
 mlock_vma_page() is unable to isolate the page from the LRU, vmscan will handle
 it later if and when it attempts to reclaim the page.
 
+
 FILTERING SPECIAL VMAS
 ----------------------
 
@@ -368,6 +381,7 @@ Note that for all of these special VMAs, mlock_fixup() does not set the
 VM_LOCKED flag.  Therefore, we won't have to deal with them later during
 munlock(), munmap() or task exit.  Neither does mlock_fixup() account these
 VMAs against the task's "locked_vm".
+
 
 munlock()/munlockall() SYSTEM CALL HANDLING
 -------------------------------------------
@@ -414,6 +428,7 @@ to isolate the page, we'll have left a potentially mlocked page on the LRU.
 This is fine, because we'll catch it later if and if vmscan tries to reclaim
 the page.  This should be relatively rare.
 
+
 MIGRATING MLOCKED PAGES
 -----------------------
 
@@ -437,6 +452,7 @@ page on failure - will be freed when the reference count held by the migration
 process is released.  To ensure that we don't strand pages on the unevictable
 list because of a race between munlock and migration, page migration uses the
 putback_lru_page() function to add migrated pages back to the LRU.
+
 
 mmap(MAP_LOCKED) SYSTEM CALL HANDLING
 -------------------------------------
@@ -472,6 +488,7 @@ attempting to fault in a VMA with PROT_NONE access.  In this case, we leave the
 memory range accounted as locked_vm, as the protections could be changed later
 and pages allocated into that region.
 
+
 munmap()/exit()/exec() SYSTEM CALL HANDLING
 -------------------------------------------
 
@@ -493,6 +510,7 @@ for the munlock case, calls __munlock_vma_pages_range() to walk the page table
 for the VMA's memory range and munlock_vma_page() each resident page mapped by
 the VMA.  This effectively munlocks the page, only if this is the last
 VM_LOCKED VMA that maps the page.
+
 
 try_to_unmap()
 --------------
@@ -587,6 +605,7 @@ different reverse map mechanisms.
 	returns SWAP_AGAIN, indicating that the page is mapped by a VM_LOCKED
 	VMA, but couldn't be mlocked.
 
+
 try_to_munlock() REVERSE MAP SCAN
 ---------------------------------
 
@@ -626,6 +645,7 @@ successfully acquire the VMA's mmap semphore for read and mlock the page.
 Although try_to_munlock() might be called a great many times when munlocking a
 large region or tearing down a large address space that has been mlocked via
 mlockall(), overall this is a fairly rare event.
+
 
 PAGE RECLAIM IN shrink_*_list()
 -------------------------------

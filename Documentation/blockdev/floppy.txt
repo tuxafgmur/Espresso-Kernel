@@ -6,6 +6,7 @@ FAQ list:
  A FAQ list may be found in the fdutils package (see below), and also
 at <http://fdutils.linux.lu/faq.html>.
 
+
 LILO configuration options (Thinkpad users, read this)
 ======================================================
 
@@ -33,6 +34,7 @@ prompt, the option strings of both places are concatenated, the boot
 prompt options coming last. That's why there are also options to
 restore the default behavior.
 
+
 Module configuration options
 ============================
 
@@ -48,6 +50,7 @@ you can put:
  options floppy omnibook messages
 
 in /etc/modprobe.conf.
+
 
  The floppy driver related options are:
 
@@ -200,6 +203,7 @@ in /etc/modprobe.conf.
 	 " PS/2 floppies have much slower step rates than regular floppies.
 	   It's been recommended that take about 1/4 of the default speed
 	   in some more extreme cases."
+
 
 Supporting utilities and additional documentation:
 ==================================================

@@ -12,6 +12,7 @@ the program inside the uC that is responding to calls.
 
 Olle Sandberg <ollebull@gmail.com>, 2005-05-25
 
+
 Original version by Olle Sandberg who did the heavy lifting of the initial
 reverse engineering. This version has been almost fully rewritten for clarity
 and extended with write support and info on more databanks, the write support
@@ -23,6 +24,7 @@ Note: because of the lack of specs only the sensors part of the uGuru is
 described here and not the CPU / RAM / etc voltage & frequency control.
 
 Hans de Goede <j.w.r.degoede@hhs.nl>, 28-01-2006
+
 
 Detection
 =========
@@ -45,6 +47,7 @@ first!
 
 To be really sure an uGuru is present a test read of one or more register
 sets should be done.
+
 
 Reading / Writing
 =================
@@ -73,6 +76,7 @@ uGuru determines if a read from or a write to the bank is taking place, thus
 when reading you should always use the read address and when writing the
 write address. The write address is always one (1) more than the read address.
 
+
 uGuru ready
 -----------
 
@@ -91,6 +95,7 @@ for input. As above DATA will usually hold 0x08 the first read but not always.
 This step can be skipped, but it is undetermined what happens if the uGuru has
 not yet reported 0x08 at DATA and you proceed with writing a bank address.
 
+
 Sending bank and sensor addresses to the uGuru
 ----------------------------------------------
 
@@ -102,6 +107,7 @@ wait for to DATA to hold 0x08 again indicating that it wants / is ready for
 more input (max 250 reads).
 
 Once DATA holds 0x08 again write the sensor address to CMD.
+
 
 Reading
 -------
@@ -119,6 +125,8 @@ After completing a successful read it is advised to put the uGuru back in
 ready mode, so that it is ready for the next read / write cycle. This way
 if your program / driver is unloaded and later loaded again the detection
 algorithm described above will still work.
+
+
 
 Writing
 -------
@@ -138,6 +146,7 @@ ready mode, so that it is ready for the next read / write cycle. This way
 if your program / driver is unloaded and later loaded again the detection
 algorithm described above will still work.
 
+
 Gotchas
 -------
 
@@ -148,6 +157,7 @@ timeouts doesn't help, they just go offline for a second or 2, doing some
 internal callibration or whatever. Your code should be prepared to handle
 this and in case of no response in this specific case just goto sleep for a
 while and then retry.
+
 
 Address Map
 ===========
@@ -168,6 +178,7 @@ corresponding to sensor 8, 1 to 9, etc.
 Byte 2:
 This byte holds the alarm flags for sensor 0-5 of Sensor Bank2, with bit 0
 corresponding to sensor 0, 1 to 1, etc.
+
 
 Bank 0x21 Sensor Bank1 Values / Readings (R)
 --------------------------------------------
@@ -194,6 +205,7 @@ use the 0-4361mV range, 5 volt the 0-6248mV and 12 volt the 0-14510mV .
 
 Temp sensors also use a linear scale, a reading of 0 corresponds with 0 degree
 Celsius and a reading of 255 with a reading of 255 degrees Celsius.
+
 
 Bank 0x22 Sensor Bank1 Settings (R)
 Bank 0x23 Sensor Bank1 Settings (W)
@@ -229,6 +241,7 @@ Byte 2:
 Temp sensor: shutdown threshold (scale as bank 0x21)
 Volt sensor: max threshold      (scale as bank 0x21)
 
+
 Bank 0x24 PWM outputs for FAN's (R)
 Bank 0x25 PWM outputs for FAN's (W)
 -----------------------------------
@@ -256,6 +269,7 @@ Low threshold temp  (scale as bank 0x21)
 byte 4:
 High threshold temp (scale as bank 0x21)
 
+
 Bank 0x26 Sensors Bank2 Values / Readings (R)
 ---------------------------------------------
 
@@ -267,6 +281,7 @@ Sensor 2: SYS fan speed
 
 Byte 0:
 This byte holds the reading from the sensor. 0-255 = 0-15300 (linear)
+
 
 Bank 0x27 Sensors Bank2 Settings (R)
 Bank 0x28 Sensors Bank2 Settings (W)
@@ -282,6 +297,7 @@ Bit 7: Shutdown if alarm persist for more than 4 seconds	(RW)
 
 Byte 1:
 min threshold (scale as bank 0x26)
+
 
 Warning for the adventerous
 ===========================

@@ -4,6 +4,7 @@ using different dumping solutions. The module uses KPROBEs to instrument
 crashing points, but can also crash the kernel directly without KRPOBE
 support.
 
+
 You can provide the way either through module arguments when inserting
 the module, or through a debugfs interface.
 
@@ -30,6 +31,7 @@ You can also induce failures by mounting debugfs and writing the type to
 
   mount -t debugfs debugfs /mnt
   echo EXCEPTION > /mnt/provoke-crash/INT_HARDWARE_ENTRY
+
 
 A special file is `DIRECT' which will induce the crash directly without
 KPROBE instrumentation. This mode is the only one available when the module

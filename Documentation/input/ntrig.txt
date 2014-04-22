@@ -12,6 +12,7 @@ and utility functions accessible with sysfs and module parameters.
 This driver has been reported to work properly with multiple N-Trig devices
 attached.
 
+
 Parameters
 ----------
 
@@ -38,6 +39,7 @@ erroneous disconnects, where the sensor may mistakenly not detect a finger that
 is still present.  Thus deactivate_slack addresses problems where a users might
 see breaks in lines during drawing, or drop an object during a long drag.
 
+
 Additional sysfs items
 ----------------------
 
@@ -55,6 +57,7 @@ However not all of these devices have the same physical dimensions.  Most
 seem to be 12" sensors (Dell Latitude XT and XT2 and the HP TX2), and
 at least one model (Dell Studio 17) has a 17" sensor.  The ratio of physical
 to logical sizes is used to adjust the size based filter parameters.
+
 
 Filtering
 ---------
@@ -106,6 +109,7 @@ The calibration of these devices does drift over time.  If ghosts or contact
 dropping worsen and interfere with the normal usage of your device, try
 recalibrating it.
 
+
 Calibration
 -----------
 
@@ -113,6 +117,7 @@ The N-Trig windows tools provide calibration and testing routines.  Also an
 unofficial unsupported set of user space tools including a calibrator is
 available at:
 http://code.launchpad.net/~rafi-seas/+junk/ntrig_calib
+
 
 Tracking
 --------

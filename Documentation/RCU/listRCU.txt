@@ -1,10 +1,12 @@
 Using RCU to Protect Read-Mostly Linked Lists
 
+
 One of the best applications of RCU is to protect read-mostly linked lists
 ("struct list_head" in list.h).  One big advantage of this approach
 is that all of the required memory barriers are included for you in
 the list macros.  This document describes several applications of RCU,
 with the best fits first.
+
 
 Example 1: Read-Side Action Taken Outside of Lock, No In-Place Updates
 
@@ -152,6 +154,7 @@ otherwise cause concurrent readers to fail spectacularly.
 So, when readers can tolerate stale data and when entries are either added
 or deleted, without in-place modification, it is very easy to use RCU!
 
+
 Example 2: Handling In-Place Updates
 
 The system-call auditing code does not update auditing rules in place.
@@ -212,6 +215,7 @@ RCU ("read-copy update") its name.  The RCU code is as follows:
 
 Again, this assumes that the caller holds audit_netlink_sem.  Normally,
 the reader-writer lock would become a spinlock in this sort of code.
+
 
 Example 3: Eliminating Stale Data
 
@@ -286,6 +290,7 @@ flag under the spinlock as follows:
 		return -EFAULT;		/* No matching rule */
 	}
 
+
 Summary
 
 Read-mostly list-based data structures that can tolerate stale data are
@@ -296,6 +301,7 @@ a copy, updating the copy, then replacing the original with the copy.
 If stale data cannot be tolerated, then a "deleted" flag may be used
 in conjunction with a per-entry spinlock in order to allow the search
 function to reject newly deleted data.
+
 
 Answer to Quick Quiz
 	Why does the search function need to return holding the per-entry

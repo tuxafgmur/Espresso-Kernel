@@ -1,3 +1,4 @@
+
 The OMAP PM interface
 =====================
 
@@ -26,6 +27,7 @@ Drivers need to express PM parameters which:
 - can be implemented immediately with minimal disruption of other
   architectures.
 
+
 This document proposes the OMAP PM interface, including the following
 five power management functions for driver code:
 
@@ -44,8 +46,10 @@ five power management functions for driver code:
 5. Return the number of times the device has lost context
    (*pdata->get_dev_context_loss_count)(struct device *dev)
 
+
 Further documentation for all OMAP PM interface functions can be
 found in arch/arm/plat-omap/include/mach/omap-pm.h.
+
 
 The OMAP PM layer is intended to be temporary
 ---------------------------------------------
@@ -54,6 +58,7 @@ The intention is that eventually the Linux PM QoS layer should support
 the range of power management features present in OMAP3.  As this
 happens, existing drivers using the OMAP PM interface can be modified
 to use the Linux PM QoS code; and the OMAP PM interface can disappear.
+
 
 Driver usage of the OMAP PM functions
 -------------------------------------
@@ -97,6 +102,7 @@ The fifth function above, omap_pm_get_dev_context_loss_count(),
 is intended as an optimization to allow drivers to determine whether the
 device has lost its internal context.  If context has been lost, the
 driver must restore its internal context before proceeding.
+
 
 Other specialized interface functions
 -------------------------------------

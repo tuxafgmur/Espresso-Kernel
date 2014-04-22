@@ -16,6 +16,7 @@ Currently supported devices are:
 For additional information on TAOS products, please see
   http://www.taosinc.com/
 
+
 Using this driver
 -----------------
 
@@ -26,6 +27,7 @@ serial port:
 
 # modprobe serport
 # inputattach --taos-evm /dev/ttyS0
+
 
 Technical details
 -----------------

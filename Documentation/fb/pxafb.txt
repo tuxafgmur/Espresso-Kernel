@@ -57,6 +57,7 @@ pixclockpol:POLARITY
 	pixel clock polarity
 	0 => falling edge, 1 => rising edge
 
+
 Overlay Support for PXA27x and later LCD controllers
 ====================================================
 

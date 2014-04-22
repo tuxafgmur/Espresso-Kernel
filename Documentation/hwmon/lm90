@@ -114,7 +114,9 @@ Supported chips:
     Addresses scanned: I2C 0x4c
     Datasheet: Not publicly available, can be requested from Nuvoton
 
+
 Author: Jean Delvare <khali@linux-fr.org>
+
 
 Description
 -----------

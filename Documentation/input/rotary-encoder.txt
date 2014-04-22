@@ -35,6 +35,7 @@ The phase diagram of these two outputs look like this:
 For more information, please see
 	http://en.wikipedia.org/wiki/Rotary_encoder
 
+
 1. Events / state machine
 -------------------------
 
@@ -66,6 +67,7 @@ d) Falling edge on channel B, channel A in low state
 As there is no hardware dependent call in this driver, the platform it is
 used with must support gpiolib. Another requirement is that IRQs must be
 able to fire on both edges.
+
 
 3. Board integration
 --------------------
@@ -116,3 +118,4 @@ static struct platform_device rotary_encoder_device = {
 		.platform_data = &my_rotary_encoder_info,
 	}
 };
+

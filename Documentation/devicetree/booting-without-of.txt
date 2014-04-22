@@ -53,6 +53,7 @@ Table of Contents
 
   Appendix A - Sample SOC node for MPC8540
 
+
 Revision Information
 ====================
 
@@ -99,6 +100,7 @@ Revision Information
 			   structure
 			 - Added chapter VI
 
+
  ToDo:
 	- Add some definitions of interrupt tree (simple/complex)
 	- Add some definitions for PCI host bridges
@@ -110,6 +112,7 @@ Revision Information
 	  node definition required.
 	- Add more information about node definitions for SOC devices
   	  that currently have no standard, like the FSL CPM.
+
 
 I - Introduction
 ================
@@ -144,6 +147,7 @@ drivers to device, without having to hard code all sorts of tables. It
 also makes it more flexible for board vendors to do minor hardware
 upgrades without significantly impacting the kernel code or cluttering
 it with special cases.
+
 
 1) Entry point for arch/arm
 ---------------------------
@@ -285,6 +289,7 @@ it with special cases.
 II - The DT block format
 ========================
 
+
 This chapter defines the actual format of the flattened device-tree
 passed to the kernel. The actual content of it and kernel requirements
 are described later. You can find example of code manipulating that
@@ -299,6 +304,7 @@ Note: The block has to be in main memory. It has to be accessible in
 both real mode and virtual mode with no mapping other than main
 memory. If you are writing a simple flash bootloader, it should copy
 the block to RAM before passing it to the kernel.
+
 
 1) Header
 ---------
@@ -438,6 +444,7 @@ struct boot_param_header {
    need to be in that order) looks like this (addresses go from top to
    bottom):
 
+
              ------------------------------
      base -> |  struct boot_param_header  |
              ------------------------------
@@ -464,6 +471,7 @@ struct boot_param_header {
   (*) The alignment gaps are not necessarily present; their presence
       and size are dependent on the various alignment requirements of
       the individual data blocks.
+
 
 2) Device tree generalities
 ---------------------------
@@ -596,6 +604,7 @@ significance of the #address-cells and #size-cells properties will be
 explained in chapter IV which defines precisely the required nodes and
 properties and their content.
 
+
 3) Device tree "structure" block
 
 The structure of the device tree is a linearized tree structure. The
@@ -643,6 +652,7 @@ concatenated together. The device-tree property definitions in the
 structure block will contain offset values from the beginning of the
 strings block.
 
+
 III - Required content of the device tree
 =========================================
 
@@ -655,6 +665,7 @@ that's where you'll have to add code to detect your board model and
 set the platform number. However, when using the flattened device-tree
 entry point, there is no prom_init() pass, and thus you have to
 provide those properties yourself.
+
 
 1) Note about cells and address representation
 ----------------------------------------------
@@ -786,6 +797,7 @@ is 31. In the case of node names, this is only the leftmost part of
 a unit name (the pure "name" property), it doesn't include the unit
 address which can extend beyond that limit.
 
+
 5) Required nodes and properties
 --------------------------------
   These are all that are currently required. However, it is strongly
@@ -883,6 +895,7 @@ compatibility.
   lines in there as a "soft-reset" property since they start secondary
   CPUs by soft-resetting them.
 
+
   d) the /memory node(s)
 
   To define the physical memory layout of your board, you should
@@ -961,6 +974,7 @@ compatibility.
       loader.
     - compatible : Exact model of the SoC
 
+
   Recommended properties:
 
     - reg : This property defines the address and size of the
@@ -1001,8 +1015,11 @@ compatibility.
 		bus-frequency = <0>;
 	}
 
+
+
 IV - "dtc", the device tree compiler
 ====================================
+
 
 dtc source code can be found at
 <http://git.jdl.com/gitweb/?p=dtc.git>
@@ -1040,10 +1057,12 @@ device-tree in another format. The currently supported formats are:
        then simply be added to your Makefile. Additionally, the
        assembly file exports some symbols that can be used.
 
+
 The syntax of the dtc tool is
 
     dtc [-I <input-format>] [-O <output-format>]
         [-o output-filename] [-V output_version] input_filename
+
 
 The "output_version" defines what version of the "blob" format will be
 generated. Supported versions are 1,2,3 and 16. The default is
@@ -1113,8 +1132,10 @@ proves useful for some properties (like building PCI properties or
 interrupt maps) though it may be better to add a notion of struct
 definitions to the compiler...
 
+
 V - Recommendations for a bootloader
 ====================================
+
 
 Here are some various ideas/recommendations that have been proposed
 while all this has been defined and implemented.
@@ -1143,6 +1164,8 @@ while all this has been defined and implemented.
     integrate all or part of this code into a non-GPL bootloader.
     (reference needed; who is 'I' here? ---gcl Jan 31, 2011)
 
+
+
 VI - System-on-a-chip devices and nodes
 =======================================
 
@@ -1155,6 +1178,7 @@ order to boot the kernel, it is highly encouraged that all SOC
 implementations define as complete a flat-device-tree as possible to
 describe the devices on the SOC.  This will allow for the
 genericization of much of the kernel code.
+
 
 1) Defining child nodes of an SOC
 ---------------------------------
@@ -1177,6 +1201,7 @@ document.
 See appendix A for an example partial SOC node definition for the
 MPC8540.
 
+
 2) Representing devices without a current OF specification
 ----------------------------------------------------------
 
@@ -1187,6 +1212,7 @@ booted using Open Firmware.  Binding documentation for new devices
 should be added to the Documentation/devicetree/bindings directory.
 That directory will expand as device tree support is added to more and
 more SoCs.
+
 
 VII - Specifying interrupt information for devices
 ===================================================

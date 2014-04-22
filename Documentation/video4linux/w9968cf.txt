@@ -1,8 +1,10 @@
+
 		   W996[87]CF JPEG USB Dual Mode Camera Chip
 		     Driver for Linux 2.6 (basic version)
 		   =========================================
 
 			       - Documentation -
+
 
 Index
 =====
@@ -17,14 +19,17 @@ Index
 9.  Contact information
 10. Credits
 
+
 1. Copyright
 ============
 Copyright (C) 2002-2004 by Luca Risolia <luca.risolia@studio.unibo.it>
+
 
 2. Disclaimer
 =============
 Winbond is a trademark of Winbond Electronics Corporation.
 This software is not sponsored or developed by Winbond.
+
 
 3. License
 ==========
@@ -41,6 +46,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 
 4. Overview
 ===========
@@ -76,6 +82,7 @@ sensors connected to the W996[87]CF chips; if found in the system, the module
 will be automatically loaded by default (provided that the kernel has been
 compiled with the automatic module loading option).
 
+
 5. Supported devices
 ====================
 At the moment, known W996[87]CF and OV681 based devices are:
@@ -102,6 +109,7 @@ means that still images cannot be downloaded from the device memory.
 Furthermore, it's worth to note that I was only able to run tests on my
 "Creative Labs Video Blaster WebCam Go". Donations of other models, for
 additional testing and full support, would be much appreciated.
+
 
 6. Module dependencies
 ======================
@@ -146,6 +154,7 @@ And finally:
 	#
 	CONFIG_USB_W9968CF=m
 
+
 7. Module loading
 =================
 To use the driver, it is necessary to load the "w9968cf" module into memory
@@ -169,6 +178,7 @@ explanation about them and which syntax to use, it is recommended to run the
 "modinfo" command:
 
 	[root@locahost home]# modinfo w9968cf
+
 
 8. Module parameters
 ====================
@@ -421,6 +431,7 @@ Description:    Enable or disable specific debugging messages:
 Default:        0
 -------------------------------------------------------------------------------
 
+
 9. Contact information
 ======================
 I may be contacted by e-mail at <luca.risolia@studio.unibo.it>.
@@ -428,6 +439,7 @@ I may be contacted by e-mail at <luca.risolia@studio.unibo.it>.
 I can accept GPG/PGP encrypted e-mail. My GPG key ID is 'FCE635A4'.
 My public 1024-bit key should be available at your keyserver; the fingerprint
 is: '88E8 F32F 7244 68BA 3958  5D40 99DA 5D2A FCE6 35A4'.
+
 
 10. Credits
 ==========

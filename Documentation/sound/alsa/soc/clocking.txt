@@ -4,6 +4,7 @@ Audio Clocking
 This text describes the audio clocking terms in ASoC and digital audio in
 general. Note: Audio clocking can be complex!
 
+
 Master Clock
 ------------
 
@@ -15,6 +16,7 @@ audio playback and capture sample rates.
 Some master clocks (e.g. PLLs and CPU based clocks) are configurable in that
 their speed can be altered by software (depending on the system use and to save
 power). Other master clocks are fixed at a set frequency (i.e. crystals).
+
 
 DAI Clocks
 ----------
@@ -44,3 +46,6 @@ rate, number of channels and word size) to save on power.
 
 It is also desirable to use the codec (if possible) to drive (or master) the
 audio clocks as it usually gives more accurate sample rates than the CPU.
+
+
+

@@ -40,6 +40,7 @@ Module Parameters
   I.e. this parameter controls the VID pin input thresholds; if your VID
   inputs are not working, try changing this.  The default value is "0".
 
+
 Hardware Description
 --------------------
 
@@ -61,6 +62,7 @@ processor Xeon class motherboard with a minimum of external components.
 
 LM94 is also supported in LM93 compatible mode. Extra sensors and features of
 LM94 are not supported.
+
 
 User Interface
 --------------
@@ -254,6 +256,7 @@ four tach input pins.  GPIO0-GPIO3 correspond to (fan) tach 1-4, respectively.
 All eight GPIOs are read by reading the bitmask in the sysfs file gpio.  The
 LSB is GPIO0, and the MSB is GPIO7.
 
+
 LM93 Unique sysfs Files
 -----------------------
 
@@ -303,3 +306,4 @@ LM93 Unique sysfs Files
 	temp<n>_auto_boost_hyst	temperature channel boost hysteresis
 
 	gpio			input state of 8 GPIO pins; read-only
+

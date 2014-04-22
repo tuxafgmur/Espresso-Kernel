@@ -60,6 +60,7 @@ Supported chips:
 
 Author: Hans de Goede <hdegoede@redhat.com>
 
+
 Description
 -----------
 
@@ -73,11 +74,13 @@ three different modes (one manual, two automatic).
 The driver assumes that no more than one chip is present, which seems
 reasonable.
 
+
 Monitoring
 ----------
 
 The Voltage, Fan and Temperature Monitoring uses the standard sysfs
 interface as documented in sysfs-interface, without any exceptions.
+
 
 Fan Control
 -----------

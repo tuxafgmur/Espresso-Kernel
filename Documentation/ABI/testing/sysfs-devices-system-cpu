@@ -33,6 +33,7 @@ Description:	Discover and adjust the kernel's multi-core scheduler support.
 
 		Introduced by git commit 5c45bf27.
 
+
 What:		/sys/devices/system/cpu/kernel_max
 		/sys/devices/system/cpu/offline
 		/sys/devices/system/cpu/online
@@ -59,6 +60,7 @@ Description:	CPU topology files that describe kernel limits related to
 		the system.
 
 		See Documentation/cputopology.txt for more information.
+
 
 What:		/sys/devices/system/cpu/probe
 		/sys/devices/system/cpu/release
@@ -89,6 +91,7 @@ Description:	Discover NUMA node a CPU belongs to
 
 		/sys/devices/system/cpu/cpu42/node2 -> ../../node/node2
 
+
 What:		/sys/devices/system/cpu/cpu#/node
 Date:		October 2009
 Contact:	Linux memory management mailing list <linux-mm@kvack.org>
@@ -101,6 +104,7 @@ Description:	Discover NUMA node a CPU belongs to
 		in NUMA node 2:
 
 		/sys/devices/system/cpu/cpu42/node2 -> ../../node/node2
+
 
 What:		/sys/devices/system/cpu/cpu#/topology/core_id
 		/sys/devices/system/cpu/cpu#/topology/core_siblings
@@ -140,6 +144,7 @@ Description:	CPU topology files that describe a logical CPU's relationship
 
 		See Documentation/cputopology.txt for more information.
 
+
 What:		/sys/devices/system/cpu/cpuidle/current_driver
 		/sys/devices/system/cpu/cpuidle/current_governer_ro
 Date:		September 2007
@@ -159,6 +164,7 @@ Description:	Discover cpuidle policy and mechanism
 
 		See files in Documentation/cpuidle/ for more information.
 
+
 What:		/sys/devices/system/cpu/cpu#/cpufreq/*
 Date:		pre-git history
 Contact:	cpufreq@vger.kernel.org
@@ -175,6 +181,7 @@ Description:	Discover and change clock speed of CPUs
 
 		In particular, read Documentation/cpu-freq/user-guide.txt
 		to learn how to control the knobs.
+
 
 What:		/sys/devices/system/cpu/cpu*/cache/index3/cache_disable_{0,1}
 Date:		August 2008

@@ -25,6 +25,7 @@ Recommended properties :
  - fsl,rx-fifo-size : the size of the RX fifo slice (a multiple of 4)
  - fsl,tx-fifo-size : the size of the TX fifo slice (a multiple of 4)
 
+
 fsl,mpc5121-psc-fifo node
 -------------------------
 
@@ -37,6 +38,7 @@ Required properties :
    encoding of the sense and level information for the interrupt.
  - interrupt-parent : the phandle for the interrupt controller that
    services interrupts for this device.
+
 
 Example for a board using PSC0 and PSC1 devices in serial mode:
 

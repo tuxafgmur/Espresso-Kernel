@@ -145,6 +145,7 @@ chipselect is dropped after each spi_transfer.  Most devices need chip select
 asserted around the complete message.  Use SSPFRM as a GPIO (through cs_control)
 to accommodate these chips.
 
+
 NSSP SLAVE SAMPLE
 -----------------
 The pxa2xx_spi_chip structure is passed to the pxa2xx_spi driver in the
@@ -211,6 +212,7 @@ static void __init streetracer_init(void)
 				ARRAY_SIZE(streetracer_spi_board_info));
 }
 
+
 DMA and PIO I/O Support
 -----------------------
 The pxa2xx_spi driver supports both DMA and interrupt driven PIO message
@@ -241,3 +243,4 @@ THANKS TO
 ---------
 
 David Brownell and others for mentoring the development of this driver.
+

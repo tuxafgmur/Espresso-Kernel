@@ -1,3 +1,4 @@
+
          WorkBiT NinjaSCSI-3/32Bi driver for Linux
 
 1. Comment
@@ -32,9 +33,10 @@ Socket 0:
 Socket 1:
   product info: "IO DATA", "CBSC16       ", "1"
 
+
 [2] Get the Linux kernel source, and extract it to /usr/src.
-    Because the NinjaSCSI driver requires some SCSI header files in Linux
-    kernel source, I recommend rebuilding your kernel; this eliminates
+    Because the NinjaSCSI driver requires some SCSI header files in Linux 
+    kernel source, I recommend rebuilding your kernel; this eliminates 
     some versioning problems.
 $ cd /usr/src
 $ tar -zxvf linux-x.x.x.tar.gz
@@ -98,6 +100,7 @@ card "WorkBit NinjaSCSI-32Bi (16bit) / KME-4"
 or
 # /etc/init.d/pcmcia start         (SYSV style)
 
+
 4. History
 See README.nin_cs .
 
@@ -120,5 +123,6 @@ When you send report, please tell me these or more.
 
 8. Copyright
  See GPL.
+
 
 2001/08/08 yokota@netlab.is.tsukuba.ac.jp <YOKOTA Hiroshi>

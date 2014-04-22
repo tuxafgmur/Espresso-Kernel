@@ -9,6 +9,7 @@ virtual address to a physical address.  Normally, it is simply:
 
 		phys = virt - PAGE_OFFSET + PHYS_OFFSET
 
+
 Decompressor Symbols
 --------------------
 
@@ -48,6 +49,7 @@ INITRD_VIRT
 PARAMS_PHYS
 	Physical address of the struct param_struct or tag list, giving the
 	kernel various parameters about its execution environment.
+
 
 Kernel Symbols
 --------------
@@ -130,3 +132,4 @@ MAPIO(func)
 
 INITIRQ(func)
 	Machine specific function to initialise interrupts.
+

@@ -10,11 +10,13 @@ Supported chips:
 
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
 
+
 Description
 -----------
 
 The LTC4261/LTC4261-2 negative voltage Hot Swap controllers allow a board
 to be safely inserted and removed from a live backplane.
+
 
 Usage Notes
 -----------
@@ -27,6 +29,7 @@ Example: the following will load the driver for an LTC4261 at address 0x10
 on I2C bus #1:
 $ modprobe ltc4261
 $ echo ltc4261 0x10 > /sys/bus/i2c/devices/i2c-1/new_device
+
 
 Sysfs entries
 -------------

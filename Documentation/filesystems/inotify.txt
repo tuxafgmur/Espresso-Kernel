@@ -1,7 +1,10 @@
 				   inotify
 	    a powerful yet simple file change notification system
 
+
+
 Document started 15 Mar 2005 by Robert Love <rml@novell.com>
+
 
 (i) User Interface
 
@@ -56,6 +59,7 @@ ioctl on the fd returned by inotify_init().
 
 All watches are destroyed and cleaned up on close.
 
+
 (ii)
 
 Prototypes:
@@ -63,6 +67,7 @@ Prototypes:
 	int inotify_init (void);
 	int inotify_add_watch (int fd, const char *path, __u32 mask);
 	int inotify_rm_watch (int fd, __u32 mask);
+
 
 (iii) Kernel Interface
 
@@ -179,6 +184,7 @@ which point you may call the final inotify_put_watch.
 	void get_inotify_watch(struct inotify_watch *watch);
 	void put_inotify_watch(struct inotify_watch *watch);
 
+
 (v) Internal Kernel Implementation
 
 Each inotify instance is represented by an inotify_handle structure.
@@ -189,6 +195,7 @@ Each watch is associated with an inotify_watch structure.  Watches are chained
 off of each associated inotify_handle and each associated inode.
 
 See fs/inotify.c and fs/inotify_user.c for the locking and lifetime rules.
+
 
 (vi) Rationale
 
@@ -212,8 +219,8 @@ A: An fd-per-watch quickly consumes more file descriptors than are allowed,
    spaces is thus sensible.  The current design is what user-space developers
    want: Users initialize inotify, once, and add n watches, requiring but one
    fd and no twiddling with fd limits.  Initializing an inotify instance two
-   thousand times is silly.  If we can implement user-space's preferences
-   cleanly--and we can, the idr layer makes stuff like this trivial--then we
+   thousand times is silly.  If we can implement user-space's preferences 
+   cleanly--and we can, the idr layer makes stuff like this trivial--then we 
    should.
 
    There are other good arguments.  With a single fd, there is a single
@@ -259,3 +266,4 @@ A: The poor user-space interface is the second biggest problem with dnotify.
    family of system calls because that is the preferred approach for new kernel
    interfaces.  The only real difference was whether we wanted to use open(2)
    and ioctl(2) or a couple of new system calls.  System calls beat ioctls.
+

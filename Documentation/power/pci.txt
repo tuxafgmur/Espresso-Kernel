@@ -18,6 +18,7 @@ Documentation/power/runtime_pm.txt.
 3. PCI Device Drivers and Power Management
 4. Resources
 
+
 1. Hardware and Platform Support for PCI Power Management
 =========================================================
 
@@ -257,6 +258,7 @@ ACPI BIOS to release control of root port configuration registers.  The ACPI
 BIOS, however, is not required to allow the kernel to control these registers
 and if it doesn't do that, the kernel must not modify their contents.  Of course
 the native PCI Express PME signaling cannot be used by the kernel in that case.
+
 
 2. PCI Subsystem and Device Power Management
 ============================================
@@ -663,6 +665,7 @@ pm->restore() callbacks, if available.
 The complete phase is carried out in exactly the same way as during system
 resume.
 
+
 3. PCI Device Drivers and Power Management
 ==========================================
 
@@ -1009,6 +1012,7 @@ drivers that use helper functions provided by the PM core for this purpose.
 
 For more information on the runtime PM of devices refer to
 Documentation/power/runtime_pm.txt.
+
 
 4. Resources
 ============

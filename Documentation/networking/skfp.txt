@@ -5,6 +5,7 @@ skfp.txt created 11-May-2000
 
 Readme File for skfp.o v2.06
 
+
 This file contains
 (1) OVERVIEW
 (2) SUPPORTED ADAPTERS
@@ -16,6 +17,8 @@ This file contains
 (8) HISTORY
 
 ===========================================================================
+
+
 
 (1) OVERVIEW
 ============
@@ -35,6 +38,7 @@ Chapter 5: Shows the changed functionality of the adapter LEDs.
 Chapter 6: History of development.
 
 ***
+
 
 (2) SUPPORTED ADAPTERS
 ======================
@@ -59,6 +63,7 @@ Compaq adapters (not tested):
   - Netelligent 100 FDDI SAS Fibre MIC
 ***
 
+
 (3) GENERAL INFORMATION
 =======================
 
@@ -69,6 +74,7 @@ Refer to the manual of your distribution about the installation
 of network adapters.
 Makes my life much easier :-)
 ***
+
 
 (4) TROUBLESHOOTING
 ===================
@@ -100,7 +106,7 @@ Reason:   Either the router's kernel is not configured for IP
 	  computers.
 
 If your problem is not listed here, please contact our
-technical support for help.
+technical support for help. 
 You can send email to:
   linux@syskonnect.de
 When contacting our technical support,
@@ -111,6 +117,7 @@ please ensure that the following information is available:
 - Kernel version
 
 ***
+
 
 (5) FUNCTION OF THE ADAPTER LEDS
 ================================
@@ -131,6 +138,7 @@ please ensure that the following information is available:
         all LEDs are off.
 
 ***
+
 
 (6) HISTORY
 ===========

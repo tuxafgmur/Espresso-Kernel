@@ -35,10 +35,6 @@
 #include <linux/serial_8250.h>
 #include <asm/io.h>
 #include <asm/serial.h>
-#ifdef CONFIG_FIX_EARLYCON_MEM
-#include <asm/pgtable.h>
-#include <asm/fixmap.h>
-#endif
 
 struct early_serial8250_device {
 	struct uart_port port;
@@ -167,13 +163,6 @@ static int __init parse_options(struct early_serial8250_device *device,
 					       &options, 0);
 		if (mmio32)
 			port->regshift = 2;
-#ifdef CONFIG_FIX_EARLYCON_MEM
-		set_fixmap_nocache(FIX_EARLYCON_MEM_BASE,
-					port->mapbase & PAGE_MASK);
-		port->membase =
-			(void __iomem *)__fix_to_virt(FIX_EARLYCON_MEM_BASE);
-		port->membase += port->mapbase & ~PAGE_MASK;
-#else
 		port->membase = ioremap_nocache(port->mapbase, 64);
 		if (!port->membase) {
 			printk(KERN_ERR "%s: Couldn't ioremap 0x%llx\n",
@@ -181,7 +170,7 @@ static int __init parse_options(struct early_serial8250_device *device,
 			       (unsigned long long) port->mapbase);
 			return -ENOMEM;
 		}
-#endif
+
 	} else if (!strncmp(options, "io,", 3)) {
 		port->iotype = UPIO_PORT;
 		port->iobase = simple_strtoul(options + 3, &options, 0);

@@ -87,6 +87,7 @@ Creating a Cache
 		cache with sunrpc_cache_lookup, and update the item
 		with sunrpc_cache_update.
 
+
 3/ A cache needs to be registered using cache_register().  This
    includes it on a list of caches that will be regularly
    cleaned to discard old data.

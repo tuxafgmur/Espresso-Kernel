@@ -79,6 +79,7 @@ hardware implementation.
 All entries (except name) are optional, and should only be created in a
 given driver if the chip has the feature.
 
+
 *********************
 * Global attributes *
 *********************
@@ -96,6 +97,7 @@ update_interval	The interval at which the chip will update readings.
 		Some devices have a variable update rate or interval.
 		This attribute can be used to change it to the desired value.
 
+
 ************
 * Voltages *
 ************
@@ -103,7 +105,7 @@ update_interval	The interval at which the chip will update readings.
 in[0-*]_min	Voltage min value.
 		Unit: millivolt
 		RW
-
+		
 in[0-*]_lcrit	Voltage critical min value.
 		Unit: millivolt
 		RW
@@ -114,7 +116,7 @@ in[0-*]_lcrit	Voltage critical min value.
 in[0-*]_max	Voltage max value.
 		Unit: millivolt
 		RW
-
+		
 in[0-*]_crit	Voltage critical max value.
 		Unit: millivolt
 		RW
@@ -150,7 +152,7 @@ cpu[0-*]_vid	CPU core reference voltage.
 		RO
 		Not always correct.
 
-vrm		Voltage Regulator Module version number.
+vrm		Voltage Regulator Module version number. 
 		RW (but changing it should no more be necessary)
 		Originally the VRM standard version multiplied by 10, but now
 		an arbitrary number, as not all standards have a version
@@ -159,6 +161,7 @@ vrm		Voltage Regulator Module version number.
 		voltage from the vid pins.
 
 Also see the Alarms section for status flags associated with voltages.
+
 
 ********
 * Fans *
@@ -210,6 +213,7 @@ fan[1-*]_label	Suggested fan channel label.
 		RO
 
 Also see the Alarms section for status flags associated with fans.
+
 
 *******
 * PWM *
@@ -268,6 +272,7 @@ temperature inputs and PWM outputs. When several temperature inputs are
 mapped to a given PWM output, this leads to several candidate PWM values.
 The actual result is up to the chip, but in general the highest candidate
 value (fastest fan speed) wins.
+
 
 ****************
 * Temperatures *
@@ -376,6 +381,7 @@ Celsius. In other words, such temperature channels are handled as voltage
 channels by the driver.
 
 Also see the Alarms section for status flags associated with temperatures.
+
 
 ************
 * Currents *
@@ -509,6 +515,7 @@ energy[1-*]_input		Cumulative energy use
 				Unit: microJoule
 				RO
 
+
 ************
 * Humidity *
 ************
@@ -516,6 +523,7 @@ energy[1-*]_input		Cumulative energy use
 humidity[1-*]_input		Humidity
 				Unit: milli-percent (per cent mille, pcm)
 				RO
+
 
 **********
 * Alarms *
@@ -618,6 +626,7 @@ beep_mask	Bitmask for beep.
 		*_beep files instead.
 		RW
 
+
 ***********************
 * Intrusion detection *
 ***********************
@@ -637,6 +646,7 @@ intrusion[0-*]_beep
 		0: disable
 		1: enable
 		RW
+
 
 sysfs attribute writes interpretation
 -------------------------------------

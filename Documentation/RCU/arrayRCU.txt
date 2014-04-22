@@ -1,5 +1,6 @@
 Using RCU to Protect Read-Mostly Arrays
 
+
 Although RCU is more commonly used to protect linked lists, it can
 also be used to protect arrays.  Three situations are as follows:
 
@@ -11,12 +12,14 @@ also be used to protect arrays.  Three situations are as follows:
 
 Each of these situations are discussed below.
 
+
 Situation 1: Hash Tables
 
 Hash tables are often implemented as an array, where each array entry
 has a linked-list hash chain.  Each hash chain can be protected by RCU
 as described in the listRCU.txt document.  This approach also applies
 to other array-of-list situations, such as radix trees.
+
 
 Situation 2: Static Arrays
 
@@ -28,6 +31,7 @@ as updates are rare.
 
 Quick Quiz:  Why is it so important that updates be rare when
 	     using seqlock?
+
 
 Situation 3: Resizeable Arrays
 
@@ -127,6 +131,7 @@ deleted, and, if not, the pointer is returned.
 		}
 		return out;
 	}
+
 
 Answer to Quick Quiz:
 

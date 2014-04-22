@@ -31,6 +31,7 @@ There are three different groups of fields in the struct taskstats:
 Future extension should add fields to the end of the taskstats struct, and
 should not change the relative position of each field within the struct.
 
+
 struct taskstats {
 
 1) Common and basic accounting fields:
@@ -81,6 +82,7 @@ struct taskstats {
 	/* The major page fault count of a task, as set in task->maj_flt. */
 	__u64	ac_majflt;		/* Major Page Fault Count */
 
+
 2) Delay accounting fields:
 	/* Delay accounting fields start
 	 *
@@ -130,6 +132,7 @@ struct taskstats {
 	__u64	cpu_run_virtual_total;
 	/* Delay accounting fields end */
 	/* version 1 ends here */
+
 
 3) Extended accounting fields
 	/* Extended accounting fields start */

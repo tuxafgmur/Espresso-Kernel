@@ -9,6 +9,7 @@ This kernel port has a number of features of which the user should be aware:
      The FR-V architecture port supports both normal MMU linux and uClinux out
      of the same sources.
 
+
  (*) CPU support
 
      Support for the FR401, FR403, FR405, FR451 and FR555 CPUs should work with
@@ -24,6 +25,7 @@ This kernel port has a number of features of which the user should be aware:
      is made to do lazy register saving where that would be possible (FR555
      only currently).
 
+
  (*) Board support
 
      The board on which the kernel will run can be configured on the "Processor
@@ -36,6 +38,7 @@ This kernel port has a number of features of which the user should be aware:
      boot with the standard ATA90590B VDK motherboard, and set it to "None" to
      boot without any motherboard.
 
+
  (*) Binary Formats
 
      The only userspace binary format supported is FDPIC ELF. Normal ELF, FLAT
@@ -43,11 +46,13 @@ This kernel port has a number of features of which the user should be aware:
 
      FDPIC ELF supports shared library and program interpreter facilities.
 
+
  (*) Scheduler Speed
 
      The kernel scheduler runs at 100Hz irrespective of the clock speed on this
      architecture. This value is set in asm/param.h (see the HZ macro defined
      there).
+
 
  (*) Normal (MMU) Linux Memory Layout.
 
@@ -59,6 +64,7 @@ This kernel port has a number of features of which the user should be aware:
 
      See include/asm-frv/mb-regs.h for the constants pertaining to the I/O bus
      controller configuration.
+
 
  (*) uClinux Memory Layout
 
@@ -101,6 +107,7 @@ This kernel port has a number of features of which the user should be aware:
      See include/asm-frv/mb-regs.h for the constants pertaining to the I/O bus
      controller configuration.
 
+
  (*) uClinux Memory Protection
 
      A DAMPR register is used to cover the entire region used for I/O
@@ -120,6 +127,7 @@ This kernel port has a number of features of which the user should be aware:
      Barring point (1), there is nothing to protect kernel data against
      userspace damage - but this is uClinux.
 
+
  (*) Exceptions and Fixups
 
      Since the FR40x and FR55x CPUs that do not have full MMUs generate
@@ -132,6 +140,7 @@ This kernel port has a number of features of which the user should be aware:
 
      On the FR451, however, data exceptions are mostly precise, and so
      exception fixup handling is implemented as normal.
+
 
  (*) Userspace Breakpoints
 
@@ -148,6 +157,7 @@ This kernel port has a number of features of which the user should be aware:
 
      Each of the above generates a SIGTRAP.
 
+
  (*) On-Chip Serial Ports
 
      The FR-V on-chip serial ports are made available as ttyS0 and ttyS1. Note
@@ -158,6 +168,7 @@ This kernel port has a number of features of which the user should be aware:
 
 	mknod /dev/ttyS0 c 4 64
 	mknod /dev/ttyS1 c 4 65
+
 
  (*) Maskable Interrupts
 
@@ -170,12 +181,14 @@ This kernel port has a number of features of which the user should be aware:
      routines attempt to disentangle the various sources available through the
      CPU's own multiplexor, and those on off-CPU peripherals.
 
+
  (*) Accessing PCI Devices
 
      Where PCI is available, care must be taken when dealing with drivers that
      access PCI devices. PCI devices present their data in little-endian form,
      but the CPU sees it in big-endian form. The macros in asm/io.h try to get
      this right, but may not under all circumstances...
+
 
  (*) Ax88796 Ethernet Driver
 
@@ -195,6 +208,7 @@ This kernel port has a number of features of which the user should be aware:
 
 	drivers/net/ax88796.c
 	include/asm/ax88796.h
+
 
  (*) WorkRAM Driver
 
@@ -229,6 +243,7 @@ This kernel port has a number of features of which the user should be aware:
 	(*) Character devices
 	    - turn on "Fujitsu FR-V CPU WorkRAM support"
 
+
  (*) Dynamic data cache write mode changing
 
      It is possible to view and to change the data cache's write mode through
@@ -250,6 +265,7 @@ This kernel port has a number of features of which the user should be aware:
 	# echo wback >/proc/sys/frv/cache-mode
 	# cat /proc/sys/frv/cache-mode
 	wback
+
 
  (*) MMU Context IDs and Pinning
 

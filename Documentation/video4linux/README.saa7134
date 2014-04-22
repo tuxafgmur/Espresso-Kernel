@@ -1,9 +1,12 @@
+
+
 What is it?
 ===========
 
 This is a v4l2/oss device driver for saa7130/33/34/35 based capture / TV
 boards.  See http://www.semiconductors.philips.com/pip/saa7134hl for a
 description.
+
 
 Status
 ======
@@ -13,6 +16,7 @@ Almost everything is working.  video, sound, tuner, radio, mpeg ts, ...
 As with bttv, card-specific tweaks are needed.  Check CARDLIST for a
 list of known TV cards and saa7134-cards.c for the drivers card
 configuration info.
+
 
 Build
 =====
@@ -29,12 +33,14 @@ driver.  "modprobe saa7134" should load it.  Depending on the card you
 might have to pass card=<nr> as insmod option, check CARDLIST for
 valid choices.
 
+
 Changes / Fixes
 ===============
 
 Please mail me unified diffs ("diff -u") with your changes, and don't
 forget to tell me what it changes / which problem it fixes / whatever
 it is good for ...
+
 
 Known Problems
 ==============
@@ -66,6 +72,7 @@ Credits
 
 andrew.stevens@philips.com + werner.leeb@philips.com for providing
 saa7134 hardware specs and sample board.
+
 
 Have fun,
 

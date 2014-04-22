@@ -16,6 +16,7 @@ Module Parameters
 * force_addr: int
   Initialize the base address of the i2c controller
 
+
 Notes
 -----
 
@@ -28,6 +29,7 @@ Example: 'modprobe i2c-ali15x3 force_addr=0xe800'
 
 SMBus periodically hangs on ASUS P5A motherboards and can only be cleared
 by a power cycle. Cause unknown (see Issues below).
+
 
 Description
 -----------
@@ -92,6 +94,7 @@ This driver controls the SMB Host only. The SMB Slave
 controller on the M15X3 is not enabled. This driver does not use
 interrupts.
 
+
 Issues
 ------
 
@@ -106,3 +109,4 @@ There may be electrical problems on this board.
 On the P5A, the W83781D sensor chip is on both the ISA and
 SMBus. Therefore the SMBus hangs can generally be avoided
 by accessing the W83781D on the ISA bus only.
+

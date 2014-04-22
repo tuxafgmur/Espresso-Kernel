@@ -1,5 +1,6 @@
 Using RCU to Protect Dynamic NMI Handlers
 
+
 Although RCU is usually used to protect read-mostly data structures,
 it is possible to use RCU to provide dynamic non-maskable interrupt
 handlers, as well as dynamic irq handlers.  This document describes
@@ -55,6 +56,7 @@ with aggressive optimizing compilers.
 Quick Quiz:  Why might the rcu_dereference_sched() be necessary on Alpha,
 	     given that the code referenced by the pointer is read-only?
 
+
 Back to the discussion of NMI and RCU...
 
 	void set_nmi_callback(nmi_callback_t callback)
@@ -94,6 +96,7 @@ to free up the handler's data as soon as synchronize_sched() returns.
 
 Important note: for this to work, the architecture in question must
 invoke irq_enter() and irq_exit() on NMI entry and exit, respectively.
+
 
 Answer to Quick Quiz
 

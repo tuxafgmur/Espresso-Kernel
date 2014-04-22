@@ -4,6 +4,7 @@
 
 			    12 May 1997
 
+
 1. What's New?
 --------------
 
@@ -34,6 +35,7 @@ file with flock(). With pre 1.3.96 kernels this could result in deadlocks that,
 over time, or under a very heavy mail load, would eventually cause the kernel
 to lock solid with deadlocked processes.
 
+
 1.2.2 The Solution
 ------------------
 The solution I have chosen, after much experimentation and discussion,
@@ -46,6 +48,7 @@ practical one. It puts us in the same position as, for example, SunOS
 4.1.x and several other commercial Unices. The only OS's that support
 cooperative flock()/fcntl() are those that emulate flock() using
 fcntl(), with all the problems that implies.
+
 
 1.3 Mandatory Locking As A Mount Option
 ---------------------------------------
@@ -61,3 +64,4 @@ on a per-filesystem basis, using the mount options 'mand' and 'nomand'.
 The default is to disallow mandatory locking. The intention is that
 mandatory locking only be enabled on a local filesystem as the specific need
 arises.
+

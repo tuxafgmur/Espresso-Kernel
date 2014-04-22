@@ -1,3 +1,4 @@
+
 		HOWTO for multiqueue network device support
 		===========================================
 
@@ -23,6 +24,7 @@ netif_{start|stop|wake}_subqueue() functions to manage each queue while the
 device is still operational.  netdev->queue_lock is still used when the device
 comes online or when it's completely shut down (unregister_netdev(), etc.).
 
+
 Section 2: Qdisc support for multiqueue devices
 
 -----------------------------------------------
@@ -41,6 +43,7 @@ associated with the band is not stopped prior to dequeuing a packet.
 On qdisc load, the number of bands is based on the number of queues on the
 hardware.  Once the association is made, any skb with skb->queue_mapping set,
 will be queued to the band associated with the hardware queue.
+
 
 Section 3: Brief howto using MULTIQ for multiqueue devices
 ---------------------------------------------------------------

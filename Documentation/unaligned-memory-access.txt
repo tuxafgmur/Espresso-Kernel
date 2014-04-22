@@ -6,6 +6,7 @@ when it comes to memory access. This document presents some details about
 unaligned accesses, why you need to write code that doesn't cause them,
 and how to write such code!
 
+
 The definition of an unaligned access
 =====================================
 
@@ -22,6 +23,7 @@ assembly). As will become clear, it is relatively easy to spot C statements
 which will compile to multiple-byte memory access instructions, namely when
 dealing with types such as u16, u32 and u64.
 
+
 Natural alignment
 =================
 
@@ -36,6 +38,7 @@ In reality, only a few architectures require natural alignment on all sizes
 of memory access. However, we must consider ALL supported architectures;
 writing code that satisfies natural alignment requirements is the easiest way
 to achieve full portability.
+
 
 Why unaligned access is bad
 ===========================
@@ -59,6 +62,7 @@ here; a summary of the common scenarios is presented below:
 It should be obvious from the above that if your code causes unaligned
 memory accesses to happen, your code will not work correctly on certain
 platforms and will cause performance problems on others.
+
 
 Code that does not cause unaligned access
 =========================================
@@ -128,6 +132,7 @@ the extra instructions obviously cause a loss in performance compared to the
 non-packed case, so the packed attribute should only be used when avoiding
 structure padding is of importance.
 
+
 Code that causes unaligned access
 =================================
 
@@ -155,6 +160,7 @@ not use this function at all. This alignment-unsafe function is still useful
 as it is a decent optimization for the cases when you can ensure alignment,
 which is true almost all of the time in ethernet networking context.
 
+
 Here is another example of some code that could cause unaligned accesses:
 	void myfunc(u8 *data, u32 value)
 	{
@@ -170,6 +176,7 @@ In summary, the 2 main scenarios where you may run into unaligned access
 problems involve:
  1. Casting variables to types of different lengths
  2. Pointer arithmetic followed by access to at least 2 bytes of data
+
 
 Avoiding unaligned accesses
 ===========================
@@ -211,6 +218,7 @@ If use of such macros is not convenient, another option is to use memcpy(),
 where the source or destination (or both) are of type u8* or unsigned char*.
 Due to the byte-wise nature of this operation, unaligned accesses are avoided.
 
+
 Alignment vs. Networking
 ========================
 
@@ -241,3 +249,4 @@ Authors: Daniel Drake <dsd@gentoo.org>,
 With help from: Alan Cox, Avuton Olrich, Heikki Orsila, Jan Engelhardt,
 Kyle McMartin, Kyle Moffett, Randy Dunlap, Robert Hancock, Uli Kunitz,
 Vadim Lobanov
+

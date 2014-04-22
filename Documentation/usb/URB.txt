@@ -9,19 +9,20 @@ Again:   2005-Sep-19
     code.  This particular documentation file isn't particularly current or
     complete; don't rely on it except for a quick overview.
 
+
 1.1. Basic concept or 'What is an URB?'
 
-The basic idea of the new driver is message passing, the message itself is
-called USB Request Block, or URB for short.
+The basic idea of the new driver is message passing, the message itself is 
+called USB Request Block, or URB for short. 
 
-- An URB consists of all relevant information to execute any USB transaction
-  and deliver the data and status back.
+- An URB consists of all relevant information to execute any USB transaction 
+  and deliver the data and status back. 
 
-- Execution of an URB is inherently an asynchronous operation, i.e. the
+- Execution of an URB is inherently an asynchronous operation, i.e. the 
   usb_submit_urb(urb) call returns immediately after it has successfully
   queued the requested action.
 
-- Transfers for one URB can be canceled with usb_unlink_urb(urb) at any time.
+- Transfers for one URB can be canceled with usb_unlink_urb(urb) at any time. 
 
 - Each URB has a completion handler, which is called after the action
   has been successfully completed or canceled. The URB also contains a
@@ -32,6 +33,7 @@ called USB Request Block, or URB for short.
   data to an endpoint while your driver handles completion of another.
   This maximizes use of USB bandwidth, and supports seamless streaming
   of data to (or from) devices when using periodic transfer modes.
+
 
 1.2. The URB structure
 
@@ -76,6 +78,7 @@ struct urb
 Your driver must create the "pipe" value using values from the appropriate
 endpoint descriptor in an interface that it's claimed.
 
+
 1.3. How to get an URB?
 
 URBs are allocated with the following call
@@ -96,21 +99,23 @@ You may free an urb that you've submitted, but which hasn't yet been
 returned to you in a completion callback.  It will automatically be
 deallocated when it is no longer in use.
 
+
 1.4. What has to be filled in?
 
-Depending on the type of transaction, there are some inline functions
+Depending on the type of transaction, there are some inline functions 
 defined in <linux/usb.h> to simplify the initialization, such as
 fill_control_urb() and fill_bulk_urb().  In general, they need the usb
 device pointer, the pipe (usual format from usb.h), the transfer buffer,
-the desired transfer length, the completion  handler, and its context.
+the desired transfer length, the completion  handler, and its context. 
 Take a look at the some existing drivers to see how they're used.
 
 Flags:
 For ISO there are two startup behaviors: Specified start_frame or ASAP.
 For ASAP set URB_ISO_ASAP in transfer_flags.
 
-If short packets should NOT be tolerated, set URB_SHORT_NOT_OK in
+If short packets should NOT be tolerated, set URB_SHORT_NOT_OK in 
 transfer_flags.
+
 
 1.5. How to submit an URB?
 
@@ -139,6 +144,7 @@ For isochronous endpoints, your completion handlers should (re)submit
 URBs to the same endpoint with the ISO_ASAP flag, using multi-buffering,
 to get seamless ISO streaming.
 
+
 1.6. How to cancel an already running URB?
 
 There are two ways to cancel an URB you've submitted but which hasn't
@@ -162,6 +168,7 @@ that if the completion handler or anyone else tries to resubmit it
 they will get a -EPERM error.  Thus you can be sure that when
 usb_kill_urb() returns, the URB is totally idle.
 
+
 1.7. What about the completion handler?
 
 The handler is of the following type:
@@ -172,12 +179,13 @@ I.e., it gets the URB that caused the completion call, plus the
 register values at the time of the corresponding interrupt (if any).
 In the completion handler, you should have a look at urb->status to
 detect any USB errors. Since the context parameter is included in the URB,
-you can pass information to the completion handler.
+you can pass information to the completion handler. 
 
 Note that even when an error (or unlink) is reported, data may have been
 transferred.  That's because USB transfers are packetized; it might take
 sixteen packets to transfer your 1KByte buffer, and ten of them might
 have transferred successfully before the completion was called.
+
 
 NOTE:  ***** WARNING *****
 NEVER SLEEP IN A COMPLETION HANDLER.  These are normally called
@@ -185,6 +193,7 @@ during hardware interrupt processing.  If you can, defer substantial
 work to a tasklet (bottom half) to keep system latencies low.  You'll
 probably need to use spinlocks to protect data structures you manipulate
 in completion handlers.
+
 
 1.8. How to do isochronous (ISO) transfers?
 
@@ -201,10 +210,10 @@ ISO_ASAP scheduling is used, urb->start_frame is also updated.
 
 For each entry you have to specify the data offset for this frame (base is
 transfer_buffer), and the length you want to write/expect to read.
-After completion, actual_length contains the actual transferred length and
+After completion, actual_length contains the actual transferred length and 
 status contains the resulting status for the ISO transfer for this frame.
 It is allowed to specify a varying length from frame to frame (e.g. for
-audio synchronisation/adaptive transfer rates). You can also use the length
+audio synchronisation/adaptive transfer rates). You can also use the length 
 0 to omit one or more frames (striping).
 
 For scheduling you can choose your own start frame or ISO_ASAP. As explained
@@ -215,6 +224,7 @@ bandwidth utilization allows).
 If you specify your own start frame, make sure it's several frames in advance
 of the current frame.  You might want this model if you're synchronizing
 ISO data with some other event stream.
+
 
 1.9. How to start interrupt (INT) transfers?
 

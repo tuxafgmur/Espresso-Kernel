@@ -1,7 +1,10 @@
 SPUFS(2)                   Linux Programmer's Manual                  SPUFS(2)
 
+
+
 NAME
        spufs - the SPU file system
+
 
 DESCRIPTION
        The SPU file system is used on PowerPC machines that implement the Cell
@@ -17,12 +20,14 @@ DESCRIPTION
        logical SPU. Users can change permissions on those files, but not actu-
        ally add or remove files.
 
+
 MOUNT OPTIONS
        uid=<uid>
               set the user owning the mount point, the default is 0 (root).
 
        gid=<gid>
               set the group owning the mount point, the default is 0 (root).
+
 
 FILES
        The files in spufs mostly follow the standard behavior for regular sys-
@@ -43,6 +48,7 @@ FILES
 
        The current set of files is:
 
+
    /mem
        the contents of the local storage memory  of  the  SPU.   This  can  be
        accessed  like  a regular shared memory file and contains both code and
@@ -60,6 +66,7 @@ FILES
               SPU  local  storage  within  the  process  address  space.  Only
               MAP_SHARED mappings are allowed.
 
+
    /mbox
        The first SPU to CPU communication mailbox. This file is read-only  and
        can  be  read  in  units of 32 bits.  The file can only be used in non-
@@ -72,6 +79,7 @@ FILES
               box,  the  return  value  is set to -1 and errno becomes EAGAIN.
               When data has been read successfully, four bytes are  placed  in
               the data buffer and the value four is returned.
+
 
    /ibox
        The  second  SPU  to CPU communication mailbox. This file is similar to
@@ -95,6 +103,7 @@ FILES
               Poll  on  the  ibox  file returns (POLLIN | POLLRDNORM) whenever
               data is available for reading.
 
+
    /wbox
        The CPU to SPU communation mailbox. It is write-only and can be written
        in  units  of  32  bits. If the mailbox is full, write() will block and
@@ -115,6 +124,7 @@ FILES
               Poll  on  the  ibox file returns (POLLOUT | POLLWRNORM) whenever
               space is available for writing.
 
+
    /mbox_stat
    /ibox_stat
    /wbox_stat
@@ -131,6 +141,7 @@ FILES
               read  from  (for  mbox_stat  and  ibox_stat)  or written to (for
               wbox_stat) the respective mail box without blocking or resulting
               in EAGAIN.
+
 
    /npc
    /decr
@@ -158,6 +169,7 @@ FILES
 
        srr0                Interrupt Return address register
 
+
        The   possible   operations   on   an   open  npc,  decr,  decr_status,
        spu_tag_mask, event_mask or srr0 file are:
 
@@ -177,6 +189,7 @@ FILES
               buffer.  Subsequent writes to the same file descriptor overwrite
               the previous setting.
 
+
    /fpcr
        This file gives access to the Floating Point Status and Control  Regis-
        ter as a four byte long file. The operations on the fpcr file are:
@@ -191,6 +204,7 @@ FILES
               If a count smaller than four is requested, write returns -1  and
               sets  errno  to  EINVAL.  Otherwise, a four byte value is copied
               from the data buffer, updating the value of the fpcr register.
+
 
    /signal1
    /signal2
@@ -218,6 +232,7 @@ FILES
               contents  of  the  signal1_type,  or  signal2_type respectively,
               file.
 
+
    /signal1_type
    /signal2_type
        These two files change the behavior of the signal1 and signal2  notifi-
@@ -243,9 +258,11 @@ FILES
               buffer.  Subsequent writes to the same file descriptor overwrite
               the previous setting.
 
+
 EXAMPLES
        /etc/fstab entry
               none      /spu      spufs     gid=spu   0    0
+
 
 AUTHORS
        Arnd  Bergmann  <arndb@de.ibm.com>,  Mark  Nutter <mnutter@us.ibm.com>,
@@ -254,14 +271,19 @@ AUTHORS
 SEE ALSO
        capabilities(7), close(2), spu_create(2), spu_run(2), spufs(7)
 
+
+
 Linux                             2005-09-28                          SPUFS(2)
 
 ------------------------------------------------------------------------------
 
 SPU_RUN(2)                 Linux Programmer's Manual                SPU_RUN(2)
 
+
+
 NAME
        spu_run - execute an spu context
+
 
 SYNOPSIS
        #include <sys/spu.h>
@@ -349,18 +371,22 @@ ERRORS
               either the hardware does not provide SPUs or the spufs module is
               not loaded.
 
+
 NOTES
        spu_run  is  meant  to  be  used  from  libraries that implement a more
        abstract interface to SPUs, not to be used from  regular  applications.
        See  http://www.bsc.es/projects/deepcomputing/linuxoncell/ for the rec-
        ommended libraries.
 
+
 CONFORMING TO
        This call is Linux specific and only implemented by the ppc64 architec-
        ture. Programs using this system call are not portable.
 
+
 BUGS
        The code does not yet fully implement all features lined out here.
+
 
 AUTHOR
        Arnd Bergmann <arndb@de.ibm.com>
@@ -368,14 +394,19 @@ AUTHOR
 SEE ALSO
        capabilities(7), close(2), spu_create(2), spufs(7)
 
+
+
 Linux                             2005-09-28                        SPU_RUN(2)
 
 ------------------------------------------------------------------------------
 
 SPU_CREATE(2)              Linux Programmer's Manual             SPU_CREATE(2)
 
+
+
 NAME
        spu_create - create a new spu context
+
 
 SYNOPSIS
        #include <sys/types.h>
@@ -413,10 +444,12 @@ DESCRIPTION
        support only read or write access. See stat(2) for a full list  of  the
        possible mode values.
 
+
 RETURN VALUE
        spu_create  returns a new file descriptor. It may return -1 to indicate
        an error condition and set errno to  one  of  the  error  codes  listed
        below.
+
 
 ERRORS
        EACCESS
@@ -454,27 +487,35 @@ ERRORS
        ENOTDIR
               A part of pathname is not a directory.
 
+
+
 NOTES
        spu_create  is  meant  to  be used from libraries that implement a more
        abstract interface to SPUs, not to be used from  regular  applications.
        See  http://www.bsc.es/projects/deepcomputing/linuxoncell/ for the rec-
        ommended libraries.
 
+
 FILES
        pathname must point to a location beneath the mount point of spufs.  By
        convention, it gets mounted in /spu.
+
 
 CONFORMING TO
        This call is Linux specific and only implemented by the ppc64 architec-
        ture. Programs using this system call are not portable.
 
+
 BUGS
        The code does not yet fully implement all features lined out here.
+
 
 AUTHOR
        Arnd Bergmann <arndb@de.ibm.com>
 
 SEE ALSO
        capabilities(7), close(2), spu_run(2), spufs(7)
+
+
 
 Linux                             2005-09-28                     SPU_CREATE(2)

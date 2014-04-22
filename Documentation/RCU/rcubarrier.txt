@@ -47,6 +47,7 @@ IRQ context. The function p_callback() might be defined as follows:
 		kfree(p);
 	}
 
+
 Unloading Modules That Use call_rcu()
 
 But what if p_callback is defined in an unloadable module?
@@ -65,6 +66,7 @@ calls, but this is still not guaranteed to work. If there is a very
 heavy RCU-callback load, then some of the callbacks might be deferred
 in order to allow other processing to proceed. Such deferral is required
 in realtime kernels in order to avoid excessive scheduling latencies.
+
 
 rcu_barrier()
 
@@ -175,6 +177,7 @@ unloading.  If your module uses call_rcu(), call_rcu_bh(), -and-
 call_rcu_sched(), then you will need to invoke each of rcu_barrier(),
 rcu_barrier_bh(), and rcu_barrier_sched().
 
+
 Implementing rcu_barrier()
 
 Dipankar Sarma's implementation of rcu_barrier() makes use of the fact
@@ -245,12 +248,14 @@ Quick Quiz #3: What happens if CPU 0's rcu_barrier_func() executes
 	are delayed for a full grace period? Couldn't this result in
 	rcu_barrier() returning prematurely?
 
+
 rcu_barrier() Summary
 
 The rcu_barrier() primitive has seen relatively little use, since most
 code using RCU is in the core kernel rather than in modules. However, if
 you are using RCU from an unloadable module, you need to use rcu_barrier()
 so that your module may be safely unloaded.
+
 
 Answers to Quick Quizzes
 

@@ -104,6 +104,7 @@ and it's also much more restricted in the latter case:
 	of such are frame buffers and flash devices. If the driver does not
 	provide any such support, then the mapping request will be denied.
 
+
 ============================
 FURTHER NOTES ON NO-MMU MMAP
 ============================
@@ -159,6 +160,7 @@ FURTHER NOTES ON NO-MMU MMAP
      error will result if they don't. This is most likely to be encountered
      with character device files, pipes, fifos and sockets.
 
+
 ==========================
 INTERPROCESS SHARED MEMORY
 ==========================
@@ -166,6 +168,7 @@ INTERPROCESS SHARED MEMORY
 Both SYSV IPC SHM shared memory and POSIX shared memory is supported in NOMMU
 mode.  The former through the usual mechanism, the latter through files created
 on ramfs or tmpfs mounts.
+
 
 =======
 FUTEXES
@@ -175,6 +178,7 @@ Futexes are supported in NOMMU mode if the arch supports them.  An error will
 be given if an address passed to the futex system call lies outside the
 mappings made by a process or if the mapping in which the address lies does not
 support futexes (such as an I/O chardev mapping).
+
 
 =============
 NO-MMU MREMAP
@@ -197,6 +201,7 @@ mappings, move parts of existing mappings or resize parts of mappings.  It must
 act on a complete mapping.
 
 [*] Not currently supported.
+
 
 ============================================
 PROVIDING SHAREABLE CHARACTER DEVICE SUPPORT
@@ -243,6 +248,7 @@ IMPORTANT NOTE:
 	mappings may still be mapped directly off the device under some
 	circumstances!
 
+
 ==============================================
 PROVIDING SHAREABLE MEMORY-BACKED FILE SUPPORT
 ==============================================
@@ -260,6 +266,7 @@ memory.
 Memory backed devices are indicated by the mapping's backing device info having
 the memory_backed flag set.
 
+
 ========================================
 PROVIDING SHAREABLE BLOCK DEVICE SUPPORT
 ========================================
@@ -267,6 +274,7 @@ PROVIDING SHAREABLE BLOCK DEVICE SUPPORT
 Provision of shared mappings on block device files is exactly the same as for
 character devices. If there isn't a real device underneath, then the driver
 should allocate sufficient contiguous memory to honour any supported mapping.
+
 
 =================================
 ADJUSTING PAGE TRIMMING BEHAVIOUR

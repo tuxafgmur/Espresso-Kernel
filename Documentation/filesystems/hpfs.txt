@@ -48,6 +48,7 @@ timeshift=(-)nnn (default 0)
 	Shifts the time by nnn seconds. For example, if you see under linux
 	one hour more, than under os/2, use timeshift=-3600.
 
+
 File names
 
 As in OS/2, filenames are case insensitive. However, shell thinks that names
@@ -60,6 +61,7 @@ are used - see below.
 OS/2 ignores dots and spaces at the end of file name, so this driver does as
 well. If you create 'a. ...', the file 'a' will be created, but you can still
 access it under names 'a.', 'a..', 'a .  . . ' etc.
+
 
 Extended attributes
 
@@ -84,6 +86,7 @@ that if somebody (I don't know who?) has set "UID", "GID", "MODE" or "DEV"
 attributes with different sizes, they won't be rewritten and changing these
 values doesn't work.
 
+
 Symlinks
 
 You can do symlinks on HPFS partition, symlinks are achieved by setting extended
@@ -95,6 +98,7 @@ stored in very crazy way. They tried to do it so that link changes when file is
 moved ... sometimes it works. But the link is partly stored in directory
 extended attributes and partly in OS2SYS.INI. I don't want (and don't know how)
 to analyze or change OS2SYS.INI.
+
 
 Codepages
 
@@ -121,6 +125,7 @@ would cause more problems than benefit with such buggy implementation in OS/2.
 So this driver simply uses first codepage it finds for uppercasing and
 lowercasing no matter what's file codepage index. Usually all file names are in
 this codepage - if you don't try to do what I described above :-)
+
 
 Known bugs
 
@@ -167,6 +172,7 @@ When the system is out of memory and swap, it may slightly corrupt filesystem
 When compiled, you get warning: function declaration isn't a prototype. Does
 anybody know what does it mean?
 
+
 What does "unbalanced tree" message mean?
 
 Old versions of this driver created sometimes unbalanced dnode trees. OS/2
@@ -178,6 +184,7 @@ probably because of directories created with old version of this driver.
 Workaround is to move all files from that directory to another and then back
 again. Do it in Linux, not OS/2! If you see this message in directory that is
 whole created by this driver, it is BUG - let me know about it.
+
 
 Bugs in OS/2
 
@@ -195,6 +202,7 @@ HPFS386.
 Codepage bugs described above.
 
 If you don't install fixpacks, there are many, many more...
+
 
 History
 
@@ -283,5 +291,6 @@ History
 2.08 Creating new files is not so slow on large disks
      An attempt to sync deleted file does not generate filesystem error
 2.09 Fixed error on extremely fragmented files
+
 
  vim: set textwidth=80:

@@ -22,6 +22,7 @@ the chip, and some other cards use the audio function to transport MPEG
 video data, so it's quite possible that audio recording may not work
 with your card.
 
+
 Driver Status
 =============
 
@@ -38,6 +39,7 @@ If you have an unknown card, please mail the ID and board name to
 <alsa-devel@alsa-project.org>, regardless of whether audio capture works
 or not, so that future versions of this driver know about your card.
 
+
 Audio modes
 ===========
 
@@ -45,12 +47,14 @@ The chip knows two different modes (digital/analog).  snd-bt87x
 registers two PCM devices, one for each mode.  They cannot be used at
 the same time.
 
+
 Digital audio mode
 ==================
 
 The first device (hw:X,0) gives you 16 bit stereo sound.  The sample
 rate depends on the external source which feeds the Bt87x with digital
 sound via I2S interface.
+
 
 Analog audio mode (A/D)
 =======================
@@ -64,9 +68,11 @@ beyond 896000 Hz on my card.
 The chip has three analog inputs.  Consequently you'll get a mixer
 device to control these.
 
+
 Have fun,
 
   Clemens
+
 
 Written by Clemens Ladisch <clemens@ladisch.de>
 big parts copied from btaudio.txt by Gerd Knorr <kraxel@bytesex.org>

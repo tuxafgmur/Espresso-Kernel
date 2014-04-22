@@ -10,11 +10,13 @@ Supported chips:
 
 Author: Ira W. Snyder <iws@ovro.caltech.edu>
 
+
 Description
 -----------
 
 The LTC4215 controller allows a board to be safely inserted and removed
 from a live backplane.
+
 
 Usage Notes
 -----------
@@ -27,6 +29,7 @@ Example: the following will load the driver for an LTC4215 at address 0x44
 on I2C bus #0:
 $ modprobe ltc4215
 $ echo ltc4215 0x44 > /sys/bus/i2c/devices/i2c-0/new_device
+
 
 Sysfs entries
 -------------

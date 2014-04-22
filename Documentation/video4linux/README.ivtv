@@ -1,3 +1,4 @@
+
 ivtv release notes
 ==================
 
@@ -92,6 +93,7 @@ the ivtv module about it so that it will start counting at 1 (or 2, or
 whatever). Otherwise the device numbers can get confusing. The ivtv
 'ivtv_first_minor' module option can be used for that.
 
+
 /dev/video0
 The encoding capture device(s).
 Read-only.
@@ -100,6 +102,7 @@ Reading from this device gets you the MPEG1/2 program stream.
 Example:
 
 cat /dev/video0 > my.mpg (you need to hit ctrl-c to exit)
+
 
 /dev/video16
 The decoder output device(s)
@@ -110,6 +113,7 @@ display, audio will appear on the line-out/audio out.  It is only
 available for cards that support video out. Example:
 
 cat my.mpg >/dev/video16
+
 
 /dev/video24
 The raw audio capture device(s).
@@ -123,6 +127,7 @@ device in the future.
 Note that there is no corresponding raw audio output device, this is
 not supported in the decoder firmware.
 
+
 /dev/video32
 The raw video capture device(s)
 Read-only
@@ -133,11 +138,13 @@ is non-standard (V4L2_PIX_FMT_HM12).
 Note that the YUV and PCM streams are not synchronized, so they are of
 limited use.
 
+
 /dev/video48
 The raw video display device(s)
 Write-only. Only present if the MPEG decoder (i.e. CX23415) exists.
 
 Writes a YUV stream to the decoder of the card.
+
 
 /dev/radio0
 The radio tuner device(s)
@@ -148,6 +155,7 @@ read or write audio streams with this device.  Once you use this
 device to tune the radio, use /dev/video24 to read the raw pcm stream
 or /dev/video0 to get an mpeg2 stream with black video.
 
+
 /dev/vbi0
 The 'vertical blank interval' (Teletext, CC, WSS etc) capture device(s)
 Read-only
@@ -157,6 +165,7 @@ Interval. This data is used to encode teletext, closed captions, VPS,
 widescreen signalling, electronic program guide information, and other
 services.
 
+
 /dev/vbi8
 Processed vbi feedback device(s)
 Read-only. Only present if the MPEG decoder (i.e. CX23415) exists.
@@ -164,6 +173,7 @@ Read-only. Only present if the MPEG decoder (i.e. CX23415) exists.
 The sliced VBI data embedded in an MPEG stream is reproduced on this
 device. So while playing back a recording on /dev/video16, you can
 read the embedded VBI data from /dev/vbi8.
+
 
 /dev/vbi16
 The vbi 'display' device(s)

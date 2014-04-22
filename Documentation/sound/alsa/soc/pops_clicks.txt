@@ -11,6 +11,7 @@ because the components within the subsystem are being dynamically powered
 depending on the audio usage and this can subsequently cause a small pop or
 click every time a component power state is changed.
 
+
 Minimising Playback Pops and Clicks
 ===================================
 
@@ -27,6 +28,7 @@ shutdown and follows some basic rules:-
 This assumes that the codec PCM output path from the DAC is via a mixer and then
 a PGA (programmable gain amplifier) before being output to the speakers.
 
+
 Minimising Capture Pops and Clicks
 ==================================
 
@@ -38,6 +40,7 @@ startup or shutdown.
  Startup Order - Input PGA --> Mixers --> ADC
 
  Shutdown Order - ADC --> Mixers --> Input PGA
+
 
 Zipper Noise
 ============

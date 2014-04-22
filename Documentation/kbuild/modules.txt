@@ -29,6 +29,8 @@ This document describes how to build an out-of-tree kernel module.
 	=== 7. Tips & Tricks
 	   --- 7.1 Testing for CONFIG_FOO_BAR
 
+
+
 === 1. Introduction
 
 "kbuild" is the build system used by the Linux kernel. Modules must use
@@ -44,6 +46,7 @@ external module should supply a makefile that hides most of the
 complexity, so one only has to type "make" to build the module. This is
 easily accomplished, and a complete example will be presented in
 section 3.
+
 
 === 2. How to Build External Modules
 
@@ -138,6 +141,7 @@ executed to make module versioning work.
 		make -C $KDIR M=$PWD baz.o
 		make -C $KDIR M=$PWD foo.ko
 		make -C $KDIR M=$PWD /
+
 
 === 3. Creating a Kbuild File for an External Module
 
@@ -293,6 +297,7 @@ module 8123.ko, which is built from the following files:
 
 	It is that simple!
 
+
 === 4. Include Files
 
 Within the kernel, header files are kept in standard locations
@@ -379,6 +384,7 @@ according to the following rule:
 	pointing to the directory where the currently executing kbuild
 	file is located.
 
+
 === 5. Module Installation
 
 Modules which are included in the kernel are installed in the
@@ -415,6 +421,7 @@ And external modules are installed in:
 		$ make INSTALL_MOD_DIR=gandalf -C $KDIR \
 		       M=$PWD modules_install
 		=> Install dir: /lib/modules/$(KERNELRELEASE)/gandalf/
+
 
 === 6. Module Versioning
 
@@ -510,6 +517,7 @@ build.
 		These files will be loaded by modpost during the
 		initialization of its symbol tables.
 
+
 === 7. Tips & Tricks
 
 --- 7.1 Testing for CONFIG_FOO_BAR
@@ -530,3 +538,4 @@ build.
 	broken. As introduced before, external modules should use
 	kbuild for building and can therefore use the same methods as
 	in-tree modules when testing for CONFIG_ definitions.
+

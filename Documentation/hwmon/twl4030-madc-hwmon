@@ -5,6 +5,7 @@ Supported chips:
 	* Texas Instruments TWL4030
 	Prefix: 'twl4030-madc'
 
+
 Authors:
 	J Keerthy <j-keerthy@ti.com>
 
@@ -14,6 +15,7 @@ Description
 The Texas Instruments TWL4030 is a Power Management and Audio Circuit. Among
 other things it contains a 10-bit A/D converter MADC. The converter has 16
 channels which can be used in different modes.
+
 
 See this table for the meaning of the different channels
 
@@ -35,6 +37,7 @@ Channel Signal
 13	Reserved
 14	Reserved
 15	VRUSB Supply/Speaker left/Speaker right polarization level
+
 
 The Sysfs nodes will represent the voltage in the units of mV,
 the temperature channel shows the converted temperature in

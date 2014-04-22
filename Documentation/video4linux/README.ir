@@ -1,5 +1,7 @@
+
 infrared remote control support in video4linux drivers
 ======================================================
+
 
 basics
 ------
@@ -20,6 +22,7 @@ was very confusing and I decided to basically start over from scratch.
 Feel free to contact me in case of trouble.  Note that the ir-kbd-*
 modules work on 2.6.x kernels only through ...
 
+
 how it works
 ------------
 
@@ -38,12 +41,14 @@ is, check whenever pressing keys on the remote actually generates
 events and the like.  You can also use the kbd utility to change the
 keymaps (2.6.x kernels only through).
 
+
 using with lircd
 ================
 
 The cvs version of the lircd daemon supports reading events from the
 linux input layer (via event device).  The input layer tools tarball
 comes with a lircd config file.
+
 
 using without lircd
 ===================
@@ -57,6 +62,7 @@ clients.
 
 It likely is possible to make that fly with a nice xkb config file,
 I know next to nothing about that through.
+
 
 Have fun,
 

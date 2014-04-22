@@ -47,6 +47,7 @@ U+F0FF, emulating the previous behaviour.  In practice, this range
 might be shorter; for example, vgacon can only handle 256-character
 (U+F000..U+F0FF) or 512-character (U+F000..U+F1FF) fonts.
 
+
 Actual characters assigned in the Linux Zone
 --------------------------------------------
 

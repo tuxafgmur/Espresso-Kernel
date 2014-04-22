@@ -48,6 +48,7 @@ simple case of:
   ext4:ext4_ordered_write_end              [Tracepoint event]
   [ .... remaining output snipped .... ]
 
+
 3. Enabling Events
 ==================
 

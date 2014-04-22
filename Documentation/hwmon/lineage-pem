@@ -10,6 +10,7 @@ Supported devices:
 
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
 
+
 Description
 -----------
 
@@ -20,6 +21,7 @@ Lineage CPL power entry modules are nominally PMBus compliant. However, most
 standard PMBus commands are not supported. Specifically, all hardware monitoring
 and status reporting commands are non-standard. For this reason, a standard
 PMBus driver can not be used.
+
 
 Usage Notes
 -----------
@@ -36,6 +38,7 @@ $ echo lineage-pem 0x40 > /sys/bus/i2c/devices/i2c-1/new_device
 All Lineage CPL power entry modules have a built-in I2C bus master selector
 (PCA9541). To ensure device access, this driver should only be used as client
 driver to the pca9541 I2C master selector driver.
+
 
 Sysfs entries
 -------------

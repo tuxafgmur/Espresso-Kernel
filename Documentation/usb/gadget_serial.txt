@@ -1,6 +1,8 @@
+
                  Linux Gadget Serial Driver v2.0
                            11/20/2004
                   (updated 8-May-2008 for v2.3)
+
 
 License and Disclaimer
 ----------------------
@@ -25,6 +27,7 @@ Copyright (C) 2004 by Al Borchers (alborchers@steinerpoint.com).
 If you have questions, problems, or suggestions for this driver
 please contact Al Borchers at alborchers@steinerpoint.com.
 
+
 Prerequisites
 -------------
 Versions of the gadget serial driver are available for the
@@ -42,6 +45,8 @@ With version 2.3 of the driver, major and minor device nodes are
 no longer statically defined.  Your Linux based system should mount
 sysfs in /sys, and use "mdev" (in Busybox) or "udev" to make the
 /dev nodes matching the sysfs /sys/class/tty files.
+
+
 
 Overview
 --------
@@ -96,6 +101,7 @@ The gadget serial driver only provides simple unreliable data
 communication.  It does not yet handle flow control or many other
 features of normal serial devices.
 
+
 Installing the Gadget Serial Driver
 -----------------------------------
 To use the gadget serial driver you must configure the Linux gadget
@@ -135,11 +141,13 @@ When you link this gadget driver early, perhaps even statically,
 you may want to set up an /etc/inittab entry to run "getty" on it.
 The /dev/ttyGS0 line should work like most any other serial port.
 
+
 If gadget serial is loaded as an ACM device you will want to use
 either the Windows or Linux ACM driver on the host side.  If gadget
 serial is loaded as a bulk in/out device, you will want to use the
 Linux generic serial driver on the host side.  Follow the appropriate
 instructions below to install the host side driver.
+
 
 Installing the Windows Host ACM Driver
 --------------------------------------
@@ -169,6 +177,7 @@ ports.
 To uninstall the Windows XP driver for "Gadget Serial", right click
 on the "Gadget Serial" entry in the "Device Manager" and select
 "Uninstall".
+
 
 Installing the Linux Host ACM Driver
 ------------------------------------
@@ -200,6 +209,7 @@ E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 If the host side Linux system is configured properly, the ACM driver
 should be loaded automatically.  The command "lsmod" should show the
 "acm" module is loaded.
+
 
 Installing the Linux Host Generic USB Serial Driver
 ---------------------------------------------------
@@ -234,6 +244,7 @@ configure it to recognize the gadget serial device, like this:
 If everything is working, usbserial will print a message in the
 system log saying something like "Gadget Serial converter now
 attached to ttyUSB0".
+
 
 Testing with Minicom or HyperTerminal
 -------------------------------------

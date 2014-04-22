@@ -10,6 +10,7 @@ Kernel driver lp3944
 Authors:
         Antonio Ospite <ospite@studenti.unina.it>
 
+
 Description
 -----------
 The LP3944 is a helper chip that can drive up to 8 leds, with two programmable
@@ -26,6 +27,7 @@ See the datasheet for details.
 
 LP3944 can be found on Motorola A910 smartphone, where it drives the rgb
 leds, the camera flash light and the lcds power.
+
 
 Notes
 -----

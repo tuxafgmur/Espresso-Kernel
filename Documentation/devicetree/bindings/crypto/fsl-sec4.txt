@@ -102,6 +102,7 @@ PROPERTIES
    Note: All other standard properties (see the ePAPR) are allowed
    but are optional.
 
+
 EXAMPLE
 	crypto@300000 {
 		compatible = "fsl,sec-v4.0";
@@ -169,6 +170,7 @@ EXAMPLE
 		interrupts = <88 2>;
 	};
 
+
 =====================================================================
 Run Time Integrity Check (RTIC) Node
 
@@ -178,6 +180,7 @@ Run Time Integrity Check (RTIC) Node
   calculated, these addresses are checked by HW to monitor any
   change.  If any memory is modified, a Security Violation is
   triggered (see SNVS definition).
+
 
   - compatible
       Usage: required

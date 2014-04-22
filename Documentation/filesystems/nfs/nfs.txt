@@ -1,3 +1,4 @@
+
 The NFS client
 ==============
 
@@ -59,6 +60,9 @@ Assuming that the user has the 'rpc_pipefs' filesystem mounted in the usual
        entry is created, which will cause the kernel to treat the hostname
        as having no valid DNS translation.
 
+
+
+
 A basic sample /sbin/nfs_cache_getent
 =====================================
 
@@ -91,3 +95,4 @@ case "${cachename}" in
 		;;
 esac
 echo "${result} ${name} ${ttl}" >${cache_path}
+

@@ -23,6 +23,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
+
 			Processor Clocking Control Driver
 			---------------------------------
 
@@ -144,6 +145,7 @@ eg: 1.00.02
     |    |
     |    -- this will increase with bug fixes/enhancements to the driver
     |-- this is the version of the PCC specification the driver adheres to
+
 
 The following is a brief discussion on some of the fields exported via the
 /sys filesystem and how their values are affected by the PCC driver:

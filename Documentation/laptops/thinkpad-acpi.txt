@@ -7,6 +7,7 @@
              Henrique de Moraes Holschuh <hmh@hmh.eng.br>
                       http://ibm-acpi.sf.net/
 
+
 This is a Linux driver for the IBM and Lenovo ThinkPad laptops. It
 supports various features of these laptops which are accessible
 through the ACPI and ACPI EC framework, but not otherwise fully
@@ -60,6 +61,7 @@ Please include the following information in your report:
 
 Any other comments or patches are also more than welcome.
 
+
 Installation
 ------------
 
@@ -67,6 +69,7 @@ If you are compiling this driver as included in the Linux kernel
 sources, look for the CONFIG_THINKPAD_ACPI Kconfig option.
 It is located on the menu path: "Device Drivers" -> "X86 Platform
 Specific Device Drivers" -> "ThinkPad ACPI Laptop Extras".
+
 
 Features
 --------
@@ -86,6 +89,7 @@ The sysfs interface tries to blend in the generic Linux sysfs subsystems
 and classes as much as possible.  Since some of these subsystems are not
 yet ready or stabilized, it is expected that this interface will change,
 and any and all userspace programs must deal with it.
+
 
 Notes about the sysfs interface:
 
@@ -119,6 +123,7 @@ thinkpad_hwmon device's sysfs attribute space, but you should locate it
 looking for a hwmon device with the name attribute of "thinkpad", or
 better yet, through libsensors.
 
+
 Driver version
 --------------
 
@@ -126,6 +131,7 @@ procfs: /proc/acpi/ibm/driver
 sysfs driver attribute: version
 
 The driver name and version. No commands can be written to this file.
+
 
 Sysfs interface version
 -----------------------
@@ -157,6 +163,7 @@ always warrant an update of interface_version.  Therefore, one must
 expect that an attribute might not be there, and deal with it properly
 (an attribute not being there *is* a valid way to make it clear that a
 feature is not available in sysfs).
+
 
 Hot keys
 --------
@@ -611,6 +618,7 @@ Really up-to-date userspace under kernel 2.6.23 and later is to use the
 netlink interface and the input layer interface, and don't bother at all
 with hotkey_report_mode.
 
+
 Brightness hotkey notes:
 
 Don't mess with the brightness hotkeys in a Thinkpad.  If you want
@@ -622,6 +630,7 @@ implement brightness changes.  When you override these events, you will
 either fail to handle properly the ThinkPads that require explicit
 action to change backlight brightness, or the ThinkPads that require
 that no action be taken to work properly.
+
 
 Bluetooth
 ---------
@@ -659,6 +668,7 @@ Sysfs notes:
 
 	rfkill controller switch "tpacpi_bluetooth_sw": refer to
 	Documentation/rfkill.txt for details.
+
 
 Video output control -- /proc/acpi/ibm/video
 --------------------------------------------
@@ -707,6 +717,7 @@ Fn-F7. Video switching on the console should still work.
 
 UPDATE: refer to https://bugs.freedesktop.org/show_bug.cgi?id=2000
 
+
 ThinkLight control
 ------------------
 
@@ -731,6 +742,7 @@ is "tpacpi::thinklight".
 Due to limitations in the sysfs LED class, if the status of the ThinkLight
 cannot be read or if it is unknown, thinkpad-acpi will report it as "off".
 It is impossible to know if the status returned through sysfs is valid.
+
 
 CMOS/UCMS control
 -----------------
@@ -766,6 +778,7 @@ on the X40 (tpb is the ThinkPad Buttons utility):
 The cmos command interface is prone to firmware split-brain problems, as
 in newer ThinkPads it is just a compatibility layer.  Do not use it, it is
 exported just as a debug tool.
+
 
 LED control
 -----------
@@ -848,6 +861,7 @@ notice there are LEDs listed for your ThinkPad that do not exist (and
 are not in the dock), or if you notice that there are missing LEDs,
 a report to ibm-acpi-devel@lists.sourceforge.net is appreciated.
 
+
 ACPI sounds -- /proc/acpi/ibm/beep
 ----------------------------------
 
@@ -876,6 +890,7 @@ X40:
 	15 - three high-pitched beeps repeating constantly, stop with 0
 	16 - one medium-pitched beep repeating constantly, stop with 17
 	17 - stop 16
+
 
 Temperature sensors
 -------------------
@@ -936,6 +951,7 @@ The A31 has a very atypical layout for the thermal sensors
 7:  Main Battery: secondary sensor
 8:  Bay Battery: secondary sensor
 
+
 Procfs notes:
 	Readings from sensors that are not available return -128.
 	No commands can be written to this file.
@@ -973,6 +989,7 @@ except the charging or discharging battery to determine which
 registers contain the current battery capacity, etc. If you experiment
 with this, do send me your results (including some complete dumps with
 a description of the conditions when they were taken.)
+
 
 LCD brightness control
 ----------------------
@@ -1060,6 +1077,7 @@ it there will be the following attributes:
 		increase the current power management level, i.e. they can
 		dim the display.
 
+
 WARNING:
 
     Whatever you do, do NOT ever call thinkpad-acpi backlight-level change
@@ -1068,6 +1086,7 @@ WARNING:
     at the same time.  The two will interact in bad ways, do funny things,
     and maybe reduce the life of the backlight lamps by needlessly kicking
     its level up and down at every change.
+
 
 Volume control (Console Audio control)
 --------------------------------------
@@ -1086,6 +1105,7 @@ console audio control to be done through the volume keys only, and for
 the desktop environment to just provide on-screen-display feedback.
 Software volume control should be done only in the main AC97/HDA
 mixer.
+
 
 About the ThinkPad Console Audio control:
 
@@ -1124,6 +1144,7 @@ system).  In this case, the volume keys are filtered out for unmute
 key press (there are some firmware bugs in this area) and delivered as
 normal key presses to the operating system (thinkpad-acpi is not
 involved).
+
 
 The ThinkPad-ACPI volume control:
 
@@ -1164,6 +1185,7 @@ ibm-acpi-devel@lists.sourceforge.net.
 
 The driver supports the standard ALSA module parameters.  If the ALSA
 mixer is disabled, the driver will disable all volume functionality.
+
 
 Fan control and monitoring: fan speed, fan enable/disable
 ---------------------------------------------------------
@@ -1331,6 +1353,7 @@ To start the fan in a safe mode: set pwm1_enable to 2.  If that fails
 with EINVAL, try to set pwm1_enable to 1 and pwm1 to at least 128 (255
 would be the safest choice, though).
 
+
 WAN
 ---
 
@@ -1371,6 +1394,7 @@ Sysfs notes:
 	rfkill controller switch "tpacpi_wwan_sw": refer to
 	Documentation/rfkill.txt for details.
 
+
 EXPERIMENTAL: UWB
 -----------------
 
@@ -1389,6 +1413,7 @@ Sysfs notes:
 	rfkill controller switch "tpacpi_uwb_sw": refer to
 	Documentation/rfkill.txt for details.
 
+
 Multiple Commands, Module Parameters
 ------------------------------------
 
@@ -1402,6 +1427,7 @@ Commands can also be specified when loading the thinkpad-acpi module,
 for example:
 
 	modprobe thinkpad_acpi hotkey=enable,0xffff video=auto_disable
+
 
 Enabling debugging output
 -------------------------
@@ -1433,12 +1459,14 @@ The level of debugging information output by the driver can be changed
 at runtime through sysfs, using the driver attribute debug_level.  The
 attribute takes the same bitmask as the debug module parameter above.
 
+
 Force loading of module
 -----------------------
 
 If thinkpad-acpi refuses to detect your ThinkPad, you can try to specify
 the module parameter force_load=1.  Regardless of whether this works or
 not, please contact ibm-acpi-devel@lists.sourceforge.net with a report.
+
 
 Sysfs interface changelog:
 

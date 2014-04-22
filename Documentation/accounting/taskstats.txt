@@ -1,6 +1,7 @@
 Per-task statistics interface
 -----------------------------
 
+
 Taskstats is a netlink-based interface for sending per-task and
 per-process statistics from the kernel to userspace.
 
@@ -70,6 +71,7 @@ The messages are in the format
     | nlmsghdr | Pad |  genlmsghdr | taskstats payload |
     +----------+- - -+-------------+-------------------+
 
+
 The taskstats payload is one of the following three kinds:
 
 1. Commands: Sent from user to kernel. Commands to get data on
@@ -109,6 +111,7 @@ d) TASKSTATS_TYPE_AGGR_TGID: indicates next two attributes will be tgid+stats
 e) TASKSTATS_TYPE_TGID: contains tgid of process to which task belongs
 f) TASKSTATS_TYPE_STATS: contains the per-tgid stats for exiting task's process
 
+
 per-tgid stats
 --------------
 
@@ -143,6 +146,7 @@ in future:
    interface to return them. Since userspace processes each netlink attribute
    independently, it can always ignore attributes whose type it does not
    understand (because it is using an older version of the interface).
+
 
 Choosing between 1. and 2. is a matter of trading off flexibility and
 overhead. If only a few fields need to be added, then 1. is the preferable

@@ -1,3 +1,4 @@
+
 Kernel NFS Server Statistics
 ============================
 
@@ -137,6 +138,7 @@ threads-timedout
 	   i.e. configure a few more nfsds than are currently needed,
 	   to allow for future spikes in load.
 
+
 Note that incoming packets on NFS transports will be dealt with in
 one of three ways.  An nfsd thread can be woken (threads-woken counts
 this case), or the transport can be enqueued for later attention
@@ -147,9 +149,11 @@ counted, but can be inferred from the other counters thus:
 
 packets-deferred = packets-arrived - ( sockets-enqueued + threads-woken )
 
+
 More
 ----
 Descriptions of the other statistics file should go here.
+
 
 Greg Banks <gnb@sgi.com>
 26 Mar 2009

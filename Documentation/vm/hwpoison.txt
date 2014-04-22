@@ -87,6 +87,7 @@ PR_MCE_KILL
 PR_MCE_KILL_GET
 	return current mode
 
+
 ---
 
 Testing:
@@ -94,6 +95,7 @@ Testing:
 madvise(MADV_HWPOISON, ....)
 	(as root)
 	Poison a page in the process for testing
+
 
 hwpoison-inject module through debugfs
 
@@ -166,6 +168,7 @@ git://git.kernel.org/pub/scm/utils/cpu/mce/mce-test.git
 git://git.kernel.org/pub/scm/utils/cpu/mce/mce-inject.git
 	x86 specific injector
 
+
 ---
 
 Limitations:
@@ -176,3 +179,4 @@ objects cannot be recovered, only LRU pages for now.
 
 ---
 Andi Kleen, Oct 2009
+

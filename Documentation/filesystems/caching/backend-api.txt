@@ -8,6 +8,7 @@ parties.
 
 This API is declared in <linux/fscache-cache.h>.
 
+
 ====================================
 INITIALISING AND REGISTERING A CACHE
 ====================================
@@ -33,6 +34,7 @@ Where:
  (*) "idfmt" is a format and printf-style arguments for constructing a label
      for the cache.
 
+
 The cache should then be registered with FS-Cache by passing a pointer to the
 previously initialised cache definition to:
 
@@ -55,6 +57,7 @@ Two extra arguments should also be supplied:
 This function may return -ENOMEM if it ran out of memory or -EEXIST if the tag
 is already in use.  0 will be returned on success.
 
+
 =====================
 UNREGISTERING A CACHE
 =====================
@@ -65,6 +68,7 @@ pointer to the cache definition:
 	void fscache_withdraw_cache(struct fscache_cache *cache);
 
 In CacheFS's case, this is called by put_super().
+
 
 ========
 SECURITY
@@ -84,6 +88,7 @@ The calling process's fsuid, fsgid and SELinux security identities may need to
 be masqueraded for the duration of the cache driver's access to the cache.
 This is left to the cache to handle; FS-Cache makes no effort in this regard.
 
+
 ===================================
 CONTROL AND STATISTICS PRESENTATION
 ===================================
@@ -94,6 +99,7 @@ in sysfs and procfs - the former for control and the latter for statistics.
 A sysfs directory called /sys/fs/fscache/<cachetag>/ is created if CONFIG_SYSFS
 is enabled.  This is accessible through the kobject struct fscache_cache::kobj
 and is for use by the cache as it sees fit.
+
 
 ========================
 RELEVANT DATA STRUCTURES
@@ -113,6 +119,7 @@ RELEVANT DATA STRUCTURES
      The object definition contain functions supplied by the netfs for loading
      and matching index entries; these are required to provide some of the
      cache operations.
+
 
  (*) In-cache object representation:
 
@@ -142,6 +149,7 @@ RELEVANT DATA STRUCTURES
      in state FSCACHE_OBJECT_RECYCLING.  The fscache_object struct should be
      initialised by calling fscache_object_init(object).
 
+
  (*) FS-Cache operation record:
 
 	struct fscache_operation {
@@ -163,6 +171,7 @@ RELEVANT DATA STRUCTURES
      An operation can be made exclusive upon an object by setting the
      appropriate flag before enqueuing it with fscache_enqueue_operation().  If
      an operation needs more processing time, it should be enqueued again.
+
 
  (*) FS-Cache retrieval operation record:
 
@@ -188,6 +197,7 @@ RELEVANT DATA STRUCTURES
      The to_do field is an empty list available for the cache backend to use as
      it sees fit.
 
+
  (*) FS-Cache storage operation record:
 
 	struct fscache_storage {
@@ -200,6 +210,7 @@ RELEVANT DATA STRUCTURES
      writes to be made.  FS-Cache itself enqueues this operation and invokes
      the write_page() method on the object at appropriate times to effect
      storage.
+
 
 ================
 CACHE OPERATIONS
@@ -217,6 +228,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      This isn't strictly an operation, but should be pointed at a string naming
      the backend.
 
+
  (*) Allocate a new object [mandatory]:
 
 	struct fscache_object *(*alloc_object)(struct fscache_cache *cache,
@@ -230,6 +242,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      multiple lookup calls to turn it into a more convenient form.  FS-Cache
      will call the lookup_complete() method to allow the cache to release the
      form once lookup is complete or aborted.
+
 
  (*) Look up and create object [mandatory]:
 
@@ -249,12 +262,14 @@ performed on the denizens of the cache.  These are held in a structure of type:
      If a lookup error occurs, fscache_object_lookup_error() should be called
      to abort the lookup of that object.
 
+
  (*) Release lookup data [mandatory]:
 
 	void (*lookup_complete)(struct fscache_object *object)
 
      This method is called to ask the cache to release any resources it was
      using to perform a lookup.
+
 
  (*) Increment object refcount [mandatory]:
 
@@ -264,6 +279,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      may fail (for instance if the cache is being withdrawn) by returning NULL.
      It should return the object pointer if successful.
 
+
  (*) Lock/Unlock object [mandatory]:
 
 	void (*lock_object)(struct fscache_object *object)
@@ -271,6 +287,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
 
      These methods are used to exclusively lock an object.  It must be possible
      to schedule with the lock held, so a spinlock isn't sufficient.
+
 
  (*) Pin/Unpin object [optional]:
 
@@ -281,6 +298,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      object cannot be reclaimed to make space.  Return -ENOSPC if there's not
      enough space in the cache to permit this.
 
+
  (*) Update object [mandatory]:
 
 	int (*update_object)(struct fscache_object *object)
@@ -288,6 +306,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      This is called to update the index entry for the specified object.  The
      new information should be in object->cookie->netfs_data.  This can be
      obtained by calling object->cookie->def->get_aux()/get_attr().
+
 
  (*) Discard object [mandatory]:
 
@@ -300,12 +319,14 @@ performed on the denizens of the cache.  These are held in a structure of type:
      This method should not attempt to release any references held by the
      caller.  The caller will invoke the put_object() method as appropriate.
 
+
  (*) Release object reference [mandatory]:
 
 	void (*put_object)(struct fscache_object *object)
 
      This method is used to discard a reference to an object.  The object may
      be freed when all the references to it are released.
+
 
  (*) Synchronise a cache [mandatory]:
 
@@ -314,12 +335,14 @@ performed on the denizens of the cache.  These are held in a structure of type:
      This is called to ask the backend to synchronise a cache with its backing
      device.
 
+
  (*) Dissociate a cache [mandatory]:
 
 	void (*dissociate_pages)(struct fscache_cache *cache)
 
      This is called to ask a cache to perform any page dissociations as part of
      cache withdrawal.
+
 
  (*) Notification that the attributes on a netfs file changed [mandatory]:
 
@@ -341,6 +364,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      storage and retrieval operations from the netfs are excluded during the
      execution of this operation.
 
+
  (*) Reserve cache space for an object's data [optional]:
 
 	int (*reserve_space)(struct fscache_object *object, loff_t size);
@@ -357,6 +381,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      exceed the reservation, it's permitted to refuse requests to allocate
      pages, but not required.  An object may be pruned down to its reservation
      size if larger than that already.
+
 
  (*) Request page be read from cache [mandatory]:
 
@@ -396,6 +421,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      returned if possible or fscache_end_io() called with a suitable error
      code..
 
+
  (*) Request pages be read from cache [mandatory]:
 
 	int (*read_or_alloc_pages)(struct fscache_retrieval *op,
@@ -415,6 +441,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      should be returned.  If all the pages are dispatched then 0 should be
      returned.
 
+
  (*) Request page be allocated in the cache [mandatory]:
 
 	int (*allocate_page)(struct fscache_retrieval *op,
@@ -430,6 +457,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      (or -ENOMEM if there were other problems).  If a block is successfully
      allocated, then the netfs page should be marked and 0 returned.
 
+
  (*) Request pages be allocated in the cache [mandatory]:
 
 	int (*allocate_pages)(struct fscache_retrieval *op,
@@ -439,6 +467,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
 
      This is an multiple page version of the allocate_page() method.  pages and
      nr_pages should be treated as for the read_or_alloc_pages() method.
+
 
  (*) Request page be written to cache [mandatory]:
 
@@ -460,6 +489,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      If this method returns success then FS-Cache will inform the netfs
      appropriately.
 
+
  (*) Discard retained per-page metadata [mandatory]:
 
 	void (*uncache_page)(struct fscache_object *object, struct page *page)
@@ -467,6 +497,7 @@ performed on the denizens of the cache.  These are held in a structure of type:
      This is called when a netfs page is being evicted from the pagecache.  The
      cache backend should tear down any internal representation or tracking it
      maintains for this page.
+
 
 ==================
 FS-CACHE UTILITIES
@@ -485,6 +516,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
 
      This does not actually withdraw the cache.  That must be done separately.
 
+
  (*) Invoke the retrieval I/O completion function:
 
 	void fscache_end_io(struct fscache_retrieval *op, struct page *page,
@@ -492,6 +524,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
 
      This is called to note the end of an attempt to retrieve a page.  The
      error value should be 0 if successful and an error otherwise.
+
 
  (*) Set highest store limit:
 
@@ -502,6 +535,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
      try and store for a netfs.  Any page over this limit is automatically
      rejected by fscache_read_alloc_page() and co with -ENOBUFS.
 
+
  (*) Mark pages as being cached:
 
 	void fscache_mark_pages_cached(struct fscache_retrieval *op,
@@ -509,6 +543,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
 
      This marks a set of pages as being cached.  After this has been called,
      the netfs must call fscache_uncache_page() to unmark the pages.
+
 
  (*) Perform coherency check on an object:
 
@@ -537,11 +572,13 @@ FS-Cache provides some utilities that a cache backend may make use of:
 	    The coherency data indicates that the object is obsolete and should
 	    be discarded.
 
+
  (*) Initialise a freshly allocated object:
 
 	void fscache_object_init(struct fscache_object *object);
 
      This initialises all the fields in an object representation.
+
 
  (*) Indicate the destruction of an object:
 
@@ -551,6 +588,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
      cache has been destroyed and deallocated.  This will allow continuation
      of the cache withdrawal process when it is stopped pending destruction of
      all the objects.
+
 
  (*) Indicate negative lookup on an object:
 
@@ -565,6 +603,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
 
      This may be called multiple times on an object.  Only the first call is
      significant - all subsequent calls are ignored.
+
 
  (*) Indicate an object has been obtained:
 
@@ -582,6 +621,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
 
         (2) that writes may now proceed against this object.
 
+
  (*) Indicate that object lookup failed:
 
 	void fscache_object_lookup_error(struct fscache_object *object);
@@ -589,6 +629,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
      This marks an object as having encountered a fatal error (usually EIO)
      and causes it to move into a state whereby it will be withdrawn as soon
      as possible.
+
 
  (*) Get and release references on a retrieval record:
 
@@ -598,6 +639,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
      These two functions are used to retain a retrieval record whilst doing
      asynchronous data retrieval and block allocation.
 
+
  (*) Enqueue a retrieval record for processing.
 
 	void fscache_enqueue_retrieval(struct fscache_retrieval *op);
@@ -606,6 +648,7 @@ FS-Cache provides some utilities that a cache backend may make use of:
      pool.  One of the threads in the pool will invoke the retrieval record's
      op->op.processor callback function.  This function may be called from
      within the callback function.
+
 
  (*) List of object state names:
 

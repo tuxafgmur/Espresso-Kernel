@@ -22,6 +22,7 @@ had some limitations:-
     power on portable devices. There was also no support for saving
     power via changing codec oversampling rates, bias currents, etc.
 
+
 ASoC Design
 ===========
 
@@ -60,6 +61,7 @@ components :-
 
   * Machine driver: The machine driver handles any machine specific controls and
     audio events (e.g. turning on an amp at start of playback).
+
 
 Documentation
 =============

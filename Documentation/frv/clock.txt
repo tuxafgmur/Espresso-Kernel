@@ -23,6 +23,7 @@ On the boards with FR405 CPU (i.e. CB60 and CB70), the 'cmode' file is also
 writable, allowing the CPU core speed (and other clock speeds) to be
 controlled from userspace.
 
+
 Determining current and possible settings
 -----------------------------------------
 

@@ -3,6 +3,7 @@ Infinity Usb Unlimited Readme
 
 Hi all,
 
+
 This module provide a serial interface to use your
 IUU unit in phoenix mode. Loading this module will
 bring a ttyUSB[0-x] interface. This driver must be
@@ -15,6 +16,8 @@ guru, so don't blame me if your system is unstable
 
 You can plug more than one IUU. Every unit will
 have his own device file(/dev/ttyUSB0,/dev/ttyUSB1,...)
+
+
 
 How to tune the reader speed ?
 
@@ -51,6 +54,7 @@ How to tune the reader speed ?
    the real clock will be now : 6979050 Hz ( 6Mhz979 ) and will increase
    the speed to a score 10 to 20% better than the simple clockmode=3 !!!
 
+
 -  cdmode permit to setup the signal used to inform the userland ( ioctl answer )
    if the card is present or not. Eight signals are possible.
 
@@ -61,6 +65,7 @@ How to tune the reader speed ?
 
 -  debug will produce a lot of debugging messages...
 
+
  Last notes:
 
  Don't worry about the serial settings, the serial emulation
@@ -70,6 +75,7 @@ How to tune the reader speed ?
  really necessary ?
  The autodetect feature used is the serial CD. If that doesn't
  work for your software, disable detection mechanism in it.
+
 
  Have fun !
 

@@ -216,6 +216,7 @@ pwm[1-3]_auto_channels
 	16		Fan on manual control.
 	31		Fan on full.
 
+
 pwm[1-3]_invert
 	When set, inverts the meaning of pwm[1-3].
 	i.e.  when pwm = 0, the fan will be on full and

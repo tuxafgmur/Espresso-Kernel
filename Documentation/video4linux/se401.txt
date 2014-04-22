@@ -2,6 +2,7 @@ Linux driver for SE401 based USB cameras
 
 Copyright, 2001, Jeroen Vreeken
 
+
 INTRODUCTION:
 
 The SE401 chip is the used in low-cost usb webcams.
@@ -18,6 +19,7 @@ Kensington VideoCAM PC Camera Model 67015
 Kensington VideoCAM PC Camera Model 67016
 Kensington VideoCAM PC Camera Model 67017
 
+
 WHAT YOU NEED:
 
 -	USB support
@@ -26,12 +28,14 @@ WHAT YOU NEED:
 More information about USB support for linux can be found at:
 http://www.linux-usb.org
 
+
 MODULE OPTIONS:
 
 When the driver is compiled as a module you can also use the 'flickerless'
 option. With it exposure is limited to values that do not interfere with the
 net frequency. Valid options for this option are 0, 50 and 60. (0=disable,
 50=50hz, 60=60hz)
+
 
 KNOWN PROBLEMS:
 
@@ -40,6 +44,7 @@ the default settings also work with usb-uhci. But sending more than one bulk
 transfer at a time with usb-uhci doesn't work yet.
 Users of usb-ohci and uhci can safely enlarge SE401_NUMSBUF in se401.h in
 order to increase the throughput (and thus framerate).
+
 
 HELP:
 

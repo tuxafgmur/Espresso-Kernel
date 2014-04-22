@@ -1,5 +1,6 @@
 		In-kernel memory-mapped I/O tracing
 
+
 Home page and links to optional user space tools:
 
 	http://nouveau.freedesktop.org/wiki/MmioTrace
@@ -16,6 +17,7 @@ are supported.
 Out-of-tree mmiotrace was originally modified for mainline inclusion and
 ftrace framework by Pekka Paalanen <pq@iki.fi>.
 
+
 Preparation
 -----------
 
@@ -25,6 +27,7 @@ supported, but tracing is unreliable and may miss events if more than one CPU
 is on-line, therefore mmiotrace takes all but one CPU off-line during run-time
 activation. You can re-enable CPUs by hand, but you have been warned, there
 is no way to automatically detect if you are losing events due to CPUs racing.
+
 
 Usage Quick Reference
 ---------------------
@@ -36,6 +39,7 @@ Start X or whatever.
 $ echo "X is up" > /sys/kernel/debug/tracing/trace_marker
 $ echo nop > /sys/kernel/debug/tracing/current_tracer
 Check for lost events.
+
 
 Usage
 -----
@@ -90,6 +94,7 @@ and then send the .tar.gz file. The trace compresses considerably. Replace
 "pciid" and "nick" with the PCI ID or model name of your piece of hardware
 under investigation and your nickname.
 
+
 How Mmiotrace Works
 -------------------
 
@@ -112,6 +117,7 @@ Setting the page present in the page fault handler has a race condition on SMP
 machines. During the single stepping other CPUs may run freely on that page
 and events can be missed without a notice. Re-enabling other CPUs during
 tracing is discouraged.
+
 
 Trace Log Format
 ----------------
@@ -147,9 +153,12 @@ physical addresses in the range [0xfb73ce40, 0xfb800000[
 $ awk '/W 4 / { adr=strtonum($5); if (adr >= 0xfb73ce40 &&
 adr < 0xfb800000) print; }'
 
+
 Tools for Developers
 --------------------
 
 The user space tools include utilities for:
 - replacing numeric addresses and values with hardware register names
 - replaying MMIO logs, i.e., re-executing the recorded writes
+
+

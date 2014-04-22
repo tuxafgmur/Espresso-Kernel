@@ -1,8 +1,10 @@
+
 		       ET61X[12]51 PC Camera Controllers
 				Driver for Linux
 		       =================================
 
 			       - Documentation -
+
 
 Index
 =====
@@ -18,14 +20,17 @@ Index
 10. Notes for V4L2 application developers
 11. Contact information
 
+
 1. Copyright
 ============
 Copyright (C) 2006-2007 by Luca Risolia <luca.risolia@studio.unibo.it>
+
 
 2. Disclaimer
 =============
 Etoms is a trademark of Etoms Electronics Corp.
 This software is not developed or sponsored by Etoms Electronics.
+
 
 3. License
 ==========
@@ -42,6 +47,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 
 4. Overview and features
 ========================
@@ -87,6 +93,7 @@ Some of the features of the driver are:
   the system supports hotplugging;
 - no known bugs.
 
+
 5. Module dependencies
 ======================
 For it to work properly, the driver needs kernel support for Video4Linux and
@@ -124,6 +131,7 @@ And finally:
 	#
 	CONFIG_USB_ET61X251=m
 
+
 6. Module loading
 =================
 To use the driver, it is necessary to load the "et61x251" module into memory
@@ -139,6 +147,7 @@ At this point the devices should be recognized. You can invoke "dmesg" to
 analyze kernel messages and verify that the loading process has gone well:
 
 	[user@localhost home]$ dmesg
+
 
 7. Module parameters
 ====================
@@ -191,6 +200,7 @@ Description:    Debugging information level, from 0 to 3:
 Default:        2
 -------------------------------------------------------------------------------
 
+
 8. Optional device control through "sysfs"
 ==========================================
 If the kernel has been compiled with the CONFIG_VIDEO_ADV_DEBUG option enabled,
@@ -215,6 +225,7 @@ identifier - of the camera registered as "/dev/video0":
 
 Note that if the sensor registers cannot be read, "cat" will fail.
 To avoid race conditions, all the I/O accesses to the files are serialized.
+
 
 9. Supported devices
 ====================
@@ -262,6 +273,7 @@ TAS5130D1B  Taiwan Advanced Sensor Corporation
 All the available control settings of each image sensor are supported through
 the V4L2 interface.
 
+
 10. Notes for V4L2 application developers
 =========================================
 This driver follows the V4L2 API specifications. In particular, it enforces two
@@ -292,6 +304,7 @@ from the device through the current I/O method, while the second one provides
 compressed data). The current compression quality may vary from 0 to 1 and can
 be selected or queried thanks to the VIDIOC_S_JPEGCOMP and VIDIOC_G_JPEGCOMP
 V4L2 ioctl's.
+
 
 11. Contact information
 =======================

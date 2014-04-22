@@ -44,6 +44,7 @@ consists of the interconnections between every audio component (including
 internal codec components). All audio components that effect power are called
 widgets hereafter.
 
+
 2. DAPM Widgets
 ===============
 
@@ -74,6 +75,7 @@ list of widgets of the codecs and machines DAPM widgets.
 Most widgets have a name, register, shift and invert. Some widgets have extra
 parameters for stream name and kcontrols.
 
+
 2.1 Stream Domain Widgets
 -------------------------
 
@@ -91,6 +93,7 @@ e.g. stream widgets for HiFi playback and capture
 
 SND_SOC_DAPM_DAC("HiFi DAC", "HiFi Playback", REG, 3, 1),
 SND_SOC_DAPM_ADC("HiFi ADC", "HiFi Capture", REG, 2, 1),
+
 
 2.2 Path Domain Widgets
 -----------------------
@@ -142,12 +145,14 @@ static int spitz_mic_bias(struct snd_soc_dapm_widget* w, int event)
 
 SND_SOC_DAPM_MIC("Mic Jack", spitz_mic_bias),
 
+
 2.4 Codec Domain
 ----------------
 
 The codec power domain has no widgets and is handled by the codecs DAPM event
 handler. This handler is called when the codec powerstate is changed wrt to any
 stream event or by kernel PM events.
+
 
 2.5 Virtual Widgets
 -------------------
@@ -162,6 +167,7 @@ This can be used to merge to signal paths together in software.
 
 After all the widgets have been defined, they can then be added to the DAPM
 subsystem individually with a call to snd_soc_dapm_new_control().
+
 
 3. Codec Widget Interconnections
 ================================
@@ -214,6 +220,7 @@ interconnections have been registered with the core. This causes the core to
 scan the codec and machine so that the internal DAPM state matches the
 physical state of the machine.
 
+
 3.1 Machine Widget Interconnections
 -----------------------------------
 Machine widget interconnections are created in the same way as codec ones and
@@ -227,6 +234,7 @@ e.g. connects the speaker out codec pins to the internal speaker.
 
 This allows the DAPM to power on and off pins that are connected (and in use)
 and pins that are NC respectively.
+
 
 4 Endpoint Widgets
 ===================
@@ -250,6 +258,7 @@ This also applies to machine widgets. e.g. if a headphone is connected to a
 jack then the jack can be marked active. If the headphone is removed, then
 the headphone jack can be marked inactive.
 
+
 5 DAPM Widget Events
 ====================
 
@@ -269,6 +278,7 @@ static const struct snd_soc_dapm_widget wm8731_dapm_widgets =
 	SND_SOC_DAPM_SPK("Ext Spk", corgi_amp_event);
 
 Please see soc-dapm.h for all other widgets that support events.
+
 
 5.1 Event types
 ---------------

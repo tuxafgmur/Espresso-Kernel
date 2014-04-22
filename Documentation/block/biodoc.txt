@@ -38,6 +38,7 @@ The following people helped with fixes/contributions to the bio patches
 while it was still work-in-progress:
 	David S. Miller <davem@redhat.com>
 
+
 Description of Contents:
 ------------------------
 
@@ -165,6 +166,7 @@ New queue flags:
 	QUEUE_FLAG_CLUSTER (see 3.2.2)
 	QUEUE_FLAG_QUEUED (see 3.2.4)
 
+
 ii. High-mem i/o capabilities are now considered the default
 
 The generic bounce buffer logic, present in 2.4, where the block layer would
@@ -288,6 +290,7 @@ Arjan's proposed request priority scheme allows higher levels some broad
   requests. Some bits in the bi_rw flags field in the bio structure are
   intended to be used for this priority information.
 
+
 1.3 Direct Access to Low level Device/Driver Capabilities (Bypass mode)
     (e.g Diagnostics, Systems Management)
 
@@ -339,7 +342,7 @@ usable? Or _last for that matter. I must be missing something>
 <SUP: What I meant here was that if the request doesn't have a bio, then
  end_that_request_first doesn't modify nr_sectors or current_nr_sectors,
  and hence can't be used for advancing request state settings on the
- completion of partial transfers. The driver has to modify these fields
+ completion of partial transfers. The driver has to modify these fields 
  directly by hand.
  This is because end_that_request_first only iterates over the bio list,
  and always returns 0 if there are none associated with the request.
@@ -375,6 +378,7 @@ Aside:
   Now REQ_NOMERGE is set in the request flags to skip this one in the future,
   which means that it will not change before we feed it to the device. So
   the pre-builder hook can be invoked there.
+
 
 2. Flexible and generic but minimalist i/o structure/descriptor.
 
@@ -502,7 +506,7 @@ which in turn means that only raw I/O uses it (direct i/o may not work
 right now). The intent however is to enable clustering of pages etc to
 become possible. The pagebuf abstraction layer from SGI also uses multi-page
 bios, but that is currently not included in the stock development kernels.
-The same is true of Andrew Morton's work-in-progress multipage bio writeout
+The same is true of Andrew Morton's work-in-progress multipage bio writeout 
 and readahead patches.
 
 2.3 Changes in the Request Structure
@@ -568,10 +572,10 @@ struct request {
 	struct bio *bio, *biotail;  /* bio list instead of bh */
 	struct request_list *rl;
 }
-
+	
 See the rq_flag_bits definitions for an explanation of the various flags
 available. Some bits are used by the block layer or i/o scheduler.
-
+	
 The behaviour of the various sector counts are almost the same as before,
 except that since we have multi-segment bios, current_nr_sectors refers
 to the numbers of sectors in the current segment being processed which could
@@ -799,7 +803,7 @@ tag number to the associated request. These are, in no particular order:
 	Returns a pointer to the request associated with tag 'tag'.
 
 	blk_queue_tag_depth(q)
-
+	
 	Return current queue depth.
 
 	blk_queue_tag_queue(q)
@@ -863,6 +867,7 @@ Todo/Observation:
  Badari Pulavarty has a patch to implement direct i/o correctly using
  bio and kvec.
 
+
 (c) Page i/o:
 Todo/Under discussion:
 
@@ -903,6 +908,7 @@ Aside:
   to continue to use the vector descriptor (kvec) after i/o completes. Instead,
   all such transient state should either be maintained in the request structure,
   and passed on in some way to the endio completion routine.
+
 
 4. The I/O scheduler
 I/O scheduler, a.k.a. elevator, is implemented in two layers.  Generic dispatch
@@ -1060,6 +1066,7 @@ be used in I/O schedulers, and in the block layer (could be used for IO statis,
 priorities for example). See *io_context in block/ll_rw_blk.c, and as-iosched.c
 for an example of usage in an i/o scheduler.
 
+
 5. Scalability related changes
 
 5.1 Granular Locking: io_request_lock replaced by a per-queue lock
@@ -1102,6 +1109,7 @@ so the i/o scheduler also gets to operate on whole disk sector numbers. This
 should typically not require changes to block drivers, it just never gets
 to invoke its own partition sector offset calculations since all bios
 sent are offset from the beginning of the device.
+
 
 7. A Few Tips on Migration of older drivers
 
@@ -1157,6 +1165,7 @@ transfer a virtual mapping is needed. If the driver supports highmem I/O,
 (Sec 1.1, (ii) ) it needs to use __bio_kmap_atomic and bio_kmap_irq to
 temporarily map a bio into the virtual address space.
 
+
 8. Prior/Related/Impacted patches
 
 8.1. Earlier kiobuf patches (sct/axboe/chait/hch/mkp)
@@ -1192,3 +1201,4 @@ and Linus' comments - Jan 2001)
 et al - Feb-March 2001 (many of the initial thoughts that led to bio were
 brought up in this discussion thread)
 9.3 Discussions on mempool on lkml - Dec 2001.
+

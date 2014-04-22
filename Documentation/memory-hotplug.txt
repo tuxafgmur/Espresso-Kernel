@@ -32,6 +32,7 @@ Note(1): x86_64's has special implementation for memory hotplug.
          This text does not describe it.
 Note(2): This text assumes that sysfs is mounted at /sys.
 
+
 ---------------
 1. Introduction
 ---------------
@@ -50,6 +51,7 @@ Generally, there are two purposes.
 hardware which supports memory power management.
 
 Linux memory hotplug is designed for both purpose.
+
 
 1.2. Phases of memory hotplug
 ---------------
@@ -82,6 +84,7 @@ administrator. For the hot-add case, it must be executed after Physical Hotplug
 phase by hand.
 (However, if you writes udev's hotplug scripts for memory hotplug, these
  phases can be execute in seamless way.)
+
 
 1.3. Unit of Memory online/offline operation
 ------------
@@ -203,6 +206,7 @@ If firmware supports NUMA-node hotplug, and defines an object _HID "ACPI0004",
 calls hotplug code for all of objects which are defined in it.
 If memory device is found, memory hotplug code will be called.
 
+
 4.2 Notify memory hot-add event by hand
 ------------
 In some environments, especially virtualized environment, firmware will not
@@ -225,6 +229,8 @@ memory range is hot-added. In this case, hotplug script is not called (in
 current implementation). You'll have to online memory by yourself.
 Please see "How to online memory" in this text.
 
+
+
 ------------------------------
 5. Logical Memory hot-add phase
 ------------------------------
@@ -235,8 +241,10 @@ To see (online/offline) state of memory section, read 'state' file.
 
 % cat /sys/device/system/memory/memoryXXX/state
 
+
 If the memory section is online, you'll read "online".
 If the memory section is offline, you'll read "offline".
+
 
 5.2. How to online memory
 ------------
@@ -252,6 +260,8 @@ available memory will be increased.
 
 Currently, newly added memory is added as ZONE_NORMAL (for powerpc, ZONE_DMA).
 This may be changed in future.
+
+
 
 ------------------------
 6. Logical memory remove
@@ -290,8 +300,10 @@ creates ZONE_MOVABLE as following.
   Size of memory not for movable pages (not for offline) is TOTAL - ZZZZ.
   Size of memory for movable pages (for offline) is ZZZZ.
 
+
 Note) Unfortunately, there is no information to show which section belongs
 to ZONE_MOVABLE. This is TBD.
+
 
 6.2. How to offline memory
 ------------
@@ -387,3 +399,4 @@ node if necessary.
   - support HugeTLB page migration and offlining.
   - memmap removing at memory offline.
   - physical remove memory.
+

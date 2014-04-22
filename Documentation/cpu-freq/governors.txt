@@ -1,17 +1,22 @@
      CPU frequency and voltage scaling code in the Linux(TM) kernel
 
+
 		         L i n u x    C P U F r e q
 
 		      C P U F r e q   G o v e r n o r s
 
 		   - information for users and developers -
 
+
 		    Dominik Brodowski  <linux@brodo.de>
             some additions and corrections by Nico Golde <nico@ngolde.de>
+
+
 
    Clock scaling allows you to change the clock speed of the CPUs on the
     fly. This is a nice method to save battery power, because the lower
             the clock speed, the less power the CPU consumes.
+
 
 Contents:
 ---------
@@ -26,6 +31,8 @@ Contents:
 2.6  Interactive
 
 3.   The Governor Interface in the CPUfreq Core
+
+
 
 1. What Is A CPUFreq Governor?
 ==============================
@@ -71,6 +78,7 @@ CPU can be set to switch independently	 |	   CPU can only be set
 						  It is assured that it
 						  is within policy->{min,max}
 
+
 2. Governors In the Linux Kernel
 ================================
 
@@ -81,12 +89,14 @@ The CPUfreq governor "performance" sets the CPU statically to the
 highest frequency within the borders of scaling_min_freq and
 scaling_max_freq.
 
+
 2.2 Powersave
 -------------
 
 The CPUfreq governor "powersave" sets the CPU statically to the
 lowest frequency within the borders of scaling_min_freq and
 scaling_max_freq.
+
 
 2.3 Userspace
 -------------
@@ -95,6 +105,7 @@ The CPUfreq governor "userspace" allows the user, or any userspace
 program running with UID "root", to set the CPU to a specific frequency
 by making a sysfs file "scaling_setspeed" available in the CPU-device
 directory.
+
 
 2.4 Ondemand
 ------------
@@ -137,7 +148,7 @@ of 'sampling_rate' needs to be for the kernel to make a decision on
 whether it should increase the frequency.  For example when it is set
 to its default value of '95' it means that between the checking
 intervals the CPU needs to be on average more than 95% in use to then
-decide that the CPU frequency needs to be increased.
+decide that the CPU frequency needs to be increased.  
 
 ignore_nice_load: this parameter takes a value of '0' or '1'. When
 set to '0' (its default), all processes are counted towards the
@@ -158,6 +169,7 @@ speed due to high load. This improves performance by reducing the overhead
 of load evaluation and helping the CPU stay at its top speed when truly
 busy, rather than shifting back and forth in speed. This tunable has no
 effect on behavior at lower speeds/lower CPU loads.
+
 
 2.5 Conservative
 ----------------
@@ -181,6 +193,7 @@ down_threshold: same as the 'up_threshold' found for the "ondemand"
 governor but for the opposite direction.  For example when set to its
 default value of '20' it means that if the CPU usage needs to be below
 20% between samples to have the frequency decreased.
+
 
 2.6 Interactive
 ---------------
@@ -238,6 +251,7 @@ boostpulse: Immediately boost speed of all CPUs to hispeed_freq for
 min_sample_time, after which speeds are allowed to drop below
 hispeed_freq according to load as usual.
 
+
 2.7 Hotplug
 -----------
 
@@ -274,7 +288,7 @@ be passed to that function, must contain the following values:
 
 governor->name -	    A unique name for this governor
 governor->governor -	    The governor callback function
-governor->owner	-	    .THIS_MODULE for the governor module (if
+governor->owner	-	    .THIS_MODULE for the governor module (if 
 			    appropriate)
 
 The governor->governor callback is called with the current (or to-be-set)
@@ -292,6 +306,7 @@ If you need other "events" externally of your driver, _only_ use the
 cpufreq_governor_l(unsigned int cpu, unsigned int event) call to the
 CPUfreq core to ensure proper locking.
 
+
 The CPUfreq governor may call the CPU processor driver using one of
 these two functions:
 
@@ -308,7 +323,8 @@ What's the difference between these two functions? When your governor
 still is in a direct code path of a call to governor->governor, the
 per-CPU cpufreq lock is still held in the cpufreq core, and there's
 no need to lock it again (in fact, this would cause a deadlock). So
-use __cpufreq_driver_target only in these cases. In all other cases
-(for example, when there's a "daemonized" function that wakes up
+use __cpufreq_driver_target only in these cases. In all other cases 
+(for example, when there's a "daemonized" function that wakes up 
 every second), use cpufreq_driver_target to lock the cpufreq per-CPU
 lock before the command is passed to the cpufreq processor driver.
+

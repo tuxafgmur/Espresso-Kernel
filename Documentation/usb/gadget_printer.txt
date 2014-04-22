@@ -1,7 +1,10 @@
+
                        Linux USB Printer Gadget Driver
                                  06/04/2007
 
               Copyright (C) 2007 Craig W. Nadler <craig@nadler.us>
+
+
 
 GENERAL
 =======
@@ -23,6 +26,9 @@ byte when the USB HOST sends a device request to get the printer status.  The
 user space firmware can read or write this status byte using a device file
 /dev/g_printer . Both blocking and non-blocking read/write calls are supported.
 
+
+
+
 HOWTO USE THIS DRIVER
 =====================
 
@@ -31,6 +37,7 @@ following example uses the Netchip 2280 USB device controller driver:
 
 modprobe net2280
 modprobe g_printer
+
 
 The follow command line parameter can be used when loading the printer gadget
 (ex: modprobe g_printer idVendor=0x0525 idProduct=0xa4a8 ):
@@ -64,6 +71,9 @@ qlen - The number of 8k buffers to use per endpoint. The default is 10, you
 	should tune this for your product. You may also want to tune the
 	size of each buffer for your product.
 
+
+
+
 USING THE EXAMPLE CODE
 ======================
 
@@ -75,13 +85,17 @@ To compile the test code below:
 2) compile the code with the follow command:
 	 gcc prn_example.c -o prn_example
 
+
+
 To read printer data from the host to stdout:
 
 	# prn_example -read_data
 
+
 To write printer data from a file (data_file) to the host:
 
 	# cat data_file | prn_example -write_data
+
 
 To get the current printer status for the gadget driver:
 
@@ -92,32 +106,42 @@ To get the current printer status for the gadget driver:
 	     Paper is Out
 	     Printer OK
 
+
 To set printer to Selected/On-line:
 
 	# prn_example -selected
+
 
 To set printer to Not Selected/Off-line:
 
 	# prn_example -not_selected
 
+
 To set paper status to paper out:
 
 	# prn_example -paper_out
+
 
 To set paper status to paper loaded:
 
 	# prn_example -paper_loaded
 
+
 To set error status to printer OK:
 
 	# prn_example -no_error
+
 
 To set error status to ERROR:
 
 	# prn_example -error
 
+
+
+
 EXAMPLE CODE
 ============
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -128,6 +152,7 @@ EXAMPLE CODE
 
 #define PRINTER_FILE			"/dev/g_printer"
 #define BUF_SIZE			512
+
 
 /*
  * 'usage()' - Show program usage.
@@ -162,6 +187,7 @@ usage(const char *option)		/* I - Option string or NULL */
 
 	exit(1);
 }
+
 
 static int
 read_printer_data()
@@ -211,6 +237,7 @@ read_printer_data()
 
 	return 0;
 }
+
 
 static int
 write_printer_data()
@@ -270,6 +297,7 @@ write_printer_data()
 	return 0;
 }
 
+
 static int
 read_NB_printer_data()
 {
@@ -303,6 +331,7 @@ read_NB_printer_data()
 	return 0;
 }
 
+
 static int
 get_printer_status()
 {
@@ -329,6 +358,7 @@ get_printer_status()
 
 	return(retval);
 }
+
 
 static int
 set_printer_status(unsigned char buf, int clear_printer_status_bit)
@@ -369,6 +399,7 @@ set_printer_status(unsigned char buf, int clear_printer_status_bit)
 	return 0;
 }
 
+
 static int
 display_printer_status()
 {
@@ -399,6 +430,7 @@ display_printer_status()
 
 	return(0);
 }
+
 
 int
 main(int  argc, char *argv[])

@@ -14,6 +14,7 @@ There are 8 IAMLR/IAMPR register pairs and 16 DAMLR/DAMPR register pairs for SAT
 In DAT mode, there is also a TLB organised in cache format as 64 lines x 2 ways. Each line spans a
 16KB range of addresses, but can match a larger region.
 
+
 ===========================
 MEMORY MANAGEMENT REGISTERS
 ===========================
@@ -32,6 +33,7 @@ Certain control registers are used by the kernel memory management routines:
 	DAMR11			I/O mapping
 	CXNR			mm_struct context ID
 	TTBR			Page directory (PGD) pointer (physical address)
+
 
 =====================
 GENERAL MEMORY LAYOUT
@@ -77,6 +79,7 @@ The virtual memory layout is:
 
 IAMPR1 and DAMPR1 are used as an extension to the TLB.
 
+
 ====================
 KMAP AND KMAP_ATOMIC
 ====================
@@ -114,6 +117,7 @@ Also note that kmap() itself may sleep, kmap_atomic() may never sleep and both a
 furthermore, a driver using kmap() may sleep before calling kunmap(), but may not sleep before
 calling kunmap_atomic() if it had previously called kmap_atomic().
 
+
 ===============================
 USING MORE THAN 256MB OF MEMORY
 ===============================
@@ -126,6 +130,7 @@ allocation.
 External devices can, of course, still DMA to and from all of the SDRAM, even if the kernel can't
 see it directly. The kernel translates page references into real addresses for communicating to the
 devices.
+
 
 ===================
 PAGE TABLE TOPOLOGY
@@ -175,6 +180,7 @@ coverage of the cached item is greater.
 
 Page tables for the vmalloc area are allocated at boot time and shared between all mm_structs.
 
+
 =================
 USER SPACE LAYOUT
 =================
@@ -194,6 +200,7 @@ from those dedicated to the kernel:
 This is so arranged so as to make best use of the 16KB page tables and the way in which PGEs/PMEs
 are cached by the TLB handler. The lower mmap space is filled first, and then the upper mmap space
 is filled.
+
 
 ===============================
 GDB-STUB MMU DEBUGGING SERVICES

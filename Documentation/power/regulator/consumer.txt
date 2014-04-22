@@ -4,6 +4,7 @@ Regulator Consumer Driver Interface
 This text describes the regulator interface for consumer device drivers.
 Please see overview.txt for a description of the terms used in this text.
 
+
 1. Consumer Regulator Access (static & dynamic drivers)
 =======================================================
 
@@ -29,6 +30,7 @@ analog = regulator_get(dev, "Avdd");  /* analog */
 The regulator access functions regulator_get() and regulator_put() will
 usually be called in your device drivers probe() and remove() respectively.
 
+
 2. Regulator Output Enable & Disable (static & dynamic drivers)
 ====================================================================
 
@@ -46,6 +48,7 @@ int regulator_is_enabled(regulator);
 
 This will return > zero when the regulator is enabled.
 
+
 A consumer can disable its supply when no longer needed by calling :-
 
 int regulator_disable(regulator);
@@ -59,6 +62,7 @@ int regulator_force_disable(regulator);
 
 NOTE: this will immediately and forcefully shutdown the regulator output. All
 consumers will be powered off.
+
 
 3. Regulator Voltage Control & Status (dynamic drivers)
 ======================================================
@@ -89,6 +93,7 @@ regulator is enabled or disabled and should NOT be used to determine regulator
 output state. However this can be used in conjunction with is_enabled() to
 determine the regulator physical output voltage.
 
+
 4. Regulator Current Limit Control & Status (dynamic drivers)
 ===========================================================
 
@@ -116,6 +121,7 @@ int regulator_get_current_limit(regulator);
 NOTE: get_current_limit() will return the current limit whether the regulator
 is enabled or disabled and should not be used to determine regulator current
 load.
+
 
 5. Regulator Operating Mode Control & Status (dynamic drivers)
 =============================================================
@@ -155,6 +161,7 @@ unsigned int regulator_get_mode(struct regulator *regulator);
 
 Direct mode will only be used by consumers that *know* about the regulator and
 are not sharing the regulator with other consumers.
+
 
 6. Regulator Events
 ===================

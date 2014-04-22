@@ -20,6 +20,7 @@ following:
 4. Setup the kernel tagged list.
 5. Call the kernel image.
 
+
 1. Setup and initialise RAM
 ---------------------------
 
@@ -32,6 +33,7 @@ this in a machine dependent manner.  (It may use internal algorithms
 to automatically locate and size all RAM, or it may use knowledge of
 the RAM in the machine, or any other method the boot loader designer
 sees fit.)
+
 
 2. Initialise one serial port
 -----------------------------
@@ -49,6 +51,7 @@ option to the kernel via the tagged lists specifying the port, and
 serial format options as described in
 
        Documentation/kernel-parameters.txt.
+
 
 3. Detect the machine type
 --------------------------
@@ -160,3 +163,4 @@ In either case, the following conditions must be met:
 
 - The boot loader is expected to call the kernel image by jumping
   directly to the first instruction of the kernel image.
+

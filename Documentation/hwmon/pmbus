@@ -20,6 +20,7 @@ Supported chips:
 
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
 
+
 Description
 -----------
 
@@ -31,6 +32,7 @@ Each monitored channel has its own high and low limits, plus a critical
 limit.
 
 Fan support will be added in a later version of this driver.
+
 
 Usage Notes
 -----------
@@ -44,6 +46,7 @@ Example: the following will load the driver for an LTC2978 at address 0x60
 on I2C bus #1:
 $ modprobe pmbus
 $ echo ltc2978 0x60 > /sys/bus/i2c/devices/i2c-1/new_device
+
 
 Platform data support
 ---------------------
@@ -112,6 +115,7 @@ static void __exit ds1200_exit(void)
 {
 	i2c_del_driver(&ds1200_driver);
 }
+
 
 Sysfs entries
 -------------

@@ -24,6 +24,7 @@ internal fragmented as a result of the allocation pattern. By correlating
 kmalloc with kfree, it may be possible to identify memory leaks and where
 the allocation sites were.
 
+
 2. Slab allocation of small objects of known type
 =================================================
 kmem_cache_alloc	call_site=%lx ptr=%p bytes_req=%zu bytes_alloc=%zu gfp_flags=%s

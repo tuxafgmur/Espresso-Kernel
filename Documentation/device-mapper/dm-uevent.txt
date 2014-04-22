@@ -13,6 +13,7 @@ void dm_path_uevent(enum dm_uevent_type event_type, struct dm_target *ti,
 
 void dm_send_uevents(struct list_head *events, struct kobject *kobj)
 
+
 The variables added to the uevent environment are:
 
 Variable Name: DM_TARGET

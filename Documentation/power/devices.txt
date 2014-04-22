@@ -3,6 +3,7 @@ Device Power Management
 Copyright (c) 2010-2011 Rafael J. Wysocki <rjw@sisk.pl>, Novell Inc.
 Copyright (c) 2010 Alan Stern <stern@rowland.harvard.edu>
 
+
 Most of the code in Linux is device drivers, so most of the Linux power
 management (PM) code is also driver-specific.  Most drivers will do very
 little; others, especially for platforms with small batteries (like cell
@@ -12,6 +13,7 @@ This writeup gives an overview of how drivers interact with system-wide
 power management goals, emphasizing the models and interfaces that are
 shared by everything that hooks up to the driver model core.  Read it as
 background for the domain-specific work you'd do with any specific driver.
+
 
 Two Models for Device Power Management
 ======================================
@@ -70,12 +72,14 @@ Examples of hardware wakeup events include an alarm from a real time clock,
 network wake-on-LAN packets, keyboard or mouse activity, and media insertion
 or removal (for PCMCIA, MMC/SD, USB, and so on).
 
+
 Interfaces for Entering System Sleep States
 ===========================================
 There are programming interfaces provided for subsystems (bus type, device type,
 device class) and device drivers to allow them to participate in the power
 management of devices they are concerned with.  These interfaces cover both
 system sleep and runtime power management.
+
 
 Device Power Management Operations
 ----------------------------------
@@ -115,6 +119,7 @@ struct dev_pm_ops objects and it is suitable only for implementing system sleep
 power management methods.  Therefore it is not described in this document, so
 please refer directly to the source code for more information about it.
 
+
 Subsystem-Level Methods
 -----------------------
 The core methods to suspend and resume devices reside in struct dev_pm_ops
@@ -130,6 +135,7 @@ on top of bus-specific framework code.
 For more information on these driver calls, see the description later;
 they are called in phases for every device, respecting the parent-child
 sequencing in the driver model tree.
+
 
 /sys/devices/.../power/wakeup files
 -----------------------------------
@@ -166,6 +172,7 @@ device_may_wakeup() to decide what to do during a system sleep transition.
 However for runtime power management, wakeup events should be enabled whenever
 the device and driver both support them, regardless of the should_wakeup flag.
 
+
 /sys/devices/.../power/control files
 ------------------------------------
 Each device in the driver model has a flag to control whether it is subject to
@@ -189,6 +196,7 @@ to a sleep state even though its runtime_auto flag is clear.
 For more information about the runtime power management framework, refer to
 Documentation/power/runtime_pm.txt.
 
+
 Calling Drivers to Enter and Leave System Sleep States
 ======================================================
 When the system goes into a sleep state, each device's driver is asked to
@@ -209,6 +217,7 @@ before reactivating its class I/O queues.
 More power-aware drivers might prepare the devices for triggering system wakeup
 events.
 
+
 Call Sequence Guarantees
 ------------------------
 To ensure that bridges and similar links needing to talk to a device are
@@ -227,6 +236,7 @@ the device is suspending (i.e. has been chosen by the PM core as the next
 device to suspend) or has already suspended, as well as after all of the other
 devices have been suspended.  Device drivers must be prepared to cope with such
 situations.
+
 
 System Power Management Phases
 ------------------------------
@@ -254,6 +264,7 @@ types or classes if necessary).
 
 These callbacks may in turn invoke device- or driver-specific methods stored in
 dev->driver->pm, but they don't have to.
+
 
 Entering System Suspend
 -----------------------
@@ -312,6 +323,7 @@ pci_enable_wake() does something similar for the PCI PME signal.
 If any of these callbacks returns an error, the system won't enter the desired
 low-power state.  Instead the PM core will unwind its actions by resuming all
 the devices that were suspended.
+
 
 Leaving System Suspend
 ----------------------
@@ -373,6 +385,7 @@ These callbacks may return an error value, but the PM core will ignore such
 errors since there's nothing it can do about them other than printing them in
 the system log.
 
+
 Entering Hibernation
 --------------------
 Hibernating the system is more complicated than putting it into the standby or
@@ -433,6 +446,7 @@ as the suspend and suspend_noirq callbacks.  The only notable difference is that
 they need not store the device register values, because the registers should
 already have been stored during the freeze or freeze_noirq phases.
 
+
 Leaving Hibernation
 -------------------
 Resuming from hibernation is, again, more complicated than resuming from a sleep
@@ -491,6 +505,7 @@ the resume[_noirq] and restore[_norq] method pointers can be set to the same
 routines.  Nevertheless, different callback pointers are used in case there is a
 situation where it actually matters.
 
+
 Device Power Domains
 --------------------
 Sometimes devices share reference clocks or other power resources.  In those
@@ -519,6 +534,7 @@ different power domain configurations and wanting to avoid incorporating the
 support for power domains into subsystem-level callbacks, for example by
 modifying the platform bus type.  Other platforms need not implement it or take
 it into account in any way.
+
 
 Device Low Power (suspend) States
 ---------------------------------
@@ -551,6 +567,7 @@ And two different target systems might use the same device in different
 ways; the aforementioned LCD might be active in one product's "standby",
 but a different product using the same SOC might work differently.
 
+
 Power Management Notifiers
 --------------------------
 There are some operations that cannot be carried out by the power management
@@ -562,6 +579,7 @@ actions that either require user space to be available, or at least won't
 interfere with user space.
 
 For details refer to Documentation/power/notifiers.txt.
+
 
 Runtime Power Management
 ========================

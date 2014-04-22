@@ -60,6 +60,7 @@ struct snd_soc_dai_driver wm8731_dai = {
 	.symmetric_rates = 1,
 };
 
+
 2 - Codec control IO
 --------------------
 The codec can usually be controlled via an I2C or SPI style interface
@@ -83,6 +84,7 @@ read/write:-
 
 	hw_write_t hw_write;
 	hw_read_t hw_read;
+
 
 3 - Mixers and audio controls
 -----------------------------
@@ -122,6 +124,7 @@ Defines an single enumerated control as follows:-
 
 Defines a stereo enumerated control
 
+
 4 - Codec Audio Operations
 --------------------------
 The codec driver also supports the following ALSA operations:-
@@ -138,6 +141,7 @@ struct snd_soc_ops {
 Please refer to the ALSA driver PCM documentation for details.
 http://www.alsa-project.org/~iwai/writing-an-alsa-driver/
 
+
 5 - DAPM description.
 ---------------------
 The Dynamic Audio Power Management description describes the codec power
@@ -145,6 +149,7 @@ components and their relationships and registers to the ASoC core.
 Please read dapm.txt for details of building the description.
 
 Please also see the examples in other codec drivers.
+
 
 6 - DAPM event handler
 ----------------------
@@ -164,6 +169,7 @@ Power states:-
 	/* everything off except vref/vmid, inactive */
 
 	SNDRV_CTL_POWER_D3cold: /* Everything Off, without power */
+
 
 7 - Codec DAC digital mute control
 ----------------------------------

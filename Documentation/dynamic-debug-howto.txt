@@ -1,3 +1,4 @@
+
 Introduction
 ============
 
@@ -54,6 +55,7 @@ nullarbor:~ # cat <debugfs>/dynamic_debug/control
 /usr/src/packages/BUILD/sgi-enhancednfs-1.4/default/net/sunrpc/svc_rdma.c:338 [svcxprt_rdma]svc_rdma_init - "\011max_requests     : %d\012"
 ...
 
+
 You can also apply standard Unix text manipulation filters to this
 data, e.g.
 
@@ -71,6 +73,7 @@ you can view all the debug statement callsites with any non-default flags:
 nullarbor:~ # awk '$3 != "-"' <debugfs>/dynamic_debug/control
 # filename:lineno [module]function flags format
 /usr/src/packages/BUILD/sgi-enhancednfs-1.4/default/net/sunrpc/svcsock.c:1603 [sunrpc]svc_send p "svc_process: st_sendto returned %d\012"
+
 
 Command Language Reference
 ==========================
@@ -217,6 +220,7 @@ Note the regexp ^[-+=][flmpt]+$ matches a flags specification.
 Note also that there is no convenient syntax to remove all
 the flags at once, you need to use "-flmpt".
 
+
 Debug messages during boot process
 ==================================
 
@@ -234,6 +238,7 @@ will show early Embedded Controller transactions during ACPI setup if
 your machine (typically a laptop) has an Embedded Controller.
 PCI (or other devices) initialization also is a hot candidate for using
 this boot parameter for debugging purposes.
+
 
 Examples
 ========

@@ -1,3 +1,4 @@
+
 If the box freezes hard with bttv ...
 =====================================
 
@@ -6,6 +7,7 @@ might be something else ...
 
 Just mailing me "bttv freezes" isn't going to help much.  This README
 has a few hints how you can help to pin down the problem.
+
 
 bttv bugs
 ---------
@@ -35,6 +37,7 @@ for some people.  Thus probably a small buglet left somewhere in bttv
 other people.  But in case you have problems with the 0.7.x versions you
 can give 0.8.x a try ...
 
+
 hardware bugs
 -------------
 
@@ -54,6 +57,7 @@ if this is the case you likely see freezes only with video and hard disk
 access at the same time.  Updating the IDE driver to get the latest and
 greatest workarounds for hardware bugs might fix these problems.
 
+
 other
 -----
 
@@ -67,3 +71,4 @@ it share the IRQ with some other piece of hardware.  IRQ sharing with
 VGA cards seems to cause trouble sometimes.  I've also seen funny
 effects with bttv sharing the IRQ with the ACPI bridge (and
 apci-enabled kernel).
+

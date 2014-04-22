@@ -2,10 +2,13 @@
 
 			    Mathieu Desnoyers
 
+
 	This document explains the purpose of the local atomic operations, how
 to implement them for any given architecture and shows how they can be used
 properly. It also stresses on the precautions that must be taken when reading
 those local variables across CPUs when the order of memory writes matters.
+
+
 
 * Purpose of local atomic operations
 
@@ -26,6 +29,7 @@ sure that we modify it from within a preemption safe context. It is however
 permitted to read local_t data from any CPU : it will then appear to be written
 out of order wrt other memory writes by the owner CPU.
 
+
 * Implementation for a given architecture
 
 It can be done by slightly modifying the standard atomic operations : only
@@ -39,6 +43,7 @@ atomic_long_t inside a structure. This is made so a cast from this type to a
 long fails. The definition looks like :
 
 typedef struct { atomic_long_t a; } local_t;
+
 
 * Rules to follow when using local atomic operations
 
@@ -62,12 +67,14 @@ typedef struct { atomic_long_t a; } local_t;
   synchronization is done by the writer CPU, an outdated copy of the
   variable can be read when reading some _other_ cpu's variables.
 
+
 * How to use local atomic operations
 
 #include <linux/percpu.h>
 #include <asm/local.h>
 
 static DEFINE_PER_CPU(local_t, counters) = LOCAL_INIT(0);
+
 
 * Counting
 
@@ -84,6 +91,8 @@ If you are already in a preemption-safe context, you can directly use
 __get_cpu_var() instead.
 
 	local_inc(&__get_cpu_var(counters));
+
+
 
 * Reading the counters
 
@@ -102,6 +111,7 @@ the local_t variable as a counter of bytes written in a buffer : there should
 be a smp_wmb() between the buffer write and the counter increment and also a
 smp_rmb() between the counter read and the buffer read.
 
+
 Here is a sample module which implements a basic per cpu counter using local.h.
 
 --- BEGIN ---
@@ -109,6 +119,7 @@ Here is a sample module which implements a basic per cpu counter using local.h.
  *
  * Sample module for local.h usage.
  */
+
 
 #include <asm/local.h>
 #include <linux/module.h>

@@ -13,6 +13,7 @@ Authors:
         valuable contributions by Jan M. Sendler <sendler@sendler.de>,
         Jean Delvare <khali@linux-fr.org>
 
+
 Description
 -----------
 
@@ -52,6 +53,7 @@ Module parameters
          1 = three differential inputs
          2 = single ended and differential mixed
          3 = two differential inputs
+
 
 Accessing PCF8591 via /sys interface
 -------------------------------------

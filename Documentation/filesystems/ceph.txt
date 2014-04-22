@@ -62,6 +62,7 @@ subdirectories, and a summation of all nested file sizes.  This makes
 the identification of large disk space consumers relatively quick, as
 no 'du' or similar recursive scan of the file system is required.
 
+
 Mount Syntax
 ============
 
@@ -79,6 +80,8 @@ off if the monitor is using the default.  So if the monitor is at
 
 is sufficient.  If /sbin/mount.ceph is installed, a hostname can be
 used instead of an IP address.
+
+
 
 Mount Options
 =============
@@ -121,6 +124,7 @@ Mount Options
 	requests.  (This does not change correctness; the client uses
 	cached metadata only when a lease or capability ensures it is
 	valid.)
+
 
 More Information
 ================

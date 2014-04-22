@@ -8,6 +8,7 @@ Copyright 2009 Red Hat Inc.
 Reviewers:   Mathieu Desnoyers, Huang Ying, Hidetoshi Seto,
 	     and Frederic Weisbecker.
 
+
 Written for: 2.6.31
 
 Terminology used in this Document
@@ -64,6 +65,7 @@ but a writer may interrupt another writer, but it must finish writing
 before the previous writer may continue. This is very important to the
 algorithm. The writers act like a "stack". The way interrupts works
 enforces this behavior.
+
 
   writer1 start
      <preempted> writer2 start
@@ -125,6 +127,7 @@ only.
                    | +-------------+ |
                    +-----------------+
 
+
   +------+
   |reader|          RING BUFFER
   |page  |-------------------+
@@ -164,8 +167,11 @@ only.
     |  +-----------------------------+   |
     +------------------------------------+
 
+
+
 It is possible that the page swapped is the commit page and the tail page,
 if what is in the ring buffer is less than what is held in a buffer page.
+
 
           reader page    commit page   tail page
               |              |             |
@@ -186,6 +192,7 @@ This case is still valid for this algorithm.
 When the writer leaves the page, it simply goes into the ring buffer
 since the reader page still points to the next location in the ring
 buffer.
+
 
 The main pointers:
 
@@ -211,6 +218,7 @@ Another write (or a read) may take place at anytime during this
 transaction. If another write happens it must finish before continuing
 with the previous write.
 
+
    Write reserve:
 
        Buffer page
@@ -233,6 +241,7 @@ with the previous write.
       | empty   |
       +---------+
 
+
  If a write happens after the first reserve:
 
        Buffer page
@@ -245,6 +254,7 @@ with the previous write.
       +---------+ <--- tail pointer
 
   After second writer commits:
+
 
        Buffer page
       +---------+
@@ -266,6 +276,7 @@ with the previous write.
       +---------+
       |written  |
       +---------+  <--(last full commit and tail pointer)
+
 
 The commit pointer points to the last write location that was
 committed without preempting another write. When a write that
@@ -304,6 +315,7 @@ part of the ring buffer, but the reader page is not. Whenever there
 has been less than a full page that has been committed inside the ring buffer,
 and a reader swaps out a page, it will be swapping out the commit page.
 
+
           reader page    commit page   tail page
               |              |             |
               v              |             |
@@ -321,6 +333,7 @@ and a reader swaps out a page, it will be swapping out the commit page.
                         ^
                         |
                     head page
+
 
 In this case, the head page will not move when the tail and commit
 move back into the ring buffer.
@@ -347,6 +360,7 @@ Overwrite mode:
                         |
                     head page
 
+
             tail page
                |
                v
@@ -357,6 +371,7 @@ Overwrite mode:
                                  ^
                                  |
                              head page
+
 
                     tail page
                         |
@@ -371,6 +386,7 @@ Overwrite mode:
 
 Note, the reader page will still point to the previous head page.
 But when a swap takes place, it will use the most recent head page.
+
 
 Making the Ring Buffer Lockless:
 --------------------------------
@@ -394,6 +410,7 @@ Two flags will be kept by these two bits:
    UPDATE - the page being pointed to is being updated by a writer
           and was or is about to be a head page.
 
+
           reader page
               |
               v
@@ -407,12 +424,14 @@ Two flags will be kept by these two bits:
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
 
+
 The above pointer "-H->" would have the HEADER flag set. That is
 the next page is the next page to be swapped out by the reader.
 This pointer means the next page is the head page.
 
 When the tail page meets the head pointer, it will use cmpxchg to
 change the pointer to the UPDATE state:
+
 
             tail page
                |
@@ -459,6 +478,7 @@ The reader swaps the reader page as follows:
 
 The reader sets the reader page next pointer as HEADER to the page after
 the head page.
+
 
   +------+
   |reader|          RING BUFFER
@@ -530,6 +550,7 @@ Note, the way to determine a reader page is simply by examining the previous
 pointer of the page. If the next pointer of the previous page does not
 point back to the original page, then the original page is a reader page:
 
+
              +--------+
              | reader |  next   +----+
              |  page  |-------->|    |<====== (buffer page)
@@ -600,7 +621,9 @@ After the head page has been moved, the tail page may now move forward.
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
 
+
 The above are the trivial updates. Now for the more complex scenarios.
+
 
 As stated before, if enough writes preempt the first write, the
 tail page may make it all the way around the buffer and meet the commit
@@ -608,6 +631,7 @@ page. At this time, we must start dropping writes (usually with some kind
 of warning to the user). But what happens if the commit was still on the
 reader page? The commit page is not part of the ring buffer. The tail page
 must account for this.
+
 
           reader page    commit page
               |              |
@@ -643,6 +667,7 @@ is off the reader page. Once the commit page leaves the reader page
 it will never go back on it unless a reader does another swap with the
 buffer page that is also the commit page.
 
+
 Nested writes
 -------------
 
@@ -660,6 +685,7 @@ against nested writers.
 The above will update the tail page if it is still pointing to the expected
 page. If this fails, a nested write pushed it forward, the the current write
 does not need to push it.
+
 
            temp page
                |
@@ -738,6 +764,7 @@ to NORMAL.
 After the nested writer finishes, the outermost writer will convert
 the UPDATE pointer to NORMAL.
 
+
                     tail page
                         |
                         v
@@ -746,8 +773,10 @@ the UPDATE pointer to NORMAL.
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
 
+
 It can be even more complex if several nested writes came in and moved
 the tail page ahead several pages:
+
 
 (first writer)
 
@@ -808,6 +837,7 @@ It changes it from HEAD to UPDATE.
 
 The writer will move the head page forward:
 
+
 (third writer)
 
                     tail page
@@ -821,6 +851,7 @@ The writer will move the head page forward:
 But now that the third writer did change the HEAD flag to UPDATE it
 will convert it to normal:
 
+
 (third writer)
 
                     tail page
@@ -831,7 +862,9 @@ will convert it to normal:
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
 
+
 Then it will move the tail page, and return back to the second writer.
+
 
 (second writer)
 
@@ -843,9 +876,11 @@ Then it will move the tail page, and return back to the second writer.
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
 
+
 The second writer will fail to move the tail page because it was already
 moved, so it will try again and add its data to the new tail page.
 It will return to the first writer.
+
 
 (first writer)
 
@@ -860,6 +895,7 @@ It will return to the first writer.
 The first writer cannot know atomically if the tail page moved
 while it updates the HEAD page. It will then update the head page to
 what it thinks is the new head page.
+
 
 (first writer)
 
@@ -876,6 +912,7 @@ will see it succeeded in updating the pointer from NORMAL to HEAD.
 But as we can see, this is not good enough. It must also check to see
 if the tail page is either where it use to be or on the next page:
 
+
 (first writer)
 
                A        B    tail page
@@ -889,6 +926,7 @@ if the tail page is either where it use to be or on the next page:
 If tail page != A and tail page != B, then it must reset the pointer
 back to NORMAL. The fact that it only needs to worry about nested
 writers means that it only needs to check this after setting the HEAD page.
+
 
 (first writer)
 
@@ -904,6 +942,7 @@ Now the writer can update the head page. This is also why the head page must
 remain in UPDATE and only reset by the outermost writer. This prevents
 the reader from seeing the incorrect head page.
 
+
 (first writer)
 
                A        B    tail page
@@ -913,3 +952,4 @@ the reader from seeing the incorrect head page.
 <---|   |--->|   |--->|   |--->|   |-H->
 --->|   |<---|   |<---|   |<---|   |<---
     +---+    +---+    +---+    +---+
+

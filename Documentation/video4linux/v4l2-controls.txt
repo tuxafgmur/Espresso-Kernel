@@ -24,6 +24,7 @@ life as easy as possible for the driver developer.
 Note that the control framework relies on the presence of a struct v4l2_device
 for V4L2 drivers and struct v4l2_subdev for sub-device drivers.
 
+
 Objects in the framework
 ========================
 
@@ -35,6 +36,7 @@ control's value (both the current value and the proposed new value).
 v4l2_ctrl_handler is the object that keeps track of controls. It maintains a
 list of v4l2_ctrl objects that it owns and another list of references to
 controls, possibly to controls owned by other handlers.
+
 
 Basic usage for V4L2 and sub-device drivers
 ===========================================
@@ -112,6 +114,7 @@ Basic usage for V4L2 and sub-device drivers
 1.4) Clean up the handler at the end:
 
 	v4l2_ctrl_handler_free(&foo->ctrl_handler);
+
 
 2) Add controls:
 
@@ -212,12 +215,14 @@ You're done! And this is sufficient for most of the drivers we have. No need
 to do any validation of control values, or implement QUERYCTRL/QUERYMENU. And
 G/S_CTRL as well as G/TRY/S_EXT_CTRLS are automatically supported.
 
+
 ==============================================================================
 
 The remainder of this document deals with more advanced topics and scenarios.
 In practice the basic usage as described above is sufficient for most drivers.
 
 ===============================================================================
+
 
 Inheriting Controls
 ===================
@@ -232,6 +237,7 @@ skipped (so a V4L2 driver can always override a subdev control).
 What happens here is that v4l2_device_register_subdev() calls
 v4l2_ctrl_add_handler() adding the controls of the subdev to the controls
 of v4l2_device.
+
 
 Accessing Control Values
 ========================
@@ -317,6 +323,7 @@ You can also take the handler lock yourself:
 	printk(KERN_INFO "Integer value is '%s'\n", ctrl2->cur.val);
 	mutex_unlock(&state->ctrl_handler.lock);
 
+
 Menu Controls
 =============
 
@@ -341,6 +348,7 @@ it to 0 means that all menu items are supported.
 
 You set this mask either through the v4l2_ctrl_config struct for a custom
 control, or by calling v4l2_ctrl_new_std_menu().
+
 
 Custom Controls
 ===============
@@ -368,6 +376,7 @@ flags.
 If the name field is not set, then the framework will assume this is a standard
 control and will fill in the name, type and flags fields accordingly.
 
+
 Active and Grabbed Controls
 ===========================
 
@@ -390,6 +399,7 @@ If a control is set to 'grabbed' using v4l2_ctrl_grab(), then the framework
 will return -EBUSY if an attempt is made to set this control. The
 v4l2_ctrl_grab() function is typically called from the driver when it
 starts or stops streaming.
+
 
 Control Clusters
 ================
@@ -464,6 +474,7 @@ controls, then the 'is_new' flag would be 1 for both controls.
 
 The 'is_new' flag is always 1 when called from v4l2_ctrl_handler_setup().
 
+
 VIDIOC_LOG_STATUS Support
 =========================
 
@@ -472,6 +483,7 @@ The v4l2_ctrl_handler_log_status(ctrl_handler, prefix) can be used to dump the
 value of the controls owned by the given handler to the log. You can supply a
 prefix as well. If the prefix didn't end with a space, then ': ' will be added
 for you.
+
 
 Different Handlers for Different Video Nodes
 ============================================
@@ -522,6 +534,7 @@ This would be bad since muting the radio would not change the video mute
 control. The rule is to have one control for each hardware 'knob' that you
 can twiddle.
 
+
 Finding Controls
 ================
 
@@ -556,6 +569,7 @@ attempting to find another control from the same handler will deadlock.
 
 It is recommended not to use this function from inside the control ops.
 
+
 Inheriting Controls
 ===================
 
@@ -580,6 +594,7 @@ setting the 'is_private' flag of the control to 1:
 
 These controls will now be skipped when v4l2_ctrl_add_handler is called.
 
+
 V4L2_CTRL_TYPE_CTRL_CLASS Controls
 ==================================
 
@@ -591,6 +606,7 @@ each tab can be found by querying a special control with ID <control class | 1>.
 Drivers do not have to care about this. The framework will automatically add
 a control of this type whenever the first control belonging to a new control
 class is added.
+
 
 Differences from the Spec
 =========================
@@ -623,6 +639,7 @@ button controls are write-only controls.
 control class controls. ivtv currently returns -EINVAL (indicating that the
 control ID does not exist) while the framework will return -EACCES, which
 makes more sense.
+
 
 Proposals for Extensions
 ========================

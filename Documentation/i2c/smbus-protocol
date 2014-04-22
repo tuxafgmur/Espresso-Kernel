@@ -23,14 +23,15 @@ don't match these function names.  For some of the operations which pass a
 single data byte, the functions using SMBus protocol operation names execute
 a different protocol operation entirely.
 
+
 Key to symbols
 ==============
 
 S     (1 bit) : Start bit
 P     (1 bit) : Stop bit
 Rd/Wr (1 bit) : Read/Write bit. Rd equals 1, Wr equals 0.
-A, NA (1 bit) : Accept and reverse accept bit.
-Addr  (7 bits): I2C 7 bit address. Note that this can be expanded as usual to
+A, NA (1 bit) : Accept and reverse accept bit. 
+Addr  (7 bits): I2C 7 bit address. Note that this can be expanded as usual to 
                 get a 10 bit I2C address.
 Comm  (8 bits): Command byte, a data byte which often selects a register on
                 the device.
@@ -40,12 +41,14 @@ Count (8 bits): A data byte containing the length of a block operation.
 
 [..]: Data sent by I2C device, as opposed to data sent by the host adapter.
 
+
 SMBus Quick Command
 ===================
 
 This sends a single bit to the device, at the place of the Rd/Wr bit.
 
 A Addr Rd/Wr [A] P
+
 
 SMBus Receive Byte:  i2c_smbus_read_byte()
 ==========================================
@@ -57,6 +60,7 @@ the previous SMBus command.
 
 S Addr Rd [A] [Data] NA P
 
+
 SMBus Send Byte:  i2c_smbus_write_byte()
 ========================================
 
@@ -65,6 +69,7 @@ to a device.  See Receive Byte for more information.
 
 S Addr Wr [A] Data [A] P
 
+
 SMBus Read Byte:  i2c_smbus_read_byte_data()
 ============================================
 
@@ -72,6 +77,7 @@ This reads a single byte from a device, from a designated register.
 The register is specified through the Comm byte.
 
 S Addr Wr [A] Comm [A] S Addr Rd [A] [Data] NA P
+
 
 SMBus Read Word:  i2c_smbus_read_word_data()
 ============================================
@@ -82,6 +88,7 @@ byte. But this time, the data is a complete word (16 bits).
 
 S Addr Wr [A] Comm [A] S Addr Rd [A] [DataLow] A [DataHigh] NA P
 
+
 SMBus Write Byte:  i2c_smbus_write_byte_data()
 ==============================================
 
@@ -91,14 +98,16 @@ the Read Byte operation.
 
 S Addr Wr [A] Comm [A] Data [A] P
 
+
 SMBus Write Word:  i2c_smbus_write_word_data()
 ==============================================
 
 This is the opposite of the Read Word operation. 16 bits
 of data is written to a device, to the designated register that is
-specified through the Comm byte.
+specified through the Comm byte. 
 
 S Addr Wr [A] Comm [A] DataLow [A] DataHigh [A] P
+
 
 SMBus Process Call:  i2c_smbus_process_call()
 =============================================
@@ -106,27 +115,30 @@ SMBus Process Call:  i2c_smbus_process_call()
 This command selects a device register (through the Comm byte), sends
 16 bits of data to it, and reads 16 bits of data in return.
 
-S Addr Wr [A] Comm [A] DataLow [A] DataHigh [A]
+S Addr Wr [A] Comm [A] DataLow [A] DataHigh [A] 
                              S Addr Rd [A] [DataLow] A [DataHigh] NA P
+
 
 SMBus Block Read:  i2c_smbus_read_block_data()
 ==============================================
 
-This command reads a block of up to 32 bytes from a device, from a
+This command reads a block of up to 32 bytes from a device, from a 
 designated register that is specified through the Comm byte. The amount
 of data is specified by the device in the Count byte.
 
-S Addr Wr [A] Comm [A]
+S Addr Wr [A] Comm [A] 
            S Addr Rd [A] [Count] A [Data] A [Data] A ... A [Data] NA P
+
 
 SMBus Block Write:  i2c_smbus_write_block_data()
 ================================================
 
-The opposite of the Block Read command, this writes up to 32 bytes to
+The opposite of the Block Read command, this writes up to 32 bytes to 
 a device, to a designated register that is specified through the
 Comm byte. The amount of data is specified in the Count byte.
 
 S Addr Wr [A] Comm [A] Count [A] Data [A] Data [A] ... [A] Data [A] P
+
 
 SMBus Block Write - Block Read Process Call
 ===========================================
@@ -140,6 +152,7 @@ This command selects a device register (through the Comm byte), sends
 S Addr Wr [A] Comm [A] Count [A] Data [A] ...
                              S Addr Rd [A] [Count] A [Data] ... A P
 
+
 SMBus Host Notify
 =================
 
@@ -150,6 +163,7 @@ alerting device's address.
 
 [S] [HostAddr] [Wr] A [DevAddr] A [DataLow] A [DataHigh] A [P]
 
+
 Packet Error Checking (PEC)
 ===========================
 
@@ -157,6 +171,7 @@ Packet Error Checking was introduced in Revision 1.1 of the specification.
 
 PEC adds a CRC-8 error-checking byte to transfers using it, immediately
 before the terminating STOP.
+
 
 Address Resolution Protocol (ARP)
 =================================
@@ -168,6 +183,7 @@ messages above.
 ARP adds device enumeration and dynamic address assignment to
 the protocol. All ARP communications use slave address 0x61 and
 require PEC checksums.
+
 
 SMBus Alert
 ===========
@@ -184,6 +200,7 @@ This is implemented the following way in the Linux kernel:
 * I2C drivers for devices which can trigger SMBus alerts should implement
   the optional alert() callback.
 
+
 I2C Block Transactions
 ======================
 
@@ -194,28 +211,31 @@ They are *NOT* defined by the SMBus specification.
 I2C block transactions do not limit the number of bytes transferred
 but the SMBus layer places a limit of 32 bytes.
 
+
 I2C Block Read:  i2c_smbus_read_i2c_block_data()
 ================================================
 
-This command reads a block of bytes from a device, from a
+This command reads a block of bytes from a device, from a 
 designated register that is specified through the Comm byte.
 
-S Addr Wr [A] Comm [A]
+S Addr Wr [A] Comm [A] 
            S Addr Rd [A] [Data] A [Data] A ... A [Data] NA P
+
 
 I2C Block Read (2 Comm bytes)
 =============================
 
-This command reads a block of bytes from a device, from a
+This command reads a block of bytes from a device, from a 
 designated register that is specified through the two Comm bytes.
 
-S Addr Wr [A] Comm1 [A] Comm2 [A]
+S Addr Wr [A] Comm1 [A] Comm2 [A] 
            S Addr Rd [A] [Data] A [Data] A ... A [Data] NA P
+
 
 I2C Block Write:  i2c_smbus_write_i2c_block_data()
 ==================================================
 
-The opposite of the Block Read command, this writes bytes to
+The opposite of the Block Read command, this writes bytes to 
 a device, to a designated register that is specified through the
 Comm byte. Note that command lengths of 0, 2, or more bytes are
 supported as they are indistinguishable from data.

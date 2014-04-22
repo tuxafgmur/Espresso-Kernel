@@ -26,6 +26,7 @@ Contents:
 
  (*) Debugging.
 
+
 ========
 OVERVIEW
 ========
@@ -56,6 +57,7 @@ placed on the same medium as a live set of data, and will expand to make use of
 spare space and automatically contract when the set of data requires more
 space.
 
+
 ============
 REQUIREMENTS
 ============
@@ -75,6 +77,7 @@ available in the system and in the cache filesystem:
 
 It is strongly recommended that the "dir_index" option is enabled on Ext3
 filesystems being used as a cache.
+
 
 =============
 CONFIGURATION
@@ -119,6 +122,7 @@ set up cache ready for use.  The following script commands are available:
 
 		echo 5 >/sys/modules/cachefiles/parameters/debug
 
+
 ==================
 STARTING THE CACHE
 ==================
@@ -150,6 +154,7 @@ The flags are:
 
 	Use an alternative configuration file rather than the default one.
 
+
 ===============
 THINGS TO AVOID
 ===============
@@ -172,6 +177,7 @@ serve incorrect data.
 
 Do not chmod files in the cache.  The module creates things with minimal
 permissions to prevent random users being able to access them directly.
+
 
 =============
 CACHE CULLING
@@ -219,6 +225,7 @@ These are then culled in least recently used order.  A new scan of the cache is
 started as soon as space is made in the table.  Objects will be skipped if
 their atimes have changed or if the kernel module says it is still using them.
 
+
 ===============
 CACHE STRUCTURE
 ===============
@@ -237,6 +244,7 @@ to the graveyard from which the daemon will actually delete them.
 The daemon uses dnotify to monitor the graveyard directory, and will delete
 anything that appears therein.
 
+
 The module represents index objects as directories with the filename "I..." or
 "J...".  Note that the "cache/" directory is itself a special index.
 
@@ -247,6 +255,7 @@ actually holds the data.
 
 Special objects are similar to data objects, except their filenames begin
 "S..." or "T...".
+
 
 If an object has children, then it will be represented as a directory.
 Immediately in the representative directory are a collection of directories
@@ -261,6 +270,7 @@ objects:
 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...N22ry
 	cache/@4a/I03nfs/@30/Ji000000000000000--fHg8hi8400/@75/Es0g000w...FP1ry
 
+
 If the key is so long that it exceeds NAME_MAX with the decorations added on to
 it, then it will be cut into pieces, the first few of which will be used to
 make a nest of directories, and the last one of which will be the objects
@@ -268,6 +278,7 @@ inside the last directory.  The names of the intermediate directories will have
 '+' prepended:
 
 	J1223/@23/+xy...z/+kl...m/Epqr
+
 
 Note that keys are raw data, and not only may they exceed NAME_MAX in size,
 they may also contain things like '/' and NUL characters, and so they may not
@@ -285,13 +296,16 @@ object filenames indicate the encoding:
 
 Intermediate directories are always "@" or "+" as appropriate.
 
+
 Each object in the cache has an extended attribute label that holds the object
 type ID (required to distinguish special objects) and the auxiliary data from
 the netfs.  The latter is used to detect stale objects in the cache and update
 or retire them.
 
+
 Note that CacheFiles will erase from the cache any file it doesn't recognise or
 any file of an incorrect type (such as a FIFO file or a device file).
+
 
 ==========================
 SECURITY MODEL AND SELINUX
@@ -311,6 +325,7 @@ The way CacheFiles works is to temporarily change the security context (fsuid,
 fsgid and actor security label) that the process acts as - without changing the
 security context of the process when it the target of an operation performed by
 some other process (so signalling and suchlike still work correctly).
+
 
 When the CacheFiles module is asked to bind to its cache, it:
 
@@ -339,6 +354,7 @@ When the CacheFiles module is asked to bind to its cache, it:
 
 	type_transition cachefilesd_t kernel_t : process cachefiles_kernel_t;
 
+
 The module's security ID gives it permission to create, move and remove files
 and directories in the cache, to find and access directories and files in the
 cache, to set and access extended attributes on cache objects, and to read and
@@ -348,6 +364,7 @@ The daemon's security ID gives it only a very restricted set of permissions: it
 may scan directories, stat files and erase files and directories.  It may
 not read or write files in the cache, and so it is precluded from accessing the
 data cached therein; nor is it permitted to create new files in the cache.
+
 
 There are policy source files available in:
 
@@ -370,6 +387,7 @@ directory and run:
 You will need checkpolicy and selinux-policy-devel installed prior to the
 build.
 
+
 By default, the cache is located in /var/fscache, but if it is desirable that
 it should be elsewhere, than either the above policy files must be altered, or
 an auxiliary policy must be installed to label the alternate location of the
@@ -382,6 +400,7 @@ located elsewhere when SELinux is in enforcing mode, please see:
 
 When the cachefilesd rpm is installed; alternatively, the document can be found
 in the sources.
+
 
 ==================
 A NOTE ON SECURITY
@@ -425,6 +444,7 @@ LSM hooks exist that allow SELinux (or Smack or whatever) to reject a request
 for CacheFiles to run in a context of a specific security label, or to create
 files and directories with another security label.
 
+
 =======================
 STATISTICAL INFORMATION
 =======================
@@ -454,6 +474,7 @@ then it will gather certain statistics and display them through a proc file.
      Each row shows the number of events that took a particular range of times.
      Each step is 1 jiffy in size.  The JIFS column indicates the particular
      jiffy range covered, and the SECS field the equivalent number of seconds.
+
 
 =========
 DEBUGGING

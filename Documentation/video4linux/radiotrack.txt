@@ -30,6 +30,7 @@ Linux and gained some insights about the hardware design used for the card.
 
 So, without further delay, here are the details.
 
+
 PHYSICAL DESCRIPTION
 --------------------
 The RadioTrack card is an ISA 8-bit FM radio card.  The radio frequency (RF)
@@ -41,6 +42,7 @@ these limits, experiments did not give promising results.  The variable
 frequency oscillator (VFO) that demodulates the intermediate frequency (IF)
 signal probably has a small range of useful frequencies, and wraps around or
 gets clipped beyond the limits mentioned above.
+
 
 CONTROLLING THE CARD WITH IOPORT
 --------------------------------
@@ -59,6 +61,7 @@ The bits of the ioport are arranged as follows:
 |  (+) |  (-) |      | Detect | Audio  | (bit) | (latch) | Update |
 |      |      |      | Enable | Enable |       |         | Enable |
 +------+------+------+--------+--------+-------+---------+--------+
+
 
 VolA . VolB  [AB......]
 -----------
@@ -96,6 +99,7 @@ Tune Update Enable [.......T]
 ------------------
 0 : Tuner held constant
 1 : Tuner updating in progress
+
 
 PROGRAMMING EXAMPLES
 --------------------

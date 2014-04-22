@@ -66,6 +66,7 @@ user:
 	|         |                                           |              |
 	+---------+                                           +--------------+
 
+
 FS-Cache does not follow the idea of completely loading every netfs file
 opened in its entirety into a cache before permitting it to be accessed and
 then serving the pages out of that cache rather than the netfs inode because:
@@ -84,6 +85,7 @@ then serving the pages out of that cache rather than the netfs inode because:
 
 It instead serves the cache out in PAGE_SIZE chunks as and when requested by
 the netfs('s) using it.
+
 
 FS-Cache provides the following facilities:
 
@@ -123,6 +125,7 @@ FS-Cache provides the following facilities:
      entry should be updated or deleted.
 
 (10) As much as possible is done asynchronously.
+
 
 FS-Cache maintains a virtual indexing tree in which all indices, files, objects
 and pages are kept.  Bits of this tree may actually reside in one or more
@@ -176,6 +179,7 @@ Any index object may reside in more than one cache, provided it only has index
 children.  Any index with non-index object children will be assumed to only
 reside in one cache.
 
+
 The netfs API to FS-Cache can be found in:
 
 	Documentation/filesystems/caching/netfs-api.txt
@@ -188,6 +192,7 @@ A description of the internal representations and object state machine can be
 found in:
 
 	Documentation/filesystems/caching/object.txt
+
 
 =======================
 STATISTICAL INFORMATION
@@ -299,6 +304,7 @@ proc files.
 		ucp=N	Number of in-progress uncache_page() cache ops
 		dsp=N	Number of in-progress dissociate_pages() cache ops
 
+
  (*) /proc/fs/fscache/histogram
 
 	cat /proc/fs/fscache/histogram
@@ -320,6 +326,7 @@ proc files.
      Each row shows the number of events that took a particular range of times.
      Each step is 1 jiffy in size.  The JIFS column indicates the particular
      jiffy range covered, and the SECS field the equivalent number of seconds.
+
 
 ===========
 OBJECT LIST
@@ -400,6 +407,7 @@ their auxiliary data.  It also implies "CcWwRrSs", but as 'B' is given, 'b' is
 not implied.
 
 By default all objects and all fields will be shown.
+
 
 =========
 DEBUGGING

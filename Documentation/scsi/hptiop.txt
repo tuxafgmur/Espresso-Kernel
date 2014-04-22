@@ -55,6 +55,7 @@ For Marvell IOP based adapters, the IOP is accessed via PCI BAR0 and BAR1:
      0x40-0x1040    Inbound Queue
    0x1040-0x2040    Outbound Queue
 
+
 I/O Request Workflow
 ----------------------
 
@@ -99,6 +100,7 @@ Non-queued requests (reset/flush etc) can be sent via inbound message
 register 0. An outbound message with the same value indicates the completion
 of an inbound message.
 
+
 User-level Interface
 ---------------------
 
@@ -107,6 +109,7 @@ The driver exposes following sysfs attributes:
      NAME                 R/W    Description
      driver-version        R     driver version string
      firmware-version      R     firmware version string
+
 
 -----------------------------------------------------------------------------
 Copyright (C) 2006-2009 HighPoint Technologies, Inc. All Rights Reserved.

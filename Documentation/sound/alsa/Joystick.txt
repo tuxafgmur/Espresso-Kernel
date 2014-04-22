@@ -21,6 +21,7 @@ Some adapter modules probe the physical connection of the device at
 the load time.  It'd be safer to plug in the joystick device before
 loading the module.
 
+
 PCI Cards
 ---------
 
@@ -75,6 +76,7 @@ Note: the "pcigame" and "cs461x" modules are for the OSS drivers only.
 As mentioned above, ALSA PCI drivers have the built-in gameport
 support, so you don't have to load ns558 module.  Just load "joydev"
 and the appropriate adapter module (e.g. "analog").
+
 
 ISA Cards
 ---------

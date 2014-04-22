@@ -1,3 +1,4 @@
+
 		Linux Ethernet Bonding Driver HOWTO
 
 		Latest update: 27 April 2011
@@ -22,7 +23,7 @@ multiple network interfaces into a single logical "bonded" interface.
 The behavior of the bonded interfaces depends upon the mode; generally
 speaking, modes provide either hot standby or load balancing services.
 Additionally, link integrity monitoring may be performed.
-
+	
 	The bonding driver originally came from Donald Becker's
 beowulf patches for kernel 2.0. It has changed quite a bit since, and
 the original tools from extreme-linux and beowulf sites will not work
@@ -97,6 +98,7 @@ Table of Contents
 15. Frequently Asked Questions
 
 16. Resources and Links
+
 
 1. Bonding Driver Installation
 ==============================
@@ -387,6 +389,7 @@ fail_over_mac
 		either become confused or incur a performance penalty
 		when multiple ports are programmed with the same MAC
 		address.
+
 
 	The default policy is none, unless the first slave cannot
 	change its MAC address, in which case the active policy is
@@ -1151,6 +1154,7 @@ the following:
 	Again, for convenience, it may be desirable to create a script
 with these commands.
 
+
 3.3.1 Configuring Multiple Bonds Manually
 -----------------------------------------
 
@@ -1463,7 +1467,7 @@ that normal output policy selection should take place.  One benefit to simply
 leaving the qid for a slave to 0 is the multiqueue awareness in the bonding
 driver that is now present.  This awareness allows tc filters to be placed on
 slave devices as well as bond devices and the bonding driver will simply act as
-a pass-through for selecting output queues on the slave device rather than
+a pass-through for selecting output queues on the slave device rather than 
 output port selection.
 
 This feature first appeared in bonding driver version 3.7.0 and support for
@@ -1569,6 +1573,7 @@ match.  For these three modes, the bonding mode really selects a
 transmit policy for an EtherChannel group; all three will interoperate
 with another EtherChannel group.
 
+
 6. 802.1q VLAN Support
 ======================
 
@@ -1618,6 +1623,7 @@ matches the hardware address of the VLAN interfaces.
 	Note that changing a VLAN interface's HW address would set the
 underlying device -- i.e. the bonding interface -- to promiscuous
 mode, which might not be what you want.
+
 
 7. Link Monitoring
 ==================
@@ -1669,6 +1675,7 @@ options bond0 arp_interval=60 arp_ip_target=192.168.0.1,192.168.0.3,192.168.0.9
 # example options for ARP monitoring with one target
 alias bond0 bonding
 options bond0 arp_interval=60 arp_ip_target=192.168.0.100
+
 
 7.3 MII Monitor Operation
 -------------------------
@@ -2006,6 +2013,7 @@ categorize them into either "gatewayed" or "local" configurations.
 as a router, and the majority of traffic passes through this router to
 other networks.  An example would be the following:
 
+
      +----------+                     +----------+
      |          |eth0            port1|          | to other networks
      | Host A   +---------------------+ router   +------------------->
@@ -2040,6 +2048,7 @@ following:
     |          |eth1   port2|          +------------------+ Host C |
     +----------+            +----------+port4             +--------+
 
+
 	Again, the switch may be a dedicated switch device, or another
 host acting as a gateway.  For our discussion, the important point is
 that the majority of traffic from Host A is destined for other hosts
@@ -2057,6 +2066,7 @@ configuration is important because many of the load balancing modes
 available use the MAC addresses of the local network source and
 destination to make load balancing decisions.  The behavior of each
 mode is described below.
+
 
 12.1.1 MT Bonding Mode Selection for Single Switch Topology
 -----------------------------------------------------------
@@ -2145,7 +2155,7 @@ broadcast: Like active-backup, there is not much advantage to this
 	the same speed and duplex.  Also, as with all bonding load
 	balance modes other than balance-rr, no single connection will
 	be able to utilize more than a single interface's worth of
-	bandwidth.
+	bandwidth.  
 
 	Additionally, the linux bonding 802.3ad implementation
 	distributes traffic by peer (using an XOR of MAC addresses),
@@ -2204,7 +2214,7 @@ when they are configured in parallel as part of an isolated network
 between two or more systems, for example:
 
                        +-----------+
-                       |  Host A   |
+                       |  Host A   | 
                        +-+---+---+-+
                          |   |   |
                 +--------+   |   +---------+
@@ -2216,7 +2226,7 @@ between two or more systems, for example:
                 +--------+   |   +---------+
                          |   |   |
                        +-+---+---+-+
-                       |  Host B   |
+                       |  Host B   | 
                        +-----------+
 
 	In this configuration, the switches are isolated from one
@@ -2444,6 +2454,7 @@ bonding driver.
 (either the internal Ethernet Switch Module, or an external switch) to
 avoid fail-over delay issues when using bonding.
 
+	
 15. Frequently Asked Questions
 ==============================
 
@@ -2480,7 +2491,7 @@ monitored, and should it recover, it will rejoin the bond (in whatever
 manner is appropriate for the mode). See the sections on High
 Availability and the documentation for each mode for additional
 information.
-
+	
 	Link monitoring can be enabled via either the miimon or
 arp_interval parameters (described in the module parameters section,
 above).  In general, miimon monitors the carrier state as sensed by
@@ -2583,7 +2594,7 @@ be found at:
 http://vger.kernel.org/vger-lists.html#netdev
 
 Donald Becker's Ethernet Drivers and diag programs may be found at :
- - http://web.archive.org/web/*/http://www.scyld.com/network/
+ - http://web.archive.org/web/*/http://www.scyld.com/network/ 
 
 You will also find a lot of information regarding Ethernet, NWay, MII,
 etc. at www.scyld.com.

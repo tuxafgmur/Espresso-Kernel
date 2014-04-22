@@ -1,3 +1,4 @@
+
  request_firmware() hotplug interface:
  ------------------------------------
 	Copyright (C) 2003 Manuel Estrada Sainz
@@ -79,6 +80,7 @@
    user contexts to request firmware asynchronously, but can't be called
    in atomic contexts.
 
+
  about in-kernel persistence:
  ---------------------------
  Under some circumstances, as explained below, it would be interesting to keep
@@ -88,7 +90,7 @@
  Note that this functionality has not been implemented.
 
  - Why OPTIONAL in-kernel persistence may be a good idea sometimes:
-
+ 
 	- If the device that needs the firmware is needed to access the
 	  filesystem. When upon some error the device has to be reset and the
 	  firmware reloaded, it won't be possible to get it from userspace.
@@ -99,7 +101,8 @@
 	- Replacing buggy DSDT/SSDT ACPI tables on boot.
 	  Note: this would require the persistent objects to be included
 	  within the kernel image, probably within initramfs.
-
+	  
    And the same device can be needed to access the filesystem or not depending
    on the setup, so I think that the choice on what firmware to make
    persistent should be left to userspace.
+

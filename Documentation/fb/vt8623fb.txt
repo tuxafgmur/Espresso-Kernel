@@ -1,5 +1,7 @@
+
 	vt8623fb - fbdev driver for graphics core in VIA VT8623 chipset
 	===============================================================
+
 
 Supported Hardware
 ==================
@@ -8,6 +10,7 @@ Supported Hardware
 		(known as CastleRock or Unichrome)
 
 I tested vt8623fb on VIA EPIA ML-6000
+
 
 Supported Features
 ==================
@@ -35,6 +38,7 @@ with interleaved planes (1 byte interleave), MSB first. Both modes support
 Suspend/resume works on systems that initialize video card during resume and
 if device is active (for example used by fbcon).
 
+
 Missing Features
 ================
 (alias TODO list)
@@ -49,10 +53,12 @@ Missing Features
 	* vsync synchronization
 	* acceleration support (8514-like 2D, busmaster transfers)
 
+
 Known bugs
 ==========
 
 	* cursor disable in text mode doesn't work
+
 
 --
 Ondrej Zajicek <santiago@crfreenet.org>

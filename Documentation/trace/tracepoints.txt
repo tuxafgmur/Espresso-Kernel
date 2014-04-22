@@ -2,10 +2,12 @@
 
 			    Mathieu Desnoyers
 
+
 This document introduces Linux Kernel Tracepoints and their use. It
 provides examples of how to insert tracepoints in the kernel and
 connect probe functions to them and provides some examples of probe
 functions.
+
 
 * Purpose of tracepoints
 
@@ -27,6 +29,7 @@ which prototypes are described in a tracepoint declaration placed in a
 header file.
 
 They can be used for tracing and performance accounting.
+
 
 * Usage
 

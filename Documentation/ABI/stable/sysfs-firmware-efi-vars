@@ -60,6 +60,7 @@ Description:
 		size:		As ASCII representation of the size of
 				the variable's value.
 
+
 		In addition, two other magic binary files are provided
 		in the top-level directory and are used for adding and
 		removing variables:

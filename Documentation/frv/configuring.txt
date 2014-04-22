@@ -68,6 +68,7 @@ There are also a number of settings in the "Kernel Hacking" section of the
 kernel configuration especially for debugging a kernel on this
 architecture. See the "gdbstub.txt" file for information about those.
 
+
 ======================
 DEFAULT CONFIGURATIONS
 ======================
@@ -79,20 +80,24 @@ The kernel sources include a number of example default configurations:
      Default configuration for the MB93091-VDK with both CPU board and
      MB93090-MB00 motherboard running uClinux.
 
+
  (*) defconfig-mb93091-fb
 
      Default configuration for the MB93091-VDK with CPU board,
      MB93090-MB00 motherboard, and DAV board running uClinux.
      Includes framebuffer driver.
 
+
  (*) defconfig-mb93093
 
      Default configuration for the MB93093-PDK board running uClinux.
+
 
  (*) defconfig-cb70-standalone
 
      Default configuration for the MB93091-VDK with only CB70 CPU board
      running uClinux. This will use the CB70's DM9000 for network access.
+
 
  (*) defconfig-mmu
 
@@ -115,3 +120,6 @@ The kernel sources include a number of example default configurations:
 
      Default configuration for the MB93091-VDK with only CB451 CPU board
      running MMU linux.
+
+
+

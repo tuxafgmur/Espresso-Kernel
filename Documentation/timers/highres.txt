@@ -25,6 +25,7 @@ The design contains the following basic building blocks:
 - high resolution timer functionality
 - dynamic ticks
 
+
 hrtimer base infrastructure
 ---------------------------
 
@@ -36,6 +37,7 @@ The main differences to the timer wheel, which holds the armed timer_list type
 timers are:
        - time ordered enqueueing into a rb-tree
        - independent of ticks (the processing is based on nanoseconds)
+
 
 timeofday and clock source management
 -------------------------------------
@@ -59,6 +61,7 @@ The paper "We Are Not Getting Any Younger: A New Approach to Time and
 Timers" was written by J. Stultz, D.V. Hart, & N. Aravamudan.
 
 Figure #3 (OLS slides p.18) illustrates the transformation.
+
 
 clock event management
 ----------------------
@@ -131,6 +134,7 @@ added to the idle function and the Kconfig file)
 
 Figure #4 (OLS slides p.20) illustrates the transformation.
 
+
 high resolution timer functionality
 -----------------------------------
 
@@ -196,6 +200,7 @@ but the overall latencies have been significantly improved by this separation.
 
 Figure #5 (OLS slides p.22) illustrates the transformation.
 
+
 dynamic ticks
 -------------
 
@@ -233,8 +238,12 @@ The implementation leaves room for further development like full tickless
 systems, where the time slice is controlled by the scheduler, variable
 frequency profiling, and a complete removal of jiffies in the future.
 
+
 Aside the current initial submission of i386 support, the patchset has been
 extended to x86_64 and ARM already. Initial (work in progress) support is also
 available for MIPS and PowerPC.
 
 	  Thomas, Ingo
+
+
+

@@ -2,12 +2,13 @@ Documentation/networking/vortex.txt
 Andrew Morton
 30 April 2000
 
+
 This document describes the usage and errata of the 3Com "Vortex" device
 driver for Linux, 3c59x.c.
 
 The driver was written by Donald Becker <becker@scyld.com>
 
-Don is no longer the prime maintainer of this version of the driver.
+Don is no longer the prime maintainer of this version of the driver. 
 Please report problems to one or more of:
 
   Andrew Morton
@@ -16,6 +17,7 @@ Please report problems to one or more of:
 
 Please note the 'Reporting and Diagnosing Problems' section at the end
 of this file.
+
 
 Since kernel 2.3.99-pre6, this driver incorporates the support for the
 3c575-series Cardbus cards which used to be handled by 3c575_cb.c.
@@ -75,6 +77,7 @@ placed in /etc/pcmcia/config.opts:
 
 module "3c59x" opts "debug=3 rx_copybreak=300"
 
+
 The supported parameters are:
 
 debug=N
@@ -124,7 +127,7 @@ options=N1,N2,N3,...
 
 global_options=N
 
-  Sets the `options' parameter for all 3c59x NICs in the machine.
+  Sets the `options' parameter for all 3c59x NICs in the machine. 
   Entries in the `options' array above will override any setting of
   this.
 
@@ -146,7 +149,7 @@ flow_ctrl=N1,N2,N3...
 
   Use 802.3x MAC-layer flow control.  The 3com cards only support the
   PAUSE command, which means that they will stop sending packets for a
-  short period if they receive a PAUSE frame from the link partner.
+  short period if they receive a PAUSE frame from the link partner. 
 
   The driver only allows flow control on a link which is operating in
   full duplex mode.
@@ -167,14 +170,14 @@ rx_copybreak=M
 
   This is a speed/space tradeoff.
 
-  The value of rx_copybreak is used to decide when to make the copy.
-  If the packet size is less than rx_copybreak, the packet is copied.
+  The value of rx_copybreak is used to decide when to make the copy. 
+  If the packet size is less than rx_copybreak, the packet is copied. 
   The default value for rx_copybreak is 200 bytes.
 
 max_interrupt_work=N
 
   The driver's interrupt service routine can handle many receive and
-  transmit packets in a single invocation.  It does this in a loop.
+  transmit packets in a single invocation.  It does this in a loop. 
   The value of max_interrupt_work governs how mnay times the interrupt
   service routine will loop.  The default value is 32 loops.  If this
   is exceeded the interrupt service routine gives up and generates a
@@ -183,7 +186,7 @@ max_interrupt_work=N
 hw_checksums=N1,N2,N3,...
 
   Recent 3com NICs are able to generate IPv4, TCP and UDP checksums
-  in hardware.  Linux has used the Rx checksumming for a long time.
+  in hardware.  Linux has used the Rx checksumming for a long time. 
   The "zero copy" patch which is planned for the 2.4 kernel series
   allows you to make use of the NIC's DMA scatter/gather and transmit
   checksumming as well.
@@ -216,7 +219,7 @@ compaq_device_id=N
 watchdog=N
 
   Sets the time duration (in milliseconds) after which the kernel
-  decides that the transmitter has become stuck and needs to be reset.
+  decides that the transmitter has become stuck and needs to be reset. 
   This is mainly for debugging purposes, although it may be advantageous
   to increase this value on LANs which have very high collision rates.
   The default value is 5000 (5.0 seconds).
@@ -254,6 +257,7 @@ media type.  So if you load the driver module with
 it will permanently select the 10baseT port.  Automatic selection of
 other media types does not occur.
 
+
 Transmit error, Tx status register 82
 -------------------------------------
 
@@ -269,6 +273,7 @@ with
 
 but this has to be viewed as a workaround for broken network gear and
 should only really be used for equipment which cannot autonegotiate.
+
 
 Additional resources
 --------------------
@@ -299,6 +304,7 @@ Donald's wake-on-LAN page:
 3Com's DOS-based application for setting up the NICs EEPROMs:
 
 	ftp://ftp.3com.com/pub/nic/3c90x/3c90xx2.exe
+
 
 Autonegotiation notes
 ---------------------
@@ -331,6 +337,7 @@ Autonegotiation notes
 
     WARNING: DO NOT hook up hubs/switches/bridges to these
     specially-configured ports! The switch will become very confused.
+
 
 Reporting and diagnosing problems
 ---------------------------------
@@ -395,7 +402,7 @@ steps you should take:
 
    o Any additional module parameters which you may be providing to the driver.
 
-   o Any kernel logs which are produced.  The more the merrier.
+   o Any kernel logs which are produced.  The more the merrier. 
      If this is a large file and you are sending your report to a
      mailing list, mention that you have the logfile, but don't send
      it.  If you're reporting direct to the maintainer then just send

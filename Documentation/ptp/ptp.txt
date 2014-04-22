@@ -1,3 +1,4 @@
+
 * PTP hardware clock infrastructure for Linux
 
   This patch set introduces support for IEEE 1588 PTP clocks in

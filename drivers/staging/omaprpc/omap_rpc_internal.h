@@ -71,9 +71,6 @@
 #if defined(CONFIG_ION_OMAP) || defined(CONFIG_ION_OMAP_MODULE)
 #include <linux/omap_ion.h>
 extern struct ion_device *omap_ion_device;
-#if defined(CONFIG_PVR_SGX) || defined(CONFIG_PVR_SGX_MODULE)
-#include "../../gpu/pvr/ion.h"
-#endif
 #endif
 
 #if defined(CONFIG_TI_TILER) || defined(CONFIG_TI_TILER_MODULE)
@@ -93,11 +90,9 @@ extern struct ion_device *omap_ion_device;
 #if defined(CONFIG_ION_OMAP) || defined(CONFIG_ION_OMAP_MODULE)
 #define OMAPRPC_USE_ION
 #define OMAPRPC_USE_RPROC_LOOKUP /* android supports this. */
-#if defined(CONFIG_PVR_SGX) || defined(CONFIG_PVR_SGX_MODULE)
-#define OMAPRPC_USE_PVR
-#else
+
 #undef	OMAPRPC_USE_PVR
-#endif
+
 #else
 #undef	OMAPRPC_USE_ION
 #endif

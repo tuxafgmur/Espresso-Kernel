@@ -22,6 +22,7 @@ Here are examples of these different formats:
    3     0   39082680 hda 446216 784926 9550688 4382310 424847 312726 5922052 19310380 0 3376340 23705160
    3     1    9221278 hda1 35486 0 35496 38030 0 0 0 0 0 38030 38030
 
+
 2.6 sysfs:
    446216 784926 9550688 4382310 424847 312726 5922052 19310380 0 3376340 23705160
    35486    38030    38030    38030
@@ -87,6 +88,7 @@ Field 11 -- weighted # of milliseconds spent doing I/Os
     last update of this field.  This can provide an easy measure of both
     I/O completion time and the backlog that may be accumulating.
 
+
 To avoid introducing performance bottlenecks, no locks are held while
 modifying these counters.  This implies that minor inaccuracies may be
 introduced when changes collide, so (for instance) adding up all the
@@ -150,6 +152,7 @@ Linux hasn't added it already, here's the line you'll want to add to
 your /etc/fstab:
 
 none /sys sysfs defaults 0 0
+
 
 In 2.6, all disk statistics were removed from /proc/stat.  In 2.4, they
 appear in both /proc/partitions and /proc/stat, although the ones in

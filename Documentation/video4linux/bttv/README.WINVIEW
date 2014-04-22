@@ -1,3 +1,4 @@
+
 Support for the Leadtek WinView 601 TV/FM by Jon Tombs <jon@gte.esi.us.es>
 
 This card is basically the same as all the rest (Bt484A, Philips tuner),
@@ -10,6 +11,7 @@ the key code is placed in the GPIO port).
 I don't yet have any application to test the radio support. The tuner
 frequency setting should work but it is possible that the audio multiplexer
 is wrong. If it doesn't work, send me email.
+
 
 - No Thanks to Leadtek they refused to answer any questions about their
 hardware. The driver was written by visual inspection of the card. If you
@@ -28,3 +30,4 @@ insmod videodev
 insmod i2c scan=1 i2c_debug=0 verbose=0
 insmod tuner type=1 debug=0
 insmod bttv  pll=1 radio=1 card=17
+

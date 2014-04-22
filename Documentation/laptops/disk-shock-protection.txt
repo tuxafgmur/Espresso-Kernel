@@ -4,6 +4,7 @@ Hard disk shock protection
 Author: Elias Oltmanns <eo@nebensachen.de>
 Last modified: 2008-10-03
 
+
 0. Contents
 -----------
 
@@ -11,6 +12,7 @@ Last modified: 2008-10-03
 2. The interface
 3. References
 4. CREDITS
+
 
 1. Intro
 --------
@@ -28,6 +30,7 @@ Please note, however, that other components have to be set up on your
 system in order to get disk shock protection working (see
 section 3. References below for pointers to more information about
 that).
+
 
 2. The interface
 ----------------
@@ -116,6 +119,7 @@ the special value -1 to the unload_heads attribute:
 will enable the feature for /dev/sda, and giving -2 instead of -1 will
 disable it again.
 
+
 3. References
 -------------
 
@@ -133,6 +137,7 @@ of my ignorance.
 - http://www.thinkwiki.org/wiki/HDAPS
   See this page for information about Linux support of the hard disk
   active protection system as implemented in IBM/Lenovo Thinkpads.
+
 
 4. CREDITS
 ----------

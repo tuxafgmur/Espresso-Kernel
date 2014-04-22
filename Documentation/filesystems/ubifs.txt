@@ -73,6 +73,7 @@ would scale logarithmically as well. UBI2 would support the same API as UBI,
 but it would be binary incompatible to UBI. So UBIFS would not need to be
 changed to use UBI2
 
+
 Mount options
 =============
 
@@ -91,6 +92,7 @@ compr=none              override default compressor and set it to "none"
 compr=lzo               override default compressor and set it to "lzo"
 compr=zlib              override default compressor and set it to "zlib"
 
+
 Quick usage instructions
 ========================
 
@@ -108,6 +110,7 @@ $ mount -t ubifs ubi0:rootfs /mnt/ubifs
 The following is an example of the kernel boot arguments to attach mtd0
 to UBI and mount volume "rootfs":
 ubi.mtd=0 root=ubi0:rootfs rootfstype=ubifs
+
 
 Module Parameters for Debugging
 ===============================
@@ -134,6 +137,7 @@ debug_tsts	Selects a mode of testing, as follows:
 		Failure mode for recovery testing	4
 
 For example, set debug_chks to 3 to enable general and TNC checks.
+
 
 References
 ==========

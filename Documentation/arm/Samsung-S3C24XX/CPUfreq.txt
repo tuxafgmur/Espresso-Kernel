@@ -17,6 +17,7 @@ Introduction
  newer version where there is a separate PLL and clock divider for the
  ARM core is available as a separate driver.
 
+
 Layout
 ------
 
@@ -29,12 +30,14 @@ Layout
  The core registers with drivers/cpufreq at init time if all the data
  necessary has been supplied.
 
+
 CPU support
 -----------
 
  The support for each CPU depends on the facilities provided by the
  SoC and the driver as each device has different PLL and clock chains
  associated with it.
+
 
 Slow Mode
 ---------
@@ -43,11 +46,13 @@ Slow Mode
  system is fed by the external crystal input is currently not
  supported.
 
+
 sysfs
 -----
 
  The core code exports extra information via sysfs in the directory
  devices/system/cpu/cpu0/arch-freq.
+
 
 Board Support
 -------------
@@ -59,6 +64,9 @@ Board Support
  The board needs to supply information about whether it needs the IO bank
  timings changing, any maximum frequency limits and information about the
  SDRAM refresh rate.
+
+
+
 
 Document Author
 ---------------

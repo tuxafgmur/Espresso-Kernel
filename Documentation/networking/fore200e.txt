@@ -1,3 +1,4 @@
+
 FORE Systems PCA-200E/SBA-200E ATM NIC driver
 ---------------------------------------------
 
@@ -17,17 +18,19 @@ for other bus interfaces such as EISA should not be too hard to add (this may
 be more tricky for the MCA bus, though, as FORE made some MCA-specific
 modifications to the adapter's AALI interface).
 
+
 Firmware Copyright Notice
 -------------------------
 
 Please read the fore200e_firmware_copyright file present
 in the linux/drivers/atm directory for details and restrictions.
 
+
 Firmware Updates
 ----------------
 
-The FORE Systems 200E-series driver is shipped with firmware data being
-uploaded to the ATM adapters at system boot time or at module loading time.
+The FORE Systems 200E-series driver is shipped with firmware data being 
+uploaded to the ATM adapters at system boot time or at module loading time. 
 The supplied firmware images should work with all adapters.
 
 However, if you encounter problems (the firmware doesn't start or the driver
@@ -54,6 +57,7 @@ configuration time:
    Expected pathnames are absolute or relative to the drivers/atm directory.
 
 3. Rebuild and re-install your kernel or your module.
+
 
 Feedback
 --------

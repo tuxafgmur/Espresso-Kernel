@@ -5,12 +5,13 @@ This is how they currently behave, not what the hardware can do--for example,
 the Lance driver doesn't use its filter, even though the code for loading
 it is in the DEC Lance-based driver.
 
-The following are requirements for multicasting
+The following are requirements for multicasting 
 -----------------------------------------------
 AppleTalk	Multicast	hardware filtering not important but
 				 avoid cards only doing promisc
 IP-Multicast	Multicast	hardware filters really help
 IP-MRoute	AllMulti	hardware filters are of no help
+
 
 Board		Multicast	AllMulti	Promisc		Filter
 ------------------------------------------------------------------------
@@ -53,6 +54,7 @@ wavelan		YES		PROMISC		YES		Hardware
 wd		YES		YES		YES		Hardware
 xirc2ps_cs	YES		YES		YES		Hardware
 znet		YES		YES		YES		Software
+
 
 PROMISC = This multicast mode is in fact promiscuous mode. Avoid using
 cards who go PROMISC on any multicast in a multicast kernel.

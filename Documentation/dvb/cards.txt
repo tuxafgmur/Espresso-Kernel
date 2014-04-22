@@ -15,6 +15,7 @@ Hardware supported by the linuxtv.org DVB drivers
   the demodulator and tuner/PLL chip are inside a metal box for
   shielding, and the whole metal box has its own part number.
 
+
 o Frontends drivers:
   - dvb_dummy_fe: for testing...
   DVB-S:
@@ -46,6 +47,7 @@ o Frontends drivers:
    - or51132		: or51132 based (pcHDTV HD3000 card)
    - bcm3510		: Broadcom BCM3510
    - lgdt330x		: LG Electronics DT3302 & DT3303
+
 
 o Cards based on the Phillips saa7146 multimedia PCI bridge chip:
   - TI AV7110 based cards (i.e. with hardware MPEG decoder):
@@ -117,3 +119,4 @@ o Cards based on the Phillips saa7134 PCI bridge:
   - Compro Videomate DVB-T300
   - Compro Videomate DVB-T200
   - AVerMedia AVerTVHD MCE A180
+

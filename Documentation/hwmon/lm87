@@ -57,6 +57,7 @@ miss once-only alarms.
 The lm87 driver only updates its values each 1.0 seconds; reading it more
 often will do no harm, but will return 'old' values.
 
+
 Hardware Configurations
 -----------------------
 

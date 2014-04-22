@@ -103,3 +103,5 @@ It is fair to mention here that the prio_tree_root->index_bits
 is increased on demand, however, the index_bits is not decreased when
 vmas are removed from the prio_tree. That's tricky to do. Hence, it's
 left as a home work problem.
+
+

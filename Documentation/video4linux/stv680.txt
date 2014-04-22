@@ -2,6 +2,7 @@ Linux driver for STV0680 based USB cameras
 
 Copyright, 2001, Kevin Sisson
 
+
 INTRODUCTION:
 
 STMicroelectronics produces the STV0680B chip, which comes in two
@@ -29,12 +30,14 @@ WHAT YOU NEED:
 More information about USB support for linux can be found at:
 http://www.linux-usb.org
 
+
 MODULE OPTIONS:
 
 When the driver is compiled as a module, you can set a "swapRGB=1"
 option, if necessary, for those applications that require it
 (such as xawtv). However, the driver should detect and set this
 automatically, so this option should not normally be used.
+
 
 KNOWN PROBLEMS:
 

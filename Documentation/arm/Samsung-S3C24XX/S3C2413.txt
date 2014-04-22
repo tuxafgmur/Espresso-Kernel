@@ -8,10 +8,12 @@ Introduction
   interface and mobile DDR memory support. See the S3C2412 support
   documentation for more information.
 
+
 Camera Interface
 ---------------
 
   This block is currently not supported.
+
 
 Document Author
 ---------------

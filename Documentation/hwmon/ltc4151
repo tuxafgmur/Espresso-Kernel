@@ -10,10 +10,12 @@ Supported chips:
 
 Author: Per Dalen <per.dalen@appeartv.com>
 
+
 Description
 -----------
 
 The LTC4151 is a High Voltage I2C Current and Voltage Monitor.
+
 
 Usage Notes
 -----------
@@ -26,6 +28,7 @@ Example: the following will load the driver for an LTC4151 at address 0x6f
 on I2C bus #0:
 # modprobe ltc4151
 # echo ltc4151 0x6f > /sys/bus/i2c/devices/i2c-0/new_device
+
 
 Sysfs entries
 -------------

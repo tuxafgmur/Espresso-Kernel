@@ -147,6 +147,7 @@ NOTE:   the host filesystem doesn't need to be mounted for kernel
 	mounted when user space applications need access to the buffer
 	data.
 
+
 The relay interface kernel API
 ==============================
 
@@ -183,6 +184,7 @@ TBD(curr. line MT:/API/)
 
     relay_buf_full(buf)
     subbuf_start_reserve(buf, length)
+
 
 Creating a channel
 ------------------
@@ -467,12 +469,14 @@ unmapped.  The client can use this notification to trigger actions
 within the kernel application, such as enabling/disabling logging to
 the channel.
 
+
 Resources
 =========
 
 For news, example code, mailing list, etc. see the relay interface homepage:
 
     http://relayfs.sourceforge.net
+
 
 Credits
 =======

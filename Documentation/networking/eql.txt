@@ -21,6 +21,7 @@
   bandwidth.  All without having to have a special black box on either
   side.
 
+
   The eql driver has only been tested with the Livingston PortMaster-2e
   terminal server. I do not know if other terminal servers support load-
   balancing, but I do know that the PortMaster does it, and does it
@@ -31,16 +32,20 @@
   the PortMaster, or if it's Linux's TCP drivers. I'm told that Linux's
   TCP implementation is pretty fast though.--)
 
+
   I suggest to ISPs out there that it would probably be fair to charge
   a load-balancing client 75% of the cost of the second line and 50% of
   the cost of the third line etc...
 
+
   Hey, we can all dream you know...
+
 
   2.  Kernel Configuration
 
   Here I describe the general steps of getting a kernel up and working
   with the eql driver.	From patching, building, to installing.
+
 
   2.1.	Patching The Kernel
 
@@ -49,6 +54,8 @@
   ftp://slaughter.ncm.com/pub/Linux/LOAD_BALANCING/eql-1.1.tar.gz.
   Unpack this archive someplace obvious like /usr/local/src/.  It will
   create the following files:
+
+
 
        ______________________________________________________________________
        -rw-r--r-- guru/ncm	198 Jan 19 18:53 1995 eql-1.1/NO-WARRANTY
@@ -61,19 +68,27 @@
   like say /usr/src/linux-1.1.92.eql. Use symbolic links to point
   /usr/src/linux to this development directory.
 
+
   Apply the patch by running the commands:
+
 
        ______________________________________________________________________
        cd /usr/src
        patch </usr/local/src/eql-1.1/eql-1.1.patch
        ______________________________________________________________________
 
+
+
+
+
   2.2.	Building The Kernel
 
   After patching the kernel, run make config and configure the kernel
   for your hardware.
 
+
   After configuration, make and install according to your habit.
+
 
   3.  Network Configuration
 
@@ -84,6 +99,7 @@
   don't do a very good job when it comes to handling more than one
   connection.
 
+
   3.1.	/etc/rc.d/rc.inet1
 
   In rc.inet1, ifconfig the eql device to the IP address you usually use
@@ -93,17 +109,26 @@
   too far below 296 is probably overkill. Here is an example ifconfig
   command that sets up the eql device:
 
+
+
        ______________________________________________________________________
        ifconfig eql 198.67.33.239 mtu 1006
        ______________________________________________________________________
+
+
+
+
 
   Once the eql device is up and running, add a static default route to
   it in the routing table using the cool new route syntax that makes
   life so much easier:
 
+
+
        ______________________________________________________________________
        route add default eql
        ______________________________________________________________________
+
 
   3.2.	Enslaving Devices By Hand
 
@@ -113,8 +138,11 @@
   I haven't found a good reason to write it yet... other than for
   completeness, but that isn't a good motivator is it?--)
 
+
   The syntax for enslaving a device is "eql_enslave <master-name>
   <slave-name> <estimated-bps>".  Here are some example enslavings:
+
+
 
        ______________________________________________________________________
        eql_enslave eql sl0 28800
@@ -122,11 +150,17 @@
        eql_enslave eql sl1 57600
        ______________________________________________________________________
 
+
+
+
+
   When you want to free a device from its life of slavery, you can
   either down the device with ifconfig (eql will automatically bury the
   dead slave and remove it from its queue) or use eql_emancipate to free
   it. (-- Or just ifconfig it down, and the eql driver will take it out
   for you.--)
+
+
 
        ______________________________________________________________________
        eql_emancipate eql sl0
@@ -134,14 +168,33 @@
        eql_emancipate eql sl1
        ______________________________________________________________________
 
+
+
+
+
   3.3.	DSLIP Configuration for the eql Device
 
   The general idea is to bring up and keep up as many SLIP connections
   as you need, automatically.
 
+
   3.3.1.  /etc/slip/runslip.conf
 
   Here is an example runslip.conf:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ______________________________________________________________________
   name		sl-line-1
@@ -163,6 +216,10 @@
   line		/dev/cua3
   ______________________________________________________________________
 
+
+
+
+
   3.4.	Using PPP and the eql Device
 
   I have not yet done any load-balancing testing for PPP devices, mainly
@@ -171,10 +228,12 @@
   make sure you have asyncmap set to something so that control
   characters are not escaped.
 
+
   I tried to fix up a PPP script/system for redialing lost PPP
   connections for use with the eql driver the weekend of Feb 25-26 '95
   (Hereafter known as the 8-hour PPP Hate Festival).  Perhaps later this
   year.
+
 
   4.  About the Slave Scheduler Algorithm
 
@@ -183,14 +242,17 @@
   up of the driver was tuned to handle slaves with wildly different
   bits-per-second "priorities".
 
+
   All testing I have done was with two 28.8 V.FC modems, one connecting
   at 28800 bps or slower, and the other connecting at 14400 bps all the
   time.
+
 
   One version of the scheduler was able to push 5.3 K/s through the
   28800 and 14400 connections, but when the priorities on the links were
   very wide apart (57600 vs. 14400) the "faster" modem received all
   traffic and the "slower" modem starved.
+
 
   5.  Testers' Reports
 
@@ -199,16 +261,79 @@
   cleanly in newer kernels because of the removal of the old "slave-
   balancing" driver config option.
 
+
   o  icee from LinuxNET patched 1.1.86 without any rejects and was able
      to boot the kernel and enslave a couple of ISDN PPP links.
 
   5.1.	Randolph Bentson's Test Report
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   From bentson@grieg.seaslug.org Wed Feb  8 19:08:09 1995
   Date: Tue, 7 Feb 95 22:57 PST
   From: Randolph Bentson <bentson@grieg.seaslug.org>
   To: guru@ncm.com
   Subject: EQL driver tests
+
 
   I have been checking out your eql driver.  (Nice work, that!)
   Although you may already done this performance testing, here
@@ -218,6 +343,7 @@
   bentson@grieg.seaslug.org
 
   ---------------------------------------------------------
+
 
   A pseudo-device driver, EQL, written by Simon Janes, can be used
   to bundle multiple SLIP connections into what appears to be a
@@ -322,7 +448,17 @@
   1	9600	600	314	9600	9212.87 95
   1	9600	400	332	9600	8713.37 90
 
+
+
+
+
   5.2.	Anthony Healy's Report
+
+
+
+
+
+
 
   Date: Mon, 13 Feb 1995 16:17:29 +1100 (EST)
   From: Antony Healey <ahealey@st.nepean.uws.edu.au>
@@ -335,3 +471,58 @@
 	  able to data at over 48Kb/s [ISDN link -Simon]. I managed a
 	  transfer of up to 7.5 Kbyte/s on one go, but averaged around
 	  6.4 Kbyte/s, which I think is pretty cool.  :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -487,6 +487,7 @@ solution for a couple of reasons:
   4.3 connected transport protocols (SOCK_SEQPACKET)
   4.4 unconnected transport protocols (SOCK_DGRAM)
 
+
 5. Socket CAN core module
 -------------------------
 

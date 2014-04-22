@@ -17,6 +17,7 @@ Contents:
 
  (*) The set of events.
 
+
 ==============
 REPRESENTATION
 ==============
@@ -87,6 +88,7 @@ As far as the netfs API goes, the netfs is only actually permitted to see
 pointers to the cookies.  The cookies themselves and any objects attached to
 those cookies are hidden from it.
 
+
 ===============================
 OBJECT MANAGEMENT STATE MACHINE
 ===============================
@@ -113,12 +115,14 @@ wakes up in that state.  There are four logical sets of states:
      delete objects from disk, that handle disk and system errors and that free
      up in-memory resources.
 
+
 In most cases, transitioning between states is in response to signalled events.
 When a state has finished processing, it will usually set the mask of events in
 which it is interested (object->event_mask) and relinquish the worker thread.
 Then when an event is raised (by calling fscache_raise_event()), if the event
 is not masked, the object will be queued for processing (by calling
 fscache_enqueue_object()).
+
 
 PROVISION OF CPU TIME
 ---------------------
@@ -136,6 +140,7 @@ preference to the workqueue facility because:
      sleeping on I/O.  This means that single-threaded and 1-per-CPU-threaded
      workqueues don't necessarily have the right numbers of threads.
 
+
 LOCKING SIMPLIFICATION
 ----------------------
 
@@ -144,6 +149,7 @@ state machine at once, this simplifies the locking, particularly with respect
 to disconnecting the netfs's representation of a cache object (fscache_cookie)
 from the cache backend's representation (fscache_object) - which may be
 requested from either end.
+
 
 =================
 THE SET OF STATES
@@ -260,6 +266,7 @@ memory and potentially deletes stuff from disk:
      The object transits to this state when the in-memory object record is
      ready to be deleted.  The object processor shouldn't ever see an object in
      this state.
+
 
 THE SET OF EVENTS
 -----------------

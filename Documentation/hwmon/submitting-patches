@@ -5,6 +5,7 @@ This text is is a collection of suggestions for people writing patches or
 drivers for the hwmon subsystem. Following these suggestions will greatly
 increase the chances of your change being accepted.
 
+
 1. General
 ----------
 
@@ -29,6 +30,7 @@ increase the chances of your change being accepted.
   CONFIG_SMP or CONFIG_HOTPLUG, make sure it compiles for all configuration
   variants.
 
+
 2. Adding functionality to existing drivers
 -------------------------------------------
 
@@ -42,6 +44,7 @@ increase the chances of your change being accepted.
   to review your changes, and to bisect any resulting problems.
 
 * Never mix bug fixes, cleanup, and functional enhancements in a single patch.
+
 
 3. New drivers
 --------------

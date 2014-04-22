@@ -141,6 +141,7 @@ document btpid
 	backtrace of pid
 end
 
+
 define trapinfo
 	set var $pid = $arg0
 	set $tasks_off=((size_t)&((struct task_struct *)0)->tasks)
@@ -176,6 +177,7 @@ document trapinfo
 	'trapinfo <pid>' will tell you by which trap & possibly
 	address the kernel panicked.
 end
+
 
 define dmesg
 	set $i = 0

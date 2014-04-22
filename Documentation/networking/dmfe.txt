@@ -10,6 +10,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
+
 This driver provides kernel support for Davicom DM9102(A)/DM9132/DM9801 ethernet cards ( CNET
 10/100 ethernet cards uses Davicom chipset too, so this driver supports CNET cards too ).If you
 didn't compile this driver as a module, it will automatically load itself on boot and print a
@@ -39,7 +40,9 @@ Then you may have to modify the default routing table with command :
 
 	route add default eth0
 
+
 Now your ethernet card should be up and running.
+
 
 TODO:
 
@@ -47,6 +50,7 @@ Implement pci_driver::suspend() and pci_driver::resume() power management method
 Check on 64 bit boxes.
 Check and fix on big endian boxes.
 Test and make sure PCI latency is now correct for all cases.
+
 
 Authors:
 

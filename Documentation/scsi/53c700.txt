@@ -12,6 +12,7 @@ NCR_D700.[ch] or lasi700.[ch] files.
 The comments in the 53c700.[ch] files tell you which parts you need to
 fill in to get the driver working.
 
+
 Compile Time Flags
 ==================
 
@@ -40,6 +41,7 @@ CONFIG_53C700_USE_CONSISTENT
 allocate consistent memory (should only be used if your architecture
 has a mixture of consistent and inconsistent memory).  Fully
 consistent or fully inconsistent architectures should not define this.
+
 
 Using the Chip Core Driver
 ==========================
@@ -95,7 +97,7 @@ interrupt.
 Handling Interrupts
 -------------------
 
-In general, you should just plumb the card's interrupt line in with
+In general, you should just plumb the card's interrupt line in with 
 
 request_irq(irq, NCR_700_intr, <irq flags>, <driver name>, host);
 
@@ -149,3 +151,4 @@ set to 1 if the chip is a 53c710.
 burst_disable: (OPTIONAL, 53c710 only)
 
 disable 8 byte bursting for DMA transfers.
+

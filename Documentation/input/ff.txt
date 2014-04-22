@@ -82,6 +82,7 @@ Note: In most cases you should use FF_PERIODIC instead of FF_RUMBLE. All
 Note: The exact syntax FF_CUSTOM is undefined for the time being as no driver
       supports it yet.
 
+
 int ioctl(int fd, EVIOCGEFFECTS, int *n);
 
 Returns the number of effects the device can keep in its memory.
@@ -217,3 +218,4 @@ NOTE: Status feedback is only supported by iforce driver. If you have
       a really good reason to use this, please contact
       linux-joystick@atrey.karlin.mff.cuni.cz or anssi.hannula@gmail.com
       so that support for it can be added to the rest of the drivers.
+

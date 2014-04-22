@@ -65,6 +65,7 @@ Microcontrollers often support both master and slave sides of the SPI
 protocol.  This document (and Linux) currently only supports the master
 side of SPI interactions.
 
+
 Who uses it?  On what kinds of systems?
 ---------------------------------------
 Linux developers using SPI are probably writing device drivers for embedded
@@ -88,6 +89,7 @@ appropriate low-pincount peripheral bus.
 Many microcontrollers that can run Linux integrate one or more I/O
 interfaces with SPI modes.  Given SPI support, they could use MMC or SD
 cards without needing a special purpose MMC/SD/SDIO controller.
+
 
 I'm confused.  What are these four SPI "clock modes"?
 -----------------------------------------------------
@@ -120,6 +122,7 @@ a slave, and the slave can tell the chosen polarity by sampling the
 clock level when its select line goes active.  That's why many devices
 support for example both modes 0 and 3:  they don't care about polarity,
 and alway clock data in/out on rising clock edges.
+
 
 How do these driver programming interfaces work?
 ------------------------------------------------
@@ -182,6 +185,7 @@ Note that the actual location of the controller's class state depends
 on whether you enabled CONFIG_SYSFS_DEPRECATED or not.  At this time,
 the only class-specific state is the bus number ("B" in "spiB"), so
 those /sys/class entries are only useful to quickly identify busses.
+
 
 How does board-specific init code declare SPI devices?
 ------------------------------------------------------
@@ -252,6 +256,7 @@ same SOC controller is used.  For example, on one board SPI might use
 an external clock, where another derives the SPI clock from current
 settings of some master clock.
 
+
 DECLARE SLAVE DEVICES
 
 The second kind of information is a list of what SPI slave devices exist
@@ -310,6 +315,7 @@ your arch/.../mach-.../board-*.c file would primarily provide information
 about the devices on the mainboard into which such a card is plugged.  That
 certainly includes SPI devices hooked up through the card connectors!
 
+
 NON-STATIC CONFIGURATIONS
 
 Developer boards often play by different rules than product boards, and one
@@ -323,6 +329,7 @@ call at least spi_unregister_device() when that board is removed.
 When Linux includes support for MMC/SD/SDIO/DataFlash cards through SPI, those
 configurations will also be dynamic.  Fortunately, such devices all support
 basic device identification probes, so they should hotplug normally.
+
 
 How do I write an "SPI Protocol Driver"?
 ----------------------------------------
@@ -450,6 +457,7 @@ If you like, spi_message_alloc() and spi_message_free() convenience
 routines are available to allocate and zero-initialize an spi_message
 with several transfers.
 
+
 How do I write an "SPI Master Controller Driver"?
 -------------------------------------------------
 An SPI controller will probably be registered on the platform_bus; write
@@ -482,6 +490,7 @@ and the driver model core will take care of binding them to drivers.
 If you need to remove your SPI controller driver, spi_unregister_master()
 will reverse the effect of spi_register_master().
 
+
 BUS NUMBERING
 
 Bus numbering is important, since that's how Linux identifies a given
@@ -494,6 +503,7 @@ If you don't have such hardware-assigned bus number, and for some reason
 you can't just assign them, then provide a negative bus number.  That will
 then be replaced by a dynamically assigned number. You'd then need to treat
 this as a non-static configuration (see above).
+
 
 SPI MASTER METHODS
 
@@ -522,6 +532,7 @@ SPI MASTER METHODS
 	state it dynamically associates with that device.  If you do that,
 	be sure to provide the cleanup() method to free that state.
 
+
 SPI MESSAGE QUEUE
 
 The bulk of the driver will be managing the I/O queue fed by transfer().
@@ -537,6 +548,7 @@ Such a transfer() method would normally just add the message to a
 queue, and then start some asynchronous transfer engine (unless it's
 already running).
 
+
 THANKS TO
 ---------
 Contributors to Linux-SPI discussions include (in alphabetical order,
@@ -549,3 +561,4 @@ Stephen Street
 Mark Underwood
 Andrew Victor
 Vitaly Wool
+

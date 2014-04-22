@@ -22,6 +22,7 @@ Hyphens (dashes) and underscores are equivalent in parameter names, so
 can also be entered as
 	log-buf-len=1M print_fatal_signals=1
 
+
 This document may not be entirely up to date and comprehensive. The command
 "modinfo -p ${modulename}" shows a current list of all parameters of a loadable
 module. Loadable modules, after being loaded into the running kernel, also
@@ -147,6 +148,7 @@ Finally, the [KMG] suffix is commonly described after a number of kernel
 parameter values. These 'K', 'M', and 'G' letters represent the _binary_
 multipliers 'Kilo', 'Mega', and 'Giga', equalling 2^10, 2^20, and 2^30
 bytes respectively. Such letter suffixes can also be entirely omitted.
+
 
 	acpi=		[HW,ACPI,X86]
 			Advanced Configuration and Power Interface
@@ -538,6 +540,8 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 			UART at the specified I/O port or MMIO address,
 			switching to the matching ttyS device later.  The
 			options are the same as for ttyS, above.
+		hvc<n>	Use the hypervisor console device <n>. This is for
+			both Xen and PowerPC hypervisors.
 
                 If the device connected to the port is not a TTY but a braille
                 device, prepend "brl," before the device type, for instance
@@ -686,6 +690,7 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 
 	earlyprintk=	[X86,SH,BLACKFIN]
 			earlyprintk=vga
+			earlyprintk=xen
 			earlyprintk=serial[,ttySn[,baudrate]]
 			earlyprintk=ttySn[,baudrate]
 			earlyprintk=dbgp[debugController#]
@@ -702,6 +707,8 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 
 			The VGA output is eventually overwritten by the real
 			console.
+
+			The xen output can only be used by Xen PV guests.
 
 	ekgdboc=	[X86,KGDB] Allow early kernel console debugging
 			ekgdboc=kbd
@@ -790,7 +797,7 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 			tracer at boot up. function-list is a comma separated
 			list of functions. This list can be changed at run
 			time by the set_ftrace_filter file in the debugfs
-			tracing directory.
+			tracing directory. 
 
 	ftrace_notrace=[function-list]
 			[FTRACE] Do not trace the functions specified in
@@ -1205,10 +1212,10 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 			libata.dma=0	  Disable all PATA and SATA DMA
 			libata.dma=1	  PATA and SATA Disk DMA only
 			libata.dma=2	  ATAPI (CDROM) DMA only
-			libata.dma=4	  Compact Flash DMA only
+			libata.dma=4	  Compact Flash DMA only 
 			Combinations also work, so libata.dma=3 enables DMA
 			for disks and CDROMs, but not CFs.
-
+	
 	libata.ignore_hpa=	[LIBATA] Ignore HPA limit
 			libata.ignore_hpa=0	  keep BIOS limits (default)
 			libata.ignore_hpa=1	  ignore limits, using full disk
@@ -1771,6 +1778,11 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 
 	noresidual	[PPC] Don't use residual data on PReP machines.
 
+	nordrand	[X86] Disable the direct use of the RDRAND
+			instruction even if it is supported by the
+			processor.  RDRAND is still available to user
+			space applications.
+
 	noresume	[SWSUSP] Disables resume and restores original swap
 			space.
 
@@ -2074,7 +2086,7 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 			Format: { parport<nr> | timid | 0 }
 			See also Documentation/parport.txt.
 
-	pmtmr=		[X86] Manual setup of pmtmr I/O Port.
+	pmtmr=		[X86] Manual setup of pmtmr I/O Port. 
 			Override pmtimer IOPort with a hex value.
 			e.g. pmtmr=0x508
 

@@ -13,6 +13,7 @@ The p1k is a relatively cheap usb 1.1 phone with:
 
 For vendor documentation see http://www.yealink.com
 
+
 1. Compilation (stand alone version)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Currently only kernel 2.6.x.y versions are supported.
@@ -23,6 +24,7 @@ In order to build the yealink.ko module do
 If you encounter problems please check if in the MAKE_OPTS variable in
 the Makefile is pointing to the location where your kernel sources
 are located, default /usr/src/linux.
+
 
 1.1 Troubleshooting
 ~~~~~~~~~~~~~~~~~~~
@@ -39,12 +41,14 @@ Q: Phone is working now (displays version and accepts keypad input) but I can't
 A: The sysfs files are located on the particular usb endpoint. On most
    distributions you can do: "find /sys/ -name get_icons" for a hint.
 
+
 2. keyboard features
 ~~~~~~~~~~~~~~~~~~~~
 The current mapping in the kernel is provided by the map_p1k_to_key
 function:
 
    Physical USB-P1K button layout	input events
+
 
               up			     up
         IN           OUT		left,	right
@@ -60,6 +64,7 @@ function:
   The "pickup" and "hangup" keys are symbolised by a green and red phone
   on the button.
 
+
 3. LCD features
 ~~~~~~~~~~~~~~~
 The LCD is divided and organised as a 3 line display:
@@ -73,11 +78,13 @@ The LCD is divided and organised as a 3 line display:
     [] [] [] [] [] [] [] [] [] [] [] []
     [] [] [] [] [] [] [] [] [] [] [] []
 
+
 Line 1	Format (see below)	: 18.e8.M8.88...188
 	Icon names		:   M  D  :  IN OUT STORE
 Line 2  Format			: .........
 	Icon name		: NEW REP SU MO TU WE TH FR SA
 Line 3  Format			: 888888888888
+
 
 Format description:
   From a userspace perspective the world is separated into "digits" and "icons".
@@ -97,6 +104,7 @@ Format description:
     '.' : For example like AM, PM, SU, a 'dot' .. or other single segment
 	  elements.
 
+
 4. Driver usage
 ~~~~~~~~~~~~~~~
 For userland the following interfaces are available using the sysfs interface:
@@ -115,6 +123,7 @@ For userland the following interfaces are available using the sysfs interface:
 	   ringtone	Write, upload binary representation of a ringtone,
 	   		see yealink.c. status EXPERIMENTAL due to potential
 			races between async. and sync usb calls.
+
 
 4.1 lineX
 ~~~~~~~~~
@@ -136,6 +145,7 @@ Writing to /sys/../lineX will set the corresponding LCD line.
   date +"%m.%e.%k:%M"  | sed 's/^0/ /' > ./line1
 
   Will update the LCD with the current date & time.
+
 
 4.2 get_icons
 ~~~~~~~~~~~~~
@@ -161,6 +171,7 @@ Reading will return all available icon names and its current settings:
      DIALTONE
      RINGTONE
 
+
 4.3 show/hide icons
 ~~~~~~~~~~~~~~~~~~~
 Writing to these files will update the state of the icon.
@@ -181,6 +192,7 @@ updated with the first letter of the icon.
   sleep 10
   echo -n RINGTONE > /sys/..../hide_icon
 
+
 5. Sound features
 ~~~~~~~~~~~~~~~~~
 Sound is supported by the ALSA driver: snd_usb_audio
@@ -194,9 +206,11 @@ limit of the device.
   Example - playback test:
   aplay foobar.wav
 
+
 6. Credits & Acknowledgments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   - Olivier Vandorpe, for starting the usbb2k-api project doing much of
 	the reverse engineering.
   - Martin Diehl, for pointing out how to handle USB memory allocation.
   - Dmitry Torokhov, for the numerous code reviews and suggestions.
+

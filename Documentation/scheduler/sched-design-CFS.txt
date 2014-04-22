@@ -2,6 +2,7 @@
                       CFS Scheduler
                       =============
 
+
 1.  OVERVIEW
 
 CFS stands for "Completely Fair Scheduler," and is the new "desktop" process
@@ -23,6 +24,8 @@ specifies when its next timeslice would start execution on the ideal
 multi-tasking CPU described above.  In practice, the virtual runtime of a task
 is its actual runtime normalized to the total number of running tasks.
 
+
+
 2.  FEW IMPLEMENTATION DETAILS
 
 In CFS the virtual runtime is expressed and tracked via the per-task
@@ -42,6 +45,8 @@ possible.
 Most of the rest of CFS's design just falls out of this really simple concept,
 with a few add-on embellishments like nice levels, multiprocessing and various
 algorithm variants to recognize sleepers.
+
+
 
 3.  THE RBTREE
 
@@ -78,6 +83,8 @@ small amount of "granularity" distance relative to the leftmost task so that we
 do not over-schedule tasks and trash the cache), then the new leftmost task is
 picked and the current task is preempted.
 
+
+
 4.  SOME FEATURES OF CFS
 
 CFS uses nanosecond granularity accounting and does not rely on any jiffies or
@@ -105,6 +112,8 @@ assumptions are gone from the load-balancing code now, and iterators of the
 scheduling modules are used.  The balancing code got quite a bit simpler as a
 result.
 
+
+
 5. Scheduling policies
 
 CFS implements three scheduling policies:
@@ -126,6 +135,8 @@ POSIX.
 
 The command chrt from util-linux-ng 2.13.1.1 can set all of these except
 SCHED_IDLE.
+
+
 
 6.  SCHEDULING CLASSES
 
@@ -183,6 +194,9 @@ This is the (partial) list of the hooks:
 
    This function is mostly called from time tick functions; it might lead to
    process switch.  This drives the running preemption.
+
+
+
 
 7.  GROUP SCHEDULER EXTENSIONS TO CFS
 

@@ -1,3 +1,4 @@
+
 UPDATE NEWS: version 1.33 - 26 Aug 98
 
    Interrupt management in this driver has become, over
@@ -122,6 +123,8 @@ UPDATE NEWS: version 1.24 - 23 Feb 96
    is being accessed, transfers usually go faster if disconnects
    are not allowed.
 
+
+
 The default arguments (you get these when you don't give an 'in2000'
 command-line argument, or you give a blank argument) will cause
 the driver to do adaptive disconnect, synchronous transfers, and a
@@ -140,6 +143,7 @@ despite the fact that the card could handle settings of 376 or
 cables or improper termination; 500 ns is a compromise. You can
 choose your own default through the command-line with the
 'period' keyword.
+
 
 ------------------------------------------------
 ***********  DIP switch settings  **************
@@ -193,4 +197,6 @@ choose your own default through the command-line with the
    Willmore for extensive 'bonnie' testing. And to Joe Mack for
    continual testing and feedback.
 
+
             John Shifflett    jshiffle@netcom.com
+

@@ -2,6 +2,7 @@ MORE NOTES ON HD-AUDIO DRIVER
 =============================
 					Takashi Iwai <tiwai@suse.de>
 
+
 GENERAL
 -------
 
@@ -12,7 +13,7 @@ problem is broken BIOS, and the rest is the driver implementation.
 This document explains the brief trouble-shooting and debugging
 methods for the	HD-audio hardware.
 
-The HD-audio component consists of two parts: the controller chip and
+The HD-audio component consists of two parts: the controller chip and 
 the codec chips on the HD-audio bus.  Linux provides a single driver
 for all controllers, snd-hda-intel.  Although the driver name contains
 a word of a well-known hardware vendor, it's not specific to it but for
@@ -41,6 +42,7 @@ Intel's web page, for example:
 
 - http://www.intel.com/standards/hdaudio/
 
+
 HD-AUDIO CONTROLLER
 -------------------
 
@@ -67,13 +69,14 @@ the wake-up timing.  It wakes up a few samples before actually
 processing the data on the buffer.  This caused a lot of problems, for
 example, with ALSA dmix or JACK.  Since 2.6.27 kernel, the driver puts
 an artificial delay to the wake up timing.  This delay is controlled
-via `bdl_pos_adj` option.
+via `bdl_pos_adj` option. 
 
 When `bdl_pos_adj` is a negative value (as default), it's assigned to
 an appropriate value depending on the controller chip.  For Intel
 chips, it'd be 1 while it'd be 32 for others.  Usually this works.
 Only in case it doesn't work and you get warning messages, you should
 change this parameter to other values.
+
 
 Codec-Probing Problem
 ~~~~~~~~~~~~~~~~~~~~~
@@ -115,6 +118,7 @@ Then the rest 8 bits are passed as the codec slots to probe
 unconditionally.  For example, `probe_mask=0x103` will force to probe
 the codec slots 0 and 1 no matter what the hardware reports.
 
+
 Interrupt Handling
 ~~~~~~~~~~~~~~~~~~
 HD-audio driver uses MSI as default (if available) since 2.6.33
@@ -128,7 +132,8 @@ see a regression wrt the sound quality (stuttering, etc) or a lock-up
 in the recent kernel, try to pass `enable_msi=0` option to disable
 MSI.  If it works, you can add the known bad device to the blacklist
 defined in hda_intel.c.  In such a case, please report and give the
-patch back to the upstream developer.
+patch back to the upstream developer. 
+
 
 HD-AUDIO CODEC
 --------------
@@ -245,6 +250,7 @@ following:
   codec-communication stall.  Some examples are found in
   patch_realtek.c.
 
+
 Capture Problems
 ~~~~~~~~~~~~~~~~
 The capture problems are often because of missing setups of mixers.
@@ -276,6 +282,7 @@ is implemented on some codec models but not on every model.  Partly
 because of my laziness but mostly lack of testers.  Feel free to
 submit the improvement patch to the author.
 
+
 Direct Debugging
 ~~~~~~~~~~~~~~~~
 If no model option gives you a better result, and you are a tough guy
@@ -284,6 +291,7 @@ codec verbs to the device.  Some tools are available: hda-emu and
 hda-analyzer.  The detailed description is found in the sections
 below.  You'd need to enable hwdep for using these tools.  See "Kernel
 Configuration" section.
+
 
 OTHER ISSUES
 ------------
@@ -321,6 +329,7 @@ section below.
 `CONFIG_SND_HDA_POWER_SAVE` option enables the power-saving feature.
 See "Power-saving" section below.
 
+
 Codec Proc-File
 ~~~~~~~~~~~~~~~
 The codec proc-file is a treasure-chest for debugging HD-audio.
@@ -340,11 +349,12 @@ This proc file can be also used to check whether the generic parser is
 used.  When the generic parser is used, the vendor/product ID name
 will appear as "Realtek ID 0262", instead of "Realtek ALC262".
 
+
 HD-Audio Reconfiguration
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This is an experimental feature to allow you re-configure the HD-audio
 codec dynamically without reloading the driver.  The following sysfs
-files are available under each codec-hwdep device directory (e.g.
+files are available under each codec-hwdep device directory (e.g. 
 /sys/class/sound/hwC0D0):
 
 vendor_id::
@@ -402,8 +412,9 @@ value of the pin widget 0x14 to 0x9993013f, and let the driver
 re-configure based on that state, run like below:
 ------------------------------------------------------------------------
   # echo 0x14 0x9993013f > /sys/class/sound/hwC0D0/user_pin_configs
-  # echo 1 > /sys/class/sound/hwC0D0/reconfig
+  # echo 1 > /sys/class/sound/hwC0D0/reconfig  
 ------------------------------------------------------------------------
+
 
 Early Patching
 ~~~~~~~~~~~~~~
@@ -485,11 +496,12 @@ present.
 
 The patch module option is specific to each card instance, and you
 need to give one file name for each instance, separated by commas.
-For example, if you have two cards, one for an on-board analog and one
+For example, if you have two cards, one for an on-board analog and one 
 for an HDMI video board, you may pass patch option like below:
 ------------------------------------------------------------------------
     options snd-hda-intel patch=on-board-patch,hdmi-patch
 ------------------------------------------------------------------------
+
 
 Power-Saving
 ~~~~~~~~~~~~
@@ -510,6 +522,7 @@ openSUSE enables the power-saving feature automatically when the power
 cable is unplugged.  Thus, if you hear noises, suspect first the
 power-saving.  See /sys/module/snd_hda_intel/parameters/power_save to
 check the current value.  If it's non-zero, the feature is turned on.
+
 
 Development Tree
 ~~~~~~~~~~~~~~~~
@@ -532,6 +545,7 @@ are found at:
 
 - ftp://ftp.kernel.org/pub/linux/kernel/people/tiwai/snapshot/
 
+
 Sending a Bug Report
 ~~~~~~~~~~~~~~~~~~~~
 If any model or module options don't work for your device, it's time
@@ -553,6 +567,7 @@ kernel-bugzilla::
   https://bugzilla.kernel.org/
 alsa-devel ML::
   alsa-devel@alsa-project.org
+
 
 DEBUG TOOLS
 -----------
@@ -589,6 +604,7 @@ configuration via hwdep sysfs file if hda-reconfig option is enabled.
 Using `probe_only` mask 2 skips the reset of HDA codecs (use
 `probe_only=3` as module option). The hwdep interface can be used
 to determine the BIOS codec initialization.
+
 
 hda-verb
 ~~~~~~~~
@@ -638,6 +654,7 @@ Also a git repository is available:
 See README file in the tarball for more details about hda-verb
 program.
 
+
 hda-analyzer
 ~~~~~~~~~~~~
 hda-analyzer provides a graphical interface to access the raw HD-audio
@@ -665,6 +682,7 @@ program.
 The tarball and GIT trees are found in the web page at:
 
 - http://helllabs.org/codecgraph/
+
 
 hda-emu
 ~~~~~~~

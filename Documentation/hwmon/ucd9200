@@ -17,6 +17,7 @@ Supported chips:
 
 Author: Guenter Roeck <guenter.roeck@ericsson.com>
 
+
 Description
 -----------
 
@@ -29,6 +30,7 @@ interface to support configuration, monitoring and management.
 This driver is a client driver to the core PMBus driver. Please see
 Documentation/hwmon/pmbus for details on PMBus client drivers.
 
+
 Usage Notes
 -----------
 
@@ -36,11 +38,13 @@ This driver does not auto-detect devices. You will have to instantiate the
 devices explicitly. Please see Documentation/i2c/instantiating-devices for
 details.
 
+
 Platform data support
 ---------------------
 
 The driver supports standard PMBus driver platform data. Please see
 Documentation/hwmon/pmbus for details.
+
 
 Sysfs entries
 -------------

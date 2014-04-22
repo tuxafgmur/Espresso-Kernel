@@ -55,6 +55,7 @@ create populated squashfs filesystems.  This and other squashfs utilities
 can be obtained from http://www.squashfs.org.  Usage instructions can be
 obtained from this site also.
 
+
 3. SQUASHFS FILESYSTEM DESIGN
 -----------------------------
 

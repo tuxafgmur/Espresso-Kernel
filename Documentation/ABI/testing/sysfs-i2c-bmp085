@@ -6,6 +6,7 @@ Description:	Start a pressure measurement and read the result. Values
 
 		Reading: returns the current air pressure.
 
+
 What:		/sys/bus/i2c/devices/<busnum>-<devaddr>/temp0_input
 Date:		June 2010
 Contact:	Christoph Mair <christoph.mair@gmail.com>
@@ -13,6 +14,7 @@ Description:	Measure the ambient temperature. The returned value represents
 		the ambient temperature in units of 0.1 degree celsius.
 
 		Reading: returns the current temperature.
+
 
 What:		/sys/bus/i2c/devices/<busnum>-<devaddr>/oversampling
 Date:		June 2010

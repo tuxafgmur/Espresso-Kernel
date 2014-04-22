@@ -3,9 +3,11 @@ the Linux watchdog drivers.  Watchdog driver parameter specs should
 be listed here unless the driver has its own driver-specific information
 file.
 
+
 See Documentation/kernel-parameters.txt for information on
 providing kernel parameters for builtin drivers versus loadable
 modules.
+
 
 -------------------------------------------------
 acquirewdt:

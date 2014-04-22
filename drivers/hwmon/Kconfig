@@ -39,35 +39,6 @@ config HWMON_DEBUG_CHIP
 
 comment "Native drivers"
 
-config SENSORS_ABITUGURU
-	tristate "Abit uGuru (rev 1 & 2)"
-	depends on X86 && DMI && EXPERIMENTAL
-	help
-	  If you say yes here you get support for the sensor part of the first
-	  and second revision of the Abit uGuru chip. The voltage and frequency
-	  control parts of the Abit uGuru are not supported. The Abit uGuru
-	  chip can be found on Abit uGuru featuring motherboards (most modern
-	  Abit motherboards from before end 2005). For more info and a list
-	  of which motherboards have which revision see
-	  Documentation/hwmon/abituguru
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called abituguru.
-
-config SENSORS_ABITUGURU3
-	tristate "Abit uGuru (rev 3)"
-	depends on X86 && DMI && EXPERIMENTAL
-	help
-	  If you say yes here you get support for the sensor part of the
-	  third revision of the Abit uGuru chip. Only reading the sensors
-	  and their settings is supported. The third revision of the Abit
-	  uGuru chip can be found on recent Abit motherboards (since end
-	  2005). For more info and a list of which motherboards have which
-	  revision see Documentation/hwmon/abituguru3
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called abituguru3.
-
 config SENSORS_AD7414
 	tristate "Analog Devices AD7414"
 	depends on I2C && EXPERIMENTAL
@@ -224,51 +195,6 @@ config SENSORS_ASC7621
 	  This driver can also be built as a module.  If so, the module
 	  will be called asc7621.
 
-config SENSORS_K8TEMP
-	tristate "AMD Athlon64/FX or Opteron temperature sensor"
-	depends on X86 && PCI && EXPERIMENTAL
-	help
-	  If you say yes here you get support for the temperature
-	  sensor(s) inside your CPU. Supported is whole AMD K8
-	  microarchitecture. Please note that you will need at least
-	  lm-sensors 2.10.1 for proper userspace support.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called k8temp.
-
-config SENSORS_K10TEMP
-	tristate "AMD Family 10h+ temperature sensor"
-	depends on X86 && PCI
-	help
-	  If you say yes here you get support for the temperature
-	  sensor(s) inside your CPU. Supported are later revisions of
-	  the AMD Family 10h and all revisions of the AMD Family 11h,
-	  12h (Llano), 14h (Brazos) and 15h (Bulldozer) microarchitectures.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called k10temp.
-
-config SENSORS_FAM15H_POWER
-	tristate "AMD Family 15h processor power"
-	depends on X86 && PCI
-	help
-	  If you say yes here you get support for processor power
-	  information of your AMD family 15h CPU.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called fam15h_power.
-
-config SENSORS_ASB100
-	tristate "Asus ASB100 Bach"
-	depends on X86 && I2C && EXPERIMENTAL
-	select HWMON_VID
-	help
-	  If you say yes here you get support for the ASB100 Bach sensor
-	  chip found on some Asus mainboards.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called asb100.
-
 config SENSORS_ATXP1
 	tristate "Attansic ATXP1 VID controller"
 	depends on I2C && EXPERIMENTAL
@@ -302,16 +228,6 @@ config SENSORS_DS1621
 
 	  This driver can also be built as a module.  If so, the module
 	  will be called ds1621.
-
-config SENSORS_I5K_AMB
-	tristate "FB-DIMM AMB temperature sensor on Intel 5000 series chipsets"
-	depends on PCI && EXPERIMENTAL
-	help
-	  If you say yes here you get support for FB-DIMM AMB temperature
-	  monitoring chips on systems with the Intel 5000 series chipset.
-
-	  This driver can also be built as a module. If so, the module
-	  will be called i5k_amb.
 
 config SENSORS_F71805F
 	tristate "Fintek F71805F/FG, F71806F/FG and F71872F/FG"
@@ -354,22 +270,6 @@ config SENSORS_F75375S
 	  This driver can also be built as a module.  If so, the module
 	  will be called f75375s.
 
-config SENSORS_FSCHMD
-	tristate "Fujitsu Siemens Computers sensor chips"
-	depends on X86 && I2C
-	help
-	  If you say yes here you get support for the following Fujitsu
-	  Siemens Computers (FSC) sensor chips: Poseidon, Scylla, Hermes,
-	  Heimdall, Heracles, Hades and Syleus including support for the
-	  integrated watchdog.
-
-	  This is a merged driver for FSC sensor chips replacing the fscpos,
-	  fscscy and fscher drivers and adding support for several other FSC
-	  sensor chips.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called fschmd.
-
 config SENSORS_G760A
 	tristate "GMT G760A"
 	depends on I2C
@@ -409,42 +309,6 @@ config SENSORS_GPIO_FAN
 
 	  This driver can also be built as a module.  If so, the module
 	  will be called gpio-fan.
-
-config SENSORS_CORETEMP
-	tristate "Intel Core/Core2/Atom temperature sensor"
-	depends on X86 && PCI && EXPERIMENTAL
-	help
-	  If you say yes here you get support for the temperature
-	  sensor inside your CPU. Most of the family 6 CPUs
-	  are supported. Check Documentation/hwmon/coretemp for details.
-
-config SENSORS_IBMAEM
-	tristate "IBM Active Energy Manager temperature/power sensors and control"
-	select IPMI_SI
-	depends on IPMI_HANDLER
-	help
-	  If you say yes here you get support for the temperature and
-	  power sensors and capping hardware in various IBM System X
-	  servers that support Active Energy Manager.  This includes
-	  the x3350, x3550, x3650, x3655, x3755, x3850 M2, x3950 M2,
-	  and certain HC10/HS2x/LS2x/QS2x blades.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called ibmaem.
-
-config SENSORS_IBMPEX
-	tristate "IBM PowerExecutive temperature/power sensors"
-	select IPMI_SI
-	depends on IPMI_HANDLER
-	help
-	  If you say yes here you get support for the temperature and
-	  power sensors in various IBM System X servers that support
-	  PowerExecutive.  So far this includes the x3350, x3550, x3650,
-	  x3655, and x3755; the x3800, x3850, and x3950 models that have
-	  PCI Express; and some of the HS2x, LS2x, and QS2x blades.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called ibmpex.
 
 config SENSORS_IT87
 	tristate "ITE IT87xx and compatibles"
@@ -1140,24 +1004,6 @@ config SENSORS_TWL4030_MADC
 	This driver can also be built as a module. If so it will be called
 	twl4030-madc-hwmon.
 
-config SENSORS_VIA_CPUTEMP
-	tristate "VIA CPU temperature sensor"
-	depends on X86
-	help
-	  If you say yes here you get support for the temperature
-	  sensor inside your CPU. Supported are all known variants of
-	  the VIA C7 and Nano.
-
-config SENSORS_VIA686A
-	tristate "VIA686A"
-	depends on PCI
-	help
-	  If you say yes here you get support for the integrated sensors in
-	  Via 686A/B South Bridges.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called via686a.
-
 config SENSORS_VT1211
 	tristate "VIA VT1211"
 	select HWMON_VID
@@ -1167,17 +1013,6 @@ config SENSORS_VT1211
 
 	  This driver can also be built as a module.  If so, the module
 	  will be called vt1211.
-
-config SENSORS_VT8231
-	tristate "VIA VT8231"
-	depends on PCI
-	select HWMON_VID
-	help
-	  If you say yes here then you get support for the integrated sensors
-	  in the VIA VT8231 device.
-
-	  This driver can also be built as a module.  If so, the module
-	  will be called vt8231.
 
 config SENSORS_W83781D
 	tristate "Winbond W83781D, W83782D, W83783S, Asus AS99127F"
@@ -1320,70 +1155,10 @@ config SENSORS_WM8350
 	  This driver can also be built as a module.  If so, the module
 	  will be called wm8350-hwmon.
 
-config SENSORS_ULTRA45
-	tristate "Sun Ultra45 PIC16F747"
-	depends on SPARC64
-	help
-	  This driver provides support for the Ultra45 workstation environmental
-	  sensors.
-
-config SENSORS_APPLESMC
-	tristate "Apple SMC (Motion sensor, light sensor, keyboard backlight)"
-	depends on INPUT && X86
-	select NEW_LEDS
-	select LEDS_CLASS
-	select INPUT_POLLDEV
-	default n
-	help
-	  This driver provides support for the Apple System Management
-	  Controller, which provides an accelerometer (Apple Sudden Motion
-	  Sensor), light sensors, temperature sensors, keyboard backlight
-	  control and fan control.
-
-	  Only Intel-based Apple's computers are supported (MacBook Pro,
-	  MacBook, MacMini).
-
-	  Data from the different sensors, keyboard backlight control and fan
-	  control are accessible via sysfs.
-
-	  This driver also provides an absolute input class device, allowing
-	  the laptop to act as a pinball machine-esque joystick.
-
-	  Say Y here if you have an applicable laptop and want to experience
-	  the awesome power of applesmc.
-
 config SENSORS_MC13783_ADC
         tristate "Freescale MC13783 ADC"
         depends on MFD_MC13783
         help
           Support for the A/D converter on MC13783 PMIC.
-
-if ACPI
-
-comment "ACPI drivers"
-
-config SENSORS_ACPI_POWER
-	tristate "ACPI 4.0 power meter"
-	help
-	  This driver exposes ACPI 4.0 power meters as hardware monitoring
-	  devices.  Say Y (or M) if you have a computer with ACPI 4.0 firmware
-	  and a power meter.
-
-	  To compile this driver as a module, choose M here:
-	  the module will be called acpi_power_meter.
-
-config SENSORS_ATK0110
-	tristate "ASUS ATK0110"
-	depends on X86 && EXPERIMENTAL
-	help
-	  If you say yes here you get support for the ACPI hardware
-	  monitoring interface found in many ASUS motherboards. This
-	  driver will provide readings of fans, voltages and temperatures
-	  through the system firmware.
-
-	  This driver can also be built as a module. If so, the module
-	  will be called asus_atk0110.
-
-endif # ACPI
 
 endif # HWMON

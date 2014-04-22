@@ -24,6 +24,7 @@ Contents
 * ACPI integration
 * Monitoring tool
 
+
 Installation
 ------------
 
@@ -43,6 +44,7 @@ laptops that don't have ACPI. On those laptops, you need to start laptop
 mode manually. To start laptop mode, run "laptop_mode start", and to
 stop it, run "laptop_mode stop". (Note: The laptop mode tools package now
 has experimental support for APM, you might want to try that first.)
+
 
 Caveats
 -------
@@ -70,6 +72,7 @@ Caveats
   times to determine whether a folder contains new mail. If you use mutt and
   experience this, you must disable the noatime remounting by setting the option
   DO_REMOUNT_NOATIME to 0 in the configuration file.
+
 
 The Details
 -----------
@@ -106,6 +109,7 @@ block_dump is written to the kernel output, and it can be retrieved using
 kernel debugging messages, you probably want to turn off klogd, otherwise
 the output of block_dump will be logged, causing disk activity that is not
 normally there.
+
 
 Configuration
 -------------
@@ -188,6 +192,7 @@ When on battery, what is the maximum CPU speed that the system should use? Legal
 values are "slowest" for the slowest speed that your CPU is able to operate at,
 or a value listed in /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies.
 
+
 Tips & Tricks
 -------------
 
@@ -217,6 +222,7 @@ Tips & Tricks
   that flash memory can only handle a limited number of writes, and overuse
   may wear out your memory stick pretty quickly. Do _not_ use journalling
   filesystems on flash memory sticks.)
+
 
 Configuration file for control and ACPI battery scripts
 -------------------------------------------------------
@@ -304,6 +310,7 @@ MINIMUM_BATTERY_MINUTES=10
 #DO_HD=1
 
 --------------------CONFIG FILE END---------------------------------------------
+
 
 Control script
 --------------
@@ -685,6 +692,7 @@ esac
 exit 0
 --------------------CONTROL SCRIPT END------------------------------------------
 
+
 ACPI integration
 ----------------
 
@@ -698,10 +706,12 @@ event=ac_adapter
 action=/etc/acpi/actions/ac.sh %e
 ----------------/etc/acpi/events/ac_adapter END---------------------------------
 
+
 -----------------/etc/acpi/events/battery BEGIN---------------------------------
 event=battery.*
 action=/etc/acpi/actions/battery.sh %e
 ----------------/etc/acpi/events/battery END------------------------------------
+
 
 ----------------/etc/acpi/actions/ac.sh BEGIN-----------------------------------
 #!/bin/bash
@@ -721,6 +731,7 @@ case $status in
         ;;
 esac
 ---------------------------/etc/acpi/actions/ac.sh END--------------------------
+
 
 ---------------------------/etc/acpi/actions/battery.sh BEGIN-------------------
 #! /bin/bash
@@ -762,6 +773,7 @@ then
    fi
 fi
 ---------------------------/etc/acpi/actions/battery.sh END--------------------
+
 
 Monitoring tool
 ---------------

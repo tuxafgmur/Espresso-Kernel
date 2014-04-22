@@ -66,6 +66,7 @@ This command is used to sync content of the remote dir to the client.
 @id - local inode number of the directory to read.
 @start - zero.
 
+
 @NETFS_READ_PAGE
 This command is used to read data from remote server.
 Data size does not exceed local page cache size.
@@ -74,6 +75,7 @@ Data size does not exceed local page cache size.
 @start - first byte offset.
 @size - number of bytes to read plus length of the path to object.
 @ext - object path length.
+
 
 @NETFS_CREATE
 Used to create object.
@@ -87,6 +89,7 @@ mode (permissions and type) and length of the name as long as name itself.
 @id - local inode number
 @ext - 0
 
+
 @NETFS_REMOVE
 Used to remove object.
 
@@ -95,6 +98,7 @@ Used to remove object.
 @id - local inode number.
 @start - zero.
 
+
 @NETFS_LOOKUP
 Lookup information about object on server.
 
@@ -102,6 +106,7 @@ Lookup information about object on server.
 @size - the same.
 @id - local inode number of the directory to look object in.
 @start - local inode number of the object to look at.
+
 
 @NETFS_LINK
 Create hard of symlink.
@@ -112,6 +117,7 @@ Command is sent as "object_path|target_path".
 @start - 1 for symlink, 0 for hardlink.
 @ext - size of the "object_path" above.
 
+
 @NETFS_TRANS
 Transaction header.
 
@@ -120,6 +126,7 @@ Transaction header.
 @ext - transaction flags. Unused at the moment.
 @id - 0.
 
+
 @NETFS_OPEN
 Open intent for given transaction.
 
@@ -127,6 +134,7 @@ Open intent for given transaction.
 @start - 0.
 @size - path length to the object.
 @ext - open flags (O_RDWR and so on).
+
 
 @NETFS_INODE_INFO
 Metadata update command.
@@ -150,10 +158,12 @@ struct netfs_inode_info
 
 It effectively mirrors stat(2) returned data.
 
+
 @ext - path length to the object.
 @size - the same plus size of the netfs_inode_info structure.
 @id - local inode number.
 @start - 0.
+
 
 @NETFS_PAGE_CACHE
 Command is only received by clients. It contains information about
@@ -165,6 +175,7 @@ page to be marked as not up-to-date.
 @size - 0
 @ext - 0
 
+
 @NETFS_READ_PAGES
 Used to read multiple contiguous pages in one go.
 
@@ -174,6 +185,7 @@ Used to read multiple contiguous pages in one go.
 @id - local inode number.
 @ext - path length to the object.
 
+
 @NETFS_RENAME
 Used to rename object.
 Attached data is formed into following string: "old_path|new_path".
@@ -182,6 +194,7 @@ Attached data is formed into following string: "old_path|new_path".
 @start - parent inode number.
 @size - length of the above string.
 @ext - length of the old path part.
+
 
 @NETFS_CAPABILITIES
 Used to exchange crypto capabilities with server.

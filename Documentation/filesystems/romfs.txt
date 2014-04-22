@@ -181,5 +181,6 @@ limiting factor in my eyes.
 
 - Does it work on other architectures than intel and motorola?
 
+
 Have fun,
 Janos Farkas <chexum@shadow.banki.hu>

@@ -49,6 +49,7 @@ The ADM9240, DS1780 and LM81 are register compatible, the following
 details are common to the three chips. Chip differences are described
 after this section.
 
+
 Measurements
 ------------
 The measurement cycle

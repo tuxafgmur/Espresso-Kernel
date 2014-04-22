@@ -11,6 +11,7 @@ reveal their parameters in /sys/module/${modulename}/parameters/. Some of these
 parameters may be changed at runtime by the command
 "echo -n ${value} > /sys/module/${modulename}/parameters/${parm}".
 
+
 	advansys=	[HW,SCSI]
 			See header of drivers/scsi/advansys.c.
 

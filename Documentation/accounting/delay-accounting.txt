@@ -30,6 +30,7 @@ aggregate delay statistics into arbitrary groups. To enable this, delay
 statistics of a task are available both during its lifetime as well as on its
 exit, ensuring continuous and complete monitoring can be done.
 
+
 Interface
 ---------
 
@@ -81,12 +82,14 @@ General format of the getdelays command
 
 getdelays [-t tgid] [-p pid] [-c cmd...]
 
+
 Get delays, since system boot, for pid 10
 # ./getdelays -p 10
 (output similar to next case)
 
 Get sum of delays, since system boot, for all pids with tgid 5
 # ./getdelays -t 5
+
 
 CPU	count	real total	virtual total	delay total
 	7876	92005750	100000000	24001500
@@ -102,6 +105,7 @@ Get delays seen in executing a given simple command
 
 bin   data1  data3  data5  dev  home  media  opt   root  srv        sys  usr
 boot  data2  data4  data6  etc  lib   mnt    proc  sbin  subdomain  tmp  var
+
 
 CPU	count	real total	virtual total	delay total
 	6	4000250		4000000		0

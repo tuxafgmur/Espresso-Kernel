@@ -20,6 +20,7 @@ SPI protocol drivers interact with the AVR, and could even let the AVR
 issue interrupts to them.  Later, your protocol driver should work
 easily with a "real SPI controller", instead of this bitbanger.
 
+
 The first cable connections will hook Linux up to one SPI bus, with the
 AVR and a DataFlash chip; and to the AVR reset line.  This is all you
 need to reflash the firmware, and the pins are the standard Atmel "ISP"
@@ -64,3 +65,4 @@ of spare parport pins to wire this one up, such as:
 
 	IRQ	= J402.PF4	= pin 10/S6,ACK
 	GND	= J402.GND(P2)	= pin 25/GND
+

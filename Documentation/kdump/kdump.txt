@@ -54,6 +54,7 @@ memory," in two ways:
   tool to debug the dump file. This method ensures that the dump pages are
   correctly ordered.
 
+
 Setup and Installation
 ======================
 
@@ -99,6 +100,7 @@ http://www.kernel.org/pub/linux/utils/kernel/kexec/README.html
 7) Install the package, as follows:
 
    make install
+
 
 Build the system and dump-capture kernels
 -----------------------------------------
@@ -239,6 +241,7 @@ Dump-capture kernel config options (Arch Dependent, ia64)
   kernel will be aligned to 64Mb, so if the start address is not then
   any space below the alignment point will be wasted.
 
+
 Extended crashkernel syntax
 ===========================
 
@@ -265,6 +268,8 @@ This would mean:
        (this is the "rescue" case)
     2) if the RAM size is between 512M and 2G (exclusive), then reserve 64M
     3) if the RAM size is larger than 2G, then reserve 128M
+
+
 
 Boot into System Kernel
 =======================
@@ -304,6 +309,7 @@ For ppc64:
 For ia64:
 	- Use vmlinux or vmlinuz.gz
 
+
 If you are using a uncompressed vmlinux image then use following command
 to load dump-capture kernel.
 
@@ -330,6 +336,7 @@ For i386, x86_64 and ia64:
 
 For ppc64:
 	"1 maxcpus=1 noirqdistrib reset_devices"
+
 
 Notes on loading the dump-capture kernel:
 
@@ -398,6 +405,7 @@ To see the entire memory, use the following command:
 
    dd if=/dev/oldmem of=oldmem.001
 
+
 Analysis
 ========
 
@@ -422,6 +430,7 @@ format. Crash is available on Dave Anderson's site at the following URL:
 
    http://people.redhat.com/~anderson/
 
+
 To Do
 =====
 
@@ -429,8 +438,10 @@ To Do
    multiple kernels for crash_dump, and the same kernel as the system kernel
    can be used to capture the dump.
 
+
 Contact
 =======
 
 Vivek Goyal (vgoyal@redhat.com)
 Maneesh Soni (maneesh@in.ibm.com)
+

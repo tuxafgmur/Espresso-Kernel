@@ -1,3 +1,4 @@
+
 bttv and sound mini howto
 =========================
 
@@ -32,6 +33,7 @@ you might want to check the video4linux mailing list archive first...
 Of course you need a correctly installed soundcard unless you have the
 speakers connected directly to the grabber board.  Hint: check the
 mixer settings too.  ALSA for example has everything muted by default.
+
 
 How sound works in detail
 =========================
@@ -73,6 +75,7 @@ The audiomux[] array holds the data values for the different inputs
 written to the data register (BT848_GPIO_DATA) to switch the audio
 mux.
 
+
 What you have to do is figure out the correct values for gpiomask and
 the audiomux array.  If you have Windows and the drivers four your
 card installed, you might to check out if you can read these registers
@@ -85,6 +88,7 @@ http://btwincap.sourceforge.net/Files/btspy2.00.zip
 You might also dig around in the *.ini files of the Windows applications.
 You can have a look at the board to see which of the gpio pins are
 connected at all and then start trial-and-error ...
+
 
 Starting with release 0.7.41 bttv has a number of insmod options to
 make the gpio debugging easier:
@@ -105,6 +109,8 @@ out =	_out_put bits of the data register (BT848_GPIO_DATA),
 	i.e. BT848_GPIO_DATA & BT848_GPIO_OUT_EN
 in  = 	_in_put bits of the data register,
 	i.e. BT848_GPIO_DATA & ~BT848_GPIO_OUT_EN
+
+
 
 Other elements of the tvcards array
 ===================================
@@ -129,9 +135,12 @@ needs_tvaudio	- set to "1" to load tvaudio.o module
 If some config item is specified both from the tvcards array and as
 insmod option, the insmod option takes precedence.
 
+
+
 Good luck,
 
   Gerd
+
 
 PS: If you have a new working entry, mail it to me.
 

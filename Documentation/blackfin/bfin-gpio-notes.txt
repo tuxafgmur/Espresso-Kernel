@@ -16,6 +16,7 @@
  *
  */
 
+
 1. Blackfin GPIO introduction
 
     There are many GPIO pins on Blackfin. Most of these pins are muxed to
@@ -24,6 +25,7 @@
 
     For detailed information, please see "arch/blackfin/kernel/bfin_gpio.c",
     or the relevant HRM.
+
 
 2. Avoiding resource conflict
 
@@ -48,6 +50,7 @@
     These functions are wrapped by other functions, most of the users need not
     care.
 
+
 3. But there are some exceptions
     - Kernel permit the identical GPIO be requested both as GPIO and GPIO
     interrut.
@@ -63,3 +66,6 @@ configuring it as IRQ!
 	warning messages.
 
     - Kernel permit the identical GPIO be requested from the same driver twice.
+
+
+

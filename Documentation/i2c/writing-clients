@@ -5,6 +5,7 @@ To set up a driver, you need to do several things. Some are optional, and
 some things can be done slightly or completely different. Use this as a
 guide, not as a rule book!
 
+
 General remarks
 ===============
 
@@ -13,6 +14,7 @@ do this is to use a unique prefix for all global symbols. This is
 especially important for exported symbols, but it is a good idea to do
 it for non-exported symbols too. We will use the prefix `foo_' in this
 tutorial.
+
 
 The driver structure
 ====================
@@ -59,6 +61,7 @@ name, the module won't be automatically loaded (hotplug/coldplug).
 All other fields are for call-back functions which will be explained
 below.
 
+
 Extra client data
 =================
 
@@ -75,6 +78,7 @@ Note that starting with kernel 2.6.34, you don't have to set the `data' field
 to NULL in remove() or if probe() failed anymore. The i2c-core does this
 automatically on these occasions. Those are also the only times the core will
 touch this field.
+
 
 Accessing the client
 ====================
@@ -109,6 +113,7 @@ int foo_write_value(struct i2c_client *client, u8 reg, u16 value)
 		return i2c_smbus_write_word_data(client, reg, value);
 }
 
+
 Probing and attaching
 =====================
 
@@ -125,6 +130,7 @@ problematic.  Drivers for I2C devices that issue interrupts need more (and
 different) configuration information, as do drivers handling chip variants
 that can't be distinguished by protocol probing, or which need some board
 specific information to operate correctly.
+
 
 Device/Driver Binding
 ---------------------
@@ -153,6 +159,7 @@ The probe function is called when an entry in the id_table name field
 matches the device's name. It is passed the entry that was matched so
 the driver knows which one in the table matched.
 
+
 Device Creation
 ---------------
 
@@ -179,6 +186,7 @@ many times.
 The call to i2c_new_device() or i2c_new_probed_device() typically happens
 in the I2C bus driver. You may want to save the returned i2c_client
 reference for later use.
+
 
 Device Detection
 ----------------
@@ -215,6 +223,7 @@ operation by another chip.  For these reasons, explicit device
 instantiation should always be preferred to auto-detection where
 possible.
 
+
 Device Deletion
 ---------------
 
@@ -223,6 +232,7 @@ i2c_new_probed_device() can be unregistered by calling
 i2c_unregister_device().  If you don't call it explicitly, it will be
 called automatically before the underlying I2C bus itself is removed, as a
 device can't survive its parent in the device driver model.
+
 
 Initializing the driver
 =======================
@@ -256,6 +266,7 @@ be removed after kernel booting (or module loading) is completed.
 Likewise, functions marked by `__exit' are dropped by the compiler when
 the code is built into the kernel, as they would never be called.
 
+
 Power Management
 ================
 
@@ -270,6 +281,7 @@ I2C messaging to the device being suspended or resumed (since their
 parent I2C adapter is active when these calls are issued, and IRQs
 are still enabled).
 
+
 System Shutdown
 ===============
 
@@ -281,12 +293,14 @@ Again, this is a standard driver model call, working just like it
 would for any other driver stack:  the calls can sleep, and can use
 I2C messaging.
 
+
 Command function
 ================
 
 A generic ioctl-like function call back is supported. You will seldom
 need this, and its use is deprecated anyway, so newer design should not
 use it.
+
 
 Sending and receiving
 =====================
@@ -297,6 +311,7 @@ to do this. You can find all of them in <linux/i2c.h>.
 If you can choose between plain I2C communication and SMBus level
 communication, please use the latter. All adapters understand SMBus level
 commands, but only some of them understand plain I2C!
+
 
 Plain I2C communication
 -----------------------
@@ -323,6 +338,7 @@ and the message data itself.
 
 You can read the file `i2c-protocol' for more information about the
 actual I2C protocol.
+
 
 SMBus communication
 -------------------
@@ -368,6 +384,7 @@ read. The block buffers need not be longer than 32 bytes.
 
 You can read the file `smbus-protocol' for more information about the
 actual SMBus protocol.
+
 
 General purpose routines
 ========================

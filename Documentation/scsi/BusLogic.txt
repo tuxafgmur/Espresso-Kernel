@@ -13,6 +13,7 @@
 
 	 Copyright 1995-1998 by Leonard N. Zubkoff <lnz@dandelion.com>
 
+
 				 INTRODUCTION
 
 BusLogic, Inc. designed and manufactured a variety of high performance SCSI
@@ -83,6 +84,7 @@ http://www.mylex.com.  Mylex HBA Technical Support can be reached by electronic
 mail at techsup@mylex.com, by Voice at 510/608-2400, or by FAX at 510/745-7715.
 Contact information for offices in Europe and Japan is available on the Web
 site.
+
 
 				DRIVER FEATURES
 
@@ -193,6 +195,7 @@ o Shared Interrupts Support
   On systems that support shared interrupts, any number of BusLogic Host
   Adapters may share the same interrupt request channel.
 
+
 			    SUPPORTED HOST ADAPTERS
 
 The following list comprises the supported BusLogic SCSI Host Adapters as of
@@ -256,6 +259,7 @@ The retail kit model numbers are found by replacing BT- with KT- in the above
 list.  The retail kit includes the bare board and manual as well as cabling and
 driver media and documentation that are not provided with bare boards.
 
+
 			 FLASHPOINT INSTALLATION NOTES
 
 o RAIDPlus Support
@@ -281,6 +285,7 @@ o Enabling UltraSCSI Transfers
   speed to be negotiated with all devices, or UltraSCSI speed can be enabled on
   an individual basis.  It is recommended that SCAM be manually disabled after
   the "Optimum Performance" settings are loaded.
+
 
 		      BT-948/958/958D INSTALLATION NOTES
 
@@ -346,6 +351,7 @@ o Enabling UltraSCSI Transfers
   negotiated with all devices, or UltraSCSI speed can be enabled on an
   individual basis.  It is recommended that SCAM be manually disabled after the
   "Optimum Performance" settings are loaded.
+
 
 				DRIVER OPTIONS
 
@@ -530,6 +536,7 @@ INSMOD Loadable Kernel Module Installation Facility:
 NOTE: Module Utilities 2.1.71 or later is required for correct parsing
       of driver options containing commas.
 
+
 			      DRIVER INSTALLATION
 
 This distribution was prepared for Linux kernel version 2.0.35, but should be
@@ -548,6 +555,7 @@ replacing "/usr/src" with wherever you keep your Linux kernel source tree:
 
 Then install "arch/i386/boot/zImage" as your standard kernel, run lilo if
 appropriate, and reboot.
+
 
 		      BUSLOGIC ANNOUNCEMENTS MAILING LIST
 

@@ -1,3 +1,4 @@
+
 			     ====================
 			     HIGH MEMORY HANDLING
 			     ====================
@@ -15,6 +16,7 @@ Contents:
  (*) Cost of temporary mappings.
 
  (*) i386 PAE.
+
 
 ====================
 WHAT IS HIGH MEMORY?
@@ -55,6 +57,7 @@ Other architectures that have mm context tagged TLBs can have separate kernel
 and user maps.  Some hardware (like some ARMs), however, have limited virtual
 space when they use mm context tags.
 
+
 ==========================
 TEMPORARY VIRTUAL MAPPINGS
 ==========================
@@ -79,6 +82,7 @@ The kernel contains several ways of creating temporary mappings:
      sleep and the caller may not sleep until after kunmap_atomic() is called.
 
      It may be assumed that k[un]map_atomic() won't fail.
+
 
 =================
 USING KMAP_ATOMIC
@@ -115,6 +119,7 @@ another you need to keep the kmap_atomic calls strictly nested, like:
 	kunmap_atomic(vaddr2);
 	kunmap_atomic(vaddr1);
 
+
 ==========================
 COST OF TEMPORARY MAPPINGS
 ==========================
@@ -129,6 +134,7 @@ case, the unmap operation may be a null operation.
 
 If CONFIG_MMU is not set, then there can be no temporary mappings and no
 highmem.  In such a case, the arithmetic approach will also be used.
+
 
 ========
 i386 PAE

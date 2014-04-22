@@ -12,6 +12,7 @@ Contents:
  - Security.
  - Examples.
 
+
 ========
 OVERVIEW
 ========
@@ -31,6 +32,7 @@ it does support include:
 It does not yet support the following AFS features:
 
  (*) pioctl() system call.
+
 
 ===========
 COMPILATION
@@ -53,6 +55,7 @@ the masks in the following files:
 
 	/sys/module/af_rxrpc/parameters/debug
 	/sys/module/kafs/parameters/debug
+
 
 =====
 USAGE
@@ -100,6 +103,7 @@ named volume will be looked up in the cell specified during modprobe.
 
 Additional cells can be added through /proc (see later section).
 
+
 ===========
 MOUNTPOINTS
 ===========
@@ -122,6 +126,7 @@ This can be used by the administrator to attempt to unmount the whole AFS tree
 mounted on /afs in one go by doing:
 
 	umount /afs
+
 
 ===============
 PROC FILESYSTEM
@@ -149,6 +154,7 @@ The AFS modules creates a "/proc/fs/afs/" directory and populates it:
 	USE STT VLID[0]  VLID[1]  VLID[2]  NAME
 	  1 Val 20000000 20000001 20000002 root.afs
 
+
 =================
 THE CELL DATABASE
 =================
@@ -165,6 +171,7 @@ Further cells can be added by commands similar to the following:
 	echo add grand.central.org 18.9.48.14:128.2.203.61:130.237.48.87 >/proc/fs/afs/cells
 
 No other cell database operations are available at this time.
+
 
 ========
 SECURITY
@@ -207,6 +214,7 @@ If a file is opened with a particular key and then the file descriptor is
 passed to a process that doesn't have that key (perhaps over an AF_UNIX
 socket), then the operations on the file will be made with key that was used to
 open the file.
+
 
 ========
 EXAMPLES

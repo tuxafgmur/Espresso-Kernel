@@ -9,6 +9,7 @@ Supported chips:
 
 Author: Jean Delvare <khali@linux-fr.org>
 
+
 Description
 -----------
 
@@ -30,6 +31,7 @@ register-incompatible.
 The driver currently only supports the monitoring of the voltages,
 temperatures and fan speeds. Limits can be changed. Alarms are not
 supported, and neither is fan speed control.
+
 
 Known Systems With EMC6W201
 ---------------------------

@@ -3,7 +3,9 @@ Notes on Universal Interface for Intel High Definition Audio Codec
 
 Takashi Iwai <tiwai@suse.de>
 
+
 [Still a draft version]
+
 
 General
 =======
@@ -16,6 +18,7 @@ from/to the controller must be implemented in the lowlevel driver.
 The structure of this module is similar with ac97_codec module.
 Each codec chip belongs to a bus class which communicates with the
 controller.
+
 
 Initialization of Bus Instance
 ==============================
@@ -76,6 +79,7 @@ int snd_hda_bus_new(struct snd_card *card, const struct hda_bus_template *temp,
 It returns zero if successful.  A negative return value means any
 error during creation.
 
+
 Creation of Codec Instance
 ==========================
 
@@ -100,6 +104,7 @@ the codec list like:
 The codec isn't initialized at this stage properly.  The
 initialization sequence is called when the controls are built later.
 
+
 Codec Access
 ============
 
@@ -120,6 +125,7 @@ When an unsolicited event happens, pass the event via
 snd_hda_queue_unsol_event() so that the codec routines will process it
 later.
 
+
 (Mixer) Controls
 ================
 
@@ -127,15 +133,16 @@ To create mixer controls of all codecs, call
 snd_hda_build_controls().  It then builds the mixers and does
 initialization stuff on each codec.
 
+
 PCM Stuff
 =========
 
 snd_hda_build_pcms() gives the necessary information to create PCM
-streams.  When it's called, each codec belonging to the bus stores
+streams.  When it's called, each codec belonging to the bus stores 
 codec->num_pcms and codec->pcm_info fields.  The num_pcms indicates
 the number of elements in pcm_info array.  The card driver is supposed
 to traverse the codec linked list, read the pcm information in
-pcm_info array, and build pcm instances according to them.
+pcm_info array, and build pcm instances according to them. 
 
 The pcm_info array contains the following record:
 
@@ -196,6 +203,7 @@ The caller should check the return value, at least for open and
 prepare callbacks.  When a negative value is returned, some error
 occurred.
 
+
 Proc Files
 ==========
 
@@ -204,12 +212,14 @@ Each codec dumps the widget node information in
 helpful for debugging.  Please provide its contents together with the
 bug report.
 
+
 Power Management
 ================
 
 It's simple:
 Call snd_hda_suspend() in the PM suspend callback.
 Call snd_hda_resume() in the PM resume callback.
+
 
 Codec Preset (Patch)
 ====================
@@ -273,6 +283,7 @@ appropriately from this information.
 
 Each entry can be NULL if not necessary to be called.
 
+
 Generic Parser
 ==============
 
@@ -280,11 +291,13 @@ When the device doesn't match with any given presets, the widgets are
 parsed via th generic parser (hda_generic.c).  Its support is
 limited: no multi-channel support, for example.
 
+
 Digital I/O
 ===========
 
 Call snd_hda_create_spdif_out_ctls() from the patch to create controls
 related with SPDIF out.
+
 
 Helper Functions
 ================

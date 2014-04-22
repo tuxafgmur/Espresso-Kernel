@@ -1,5 +1,6 @@
 Read the F-ing Papers!
 
+
 This document describes RCU-related publications, and is followed by
 the corresponding bibtex entries.  A number of the publications may
 be found at http://www.rdrop.com/users/paulmck/RCU/.
@@ -722,7 +723,7 @@ Revised:
 	3. RCU is a Bulk Reference-Counting Mechanism
 	4. RCU is a Poor Man's Garbage Collector
 	5. RCU is a Way of Providing Existence Guarantees
-	6. RCU is a Way of Waiting for Things to Finish
+	6. RCU is a Way of Waiting for Things to Finish 
 "
 }
 

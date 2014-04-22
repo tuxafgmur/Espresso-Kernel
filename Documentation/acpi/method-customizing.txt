@@ -3,6 +3,7 @@ Linux ACPI Custom Control Method How To
 
 Written by Zhang Rui <rui.zhang@intel.com>
 
+
 Linux supports customizing ACPI control methods at runtime.
 
 Users can use this to
@@ -59,6 +60,7 @@ Note: To get the ACPI debug object output (Store (AAAA, Debug)),
    For an overrided method, in order to undo your changes, please
    save a copy of the method original ASL code in step c) section 1,
    and redo step c) ~ g) to override the method with the original one.
+
 
 Note: We can use a kernel with multiple custom ACPI method running,
       But each individual write to debugfs can implement a SINGLE

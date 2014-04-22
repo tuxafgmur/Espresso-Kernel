@@ -22,7 +22,9 @@ Author's address: how@isl.stanford.edu
 
 $Id: README,v 1.15 1992/05/20 00:25:32 how E $
 
+
 ==>> To compile after untarring/unsharring, just `make' <<==
+
 
 This package was designed with the following goals:
 1.	Highest possible encryption/decryption PERFORMANCE.
@@ -39,6 +41,7 @@ up in a parameterized fashion so it can easily be modified by speed-daemon
 hackers in pursuit of that last microsecond.  You will find it more
 illuminating to inspect one specific implementation,
 and then move on to the common abstract skeleton with this one in mind.
+
 
 performance comparison to other available des code which i could
 compile on a SPARCStation 1 (cc -O4, gcc -O2):
@@ -128,6 +131,7 @@ UC Berkeley code (depends on machine-endedness):
 	table sizes are unclear, but they don't look very small
 	(code obtained from wuarchive.wustl.edu)
 
+
 motivation and history
 
 a while ago i wanted some des routines and the routines documented on sun's
@@ -161,6 +165,7 @@ i'm glad that i implemented it the way i did, because this C version is
 portable (the ifdef's are performance enhancements) and it is faster
 than versions hand-written in assembly for the sparc!
 
+
 porting notes
 
 one thing i did not want to do was write an enormous mess
@@ -187,6 +192,7 @@ the (worst-case) cost of my NOT doing endedness-specific optimizations
 in the data loading and storing code surrounding the key iterations
 is less than 12%.  also, there is the added benefit that
 the input and output work areas do not need to be word-aligned.
+
 
 OPTIONAL performance optimizations
 
@@ -258,6 +264,7 @@ KEEP THIS MORE SUBTLE POINT IN MIND IF YOU REWRITE ANYTHING.
 but fixing it would either break the structure of the macros or
 require declaring another temporary).
 
+
 special efficient data format
 
 bits are manipulated in this arrangement most of the time (S7 S5 S3 S1):
@@ -268,6 +275,7 @@ bits are rotated left 4 when computing S6 S4 S2 S0:
 the rightmost two bits are usually cleared so the lower byte can be used
 as an index into an sbox mapping table. the next two x'd bits are set
 to various values to access different parts of the tables.
+
 
 how to use the routines
 
@@ -319,6 +327,7 @@ Des{Small|Quick}{Fips|Core}{Encrypt|Decrypt}(d, m, s)
 	memory.  Quick is included for programs that do nothing but DES,
 	e.g., encryption filters, etc.
 
+
 Getting it to compile on your machine
 
 there are no machine-dependencies in the code (see porting),
@@ -326,6 +335,7 @@ except perhaps the `now()' macro in desTest.c.
 ALL generated tables are machine independent.
 you should edit the Makefile with the appropriate optimization flags
 for your compiler (MAX optimization).
+
 
 Speeding up kerberos (and/or its des library)
 

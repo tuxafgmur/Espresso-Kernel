@@ -46,3 +46,5 @@ Example of two SOC GPIO banks defined as gpio-controller nodes:
 		reg = <0x1460 0x18>;
 		gpio-controller;
 	};
+
+

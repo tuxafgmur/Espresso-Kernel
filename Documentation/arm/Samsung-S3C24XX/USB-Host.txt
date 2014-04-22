@@ -1,6 +1,8 @@
 			S3C24XX USB Host support
 			========================
 
+
+
 Introduction
 ------------
 
@@ -18,12 +20,15 @@ Configuration
        <*> Support for Host-side USB
        <*>   OHCI HCD support
 
+
   .config:
     CONFIG_USB
     CONFIG_USB_OHCI_HCD
 
+
   Once these options are configured, the standard set of USB device
   drivers can be configured and used.
+
 
 Board Support
 -------------
@@ -39,6 +44,7 @@ Board Support
   register, so if both ports are to be used for the host, then it is
   the board support file's responsibility to ensure that the second
   port is configured to be connected to the OHCI core.
+
 
 Platform Data
 -------------
@@ -78,6 +84,8 @@ Platform Data
     This is struct describes each port, 0 or 1. The platform driver
     should set the flags field of each port to S3C_HCDFLG_USED if
     the port is enabled.
+
+
 
 Document Author
 ---------------

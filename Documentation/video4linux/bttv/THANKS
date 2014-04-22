@@ -9,6 +9,7 @@ Many thanks to:
 - Gerd Knorr <kraxel@cs.tu-berlin.de> for the MSP3400 support and the modular
   I2C, tuner, ... support.
 
+
 - MATRIX Vision for giving us 2 cards for free, which made support of
   single crystal operation possible.
 
@@ -19,3 +20,5 @@ Many thanks to:
 - Hauppauge for telling how the sound input is selected and what components
   they do and will use on their radio cards.
   Also many thanks for faxing me the FM1216 data sheet.
+
+

@@ -18,6 +18,7 @@ interrupts, but on the FR-V CPUs, modifying the PSR takes a lot of clock cycles,
 done twice. This means the CPU runs for a relatively long time with interrupts disabled,
 potentially having a great effect on interrupt latency.
 
+
 =============
 NEW ALGORITHM
 =============
@@ -51,6 +52,7 @@ This works in a non-SMP environment because any interrupt or other exception tha
 steps (1) and (4) will set CC3 to the Undefined, thus aborting the store in (4a), and causing the
 condition in ICC3 to remain with the Z flag set, thus causing step (5) to loop back to step (1).
 
+
 This algorithm suffers from two problems:
 
  (1) The condition CCCR.CC3 is cleared unconditionally by an exception, irrespective of whether or
@@ -59,6 +61,7 @@ This algorithm suffers from two problems:
  (2) The branch from step (5) back to step (1) may have to happen more than once until the store
      manages to take place. In theory, this loop could cycle forever because there are too many
      interrupts coming in, but it's unlikely.
+
 
 =======
 EXAMPLE
@@ -109,6 +112,7 @@ Such that the branch can then be taken if the operation was aborted.
 
 		return val;
 	}
+
 
 =============
 CONFIGURATION

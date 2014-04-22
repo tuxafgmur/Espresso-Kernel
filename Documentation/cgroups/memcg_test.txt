@@ -157,6 +157,7 @@ Under below explanation, we assume CONFIG_MEM_RES_CTRL_SWAP=y.
 	(d) delete from swap cache. (remove from SwapCache)
 	    swp_entry's refcnt -= 1.
 
+
 	At (b), the page is marked as SwapCache and not uncharged.
 	At (d), the page is removed from SwapCache and a charge in page_cgroup
 	is moved to swap_cgroup.
@@ -253,6 +254,7 @@ Under below explanation, we assume CONFIG_MEM_RES_CTRL_SWAP=y.
 	from LRU.
 	(By __isolate_lru_page(), the page is removed from both of global and
 	 private LRU.)
+
 
 9. Typical Tests.
 

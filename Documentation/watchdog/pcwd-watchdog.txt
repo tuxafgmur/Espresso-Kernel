@@ -27,6 +27,7 @@ Last reviewed: 10/05/2007
  driver, simply use of modify the watchdog test program:
  Documentation/watchdog/src/watchdog-test.c
 
+
  Other IOCTL functions include:
 
 	WDIOC_GETSUPPORT
@@ -62,3 +63,4 @@ Last reviewed: 10/05/2007
 
  -- Ken Hollis
     (kenji@bitgate.com)
+

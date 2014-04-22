@@ -24,6 +24,7 @@ DMA devices.
 		dcr-reg = <0x060 0x020>;
 	};
 
+
  ii) The DMA node
 
  Required properties:
@@ -56,6 +57,7 @@ DMA devices.
 			1 &UIC1 0x16 4>;
 	};
 
+
  iii) XOR Accelerator node
 
  Required properties:
@@ -74,6 +76,7 @@ DMA devices.
 		interrupts = <0x1f 4>;
 	};
 
+
  iv) Memory Queue Module node
 
  Required properties:
@@ -87,3 +90,4 @@ DMA devices.
 		compatible = "ibm,mq-440spe";
 		dcr-reg = <0x040 0x020>;
 	};
+

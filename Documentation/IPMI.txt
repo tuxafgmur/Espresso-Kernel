@@ -1,3 +1,4 @@
+
                           The Linux IPMI Driver
 			  ---------------------
 			      Corey Minyard
@@ -135,6 +136,7 @@ linux/ipmi_smi.h - Contains the interface for system management interfaces
 
 linux/ipmi_msgdefs.h - General definitions for base IPMI messaging.
 
+
 Addressing
 ----------
 
@@ -177,6 +179,7 @@ IPMI_IPMB_ADDR_TYPE address type.  The format is
 The "channel" here is generally zero, but some devices support more
 than one channel, it corresponds to the channel as defined in the IPMI
 spec.
+
 
 Messages
 --------
@@ -232,6 +235,7 @@ as:
 You should look at the receive type and handle the message
 appropriately.
 
+
 The Upper Layer Interface (Message Handler)
 -------------------------------------------
 
@@ -239,6 +243,7 @@ The upper layer of the interface provides the users with a consistent
 view of the IPMI interfaces.  It allows multiple SMI interfaces to be
 addressed (because some boards actually have multiple BMCs on them)
 and the user should not have to care what type of SMI is below them.
+
 
 Creating the User
 
@@ -254,6 +259,7 @@ Once you are done, call ipmi_destroy_user() to get rid of the user.
 
 From userland, opening the device automatically creates a user, and
 closing the device automatically destroys the user.
+
 
 Messaging
 
@@ -303,6 +309,7 @@ pieces of code that need to work even if the system is out of buffers
 buffer and own free routines.  This is not recommended for normal use,
 though, since it is tricky to manage your own buffers.
 
+
 Events and Incoming Commands
 
 The driver takes care of polling for IPMI events and receiving
@@ -328,6 +335,7 @@ channel bitmasks do not overlap.
 
 From userland, equivalent IOCTLs are provided to do these functions.
 
+
 The Lower Layer (SMI) Interface
 -------------------------------
 
@@ -339,6 +347,7 @@ another one registers, all bets are off.
 
 The ipmi_smi.h defines the interface for management interfaces, see
 that for more details.
+
 
 The SI Driver
 -------------
@@ -520,6 +529,7 @@ Note that you might need some I2C changes if CONFIG_IPMI_PANIC_EVENT
 is enabled along with this, so the I2C driver knows to run to
 completion during sending a panic event.
 
+
 Other Pieces
 ------------
 
@@ -548,6 +558,7 @@ returned.  Others may be added as necessary.
 Note that the dev pointer is included in the above structure, and
 assuming ipmi_smi_get_info returns success, you must call put_device
 on the dev pointer.
+
 
 Watchdog
 --------
@@ -623,6 +634,7 @@ device to close it, or the timer will not stop.  This is a new semantic
 for the driver, but makes it consistent with the rest of the watchdog
 drivers in Linux.
 
+
 Panic Timeouts
 --------------
 
@@ -632,6 +644,7 @@ events in the system event log if a panic occurs.  if you enable the
 one event on a panic in a standard IPMI event format.  If you enable
 the 'Generate OEM events containing the panic string' option, you will
 also get a bunch of OEM events holding the panic string.
+
 
 The field settings of the events are:
 * Generator ID: 0x21 (kernel)
@@ -664,6 +677,7 @@ an event generator, the event receiver from the local management
 controller will be queried and the events sent to the SEL on that
 device.  Otherwise, the events go nowhere since there is nowhere to
 send them.
+
 
 Poweroff
 --------

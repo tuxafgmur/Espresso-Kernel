@@ -3,6 +3,7 @@ cx8800 release notes
 
 This is a v4l2 device driver for the cx2388x chip.
 
+
 current status
 ==============
 
@@ -26,6 +27,7 @@ audio
 vbi
 	- Code present. Works for NTSC closed caption. PAL and other
 	  TV norms may or may not work.
+
 
 how to add support for new cards
 ================================

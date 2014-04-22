@@ -6,6 +6,7 @@ The fiemap ioctl is an efficient method for userspace to get file
 extent mappings. Instead of block-by-block mapping (such as bmap), fiemap
 returns a list of extents.
 
+
 Request Basics
 --------------
 
@@ -23,6 +24,7 @@ struct fiemap {
 	__u32	fm_reserved;
 	struct fiemap_extent fm_extents[0]; /* array of mapped extents (out) */
 };
+
 
 fm_start, and fm_length specify the logical range within the file
 which the process would like mappings for. Extents returned mirror
@@ -55,6 +57,7 @@ If this flag is set, the kernel will sync the file before mapping extents.
 * FIEMAP_FLAG_XATTR
 If this flag is set, the extents returned will describe the inodes
 extended attribute lookup tree, instead of its data tree.
+
 
 Extent Mapping
 --------------
@@ -167,6 +170,7 @@ based addressing scheme.  Since returning an extent for each block back to
 userspace would be highly inefficient, the kernel will try to merge most
 adjacent blocks into 'extents'.
 
+
 VFS -> File System Implementation
 ---------------------------------
 
@@ -194,6 +198,7 @@ struct fiemap_extent_info {
 It is intended that the file system should not need to access any of this
 structure directly.
 
+
 Flag checking should be done at the beginning of the ->fiemap callback via the
 fiemap_check_flags() helper:
 
@@ -205,6 +210,7 @@ fiemap_check_flags finds invalid user flags, it will place the bad values in
 fieinfo->fi_flags and return -EBADR. If the file system gets -EBADR, from
 fiemap_check_flags(), it should immediately exit, returning that error back to
 ioctl_fiemap().
+
 
 For each extent in the request range, the file system should call
 the helper function, fiemap_fill_next_extent():

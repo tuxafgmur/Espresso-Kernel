@@ -145,6 +145,7 @@ data blocks and B-tree node blocks:
     | Data blocks | B-tree blocks | Data blocks | B-tree blocks | ...
    _|_____________|_______________|_____________|_______________|_
 
+
 Since only the modified blocks are written in the log, it may have
 files without data blocks or B-tree node blocks.
 
@@ -155,6 +156,7 @@ file structures (nilfs_finfo), and per block structures (nilfs_binfo):
   _________________________________________________________________________
  | Summary | finfo | binfo | ... | binfo | finfo | binfo | ... | binfo |...
  |_blocks__|___A___|_(A,1)_|_____|(A,Na)_|___B___|_(B,1)_|_____|(B,Nb)_|___
+
 
 The logs include regular files, directory files, symbolic link files
 and several meta data files.  The mata data files are the files used
@@ -173,6 +175,7 @@ The following figure shows a typical organization of the logs:
   _________________________________________________________________________
  | Summary | regular file | file  | ... | ifile | cpfile | sufile | DAT |SR|
  |_blocks__|_or_directory_|_______|_____|_______|________|________|_____|__|
+
 
 To stride over segment boundaries, this sequence of files may be split
 into multiple logs.  The sequence of logs that should be treated as

@@ -1,12 +1,20 @@
      CPU frequency and voltage scaling code in the Linux(TM) kernel
 
+
 		         L i n u x    C P U F r e q
 
+
+
+
 		    Dominik Brodowski  <linux@brodo.de>
+
+
 
    Clock scaling allows you to change the clock speed of the CPUs on the
     fly. This is a nice method to save battery power, because the lower
             the clock speed, the less power the CPU consumes.
+
+
 
 Documents in this directory:
 ----------------------------
@@ -21,6 +29,7 @@ governors.txt	-	What are cpufreq governors and how to
 index.txt	-	File index, Mailing list and Links (this document)
 
 user-guide.txt	-	User Guide to CPUFreq
+
 
 Mailing List
 ------------

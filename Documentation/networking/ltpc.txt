@@ -77,12 +77,14 @@ board.  Set the switches so as not to conflict with other hardware.
        SW2     IRQ 3
        SW3     IRQ 9 (2 in original card documentation only applies to XT)
 
+
        DMA -- choose DMA 1 or 3, and set both corresponding switches.
 
        SW4     DMA 3
        SW5     DMA 1
        SW6     DMA 3
        SW7     DMA 1
+
 
        I/O address -- choose one.
 

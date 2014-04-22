@@ -1,3 +1,4 @@
+
 Export CPU topology info via sysfs. Items (attributes) are similar
 to /proc/cpuinfo.
 

@@ -1,3 +1,4 @@
+
 ________________
 NETIF Msg Level
 
@@ -59,6 +60,7 @@ History
       if (np->msg_enable & NETIF_MSG_LINK)
            printk(MSG_DEBUG "%s: ...
 
+
 The set of message levels is named
   Old level   Name   Bit position
     0    NETIF_MSG_DRV		0x0001
@@ -74,3 +76,4 @@ The set of message levels is named
     6    NETIF_MSG_TX_DONE	0x0040
     6    NETIF_MSG_RX_STATUS	0x0040
     7    NETIF_MSG_PKTDATA	0x0080
+

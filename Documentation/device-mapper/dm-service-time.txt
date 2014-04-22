@@ -32,6 +32,7 @@ Status for each path: <status> <fail-count> <in-flight-size> \
 	<relative_throughput>: The relative throughput value of the path
 			among all paths in the path-group.
 
+
 Algorithm
 =========
 
@@ -61,6 +62,7 @@ If calculated service time is equal, the path having maximum
 'relative_throughput' may be better.  So compare 'relative_throughput'
 then.
 
+
 Examples
 ========
 In case that 2 paths (sda and sdb) are used with repeat_count == 128
@@ -75,6 +77,7 @@ test: 0 10 multipath 0 0 1 1 service-time 0 2 2 8:0 128 1 8:16 128 4
 #
 # dmsetup status
 test: 0 10 multipath 2 0 0 0 1 1 E 0 2 2 8:0 A 0 0 1 8:16 A 0 0 4
+
 
 Or '2' for sda and '8' for sdb would be also true.
 

@@ -68,6 +68,7 @@ Contents:
 
  (*) References.
 
+
 ============================
 ABSTRACT MEMORY ACCESS MODEL
 ============================
@@ -108,6 +109,7 @@ So in the above diagram, the effects of the memory operations performed by a
 CPU are perceived by the rest of the system as the operations cross the
 interface between the CPU and rest of the system (the dotted lines).
 
+
 For example, consider the following sequence of events:
 
 	CPU 1		CPU 2
@@ -136,9 +138,11 @@ and can thus result in four different combinations of values:
 	x == 3, y == 2
 	x == 3, y == 4
 
+
 Furthermore, the stores committed by a CPU to the memory system may not be
 perceived by the loads made by another CPU in the same order as the stores were
 committed.
+
 
 As a further example, consider this sequence of events:
 
@@ -158,6 +162,7 @@ following results are possible:
 
 Note that CPU 2 will never try and load C into D because the CPU will load P
 into Q before issuing the load of *Q.
+
 
 DEVICE OPERATIONS
 -----------------
@@ -179,6 +184,7 @@ but this might show up as either of the following two sequences:
 
 the second of which will almost certainly result in a malfunction, since it set
 the address _after_ attempting to read the register.
+
 
 GUARANTEES
 ----------
@@ -252,6 +258,7 @@ And there are a number of things that _must_ or _must_not_ be assumed:
 	STORE *A = X; Y = LOAD *A;
 	STORE *A = Y = X;
 
+
 =========================
 WHAT ARE MEMORY BARRIERS?
 =========================
@@ -270,6 +277,7 @@ deferral and combination of memory operations; speculative loads; speculative
 branch prediction and various types of caching.  Memory barriers are used to
 override or suppress these tricks, allowing the code to sanely control the
 interaction of multiple CPUs and/or devices.
+
 
 VARIETIES OF MEMORY BARRIER
 ---------------------------
@@ -292,6 +300,7 @@ Memory barriers come in four basic varieties:
 
      [!] Note that write barriers should normally be paired with read or data
      dependency barriers; see the "SMP barrier pairing" subsection.
+
 
  (2) Data dependency barriers.
 
@@ -328,6 +337,7 @@ Memory barriers come in four basic varieties:
      [!] Note that data dependency barriers should normally be paired with
      write barriers; see the "SMP barrier pairing" subsection.
 
+
  (3) Read (or load) memory barriers.
 
      A read barrier is a data dependency barrier plus a guarantee that all the
@@ -344,6 +354,7 @@ Memory barriers come in four basic varieties:
      [!] Note that read barriers should normally be paired with write barriers;
      see the "SMP barrier pairing" subsection.
 
+
  (4) General memory barriers.
 
      A general memory barrier gives a guarantee that all the LOAD and STORE
@@ -355,6 +366,7 @@ Memory barriers come in four basic varieties:
 
      General memory barriers imply both read and write memory barriers, and so
      can substitute for either.
+
 
 And a couple of implicit varieties:
 
@@ -368,6 +380,7 @@ And a couple of implicit varieties:
      after it completes.
 
      A LOCK operation should almost always be paired with an UNLOCK operation.
+
 
  (6) UNLOCK operations.
 
@@ -385,14 +398,17 @@ And a couple of implicit varieties:
      other sorts of memory barrier (but note the exceptions mentioned in the
      subsection "MMIO write barrier").
 
+
 Memory barriers are only required where there's a possibility of interaction
 between two CPUs or between a CPU and a device.  If it can be guaranteed that
 there won't be any such interaction in any particular piece of code, then
 memory barriers are unnecessary in that piece of code.
 
+
 Note that these are the _minimum_ guarantees.  Different architectures may give
 more substantial guarantees, but they may _not_ be relied upon outside of arch
 specific code.
+
 
 WHAT MAY NOT BE ASSUMED ABOUT MEMORY BARRIERS?
 ----------------------------------------------
@@ -424,6 +440,7 @@ There are certain things that the Linux kernel memory barriers do not guarantee:
 	    Documentation/PCI/pci.txt
 	    Documentation/PCI/PCI-DMA-mapping.txt
 	    Documentation/DMA-API.txt
+
 
 DATA DEPENDENCY BARRIERS
 ------------------------
@@ -481,6 +498,7 @@ even-numbered bank of the reading CPU's cache is extremely busy while the
 odd-numbered bank is idle, one can see the new value of the pointer P (&B),
 but the old value of the variable B (2).
 
+
 Another example of where data dependency barriers might by required is where a
 number is read from memory and then used to calculate the index for an array
 access:
@@ -495,12 +513,14 @@ access:
 			<data dependency barrier>
 			D = M[Q];
 
+
 The data dependency barrier is very important to the RCU system, for example.
 See rcu_dereference() in include/linux/rcupdate.h.  This permits the current
 target of an RCU'd pointer to be replaced with a new modified target, without
 the replacement target appearing to be incompletely initialised.
 
 See also the subsection on "Cache Coherency" for a more thorough example.
+
 
 CONTROL DEPENDENCIES
 --------------------
@@ -525,6 +545,7 @@ required is:
 		q = &b;
 	<read barrier>
 	x = *q;
+
 
 SMP BARRIER PAIRING
 -------------------
@@ -570,6 +591,7 @@ versa:
 	c = 3;           }    / \    {  x = a;
 	d = 4;           }----   --->{  y = b;
 
+
 EXAMPLES OF MEMORY BARRIER SEQUENCES
 ------------------------------------
 
@@ -609,6 +631,7 @@ STORE B, STORE C } all occurring before the unordered set of { STORE D, STORE E
 	                   | Sequence in which stores are committed to the
 	                   | memory system by CPU 1
 	                   V
+
 
 Secondly, data dependency barriers act as partial orderings on data-dependent
 loads.  Consider the following sequence of events:
@@ -651,6 +674,7 @@ effectively random order, despite the write barrier issued by CPU 1:
 	    of coherence of B             ----->| B->2  |       +-------+
 	                                        +-------+
 	                                        :       :
+
 
 In the above example, CPU 2 perceives that B is 7, despite the load of *C
 (which would be B) coming after the LOAD of C.
@@ -695,6 +719,7 @@ then the following will occur:
 	  subsequent loads                      +-------+       |       |
 	                                        :       :       +-------+
 
+
 And thirdly, a read barrier acts as a partial order on loads.  Consider the
 following sequence of events:
 
@@ -730,6 +755,7 @@ some effectively random order, despite the write barrier issued by CPU 1:
 	                                        +-------+
 	                                        :       :
 
+
 If, however, a read barrier were to be placed between the load of B and the
 load of A on CPU 2:
 
@@ -764,6 +790,7 @@ then the partial ordering imposed by CPU 1 will be perceived correctly by CPU
 	  prior to the storage of B        ---->| A->1  |------>|       |
 	  to be perceptible to CPU 2            +-------+       |       |
 	                                        :       :       +-------+
+
 
 To illustrate this more completely, consider what could happen if the code
 contained a load of A either side of the read barrier:
@@ -804,6 +831,7 @@ come up with different values:
 	  to be perceptible to CPU 2            +-------+       |       |
 	                                        :       :       +-------+
 
+
 But it may be that the update to A from CPU 1 becomes perceptible to CPU 2
 before the read barrier completes anyway:
 
@@ -829,9 +857,11 @@ before the read barrier completes anyway:
 	                                        +-------+       |       |
 	                                        :       :       +-------+
 
+
 The guarantee is that the second load will always come up with A == 1 if the
 load of B came up with B == 2.  No such guarantee exists for the first load of
 A; that may come up with either A == 0 or A == 1.
+
 
 READ MEMORY BARRIERS VS LOAD SPECULATION
 ----------------------------------------
@@ -873,6 +903,7 @@ Which might appear as this:
 	the CPU can then perform the            :       :       |       |
 	LOAD with immediate effect              :       :       +-------+
 
+
 Placing a read barrier or a data dependency barrier just before the second
 load:
 
@@ -906,6 +937,7 @@ speculated memory location, then the speculated value will just be used:
 	                                        :       :       |       |
 	                                        :       :       +-------+
 
+
 but if there was an update or an invalidation from another CPU pending, then
 the speculation will be cancelled and the value reloaded:
 
@@ -926,6 +958,7 @@ the speculation will be cancelled and the value reloaded:
 	The speculation is discarded --->   --->| A->1  |------>|       |
 	and an updated value is                 +-------+       |       |
 	retrieved                               :       :       +-------+
+
 
 TRANSITIVITY
 ------------
@@ -983,6 +1016,7 @@ on the combined order of CPU 1's and CPU 2's accesses.
 To reiterate, if your code requires transitivity, use general barriers
 throughout.
 
+
 ========================
 EXPLICIT KERNEL BARRIERS
 ========================
@@ -995,6 +1029,7 @@ levels:
   (*) CPU memory barriers.
 
   (*) MMIO write barrier.
+
 
 COMPILER BARRIER
 ----------------
@@ -1009,6 +1044,7 @@ This is a general barrier - lesser varieties of compiler barrier do not exist.
 The compiler barrier has no direct effect on the CPU, which may then reorder
 things however it wishes.
 
+
 CPU MEMORY BARRIERS
 -------------------
 
@@ -1020,6 +1056,7 @@ The Linux kernel has eight basic CPU memory barriers:
 	WRITE		wmb()			smp_wmb()
 	READ		rmb()			smp_rmb()
 	DATA DEPENDENCY	read_barrier_depends()	smp_read_barrier_depends()
+
 
 All memory barriers except the data dependency barriers imply a compiler
 barrier. Data dependencies do not impose any additional compiler ordering.
@@ -1048,6 +1085,7 @@ These are required even on non-SMP systems as they affect the order in which
 memory operations appear to a device by prohibiting both the compiler and the
 CPU from reordering them.
 
+
 There are some more advanced barrier functions:
 
  (*) set_mb(var, value)
@@ -1055,6 +1093,7 @@ There are some more advanced barrier functions:
      This assigns the value to the variable and then inserts a full memory
      barrier after it, depending on the function.  It isn't guaranteed to
      insert anything more than a compiler barrier in a UP compilation.
+
 
  (*) smp_mb__before_atomic_dec();
  (*) smp_mb__after_atomic_dec();
@@ -1078,6 +1117,7 @@ There are some more advanced barrier functions:
      See Documentation/atomic_ops.txt for more information.  See the "Atomic
      operations" subsection for information on where to use these.
 
+
  (*) smp_mb__before_clear_bit(void);
  (*) smp_mb__after_clear_bit(void);
 
@@ -1098,6 +1138,7 @@ There are some more advanced barrier functions:
      See Documentation/atomic_ops.txt for more information.  See the "Atomic
      operations" subsection for information on where to use these.
 
+
 MMIO WRITE BARRIER
 ------------------
 
@@ -1112,6 +1153,7 @@ CPU->Hardware interface and actually affect the hardware at some level.
 
 See the subsection "Locks vs I/O accesses" for more information.
 
+
 ===============================
 IMPLICIT KERNEL MEMORY BARRIERS
 ===============================
@@ -1122,6 +1164,7 @@ which are locking and scheduling functions.
 This specification is a _minimum_ guarantee; any particular architecture may
 provide more substantial guarantees, but these may not be relied upon outside
 of arch specific code.
+
 
 LOCKING FUNCTIONS
 -----------------
@@ -1202,6 +1245,7 @@ with interrupt disabling operations.
 
 See also the section on "Inter-CPU locking barrier effects".
 
+
 As an example, consider the following:
 
 	*A = a;
@@ -1226,6 +1270,8 @@ But none of the following are:
 	*A, *B,		LOCK, *C,	UNLOCK, *D, *E, *F
 	*B,		LOCK, *C, *D,	UNLOCK, {*F,*A}, *E
 
+
+
 INTERRUPT DISABLING FUNCTIONS
 -----------------------------
 
@@ -1233,6 +1279,7 @@ Functions that disable interrupts (LOCK equivalent) and enable interrupts
 (UNLOCK equivalent) will act as compiler barriers only.  So if memory or I/O
 barriers are required in such a situation, they must be provided from some
 other means.
+
 
 SLEEP AND WAKE-UP FUNCTIONS
 ---------------------------
@@ -1282,6 +1329,7 @@ interpolate the memory barrier in the right place:
 	wait_on_bit();
 	wait_on_bit_lock();
 
+
 Secondly, code that performs a wake up normally follows something like this:
 
 	event_indicated = 1;
@@ -1322,6 +1370,7 @@ The available waker functions include:
 	wake_up_poll();
 	wake_up_process();
 
+
 [!] Note that the memory barriers implied by the sleeper and the waker do _not_
 order multiple stores before the wake-up with respect to loads of those stored
 values after the sleeper has called set_current_state().  For instance, if the
@@ -1357,12 +1406,14 @@ and the waker should do:
 	event_indicated = 1;
 	wake_up(&event_wait_queue);
 
+
 MISCELLANEOUS FUNCTIONS
 -----------------------
 
 Other functions that imply barriers:
 
  (*) schedule() and similar imply full memory barriers.
+
 
 =================================
 INTER-CPU LOCKING BARRIER EFFECTS
@@ -1371,6 +1422,7 @@ INTER-CPU LOCKING BARRIER EFFECTS
 On SMP systems locking primitives give a more substantial form of barrier: one
 that does affect memory access ordering on other CPUs, within the context of
 conflict on any particular lock.
+
 
 LOCKS VS MEMORY ACCESSES
 ------------------------
@@ -1400,6 +1452,7 @@ But it won't see any of:
 	*F, *G or *H preceding LOCK Q
 	*E, *F or *G following UNLOCK Q
 
+
 However, if the following occurs:
 
 	CPU 1				CPU 2
@@ -1427,6 +1480,7 @@ But assuming CPU 1 gets the lock first, CPU 3 won't see any of:
 	*A, *B or *C following UNLOCK M [1]
 	*F, *G or *H preceding LOCK M [2]
 	*A, *B, *C, *E, *F or *G following UNLOCK M [2]
+
 
 LOCKS VS I/O ACCESSES
 ---------------------
@@ -1456,6 +1510,7 @@ may be seen by the PCI bridge as follows:
 
 which would probably cause the hardware to malfunction.
 
+
 What is necessary here is to intervene with an mmiowb() before dropping the
 spinlock, for example:
 
@@ -1475,6 +1530,7 @@ spinlock, for example:
 this will ensure that the two stores issued on CPU 1 appear at the PCI bridge
 before either of the stores issued on CPU 2.
 
+
 Furthermore, following a store by a load from the same device obviates the need
 for the mmiowb(), because the load forces the store to complete before the load
 is performed:
@@ -1490,7 +1546,9 @@ is performed:
 					b = readl(DATA);
 					spin_unlock(Q);
 
+
 See Documentation/DocBook/deviceiobook.tmpl for more information.
+
 
 =================================
 WHERE ARE MEMORY BARRIERS NEEDED?
@@ -1508,6 +1566,7 @@ circumstances in which reordering definitely _could_ be a problem:
  (*) Accessing devices.
 
  (*) Interrupts.
+
 
 INTERPROCESSOR INTERACTION
 --------------------------
@@ -1609,6 +1668,7 @@ compiler barrier, thus making sure the compiler emits the instructions in the
 right order without actually intervening in the CPU.  Since there's only one
 CPU, that CPU's dependency ordering logic will take care of everything else.
 
+
 ATOMIC OPERATIONS
 -----------------
 
@@ -1642,6 +1702,7 @@ These are used for such things as implementing LOCK-class and UNLOCK-class
 operations and adjusting reference counters towards object destruction, and as
 such the implicit memory barrier effects are necessary.
 
+
 The following operations are potential problems as they do _not_ imply memory
 barriers, but might be used for implementing such things as UNLOCK-class
 operations:
@@ -1653,6 +1714,7 @@ operations:
 
 With these the appropriate explicit memory barrier should be used if necessary
 (smp_mb__before_clear_bit() for instance).
+
 
 The following also do _not_ imply memory barriers, and so may require explicit
 memory barriers under some circumstances (smp_mb__before_atomic_dec() for
@@ -1695,6 +1757,7 @@ and in such cases the special barrier primitives will be no-ops.
 
 See Documentation/atomic_ops.txt for more information.
 
+
 ACCESSING DEVICES
 -----------------
 
@@ -1723,6 +1786,7 @@ might be needed:
      required to enforce ordering.
 
 See Documentation/DocBook/deviceiobook.tmpl for more information.
+
 
 INTERRUPTS
 ----------
@@ -1756,6 +1820,7 @@ address register if ordering rules are sufficiently relaxed:
 
 	STORE *ADDR = 3, STORE *ADDR = 4, STORE *DATA = y, q = LOAD *DATA
 
+
 If ordering rules are relaxed, it must be assumed that accesses done inside an
 interrupt disabled section may leak outside of it and may interleave with
 accesses performed in an interrupt - and vice versa - unless implicit or
@@ -1766,9 +1831,11 @@ sections will include synchronous load operations on strictly ordered I/O
 registers that form implicit I/O barriers. If this isn't sufficient then an
 mmiowb() may need to be used explicitly.
 
+
 A similar situation may occur between an interrupt routine and two routines
 running on separate CPUs that communicate with each other. If such a case is
 likely, then interrupt-disabling locks should be used to guarantee ordering.
+
 
 ==========================
 KERNEL I/O BARRIER EFFECTS
@@ -1835,6 +1902,7 @@ functions:
      These will perform appropriately for the type of access they're actually
      doing, be it inX()/outX() or readX()/writeX().
 
+
 ========================================
 ASSUMED MINIMUM EXECUTION ORDERING MODEL
 ========================================
@@ -1860,9 +1928,11 @@ A CPU may also discard any instruction sequence that winds up having no
 ultimate effect.  For example, if two adjacent instructions both load an
 immediate value into the same register, the first may be discarded.
 
+
 Similarly, it has to be assumed that compiler might reorder the instruction
 stream in any way it sees fit, again provided the appearance of causality is
 maintained.
+
 
 ============================
 THE EFFECTS OF THE CPU CACHE
@@ -1924,6 +1994,7 @@ their own loads and stores as if they had happened in program order.
 the properties of the memory window through which devices are accessed and/or
 the use of any special device communication instructions the CPU may have.
 
+
 CACHE COHERENCY
 ---------------
 
@@ -1932,6 +2003,7 @@ caches are expected to be coherent, there's no guarantee that that coherency
 will be ordered.  This means that whilst changes made on one CPU will
 eventually become visible on all CPUs, there's no guarantee that they will
 become apparent in the same order on those other CPUs.
+
 
 Consider dealing with a system that has a pair of CPUs (1 & 2), each of which
 has a pair of parallel data caches (CPU 1 has A/B, and CPU 2 has C/D):
@@ -2024,6 +2096,7 @@ Basically, whilst both cachelines will be updated on CPU 2 eventually, there's
 no guarantee that, without intervention, the order of update will be the same
 as that committed on CPU 1.
 
+
 To intervene, we need to interpolate a data dependency barrier or a read
 barrier between the loads.  This will force the cache to commit its coherency
 queue before processing any further requests:
@@ -2045,6 +2118,7 @@ queue before processing any further requests:
 			x = *q;
 			<C:read *q>	Reads from v after v updated in cache
 
+
 This sort of problem can be encountered on DEC Alpha processors as they have a
 split cache that improves performance by making better use of the data bus.
 Whilst most CPUs do imply a data dependency barrier on the read when a memory
@@ -2053,6 +2127,7 @@ access depends on a read, not all do, so it may not be relied on.
 Other CPUs may also have split caches, but must coordinate between the various
 cachelets for normal memory accesses.  The semantics of the Alpha removes the
 need for coordination in the absence of memory barriers.
+
 
 CACHE COHERENCY VS DMA
 ----------------------
@@ -2074,6 +2149,7 @@ cache on each CPU.
 
 See Documentation/cachetlb.txt for more information on cache management.
 
+
 CACHE COHERENCY VS MMIO
 -----------------------
 
@@ -2087,6 +2163,7 @@ may, in effect, overtake accesses to cached memory that were emitted earlier.
 A memory barrier isn't sufficient in such a case, but rather the cache must be
 flushed between the cached memory write and the MMIO access if the two are in
 any way dependent.
+
 
 =========================
 THE THINGS CPUS GET UP TO
@@ -2107,6 +2184,7 @@ instruction before moving on to the next one, leading to a definite sequence of
 operations as seen by external observers in the system:
 
 	LOAD *A, STORE *B, LOAD *C, LOAD *D, STORE *E.
+
 
 Reality is, of course, much messier.  With many CPUs and compilers, the above
 assumption doesn't hold because:
@@ -2140,6 +2218,7 @@ is:
 	LOAD *A, ..., LOAD {*C,*D}, STORE *E, STORE *B
 
 	(Where "LOAD {*C,*D}" is a combined load)
+
 
 However, it is guaranteed that a CPU will be self-consistent: it will see its
 _own_ accesses appear to be correctly ordered, without the need for a memory
@@ -2194,6 +2273,7 @@ may, without a memory barrier, be reduced to:
 
 and the LOAD operation never appear outside of the CPU.
 
+
 AND THEN THERE'S THE ALPHA
 --------------------------
 
@@ -2208,6 +2288,7 @@ The Alpha defines the Linux kernel's memory barrier model.
 
 See the subsection on "Cache Coherency" above.
 
+
 ============
 EXAMPLE USES
 ============
@@ -2221,6 +2302,7 @@ of a lock to serialise the producer with the consumer.  See:
 	Documentation/circular-buffers.txt
 
 for details.
+
 
 ==========
 REFERENCES

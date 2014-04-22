@@ -4,6 +4,8 @@
 
 			    October 28, 2010
 
+
+
 	What is Power Management?
 	-------------------------
 
@@ -31,6 +33,7 @@ built with CONFIG_USB_SUSPEND enabled (which depends on
 CONFIG_PM_RUNTIME).  System PM support is present only if the kernel
 was built with CONFIG_SUSPEND or CONFIG_HIBERNATION enabled.
 
+
 	What is Remote Wakeup?
 	----------------------
 
@@ -48,6 +51,7 @@ itself (or send a request to be resumed) in response to some external
 event.  Examples include a suspended keyboard resuming when a key is
 pressed, or a suspended USB hub resuming when a device is plugged in.
 
+
 	When is a USB device idle?
 	--------------------------
 
@@ -62,6 +66,7 @@ its usbfs file open, whether or not any I/O is going on.
 
 If a USB device has no driver, its usbfs file isn't open, and it isn't
 being accessed through sysfs, then it definitely is idle.
+
 
 	Forms of dynamic PM
 	-------------------
@@ -94,6 +99,7 @@ remote wakeup (triggered by the device).  Internal events are those
 triggered within the USB stack: autosuspend and autoresume.  Note that
 all dynamic suspend events are internal; external agents are not
 allowed to issue dynamic suspends.
+
 
 	The user interface for dynamic PM
 	---------------------------------
@@ -162,6 +168,7 @@ power/level attribute did not exist prior to 2.6.22.  power/control
 was added in 2.6.34, and power/autosuspend_delay_ms was added in
 2.6.37 but did not become functional until 2.6.38.)
 
+
 	Changing the default idle-delay time
 	------------------------------------
 
@@ -202,6 +209,7 @@ autosuspend of any USB device.  This is a simple alternative to
 disabling CONFIG_USB_SUSPEND and rebuilding the kernel, and it has the
 added benefit of allowing you to enable autosuspend for selected
 devices.
+
 
 	Warnings
 	--------
@@ -251,6 +259,7 @@ The kernel will not prevent you from enabling autosuspend on devices
 that can't handle it.  It is even possible in theory to damage a
 device by suspending it at the wrong time.  (Highly unlikely, but
 possible.)  Take care.
+
 
 	The driver interface for Power Management
 	-----------------------------------------
@@ -307,6 +316,7 @@ interfaces are suspended when the device itself is suspended and all
 interfaces are resumed when the device is resumed.  It isn't possible
 to suspend or resume some but not all of a device's interfaces.  The
 closest you can come is to unbind the interfaces' drivers.
+
 
 	The driver interface for autosuspend and autoresume
 	---------------------------------------------------
@@ -379,6 +389,7 @@ Autoresume attempts also can fail, although failure would mean that
 the device is no longer present or operating properly.  Unlike
 autosuspend, there's no idle-delay for an autoresume.
 
+
 	Other parts of the driver interface
 	-----------------------------------
 
@@ -433,6 +444,7 @@ the PM_EVENT_AUTO bit in the message.event argument to the suspend
 method; this bit will be set for internal PM events (autosuspend) and
 clear for external PM events.
 
+
 	Mutual exclusion
 	----------------
 
@@ -449,6 +461,7 @@ usb_autopm_get_interface() (and do the reverse at the end of the
 critical section).  Holding the device semaphore will block all
 external PM calls, and the usb_autopm_get_interface() will prevent any
 internal PM calls, even if it fails.  (Exercise: Why?)
+
 
 	Interaction between dynamic PM and system PM
 	--------------------------------------------

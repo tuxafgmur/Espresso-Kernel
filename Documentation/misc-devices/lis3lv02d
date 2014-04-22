@@ -10,6 +10,7 @@ Authors:
         Yan Burman <burman.yan@gmail.com>
 	Eric Piel <eric.piel@tremplin-utc.net>
 
+
 Description
 -----------
 
@@ -59,6 +60,7 @@ fasync operation modes. You must read 1 bytes from the device.  The
 result is number of free-fall interrupts since the last successful
 read (or 255 if number of interrupts would not fit). See the hpfall.c
 file for an example on using the device.
+
 
 Axes orientation
 ----------------

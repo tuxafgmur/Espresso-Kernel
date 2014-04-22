@@ -24,6 +24,7 @@ Bugs in the present implementation:
   corresponds to the beginning of track 1 on floppy disks. No support
   for this FS on hard disk yet.
 
+
 These filesystems are rather similar. Here is a comparison with Minix FS:
 
 * Linux fdisk reports on partitions
@@ -190,6 +191,7 @@ These filesystems are rather similar. Here is a comparison with Minix FS:
   - Xenix FS     kludge: as regular files with  chmod 1000
   - SystemV FS   ??
   - Coherent FS  kludge: as regular files with  chmod 1000
+
 
 Notation: We often speak of a "block" but mean a zone (the allocation unit)
 and not the disk driver's notion of "block".

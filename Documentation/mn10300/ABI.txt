@@ -12,6 +12,7 @@ supported.
 The stack grows downwards, and should always be 32-bit aligned. There are
 separate stack pointer registers for userspace and the kernel.
 
+
 ================
 ARGUMENT PASSING
 ================
@@ -29,6 +30,7 @@ Arguments smaller than 32-bits are not coalesced within a register or a stack
 word. For example, two byte-sized arguments will always be passed in separate
 registers or word-sized stack slots.
 
+
 =================
 CALLING FUNCTIONS
 =================
@@ -38,6 +40,7 @@ it inserts a CALL instruction. The CALL instruction will write into the TOS
 word, but won't actually modify the stack pointer; similarly, the RET
 instruction reads from the TOS word of the stack, but doesn't move the stack
 pointer beyond it.
+
 
 	Stack:
 	|		|
@@ -56,8 +59,10 @@ pointer beyond it.
 	|		|
 	|		|
 
+
 The caller must leave space on the stack (hence an allocation of twelve bytes)
 in which the callee may store the first two arguments.
+
 
 ============
 RETURN VALUE
@@ -72,6 +77,7 @@ this will point to a piece of memory large enough to hold the result of the
 function. In this case, the callee will return the value in that piece of
 memory, and no value will be returned in D0 or A0.
 
+
 ===================
 REGISTER CLOBBERING
 ===================
@@ -85,6 +91,7 @@ values must be saved:
 All other non-supervisor-only registers are clobberable (such as MDR, MCRL,
 MCRH).
 
+
 =================
 SPECIAL REGISTERS
 =================
@@ -93,6 +100,7 @@ Certain ordinary registers may carry special usage for the compiler:
 
 	A3:	Frame pointer
 	E2:	TLS pointer
+
 
 ==========
 KERNEL ABI
@@ -119,6 +127,7 @@ The kernel may use a slightly different ABI internally.
 	MOV	(yyy,E2)	// Access current->yyy
 
      instead.
+
 
 ===============
 SYSTEM CALL ABI

@@ -39,6 +39,7 @@ APIs exposed to USB device drivers.
 - David Brownell
   <dbrownell@users.sourceforge.net>
 
+
 FUNCTIONALITY
 
 This driver is regularly tested on x86 hardware, and has also been
@@ -81,6 +82,7 @@ transactions (interrupt and isochronous transfers).  These place some
 limits on the number of periodic transactions that can be scheduled,
 and prevent use of polling intervals of less than one frame.
 
+
 USE BY
 
 Assuming you have an EHCI controller (on a PCI card or motherboard)
@@ -120,6 +122,7 @@ any EHCI controller:
 
 The contents of those files can help identify driver problems.
 
+
 Device drivers shouldn't care whether they're running over EHCI or not,
 but they may want to check for "usb_device->speed == USB_SPEED_HIGH".
 High speed devices can do things that full speed (or low speed) ones
@@ -131,6 +134,7 @@ However, do make a point of testing device drivers through USB 2.0 hubs.
 Those hubs report some failures, such as disconnections, differently when
 transaction translators are in use; some drivers have been seen to behave
 badly when they see different faults than OHCI or UHCI report.
+
 
 PERFORMANCE
 
@@ -201,6 +205,8 @@ queue all the buffers from a scatterlist.  They also use scatterlist DMA
 mapping (which might apply an IOMMU) and IRQ reduction, all of which will
 help make high speed transfers run as fast as they can.
 
+
 TBD:  Interrupt and ISO transfer performance issues.  Those periodic
 transfers are fully scheduled, so the main issue is likely to be how
 to trigger "high bandwidth" modes.
+

@@ -20,6 +20,7 @@ Of course there are drivers that can never be written in userspace, because
 they need to access kernel interfaces (such as IRQ handlers or other layers
 of the driver stack) that are not accessible to userspace.
 
+
 DEVICE CREATION, DRIVER BINDING
 ===============================
 The simplest way to arrange to use this driver is to just list it in the
@@ -64,6 +65,7 @@ Since this is a standard Linux device driver -- even though it just happens
 to expose a low level API to userspace -- it can be associated with any number
 of devices at a time.  Just provide one spi_board_info record for each such
 SPI device, and you'll get a /dev device node for each device.
+
 
 BASIC CHARACTER DEVICE API
 ==========================
@@ -119,6 +121,7 @@ NOTES:
 
     - Because SPI has no low-level transfer acknowledgement, you usually
       won't see any I/O errors when talking to a non-existent device.
+
 
 FULL DUPLEX CHARACTER DEVICE API
 ================================

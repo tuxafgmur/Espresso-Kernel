@@ -105,6 +105,7 @@ Content
    3.6 Custom configuration
    3.7 Verify driver installation
 
+
    3.1 Hardware installation
 
        There are two types of buses, ISA and PCI, for Smartio/Industio
@@ -129,6 +130,7 @@ Content
        4 Moxa Smartio/Industio PCI Family multiport boards can be installed
        together on one system and they can share the same IRQ.
 
+
    3.2 Driver files
 
        The driver file may be obtained from ftp, CD-ROM or floppy disk. The
@@ -147,6 +149,7 @@ Content
        # cd /moxa
        # cp /mnt/cdrom/<driver directory>/mxser.tgz .
        # tar xvfz mxser.tgz
+
 
    3.3 Device naming convention
 
@@ -173,6 +176,7 @@ Content
        3rd board	ttyM16 - ttyM23       cum16 - cum23
        4th board	ttyM24 - ttym31       cum24 - cum31
 
+
        !!!!!!!!!!!!!!!!!!!! NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
        Under Kernel 2.6 the cum Device is Obsolete. So use ttyM*
        device instead.
@@ -190,6 +194,7 @@ Content
    3.4 Module driver configuration
        Module driver is easiest way to install. If you prefer static driver
        installation, please skip this paragraph.
+
 
        ------------- Prepare to use the MOXA driver--------------------
        3.4.1 Create tty device with correct major number
@@ -249,6 +254,7 @@ Content
 	  if "mxser" is activated. If the MOXA board is ISA board, the
           <argument> is needed. Please refer to section "3.4.5" for more
           information.
+
 
        ------------- Load MOXA driver on boot --------------------
        3.4.4 For the above description, you may manually execute
@@ -364,6 +370,7 @@ Content
 	  go back to Linux configuration Setup. Type "make menuconfig" in
           directory /usr/src/linux.
 
+
        3.5.6 Make tty device and special file
           # cd /moxa/mxser/driver
           # ./msmknod
@@ -373,6 +380,8 @@ Content
 	  # make clean; make install
 
        3.5.8 Reboot
+
+
 
    3.6 Custom configuration
        Although this driver already provides you default configuration, you
@@ -474,6 +483,7 @@ Content
    possible. If all the possible solutions fail, please contact our technical
    support team to get more help.
 
+
    Error msg: More than 4 Moxa Smartio/Industio family boards found. Fifth board
               and after are ignored.
    Solution:
@@ -508,4 +518,6 @@ Content
    conflict with other devices. Please refer to previous section 3.7 to
    change a free callout device major number for Moxa driver.
 
+
 -----------------------------------------------------------------------------
+

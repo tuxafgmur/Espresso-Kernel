@@ -61,9 +61,11 @@ The userspace interface links the key to a keyring associated with the process
 to prevent the key from going away, and returns the serial number of the key to
 the caller.
 
+
 The following example assumes that the key types involved don't define their
 own upcall mechanisms.  If they do, then those should be substituted for the
 forking and execution of /sbin/request-key.
+
 
 ===========
 THE PROCESS
@@ -124,6 +126,7 @@ This is because process A's keyrings can't simply be attached to
 /sbin/request-key at the appropriate places because (a) execve will discard two
 of them, and (b) it requires the same UID/GID/Groups all the way through.
 
+
 ====================================
 NEGATIVE INSTANTIATION AND REJECTION
 ====================================
@@ -140,6 +143,7 @@ processes for a key that will never be obtainable.
 Should the /sbin/request-key process exit anything other than 0 or die on a
 signal, the key under construction will be automatically negatively
 instantiated for a short amount of time.
+
 
 ====================
 THE SEARCH ALGORITHM

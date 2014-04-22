@@ -32,19 +32,6 @@ if DMADEVICES
 
 comment "DMA Devices"
 
-config INTEL_MID_DMAC
-	tristate "Intel MID DMA support for Peripheral DMA controllers"
-	depends on PCI && X86
-	select DMA_ENGINE
-	default n
-	help
-	  Enable support for the Intel(R) MID DMA engine present
-	  in Intel MID chipsets.
-
-	  Say Y here if you have such a chipset.
-
-	  If unsure, say N.
-
 config ASYNC_TX_ENABLE_CHANNEL_SWITCH
 	bool
 
@@ -55,29 +42,6 @@ config AMBA_PL08X
 	help
 	  Platform has a PL08x DMAC device
 	  which can provide DMA engine support
-
-config INTEL_IOATDMA
-	tristate "Intel I/OAT DMA support"
-	depends on PCI && X86
-	select DMA_ENGINE
-	select DCA
-	select ASYNC_TX_DISABLE_PQ_VAL_DMA
-	select ASYNC_TX_DISABLE_XOR_VAL_DMA
-	help
-	  Enable support for the Intel(R) I/OAT DMA engine present
-	  in recent Intel Xeon chipsets.
-
-	  Say Y here if you have such a chipset.
-
-	  If unsure, say N.
-
-config INTEL_IOP_ADMA
-	tristate "Intel IOP ADMA support"
-	depends on ARCH_IOP32X || ARCH_IOP33X || ARCH_IOP13XX
-	select DMA_ENGINE
-	select ASYNC_TX_ENABLE_CHANNEL_SWITCH
-	help
-	  Enable support for the Intel(R) IOP Series RAID engines.
 
 config DW_DMAC
 	tristate "Synopsys DesignWare AHB DMA support"
@@ -244,7 +208,7 @@ comment "DMA Clients"
 config NET_DMA
 	bool "Network: TCP receive copy offload"
 	depends on DMA_ENGINE && NET
-	default (INTEL_IOATDMA || FSL_DMA)
+	default (FSL_DMA)
 	help
 	  This enables the use of DMA engines in the network stack to
 	  offload receive copy-to-user operations, freeing CPU cycles.

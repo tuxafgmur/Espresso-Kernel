@@ -228,6 +228,7 @@ child of this parent snapshot, we open d_seq critical section on the child
 before closing d_seq critical section on the parent. This gives an interlocking
 ladder of snapshots to walk down.
 
+
      proc 101
       /----------------\
      / comm:    "vi"    \
@@ -332,6 +333,7 @@ The point is that shared data, where practically possible, is not locked
 or stored into. The result is massive improvements in performance and
 scalability of path resolution.
 
+
 Interesting statistics
 ======================
 
@@ -369,9 +371,12 @@ rcu-walk mode. The further we get from common path elements (such as cwd or
 root), the less contended the dentry is likely to be. The closer we are to
 common path elements, the more likely they will exist in dentry cache.
 
+
 Papers and other documentation on dcache locking
 ================================================
 
 1. Scaling dcache with RCU (http://linuxjournal.com/article.php?sid=7124).
 
 2. http://lse.sourceforge.net/locking/dcache/dcache.html
+
+

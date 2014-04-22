@@ -25,6 +25,7 @@ notification.
   3      Timeout
   4-19   Parameter/Result
 
+
 The flags are defined in the following table. The direction is from the
 perspective of the firmware.
 
@@ -33,6 +34,7 @@ perspective of the firmware.
   2    O          Firmware has processed the command.
   1    I          Driver has finished setting the parameters.
   0    I          Driver is using this mailbox.
+
 
 The command is a 32-bit enumerator. The API specifics may be found in the
 fw-*-api.txt documents.
@@ -64,3 +66,4 @@ firmware which events it is interested in via an API call. That call tells the
 firmware which notification mailbox to use. The firmware signals the host via
 an interrupt. Only the 16 Results fields are used, the Flags, Command, Return
 value and Timeout words are not used.
+

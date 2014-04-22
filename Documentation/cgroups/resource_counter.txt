@@ -1,3 +1,4 @@
+
 		The Resource Counter
 
 The resource counter, declared at include/linux/res_counter.h,
@@ -6,6 +7,8 @@ by providing common stuff for accounting.
 
 This "stuff" includes the res_counter structure and routines
 to work with it.
+
+
 
 1. Crucial parts of the res_counter structure
 
@@ -39,6 +42,8 @@ to work with it.
  c. spinlock_t lock
 
  	Protects changes of the above values.
+
+
 
 2. Basic accounting routines
 
@@ -93,6 +98,8 @@ to work with it.
     checking whether the limit is reached or resetting the max_usage
     value. They are all declared in include/linux/res_counter.h.
 
+
+
 3. Analyzing the resource counter registrations
 
  a. If the failcnt value constantly grows, this means that the counter's
@@ -117,6 +124,8 @@ to work with it.
     is 0, then this group is given too high limit, that it does not
     require. It is better to lower the limit a bit leaving more resource
     for other groups.
+
+
 
 4. Communication with the control groups subsystem (cgroups)
 
@@ -145,6 +154,8 @@ counter fields. They are recommended to adhere to the following rules:
 	max_usage	reset to usage
 	limit		set the limit
 	failcnt		reset to zero
+
+
 
 5. Usage example
 

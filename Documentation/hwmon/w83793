@@ -11,6 +11,7 @@ Authors:
     Yuan Mu (Winbond Electronics)
     Rudolf Marek <r.marek@assembler.cz>
 
+
 Module parameters
 -----------------
 
@@ -24,6 +25,7 @@ Module parameters
   a certain chip. Typical usage is `force_subclients=0,0x2f,0x4a,0x4b'
   to force the subclients of chip 0x2f on bus 0 to i2c addresses
   0x4a and 0x4b.
+
 
 Description
 -----------
@@ -95,6 +97,7 @@ This driver implements support for Winbond W83793G/W83793R chips.
 * VID and VRM
   The VRM version is detected automatically, don't modify the it unless you
   *do* know the cpu VRM version and it's not properly detected.
+
 
 Notes
 -----

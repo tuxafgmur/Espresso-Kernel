@@ -1,3 +1,4 @@
+
 Overview
 ========
 
@@ -55,6 +56,7 @@ The high-level semantics of RDS from the application's point of view are
 
  *	sysctls
         RDS supports a number of sysctls in /proc/sys/net/rds
+
 
 Socket Interface
 ================
@@ -147,15 +149,18 @@ Socket Interface
         operation. In this case, it would use RDS_CANCEL_SENT_TO to
         nuke any pending messages.
 
+
 RDMA for RDS
 ============
 
   see rds-rdma(7) manpage (available in rds-tools)
 
+
 Congestion Notifications
 ========================
 
   see rds(7) manpage
+
 
 RDS Protocol
 ============
@@ -241,6 +246,7 @@ RDS Protocol
       inexpensive bit test to test if the port it's about to send to
       is congested or not.
 
+
 RDS Transport Layer
 ==================
 
@@ -253,6 +259,7 @@ RDS Transport Layer
   The transport layer handles the details of the transport. The IB
   transport, for example, handles all the queue pairs, work requests,
   CM event handlers, and other Infiniband details.
+
 
 RDS Kernel Structures
 =====================
@@ -292,6 +299,7 @@ Connection management
   Dropping a connection while packets are queued will cause queued or
   partially-sent datagrams to be retransmitted when the connection is
   re-established.
+
 
 The send path
 =============
@@ -344,3 +352,5 @@ The recv path
     copy data into user iovec
     handle CMSGs
     return to application
+
+

@@ -3,6 +3,7 @@
 
                  Documentation is written by Masami Hiramatsu
 
+
 Overview
 --------
 These events are similar to tracepoint based events. Instead of Tracepoint,
@@ -17,6 +18,7 @@ Similar to the events tracer, this doesn't need to be activated via
 current_tracer. Instead of that, add probe points via
 /sys/kernel/debug/tracing/kprobe_events, and enable it via
 /sys/kernel/debug/tracing/events/kprobes/<EVENT>/enabled.
+
 
 Synopsis of kprobe_events
 -------------------------
@@ -59,6 +61,7 @@ offset, and container-size (usually 32). The syntax is;
 
  b<bit-width>@<bit-offset>/<container-size>
 
+
 Per-Probe Event Filtering
 -------------------------
  Per-probe event filtering feature allows you to set different filter on each
@@ -79,12 +82,14 @@ filter:
 id:
   This shows the id of this probe event.
 
+
 Event Profiling
 ---------------
  You can check the total number of probe hits and probe miss-hits via
 /sys/kernel/debug/tracing/kprobe_profile.
  The first column is event name, the second is the number of probe hits,
 the third is the number of probe miss-hits.
+
 
 Usage examples
 --------------
@@ -123,6 +128,7 @@ format:
         field:unsigned long flags;      offset:28;      size:4; signed:0;
         field:unsigned long mode;       offset:32;      size:4; signed:0;
 
+
 print fmt: "(%lx) dfd=%lx filename=%lx flags=%lx mode=%lx", REC->__probe_ip,
 REC->dfd, REC->filename, REC->flags, REC->mode
 
@@ -158,6 +164,8 @@ events, you need to enable it.
            <...>-1447  [001] 1038282.286969: myprobe: (do_sys_open+0x0/0xd6) dfd=ffffff9c filename=4041c6 flags=98800 mode=10
            <...>-1447  [001] 1038282.286976: myretprobe: (sys_open+0x1b/0x1d <- do_sys_open) $retval=3
 
+
  Each line shows when the kernel hits an event, and <- SYMBOL means kernel
 returns from SYMBOL(e.g. "sys_open+0x1b/0x1d <- do_sys_open" means kernel
 returns from do_sys_open to sys_open+0x1b).
+

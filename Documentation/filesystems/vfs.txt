@@ -1,3 +1,4 @@
+
 	      Overview of the Linux Virtual File System
 
 	Original author: Richard Gooch <rgooch@atnf.csiro.au>
@@ -8,6 +9,7 @@
   Copyright (C) 2005 Pekka Enberg
 
   This file is released under the GPLv2.
+
 
 Introduction
 ============
@@ -21,6 +23,7 @@ coexist.
 VFS system calls open(2), stat(2), read(2), write(2), chmod(2) and so
 on are called from a process context. Filesystem locking is described
 in the document Documentation/filesystems/Locking.
+
 
 Directory Entry Cache (dcache)
 ------------------------------
@@ -38,6 +41,7 @@ some bits of the cache are missing. In order to resolve your pathname
 into a dentry, the VFS may have to resort to creating dentries along
 the way, and then loading the inode. This is done by looking up the
 inode.
+
 
 The Inode Object
 ----------------
@@ -59,6 +63,7 @@ data. The stat(2) operation is fairly simple: once the VFS has the
 dentry, it peeks at the inode data and passes some of it back to
 userspace.
 
+
 The File Object
 ---------------
 
@@ -76,6 +81,7 @@ is done by using the userspace file descriptor to grab the appropriate
 file structure, and then calling the required file structure method to
 do whatever is required. For as long as the file is open, it keeps the
 dentry in use, which in turn means that the VFS inode is still in use.
+
 
 Registering and Mounting a Filesystem
 =====================================
@@ -97,6 +103,7 @@ reaches the mountpoint it will jump into the root of that vfsmount.
 
 You can see all filesystems that are registered to the kernel in the
 file /proc/filesystems.
+
 
 struct file_system_type
 -----------------------
@@ -187,10 +194,12 @@ A fill_super() callback implementation has the following arguments:
 
   int silent: whether or not to be silent on error
 
+
 The Superblock Object
 =====================
 
 A superblock object represents a mounted filesystem.
+
 
 struct super_operations
 -----------------------
@@ -255,7 +264,7 @@ or bottom half).
 	The "generic_delete_inode()" behavior is equivalent to the
 	old practice of using "force_delete" in the put_inode() case,
 	but does not have the races that the "force_delete()" approach
-	had.
+	had. 
 
   delete_inode: called when the VFS wants to delete an inode
 
@@ -296,10 +305,12 @@ Whoever sets up the inode is responsible for filling in the "i_op" field. This
 is a pointer to a "struct inode_operations" which describes the methods that
 can be performed on individual inodes.
 
+
 The Inode Object
 ================
 
 An inode object represents an object within the filesystem.
+
 
 struct inode_operations
 -----------------------
@@ -441,6 +452,7 @@ otherwise noted.
 
   truncate_range: a method provided by the underlying filesystem to truncate a
   	range of blocks , i.e. punch a hole somewhere in a file.
+
 
 The Address Space Object
 ========================
@@ -649,6 +661,7 @@ struct address_space_operations {
   	but instead uses bmap to find out where the blocks in the file
   	are and uses those addresses directly.
 
+
   invalidatepage: If a page has PagePrivate set, then invalidatepage
         will be called when part or all of the page is to be removed
 	from the address space.  This generally corresponds to either a
@@ -714,10 +727,12 @@ struct address_space_operations {
 	Setting this implies you deal with pages going away under you,
 	unless you have them locked or reference counts increased.
 
+
 The File Object
 ===============
 
 A file object represents a file opened by a process.
+
 
 struct file_operations
 ----------------------
@@ -831,8 +846,10 @@ the new open() method for the file. This is how opening a device file
 in the filesystem eventually ends up calling the device driver open()
 method.
 
+
 Directory Entry Cache (dcache)
 ==============================
+
 
 struct dentry_operations
 ------------------------
@@ -971,6 +988,7 @@ static char *pipefs_dname(struct dentry *dent, char *buffer, int buflen)
 Each dentry has a pointer to its parent dentry, as well as a hash list
 of child dentries. Child dentries are basically like files in a
 directory.
+
 
 Directory Entry Cache API
 --------------------------

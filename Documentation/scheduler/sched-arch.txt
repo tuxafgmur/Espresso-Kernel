@@ -26,6 +26,7 @@ unlocked context switches. This define also implies
 `__ARCH_WANT_UNLOCKED_CTXSW`. See arch/arm/include/asm/system.h for an
 example.
 
+
 CPU idle
 ========
 Your cpu_idle routines need to obey the following rules:
@@ -68,6 +69,7 @@ Your cpu_idle routines need to obey the following rules:
 arch/i386/kernel/process.c has examples of both polling and
 sleeping idle functions.
 
+
 Possible arch/ problems
 =======================
 
@@ -84,3 +86,4 @@ sh64 - Is sleeping racy vs interrupts? (See #4a)
 
 sparc - IRQs on at this point(?), change local_irq_save to _disable.
       - TODO: needs secondary CPUs to disable preempt (See #1)
+

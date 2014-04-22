@@ -1,5 +1,7 @@
+
 Gunther Mayer's bttv card gallery (graphical version of this text file :-)
 is available at: http://www.bttv-gallery.de/
+
 
 Supported cards:
 Bt848/Bt848a/Bt849/Bt878/Bt879 cards
@@ -17,11 +19,13 @@ necessarily fully supported.
 All other cards only differ by additional components as tuners, sound
 decoders, EEPROMs, teletext decoders ...
 
+
 Unsupported Cards:
 ------------------
 
 Cards with Zoran (ZR) or Philips (SAA) or ISA are not supported by
 this driver.
+
 
 MATRIX Vision
 -------------
@@ -41,6 +45,8 @@ to the card via composite.
 Many thanks to Matrix-Vision for giving us 2 cards for free which made
 Bt848a/Bt849 single crytal operation support possible!!!
 
+
+
 Miro/Pinnacle PCTV
 ------------------
 
@@ -56,8 +62,10 @@ Miro/Pinnacle PCTV
 http://www.miro.de/
 http://www.miro.com/
 
+
 Many thanks for the free card which made first NTSC support possible back
 in 1997!
+
 
 Hauppauge Win/TV pci
 --------------------
@@ -88,6 +96,7 @@ e.g.:
 - 1 tuner, 1 composite and (depending on model) 1 S-VHS input
 - 14052B: mux for selection of sound source
 - sound decoder: TDA9800, MSP34xx (stereo cards)
+
 
 Askey CPH-Series
 ----------------
@@ -176,6 +185,7 @@ Lifeview Flyvideo Series:
   FlyVideo A2 (Elta 8680)= LR90 Rev.F (w/Remote, w/o FM, stereo TV by tda9821) {Germany}
   Lifeview 3000 (Elta 8681) as sold by Plus(April 2002), Germany = LR138 w/ saa7134
 
+
 Typhoon TV card series:
 -----------------------
   These can be CPH, Flyvideo, Pixelview or KNC1 series.
@@ -201,6 +211,7 @@ Typhoon TV card series:
   50866  TVIEW SAT RECEIVER+ADR
   50868 "TV/FM Tuner Pal I" (variant of 50682)
   50999 "TV/FM Tuner Secam" (variant of 50682)
+
 
 Guillemot
 ---------
@@ -700,6 +711,7 @@ Hauppauge
   809 MyVideo
   872 MyTV2Go FM
 
+
   546 WinTV Nova-S CI
   543 WinTV Nova
   907 Nova-S USB
@@ -723,6 +735,7 @@ Hauppauge
   832 MyTV2Go
   869 MyTV2Go-FM
   805 MyVideo (USB)
+
 
 Matrix-Vision
 -------------
@@ -776,11 +789,14 @@ Kworld (www.kworld.com.tw)
 
    KWORLD KW-TV713XRF (saa7134)
 
+
   MPEG TV Station (same cards as above plus WinDVR Software MPEG en/decoder)
    KWORLD KW-TV878R -Pro   TV (no Radio)
    KWORLD KW-TV878RF-Pro   TV (w/ Radio)
    KWORLD KW-TV878R -Ultra TV (no Radio)
    KWORLD KW-TV878RF-Ultra TV (w/ Radio)
+
+
 
 JTT/ Justy Corp.(http://www.jtt.ne.jp/)
 ---------------------------------------------------------------------
@@ -808,7 +824,7 @@ Eline www.eline-net.com/
    Eline Vision TVMaster / TVMaster FM (ELV-TVM/ ELV-TVM-FM) = LR26  (bt878)
    Eline Vision TVMaster-2000 (ELV-TVM-2000, ELV-TVM-2000-FM)= LR138 (saa713x)
 
-Spirit
+Spirit 
 ------
    Spirit TV Tuner/Video Capture Card (bt848)
 
@@ -823,6 +839,7 @@ Satelco www.citycom-gmbh.de, www.satelco.de
    Standard PCI (DVB-S) = Technotrend Budget
    Standard PCI (DVB-S) w/ CI
    Satelco Highend PCI (DVB-S) = Technotrend Premium
+
 
 Sensoray www.sensoray.com
 --------

@@ -1,6 +1,8 @@
 			S3C24XX ARM Linux Overview
 			==========================
 
+
+
 Introduction
 ------------
 
@@ -16,6 +18,7 @@ Introduction
   support for these SoCs is in, work on some of the extra peripherals
   and extra interrupts is still ongoing.
 
+
 Configuration
 -------------
 
@@ -25,6 +28,7 @@ Configuration
 
   Certain machines may have their own default configurations as well,
   please check the machine specific documentation.
+
 
 Layout
 ------
@@ -56,6 +60,7 @@ arch/arm/plat-s3c24xx:
 
   This does mean that to find the status of any given SoC, a number
   of directories may need to be searched.
+
 
 Machines
 --------
@@ -116,6 +121,7 @@ Machines
 
     Two machines by Nex Vision
 
+
 Adding New Machines
 -------------------
 
@@ -141,11 +147,13 @@ Adding New Machines
   attempted. See http://www.arm.linux.org.uk/mailinglists/ for the
   mailing list information.
 
+
 I2C
 ---
 
   The hardware I2C core in the CPU is supported in single master
   mode, and can be configured via platform data.
+
 
 RTC
 ---
@@ -156,11 +164,13 @@ RTC
   and the module has been renamed to rtc-s3c to fit in with
   the new rtc naming scheme.
 
+
 Watchdog
 --------
 
   The onchip watchdog is available via the standard watchdog
   interface.
+
 
 NAND
 ----
@@ -171,6 +181,7 @@ NAND
 
   For more information see Documentation/arm/Samsung-S3C24XX/NAND.txt
 
+
 SD/MMC
 ------
 
@@ -180,6 +191,7 @@ SD/MMC
 
   The SDIO behaviour of this driver has not been fully tested. There is no
   current support for hardware SDIO interrupts.
+
 
 Serial
 ------
@@ -192,6 +204,7 @@ Serial
     mknod ttySAC0 c 204 64
     mknod ttySAC1 c 204 65
     mknod ttySAC2 c 204 66
+
 
 GPIO
 ----
@@ -209,12 +222,14 @@ GPIO
   support and Documentation/arm/Samsung/GPIO.txt for the core Samsung
   implementation.
 
+
 Clock Management
 ----------------
 
   The core provides the interface defined in the header file
   include/asm-arm/hardware/clock.h, to allow control over the
   various clock units
+
 
 Suspend to RAM
 --------------
@@ -224,6 +239,7 @@ Suspend to RAM
 
   See Suspend.txt for more information.
 
+
 SPI
 ---
 
@@ -231,11 +247,13 @@ SPI
   (although there is no DMA support yet) and a generic
   GPIO based solution.
 
+
 LEDs
 ----
 
   There is support for GPIO based LEDs via a platform driver
   in the LED subsystem.
+
 
 Platform Data
 -------------
@@ -274,6 +292,7 @@ Platform Data
 	exported outside arch/arm/mach-s3c2410/, or exported to
 	modules via EXPORT_SYMBOL() and related functions.
 
+
 Port Contributors
 -----------------
 
@@ -288,6 +307,7 @@ Port Contributors
   Guillaume Gourat (NexVision)
   Christer Weinigel (wingel) (Acer N30)
   Lucas Correia Villa Real (S3C2400 port)
+
 
 Document Author
 ---------------

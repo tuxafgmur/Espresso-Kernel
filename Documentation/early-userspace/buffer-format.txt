@@ -35,6 +35,7 @@ grammar, where:
 
 	cpio_trailer := ALGN(4) + cpio_header + "TRAILER!!!\0" + ALGN(4)
 
+
 In human terms, the initramfs buffer contains a collection of
 compressed and/or uncompressed cpio archives (in the "newc" or "crc"
 formats); arbitrary amounts zero bytes (for padding) can be added
@@ -79,6 +80,7 @@ algorithm used.
 
 If the filename is "TRAILER!!!" this is actually an end-of-archive
 marker; the c_filesize for an end-of-archive marker must be zero.
+
 
 *** Handling of hard links
 

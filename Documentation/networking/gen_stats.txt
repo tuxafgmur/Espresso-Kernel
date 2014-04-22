@@ -10,6 +10,7 @@ gnet_stats_rate_est  TCA_STATS_RATE_EST    Rate estimator
 gnet_stats_queue     TCA_STATS_QUEUE       Queue statistics
 none                 TCA_STATS_APP         Application specific
 
+
 Collecting:
 -----------
 
@@ -23,6 +24,7 @@ struct mystruct {
 Update statistics:
 mystruct->tstats.packet++;
 mystruct->qstats.backlog += skb->pkt_len;
+
 
 Export to userspace (Dump):
 ---------------------------
@@ -63,12 +65,14 @@ A struct tc_stats will be filled out during gnet_stats_copy_* calls
 and appended to the skb. TCA_XSTATS is provided if gnet_stats_copy_app
 was called.
 
+
 Locking:
 --------
 
 Locks are taken before writing and released once all statistics have
 been written. Locks are always released in case of an error. You
 are responsible for making sure that the lock is initialized.
+
 
 Rate Estimator:
 --------------
@@ -105,6 +109,7 @@ up-to-date info.
 Once you are done, call gen_kill_estimator(my_basicstats,
 my_rate_est_stats) Make sure that my_basicstats and my_rate_est_stats
 are still valid (i.e still exist) at the time of making this call.
+
 
 Authors:
 --------

@@ -5,6 +5,7 @@ Copyright (C) 1999  Dave Forrest  <drf5n@virginia.edu>
 
 1999-12-08 Dave Forrest, written with kernel version 2.2.12 in mind
 
+
 Table of Contents
 
 1.0 Introduction
@@ -13,6 +14,7 @@ Table of Contents
 4.0 Future Work / current work arounds
 9.0 Sample Program, v4lgrab
 10.0 Other Information
+
 
 1.0 Introduction
 
@@ -29,6 +31,8 @@ Quickcam.
 hope this document saves you some time.  My camera will not work with
 the 2.2.13 kernel as distributed, but with a few patches to the
 module, I was able to grab some frames. See 4.0, Future Work.
+
+
 
 2.0 Compilation, Installation, and Configuration
 
@@ -62,6 +66,7 @@ configuration.  I like kmod or kerneld process with the
 they are used.  The video devices could already exist, be generated
 using MAKEDEV, or need to be created.  The following sections detail
 these procedures.
+
 
 2.1 Module Configuration
 
@@ -160,6 +165,9 @@ video4linux mailing list and archive for more current information.
 
   Does the camera work with alternate programs? cqcam, etc?
 
+
+
+
 4.0 Future Work / current workarounds
 
   It is hoped that this section will soon become obsolete, but if it
@@ -174,12 +182,14 @@ look for the 'qc_detect' code and call.
   Note that there is work in progress to change the video4linux API,
 this work is documented at the video4linux2 site listed below.
 
+
 9.0 --- A sample program using v4lgrabber,
 
 v4lgrab is a simple image grabber that will copy a frame from the
 first video device, /dev/video0 to standard output in portable pixmap
 format (.ppm)  To produce .jpg output, you can use it like this:
 'v4lgrab | convert - c-qcam.jpg'
+
 
 10.0 --- Other Information
 
@@ -201,3 +211,5 @@ Some web pages about the quickcams:
    http://phobos.illtel.denver.co.us/pub/qcread/ doesn't use v4l
    ftp://ftp.cs.unm.edu/pub/chris/quickcam/   Has lots of drivers
    http://www.cs.duke.edu/~reynolds/quickcam/ Has lots of information
+
+

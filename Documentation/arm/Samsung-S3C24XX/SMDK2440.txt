@@ -9,12 +9,14 @@ Introduction
   10MBit Ethernet, and expansion headers for various signals, including
   the camera and unused GPIO.
 
+
 Configuration
 -------------
 
   To set the default configuration, use `make smdk2440_defconfig` which
   will configure the common features of this board, or use
   `make s3c2410_config` to include support for all s3c2410/s3c2440 machines
+
 
 Support
 -------
@@ -26,17 +28,20 @@ Support
   site at http://www.handhelds.org/projects/h1940.html can also be
   applied to this board.
 
+
 Peripherals
 -----------
 
   There is no current support for any of the extra peripherals on the
   base-board itself.
 
+
 MTD
 ---
 
   The NAND flash should be supported by the in kernel MTD NAND support,
   NOR flash will be added later.
+
 
 Maintainers
 -----------
@@ -46,5 +51,6 @@ Maintainers
 
   Many thanks to Dimitry Andric of TomTom for the loan of the SMDK2440,
   and to Simtec Electronics for allowing me time to work on this.
+
 
 (c) 2004 Ben Dooks

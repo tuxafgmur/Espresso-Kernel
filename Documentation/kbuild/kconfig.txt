@@ -109,6 +109,7 @@ This environment variable can be set to specify the path & name of the
 "autoconf.h" (header) file.
 Its default value is "include/generated/autoconf.h".
 
+
 ======================================================================
 menuconfig
 --------------------------------------------------
@@ -156,6 +157,7 @@ This mode shows all sub-menus in one large tree.
 Example:
 	make MENUCONFIG_MODE=single_menu menuconfig
 
+
 ======================================================================
 xconfig
 --------------------------------------------------
@@ -176,6 +178,7 @@ Searching in xconfig:
 	config setting for any of the entries that are not grayed out.
 	You can also enter a different search string without having
 	to return to the main menu.
+
 
 ======================================================================
 gconfig

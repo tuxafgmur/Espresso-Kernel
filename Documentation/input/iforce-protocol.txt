@@ -67,6 +67,7 @@ LEN= 0e
 	Val 40 Spring (Force = f(pos))
 	Val 41 Friction (Force = f(velocity)) and Inertia (Force = f(acceleration))
 
+
 02 Axes affected and trigger
 	Bits 4-7: Val 2 = effect along one axis. Byte 05 indicates direction
 	          Val 4 = X axis only. Byte 05 must contain 5a
@@ -89,6 +90,7 @@ LEN= 0e
 0a-0b Address of interactive parameters for Y-axis, or ffff if not applicable
 
 0c-0d Delay before execution of effect (little endian encoding, in ms)
+
 
 ** Time based parameters **
 
@@ -232,10 +234,10 @@ is the amount of memory apparently needed for every set of parameters:
 
 ** Appendix: How to study the protocol ? **
 
-1. Generate effects using the force editor provided with the DirectX SDK, or
-use Immersion Studio (freely available at their web site in the developer section:
+1. Generate effects using the force editor provided with the DirectX SDK, or 
+use Immersion Studio (freely available at their web site in the developer section: 
 www.immersion.com)
-2. Start a soft spying RS232 or USB (depending on where you connected your
+2. Start a soft spying RS232 or USB (depending on where you connected your 
 joystick/wheel). I used ComPortSpy from fCoder (alpha version!)
 3. Play the effect, and watch what happens on the spy screen.
 

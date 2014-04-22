@@ -34,6 +34,7 @@ be linked to each ppp network interface unit.  The generic layer is
 responsible for splitting datagrams on transmit and recombining them
 on receive.
 
+
 PPP channel API
 ---------------
 
@@ -139,6 +140,7 @@ On the input side, channels should ideally provide at least 2 bytes of
 headroom in the skbuffs presented to ppp_input().  The generic PPP
 code does not require this but will be more efficient if this is done.
 
+
 Buffering and flow control
 --------------------------
 
@@ -184,6 +186,7 @@ layer will tend to fragment large packets across all the channels,
 thus reducing latency, while under heavy load, packets will tend to be
 transmitted as single fragments, thus reducing the overhead of
 fragmentation.
+
 
 SMP safety
 ----------
@@ -238,6 +241,7 @@ The generic layer provides these guarantees to the channels:
   will be executing in a call from the generic layer to that channel's
   start_xmit() or ioctl() function, and the generic layer will not
   call either of those functions subsequently.
+
 
 Interface to pppd
 -----------------

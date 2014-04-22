@@ -58,8 +58,15 @@ are as follows:
 	HDIO_SET_IDE_SCSI	Set scsi emulation mode on/off
 	HDIO_SET_SCSI_IDE	not implemented yet
 
+
 The information that follows was determined from reading kernel source
 code.  It is likely that some corrections will be made over time.
+
+
+
+
+
+
 
 General:
 
@@ -73,12 +80,15 @@ General:
 	Unless otherwise specified, all data structures and constants
 	are defined in <linux/hdreg.h>
 
+
+
 HDIO_GETGEO			get device geometry
 
 	usage:
 
 	  struct hd_geometry geom;
 	  ioctl(fd, HDIO_GETGEO, &geom);
+
 
 	inputs:		none
 
@@ -91,9 +101,11 @@ HDIO_GETGEO			get device geometry
 	    cylinders	number of cylinders, mod 65536
 	    start	starting sector of this partition.
 
+
 	error returns:
 	  EINVAL	if the device is not a disk drive or floppy drive,
 	  		or if the user passes a null pointer
+
 
 	notes:
 
@@ -113,6 +125,9 @@ HDIO_GETGEO			get device geometry
 	  The start field is unsigned long, meaning that it will not
 	  contain a meaningful value for disks over 219 Gb in size.
 
+
+
+
 HDIO_GET_UNMASKINTR		get current unmask setting
 
 	usage:
@@ -124,6 +139,8 @@ HDIO_GET_UNMASKINTR		get current unmask setting
 
 	outputs:
 	  The value of the drive's current unmask setting
+
+
 
 HDIO_SET_UNMASKINTR		permit other irqs during I/O
 
@@ -143,6 +160,9 @@ HDIO_SET_UNMASKINTR		permit other irqs during I/O
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
 
+
+
+
 HDIO_GET_MULTCOUNT		get current IDE blockmode setting
 
 	usage:
@@ -156,6 +176,8 @@ HDIO_GET_MULTCOUNT		get current IDE blockmode setting
 	  The value of the current IDE block mode setting.  This
 	  controls how many sectors the drive will transfer per
 	  interrupt.
+
+
 
 HDIO_SET_MULTCOUNT		change IDE blockmode
 
@@ -188,18 +210,26 @@ HDIO_SET_MULTCOUNT		change IDE blockmode
 	  If blockmode has already been set, this ioctl will fail with
 	  EBUSY
 
+
+
 HDIO_GET_QDMA			get use-qdma flag
 
 	Not implemented, as of 2.6.8.1
+
+
 
 HDIO_SET_XFER			set transfer rate via proc
 
 	Not implemented, as of 2.6.8.1
 
+
+
 HDIO_OBSOLETE_IDENTITY		OBSOLETE, DO NOT USE
 
 	Same as HDIO_GET_IDENTITY (see below), except that it only
 	returns the first 142 bytes of drive identity information.
+
+
 
 HDIO_GET_IDENTITY		get IDE identification info
 
@@ -229,6 +259,8 @@ HDIO_GET_IDENTITY		get IDE identification info
 
 	  This information is also available from /proc/ide/hdX/identify
 
+
+
 HDIO_GET_KEEPSETTINGS		get keep-settings-on-reset flag
 
 	usage:
@@ -245,6 +277,8 @@ HDIO_GET_KEEPSETTINGS		get keep-settings-on-reset flag
 
 	  When set, indicates that kernel should restore settings
 	  after a drive reset.
+
+
 
 HDIO_SET_KEEPSETTINGS		keep ioctl settings on reset
 
@@ -264,6 +298,8 @@ HDIO_SET_KEEPSETTINGS		keep ioctl settings on reset
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
 
+
+
 HDIO_GET_32BIT			get current io_32bit setting
 
 	usage:
@@ -280,6 +316,8 @@ HDIO_GET_32BIT			get current io_32bit setting
 
 	  0=16-bit, 1=32-bit, 2,3 = 32bit+sync
 
+
+
 HDIO_GET_NOWERR			get ignore-write-error flag
 
 	usage:
@@ -292,6 +330,8 @@ HDIO_GET_NOWERR			get ignore-write-error flag
 	outputs:
 	  The value of the current ignore-write-error flag
 
+
+
 HDIO_GET_DMA			get use-dma flag
 
 	usage:
@@ -303,6 +343,8 @@ HDIO_GET_DMA			get use-dma flag
 
 	outputs:
 	  The value of the current use-dma flag
+
+
 
 HDIO_GET_NICE			get nice flags
 
@@ -322,6 +364,9 @@ HDIO_GET_NICE			get nice flags
 	  Per-drive flags which determine when the system will give more
 	  bandwidth to other devices sharing the same IDE bus.
 	  See <linux/hdreg.h>, near symbol IDE_NICE_DSC_OVERLAP.
+
+
+
 
 HDIO_SET_NICE			set nice flags
 
@@ -349,6 +394,10 @@ HDIO_SET_NICE			set nice flags
 	  Nice flags are listed in <linux/hdreg.h>, starting with
 	  IDE_NICE_DSC_OVERLAP.  These values represent shifts.
 
+
+
+
+
 HDIO_GET_WCACHE			get write cache mode on|off
 
 	usage:
@@ -360,6 +409,8 @@ HDIO_GET_WCACHE			get write cache mode on|off
 
 	outputs:
 	  The value of the current write cache mode
+
+
 
 HDIO_GET_ACOUSTIC		get acoustic value
 
@@ -377,6 +428,8 @@ HDIO_GET_ACOUSTIC		get acoustic value
 
 	  See HDIO_SET_ACOUSTIC
 
+
+
 HDIO_GET_ADDRESS
 
 	usage:
@@ -393,6 +446,8 @@ HDIO_GET_ADDRESS
 	    2 = 48-bit doing 28-bit
 	    3 = 64-bit
 
+
+
 HDIO_GET_BUSSTATE		get the bus state of the hwif
 
 	usage:
@@ -408,6 +463,9 @@ HDIO_GET_BUSSTATE		get the bus state of the hwif
 
 	error returns:
 	  EACCES	Access denied:  requires CAP_SYS_ADMIN
+
+
+
 
 HDIO_SET_BUSSTATE		set the bus state of the hwif
 
@@ -427,9 +485,14 @@ HDIO_SET_BUSSTATE		set the bus state of the hwif
 	  EACCES	Access denied:  requires CAP_SYS_RAWIO
 	  EOPNOTSUPP	Hardware interface does not support bus power control
 
+
+
+
 HDIO_TRISTATE_HWIF		execute a channel tristate
 
 	Not implemented, as of 2.6.8.1.  See HDIO_SET_BUSSTATE
+
+
 
 HDIO_DRIVE_RESET		execute a device reset
 
@@ -455,6 +518,8 @@ HDIO_DRIVE_RESET		execute a device reset
 
 	  Executes an ATAPI soft reset if applicable, otherwise
 	  executes an ATA soft reset on the controller.
+
+
 
 HDIO_DRIVE_TASKFILE		execute raw taskfile
 
@@ -659,6 +724,8 @@ HDIO_DRIVE_TASKFILE		execute raw taskfile
 	  reason, do not use IDE_{TASKFILE|HOB}_STD_{OUT|IN}_FLAGS
 	  constants defined in hdreg.h.
 
+
+
 HDIO_DRIVE_CMD			execute a special drive command
 
 	Note:  If you don't have a copy of the ANSI ATA specification
@@ -720,6 +787,8 @@ HDIO_DRIVE_CMD			execute a special drive command
 	  mode, IDE driver will try to tune the transfer mode of the
 	  drive accordingly.
 
+
+
 HDIO_DRIVE_TASK			execute task and special drive command
 
 	Note:  If you don't have a copy of the ANSI ATA specification
@@ -765,9 +834,13 @@ HDIO_DRIVE_TASK			execute task and special drive command
 	  appropriate value for the drive is used.  All other bits
 	  are used unaltered.
 
+
+
 HDIO_DRIVE_CMD_AEB		HDIO_DRIVE_TASK
 
 	Not implemented, as of 2.6.8.1
+
+
 
 HDIO_SET_32BIT			change io_32bit flags
 
@@ -786,6 +859,9 @@ HDIO_SET_32BIT			change io_32bit flags
 	  EACCES	Access denied:  requires CAP_SYS_ADMIN
 	  EINVAL	value out of range [0 3]
 	  EBUSY		Controller busy
+
+
+
 
 HDIO_SET_NOWERR			change ignore-write-error flag
 
@@ -806,6 +882,8 @@ HDIO_SET_NOWERR			change ignore-write-error flag
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
 
+
+
 HDIO_SET_DMA			change use-dma flag
 
 	usage:
@@ -824,6 +902,8 @@ HDIO_SET_DMA			change use-dma flag
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
 
+
+
 HDIO_SET_PIO_MODE		reconfig interface to new speed
 
 	usage:
@@ -841,6 +921,8 @@ HDIO_SET_PIO_MODE		reconfig interface to new speed
 	  EACCES	Access denied:  requires CAP_SYS_ADMIN
 	  EINVAL	value out of range [0 255]
 	  EBUSY		Controller busy
+
+
 
 HDIO_SCAN_HWIF			register and (re)scan interface
 
@@ -867,6 +949,8 @@ HDIO_SCAN_HWIF			register and (re)scan interface
 	  controller, probes for drives, and creates /proc/ide
 	  interfaces as appropriate.
 
+
+
 HDIO_UNREGISTER_HWIF		unregister interface
 
 	usage:
@@ -889,6 +973,8 @@ HDIO_UNREGISTER_HWIF		unregister interface
 	  Currently (2.6.8) this ioctl silently fails if any drive on
 	  the interface is busy.
 
+
+
 HDIO_SET_WCACHE			change write cache enable-disable
 
 	usage:
@@ -906,6 +992,8 @@ HDIO_SET_WCACHE			change write cache enable-disable
 	  EACCES	Access denied:  requires CAP_SYS_ADMIN
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
+
+
 
 HDIO_SET_ACOUSTIC		change acoustic behavior
 
@@ -925,9 +1013,13 @@ HDIO_SET_ACOUSTIC		change acoustic behavior
 	  EINVAL	value out of range [0 254]
 	  EBUSY		Controller busy
 
+
+
 HDIO_SET_QDMA			change use-qdma flag
 
 	Not implemented, as of 2.6.8.1
+
+
 
 HDIO_SET_ADDRESS		change lba addressing modes
 
@@ -951,6 +1043,7 @@ HDIO_SET_ADDRESS		change lba addressing modes
 	  EBUSY		Controller busy
 	  EIO		Drive does not support lba48 mode.
 
+
 HDIO_SET_IDE_SCSI
 
 	usage:
@@ -969,6 +1062,10 @@ HDIO_SET_IDE_SCSI
 	  EINVAL	value out of range [0 1]
 	  EBUSY		Controller busy
 
+
+
 HDIO_SET_SCSI_IDE
 
 	Not implemented, as of 2.6.8.1
+
+

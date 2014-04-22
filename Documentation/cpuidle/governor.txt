@@ -1,6 +1,12 @@
+
+
+
 		Supporting multiple CPU idle levels in kernel
 
 				cpuidle governors
+
+
+
 
 cpuidle governor is policy routine that decides what idle state to enter at
 any given time. cpuidle core uses different callbacks to the governor.

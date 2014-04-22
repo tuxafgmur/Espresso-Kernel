@@ -31,12 +31,14 @@ In your rc.sysinit (or rc.local) file, add the command
 
 And that's it!  Only the superuser may reprogram the SAK key.
 
+
 NOTES
 =====
 
 1: Linux SAK is said to be not a "true SAK" as is required by
    systems which implement C2 level security.  This author does not
    know why.
+
 
 2: On the PC keyboard, SAK kills all applications which have
    /dev/console opened.
@@ -83,3 +85,4 @@ NOTES
    /dev/console.  So SAK kills them all.  A workaround is to simply
    delete these lines, but this may cause system management
    applications to malfunction - test everything well.
+
