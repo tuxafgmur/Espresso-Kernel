@@ -1,8 +1,8 @@
 VERSION = 3
 PATCHLEVEL = 0
-SUBLEVEL = 31
+SUBLEVEL = 101
 EXTRAVERSION =
-NAME = Sneaky Weasel
+NAME = Sodden Ben Lomond
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -378,7 +378,6 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
                    -include include/generated/autoconf.h
 
 KBUILD_CPPFLAGS := -D__KERNEL__
-
 ifdef CONFIG_GCC_48_FIXES
   KBUILD_CPPFLAGS  +=  -fno-aggressive-loop-optimizations -Wno-sizeof-pointer-memaccess
 endif
@@ -633,7 +632,7 @@ KBUILD_CFLAGS	+= -g
 ifdef CONFIG_GCC_48_FIXES
 KBUILD_CFLAGS  += -gdwarf-2
 endif
-KBUILD_AFLAGS	+= -gdwarf-2
+KBUILD_AFLAGS  += -gdwarf-2
 endif
 
 ifdef CONFIG_DEBUG_INFO_REDUCED

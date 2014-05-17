@@ -11,9 +11,9 @@
 # to give you some cover.
 
 # ISA-based Watchdog Cards
-obj-$(CONFIG_PCWATCHDOG) += pcwd.o
-obj-$(CONFIG_MIXCOMWD) += mixcomwd.o
-obj-$(CONFIG_WDT) += wdt.o
+obj-$(CONFIG_PCWATCHDOG) 	+= pcwd.o
+obj-$(CONFIG_MIXCOMWD) 		+= mixcomwd.o
+obj-$(CONFIG_WDT) 		+= wdt.o
 
 # PCI-based Watchdog Cards
 obj-$(CONFIG_PCIPCWATCHDOG) += pcwd_pci.o
@@ -55,12 +55,6 @@ obj-$(CONFIG_AT32AP700X_WDT) += at32ap700x_wdt.o
 
 # BLACKFIN Architecture
 obj-$(CONFIG_BFIN_WDT) += bfin_wdt.o
-
-# CRIS Architecture
-
-# FRV Architecture
-
-# H8300 Architecture
 
 # X86 (i386 + ia64 + x86_64) Architecture
 obj-$(CONFIG_ACQUIRE_WDT) += acquirewdt.o
@@ -104,8 +98,6 @@ obj-$(CONFIG_MACHZ_WDT) += machzwd.o
 obj-$(CONFIG_SBC_EPX_C3_WATCHDOG) += sbc_epx_c3.o
 obj-$(CONFIG_INTEL_SCU_WATCHDOG) += intel_scu_watchdog.o
 
-# M32R Architecture
-
 # M68K Architecture
 obj-$(CONFIG_M54xx_WATCHDOG) += m54xx_wdt.o
 
@@ -125,8 +117,6 @@ obj-$(CONFIG_OCTEON_WDT) += octeon-wdt.o
 octeon-wdt-y := octeon-wdt-main.o octeon-wdt-nmi.o
 obj-$(CONFIG_LANTIQ_WDT) += lantiq_wdt.o
 
-# PARISC Architecture
-
 # POWERPC Architecture
 obj-$(CONFIG_GEF_WDT) += gef_wdt.o
 obj-$(CONFIG_8xxx_WDT) += mpc8xxx_wdt.o
@@ -137,19 +127,12 @@ obj-$(CONFIG_BOOKE_WDT) += booke_wdt.o
 # PPC64 Architecture
 obj-$(CONFIG_WATCHDOG_RTAS) += wdrtas.o
 
-# S390 Architecture
-
 # SUPERH (sh + sh64) Architecture
 obj-$(CONFIG_SH_WDT) += shwdt.o
 
-# SPARC Architecture
-
 # SPARC64 Architecture
-
 obj-$(CONFIG_WATCHDOG_RIO)		+= riowd.o
 obj-$(CONFIG_WATCHDOG_CP1XXX)		+= cpwd.o
-
-# XTENSA Architecture
 
 # Xen
 obj-$(CONFIG_XEN_WDT) += xen_wdt.o

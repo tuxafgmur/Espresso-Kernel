@@ -141,10 +141,6 @@ static int wm8958_dsp2_fw(struct snd_soc_codec *codec, const char *name,
 		case WM_FW_BLOCK_I:
 		case WM_FW_BLOCK_A:
 		case WM_FW_BLOCK_C:
-			dev_dbg(codec->dev, "%s: %zd bytes of %x@%x\n", name,
-				block_len, (data32 >> 24) & 0xff,
-				data32 & 0xffffff);
-
 			if (check)
 				break;
 
@@ -170,7 +166,6 @@ static int wm8958_dsp2_fw(struct snd_soc_codec *codec, const char *name,
 	}
 
 	if (!check) {
-		dev_dbg(codec->dev, "%s: download done\n", name);
 		wm8994->cur_fw = fw;
 	} else {
 		dev_info(codec->dev, "%s: got firmware\n", name);
@@ -358,9 +353,6 @@ static void wm8958_dsp_apply(struct snd_soc_codec *codec, int path, int start)
 
 	reg = snd_soc_read(codec, WM8958_DSP2_PROGRAM);
 
-	dev_dbg(codec->dev, "DSP path %d %d startup: %d, power: %x, DSP: %x\n",
-		path, wm8994->dsp_active, start, pwr_reg, reg);
-
 	if (start && ena) {
 		/* If the DSP is already running then noop */
 		if (reg & WM8958_DSP2_ENA)
@@ -389,7 +381,6 @@ static void wm8958_dsp_apply(struct snd_soc_codec *codec, int path, int start)
 
 		wm8994->dsp_active = path;
 
-		dev_dbg(codec->dev, "DSP running in path %d\n", path);
 	}
 
 	if (!start && wm8994->dsp_active == path) {
@@ -407,8 +398,6 @@ static void wm8958_dsp_apply(struct snd_soc_codec *codec, int path, int start)
 				    WM8958_DSP2CLK_ENA, 0);
 
 		wm8994->dsp_active = -1;
-
-		dev_dbg(codec->dev, "DSP stopped\n");
 	}
 }
 
@@ -519,7 +508,6 @@ static int wm8958_mbc_put(struct snd_kcontrol *kcontrol,
 		return -EINVAL;
 
 	if (wm8958_dsp2_busy(wm8994, mbc)) {
-		dev_dbg(codec->dev, "DSP2 active on %d already\n", mbc);
 		return -EBUSY;
 	}
 
@@ -645,7 +633,6 @@ static int wm8958_vss_put(struct snd_kcontrol *kcontrol,
 		return -ENODEV;
 
 	if (wm8958_dsp2_busy(wm8994, vss)) {
-		dev_dbg(codec->dev, "DSP2 active on %d already\n", vss);
 		return -EBUSY;
 	}
 
@@ -715,7 +702,6 @@ static int wm8958_hpf_put(struct snd_kcontrol *kcontrol,
 		return -ENODEV;
 
 	if (wm8958_dsp2_busy(wm8994, hpf % 3)) {
-		dev_dbg(codec->dev, "DSP2 active on %d already\n", hpf);
 		return -EBUSY;
 	}
 
@@ -811,7 +797,6 @@ static int wm8958_enh_eq_put(struct snd_kcontrol *kcontrol,
 		return -ENODEV;
 
 	if (wm8958_dsp2_busy(wm8994, eq)) {
-		dev_dbg(codec->dev, "DSP2 active on %d already\n", eq);
 		return -EBUSY;
 	}
 

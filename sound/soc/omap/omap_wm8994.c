@@ -256,8 +256,6 @@ static int set_lineout_mode(struct snd_kcontrol *kcontrol,
 
 	gpio_set_value(lineout_select.gpio, lineout_mode);
 
-	dev_dbg(codec->dev, "set lineout mode : %s\n",
-		lineout_mode_text[lineout_mode]);
 	return 0;
 
 }
@@ -266,8 +264,6 @@ static int omap_lineout_switch(struct snd_soc_dapm_widget *w,
 			     struct snd_kcontrol *kcontrol, int event)
 {
 	struct snd_soc_codec *codec = w->codec;
-
-	dev_dbg(codec->dev, "%s event is %02X", w->name, event);
 
 	switch (event) {
 	case SND_SOC_DAPM_POST_PMU:
@@ -405,9 +401,6 @@ static int set_aif2_mute_status(struct snd_kcontrol *kcontrol,
 	snd_soc_update_bits(codec, WM8994_AIF2_DAC_FILTERS_1,
 				WM8994_AIF2DAC_MUTE, reg);
 
-	pr_info("set aif2_digital_mute : %s\n",
-			switch_mode_text[aif2_digital_mute]);
-
 	return 0;
 }
 
@@ -445,16 +438,10 @@ static int set_sub_mic_bias_mode(struct snd_kcontrol *kcontrol,
 	case MIC_DISABLE:
 		if (sub_mic_bias_mode != MIC_FORCE_ENABLE)
 			gpio_set_value(sub_mic_bias.gpio, 0);
-		else
-			dev_info(codec->dev,
-				"SKIP submic disable=%d\n", status);
 		break;
 	default:
 		break;
 	}
-
-	dev_info(codec->dev, "sub_mic_bias_mod=%d: status=%d\n",
-				sub_mic_bias_mode, status);
 
 	return 0;
 
@@ -494,16 +481,10 @@ static int set_main_mic_bias_mode(struct snd_kcontrol *kcontrol,
 	case MIC_DISABLE:
 		if (main_mic_bias_mode != MIC_FORCE_ENABLE)
 			gpio_set_value(main_mic_bias.gpio, 0);
-		else
-			dev_info(codec->dev,
-				"SKIP mainmic disable=%d\n", status);
 		break;
 	default:
 		break;
 	}
-
-	dev_info(codec->dev, "main_mic_bias_mod=%d: status=%d\n",
-				main_mic_bias_mode, status);
 
 	return 0;
 
@@ -591,7 +572,6 @@ static void wm1811_micdet(u16 status, void *data)
 	if (!(status & WM8958_MICD_STS)) {
 		if (!wm8994->jackdet) {
 			/* If nothing present then clear our statuses */
-			dev_dbg(wm1811->codec->dev, "Detected open circuit\n");
 			wm8994->jack_mic = false;
 			wm8994->mic_detecting = true;
 
@@ -667,9 +647,6 @@ static void wm1811_micdet(u16 status, void *data)
 		if (status & WM8994_JACKDET_BTN2)
 			report |= SND_JACK_BTN_2;
 
-		dev_info(wm1811->codec->dev, "Detected Button: %08x (%08X)\n",
-			report, status);
-
 		snd_soc_jack_report(wm8994->micdet[0].jack, report,
 				    wm8994->btn_mask);
 	}
@@ -679,8 +656,6 @@ static void wm1811_micdet(u16 status, void *data)
 static int omap4_wm8994_start_fll1(struct snd_soc_dai *aif1_dai)
 {
 	int ret;
-
-	dev_dbg(aif1_dai->dev, "Moving to audio clocking settings\n");
 
 	/* Switch the FLL */
 	ret = snd_soc_dai_set_pll(aif1_dai,

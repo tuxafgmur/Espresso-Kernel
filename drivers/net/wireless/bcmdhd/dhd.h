@@ -24,7 +24,7 @@
  * software in any way with any other Broadcom software provided under a license
  * other than the GPL, without Broadcom's express prior written consent.
  *
- * $Id: dhd.h 363319 2012-10-17 04:44:07Z $
+ * $Id: dhd.h 383286 2013-02-06 06:41:25Z $
  */
 
 /****************
@@ -58,8 +58,6 @@ int setScheduler(struct task_struct *p, int policy, struct sched_param *param);
 #include <wlioctl.h>
 #include <wlfc_proto.h>
 
-#include <dhd_sec_feature.h>
-
 #if defined(CUSTOMER_HW4_RELEASE)
 /* Customer requirement */
 #undef CONFIG_WIRELESS_EXT
@@ -80,14 +78,14 @@ enum dhd_bus_state {
 enum dhd_op_flags {
 /* Firmware requested operation mode */
 	DHD_FLAG_STA_MODE				= BIT(0), /* STA only */
-	DHD_FLAG_HOSTAP_MODE				= BIT(1), /* SOFTAP only */
+	DHD_FLAG_HOSTAP_MODE			= BIT(1), /* SOFTAP only */
 	DHD_FLAG_P2P_MODE				= BIT(2), /* P2P Only */
 	/* STA + P2P */
 	DHD_FLAG_CONCURR_SINGLE_CHAN_MODE = (DHD_FLAG_STA_MODE | DHD_FLAG_P2P_MODE),
-	DHD_FLAG_CONCURR_MULTI_CHAN_MODE		= BIT(4), /* STA + P2P */
+	DHD_FLAG_CONCURR_MULTI_CHAN_MODE  = BIT(4), /* STA + P2P */
 	/* Current P2P mode for P2P connection */
-	DHD_FLAG_P2P_GC_MODE				= BIT(5),
-	DHD_FLAG_P2P_GO_MODE				= BIT(6),
+	DHD_FLAG_P2P_GC_MODE			= BIT(5),
+	DHD_FLAG_P2P_GO_MODE			= BIT(6),
 	DHD_FLAG_MBSS_MODE				= BIT(7) /* MBSS in future */
 };
 
@@ -98,15 +96,15 @@ enum dhd_op_flags {
 #define MAX_CNTL_TIMEOUT  2
 #endif
 
-#define DHD_SCAN_ASSOC_ACTIVE_TIME	40 /* ms: Embedded default Active setting from DHD */
-#define DHD_SCAN_UNASSOC_ACTIVE_TIME 80 /* ms: Embedded def. Unassoc Active setting from DHD */
-#define DHD_SCAN_PASSIVE_TIME		130 /* ms: Embedded default Passive setting from DHD */
+#define DHD_SCAN_ASSOC_ACTIVE_TIME	  40 /* ms: Embedded default Active setting from DHD */
+#define DHD_SCAN_UNASSOC_ACTIVE_TIME  80 /* ms: Embedded def. Unassoc Active setting from DHD */
+#define DHD_SCAN_PASSIVE_TIME		 130 /* ms: Embedded default Passive setting from DHD */
 
 #ifndef POWERUP_MAX_RETRY
-#define POWERUP_MAX_RETRY	3 /* how many times we retry to power up the chip */
+#define POWERUP_MAX_RETRY	6        /* how many times we retry to power up the chip */
 #endif
 #ifndef POWERUP_WAIT_MS
-#define POWERUP_WAIT_MS		2000	 /* ms: time out in waiting wifi to come up */
+#define POWERUP_WAIT_MS		1000	 /* ms: time out in waiting wifi to come up */
 #endif
 
 enum dhd_bus_wake_state {
@@ -541,10 +539,10 @@ extern int dhd_dev_get_pno_status(struct net_device *dev);
 #define DHD_MULTICAST4_FILTER_NUM	2
 #define DHD_MULTICAST6_FILTER_NUM	3
 #define DHD_MDNS_FILTER_NUM			4
-extern int	dhd_os_enable_packet_filter(dhd_pub_t *dhdp, int val);
-extern void	dhd_enable_packet_filter(int value, dhd_pub_t *dhd);
-extern int	net_os_enable_packet_filter(struct net_device *dev, int val);
-extern int	net_os_rxfilter_add_remove(struct net_device *dev, int val, int num);
+extern int 	dhd_os_enable_packet_filter(dhd_pub_t *dhdp, int val);
+extern void 	dhd_enable_packet_filter(int value, dhd_pub_t *dhd);
+extern int 	net_os_enable_packet_filter(struct net_device *dev, int val);
+extern int 	net_os_rxfilter_add_remove(struct net_device *dev, int val, int num);
 #endif /* PKT_FILTER_SUPPORT */
 
 extern int dhd_get_suspend_bcn_li_dtim(dhd_pub_t *dhd);
@@ -682,41 +680,37 @@ extern uint dhd_sdiod_drive_strength;
 /* Override to force tx queueing all the time */
 extern uint dhd_force_tx_queueing;
 /* Default KEEP_ALIVE Period is 55 sec to prevent AP from sending Keep Alive probe frame */
-#if defined(CUSTOMER_HW4)
-#ifdef KEEP_ALIVE_PACKET_PERIOD_30_SEC
-#define KEEP_ALIVE_PERIOD 30000
-#else /* KEEP_ALIVE_PACKET_PERIOD_30_SEC */
-#define KEEP_ALIVE_PERIOD 55000
-#endif /* KEEP_ALIVE_PACKET_PERIOD_30_SEC */
-#else
-#define KEEP_ALIVE_PERIOD 55000
-#endif /* CUSTOMER_HW4 */
+#define DEFAULT_KEEP_ALIVE_VALUE 	55000 /* msec */
+#ifndef CUSTOM_KEEP_ALIVE_SETTING
+#define CUSTOM_KEEP_ALIVE_SETTING 	DEFAULT_KEEP_ALIVE_VALUE
+#endif /* DEFAULT_KEEP_ALIVE_VALUE */
+
 #define NULL_PKT_STR	"null_pkt"
 
 /* hooks for custom glom setting option via Makefile */
-#define DEFAULT_GLOM_VALUE	-1
+#define DEFAULT_GLOM_VALUE 	-1
 #ifndef CUSTOM_GLOM_SETTING
-#define CUSTOM_GLOM_SETTING	DEFAULT_GLOM_VALUE
+#define CUSTOM_GLOM_SETTING 	DEFAULT_GLOM_VALUE
 #endif
 
 /* hooks for custom Roaming Trigger  setting via Makefile */
 #define DEFAULT_ROAM_TRIGGER_VALUE -75 /* dBm default roam trigger all band */
-#define DEFAULT_ROAM_TRIGGER_SETTING	-1
+#define DEFAULT_ROAM_TRIGGER_SETTING 	-1
 #ifndef CUSTOM_ROAM_TRIGGER_SETTING
-#define CUSTOM_ROAM_TRIGGER_SETTING	DEFAULT_ROAM_TRIGGER_VALUE
+#define CUSTOM_ROAM_TRIGGER_SETTING 	DEFAULT_ROAM_TRIGGER_VALUE
 #endif
 
 /* hooks for custom Roaming Romaing  setting via Makefile */
 #define DEFAULT_ROAM_DELTA_VALUE  10 /* dBm default roam delta all band */
-#define DEFAULT_ROAM_DELTA_SETTING	-1
+#define DEFAULT_ROAM_DELTA_SETTING 	-1
 #ifndef CUSTOM_ROAM_DELTA_SETTING
-#define CUSTOM_ROAM_DELTA_SETTING	DEFAULT_ROAM_DELTA_VALUE
+#define CUSTOM_ROAM_DELTA_SETTING 	DEFAULT_ROAM_DELTA_VALUE
 #endif
 
 /* hooks for custom dhd_dpc_prio setting option via Makefile */
 #define DEFAULT_DHP_DPC_PRIO  1
 #ifndef CUSTOM_DPC_PRIO_SETTING
-#define CUSTOM_DPC_PRIO_SETTING		DEFAULT_DHP_DPC_PRIO
+#define CUSTOM_DPC_PRIO_SETTING 	DEFAULT_DHP_DPC_PRIO
 #endif
 
 #define DEFAULT_SUSPEND_BCN_LI_DTIM		3

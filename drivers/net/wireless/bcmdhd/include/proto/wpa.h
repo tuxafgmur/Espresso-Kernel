@@ -32,8 +32,6 @@
 
 #include <packed_section_start.h>
 
-#include <dhd_sec_feature.h>
-
 #define DOT11_RC_INVALID_WPA_IE		13
 #define DOT11_RC_MIC_FAILURE		14
 #define DOT11_RC_4WH_TIMEOUT		15

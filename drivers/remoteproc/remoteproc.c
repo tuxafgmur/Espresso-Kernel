@@ -285,6 +285,8 @@ static int setup_rproc_elf_core_dump(struct core_rproc *d)
 		return -EIO;
 	d->e_phnum = __phnum + 1; /* + 1 for notes */
 
+	pr_info("number of segments: %d\n", d->e_phnum);
+
 	fill_elf_header(&d->core.elf, d->e_phnum);
 
 	nphdr = d->core.phdr + __phnum;
@@ -355,6 +357,7 @@ static int core_rproc_open(struct inode *inode, struct file *filp)
 
 static int core_rproc_release(struct inode *inode, struct file *filp)
 {
+	pr_info("%s\n", __func__);
 	kfree(filp->private_data);
 	return 0;
 }

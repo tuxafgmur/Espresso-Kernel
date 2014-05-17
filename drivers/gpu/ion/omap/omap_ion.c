@@ -22,6 +22,9 @@
 #include <linux/uaccess.h>
 #include "../ion_priv.h"
 #include "omap_ion_priv.h"
+#ifdef CONFIG_PVR_SGX
+#include "../../pvr/ion.h"
+#endif
 
 #define ALLOC_FROM_CARVOUT	0
 #define ALLOC_FROM_CMA		1
@@ -202,6 +205,16 @@ int omap_ion_share_fd_to_buffers(int fd, struct ion_buffer **buffers,
 	if (!handles)
 		return -ENOMEM;
 
+#ifdef CONFIG_PVR_SGX
+	if (*num_handles == 2) {
+		PVRSRVExportFDToIONHandles(fd, &client, handles);
+	} else if (*num_handles == 1) {
+		handles[0] = PVRSRVExportFDToIONHandle(fd, &client);
+	} else {
+		ret = -EINVAL;
+		goto exit;
+	}
+#else
 	if (export_fd_to_ion_handles) {
 		export_fd_to_ion_handles(fd,
 				&client,
@@ -214,7 +227,7 @@ int omap_ion_share_fd_to_buffers(int fd, struct ion_buffer **buffers,
 		ret = -EINVAL;
 		goto exit;
 	}
-
+#endif
 	for (i = 0; i < *num_handles; i++) {
 		if (handles[i])
 			buffers[i] = ion_share(client, handles[i]);

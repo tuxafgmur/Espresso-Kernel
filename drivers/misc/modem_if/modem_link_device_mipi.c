@@ -234,6 +234,20 @@ static void mipi_hsi_tx_work(struct work_struct *work)
 			if (ret < 0) {
 				/* TODO: Re Enqueue */
 				pr_err("[MIPI-HSI] write fail : %d\n", ret);
+			}  else {
+				pr_debug("[MIPI-HSI] write Done\n");
+
+				if ((iod->format == IPC_FMT) ||
+						(iod->format == IPC_RFS))
+					print_hex_dump(KERN_DEBUG,
+							iod->format == IPC_FMT ?
+							"IPC-TX: " : "RFS-TX: ",
+							DUMP_PREFIX_NONE,
+							1, 1,
+							(void *)fmt_skb->data,
+							fmt_skb->len <= 16 ?
+							(size_t)fmt_skb->len :
+							(size_t)16, false);
 			}
 
 			dev_kfree_skb_any(fmt_skb);
@@ -1618,6 +1632,18 @@ static void if_hsi_read_done(struct hsi_device *dev, unsigned int size)
 				return;
 			}
 
+			if ((iod->format == IPC_FMT) ||
+						(iod->format == IPC_RFS))
+				print_hex_dump(KERN_DEBUG,
+						iod->format == IPC_FMT ?
+						"IPC-RX: " : "RFS-RX: ",
+						DUMP_PREFIX_NONE,
+						1, 1,
+						(void *)channel->rx_data,
+						channel->packet_size <= 16 ?
+						(size_t)channel->packet_size :
+						(size_t)16, false);
+
 			channel->packet_size = 0;
 			ch = channel->channel_id;
 			param = 0;
@@ -1725,6 +1751,7 @@ static int __devinit if_hsi_probe(struct hsi_device *dev)
 					0);
 	}
 
+	pr_debug("[MIPI-HSI] if_hsi_probe() done. ch : %d\n", dev->n_ch);
 	return 0;
 }
 

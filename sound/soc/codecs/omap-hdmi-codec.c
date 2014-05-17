@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA
- *
  */
 
 #include <linux/module.h>
@@ -392,9 +391,10 @@ static int hdmi_probe(struct snd_soc_codec *codec)
 	hdmi_data.dssdev = omap_dss_find_device(NULL, hdmi_audio_match);
 
 	if (!hdmi_data.dssdev) {
-		dev_err(&pdev->dev, "can't find HDMI device\n");
 		ret = -ENODEV;
 		goto dssdev_err;
+	}else{
+		dev_err(&pdev->dev, "found HDMI device\n");
 	}
 
 	hdmi_data.notifier.notifier_call = hdmi_audio_notifier_callback;

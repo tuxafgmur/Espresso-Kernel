@@ -68,16 +68,6 @@ config MOUSE_PS2_SYNAPTICS
 
 	  If unsure, say Y.
 
-config MOUSE_PS2_LIFEBOOK
-	bool "Fujitsu Lifebook PS/2 mouse protocol extension" if EXPERT
-	default y
-	depends on MOUSE_PS2 && X86 && DMI
-	help
-	  Say Y here if you have a Fujitsu B-series Lifebook PS/2
-	  TouchScreen connected to your system.
-
-	  If unsure, say Y.
-
 config MOUSE_PS2_TRACKPOINT
 	bool "IBM Trackpoint PS/2 mouse protocol extension" if EXPERT
 	default y
@@ -193,41 +183,11 @@ config MOUSE_BCM5974
 	  To compile this driver as a module, choose M here: the
 	  module will be called bcm5974.
 
-config MOUSE_INPORT
-	tristate "InPort/MS/ATIXL busmouse"
-	depends on ISA
-	help
-	  Say Y here if you have an InPort, Microsoft or ATI XL busmouse.
-	  They are rather rare these days.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called inport.
-
 config MOUSE_ATIXL
 	bool "ATI XL variant"
 	depends on MOUSE_INPORT
 	help
 	  Say Y here if your mouse is of the ATI XL variety.
-
-config MOUSE_LOGIBM
-	tristate "Logitech busmouse"
-	depends on ISA
-	help
-	  Say Y here if you have a Logitech busmouse.
-	  They are rather rare these days.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called logibm.
-
-config MOUSE_PC110PAD
-	tristate "IBM PC110 touchpad"
-	depends on ISA
-	help
-	  Say Y if you have the IBM PC-110 micro-notebook and want its
-	  touchpad supported.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called pc110pad.
 
 config MOUSE_AMIGA
 	tristate "Amiga mouse"
@@ -247,18 +207,8 @@ config MOUSE_ATARI
 	  Say Y here if you have an Atari and want its native mouse
 	  supported by the kernel.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called atarimouse.
-
-config MOUSE_RISCPC
-	tristate "Acorn RiscPC mouse"
-	depends on ARCH_ACORN
-	help
-	  Say Y here if you have the Acorn RiscPC computer and want its
-	  native mouse supported.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called rpcmouse.
+	  To compile this driver as a module, choose M here:
+	  the  module will be called atarimouse.
 
 config MOUSE_VSXXXAA
 	tristate "DEC VSXXX-AA/GA mouse and VSXXX-AB tablet"
@@ -287,12 +237,6 @@ config MOUSE_GPIO
 	  To compile this driver as a module, choose M here: the
 	  module will be called gpio_mouse.
 
-config MOUSE_PXA930_TRKBALL
-	tristate "PXA930 Trackball mouse"
-	depends on CPU_PXA930 || CPU_PXA935
-	help
-	  Say Y here to support PXA930 Trackball mouse.
-
 config MOUSE_MAPLE
 	tristate "Maple mouse (for the Dreamcast)"
 	depends on MAPLE
@@ -319,7 +263,7 @@ config MOUSE_SYNAPTICS_I2C
 	  Say y here if you have eXeda device and want to use a Synaptics
 	  I2C Touchpad.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called synaptics_i2c.
+	  To compile this driver as a module, choose M here:
+	  the module will be called synaptics_i2c.
 
 endif

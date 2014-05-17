@@ -62,8 +62,6 @@ config SGI_MBCS
          If you have an SGI Altix with an attached SABrick
          say Y or M here, otherwise say N.
 
-source "drivers/tty/serial/Kconfig"
-
 config TTY_PRINTK
 	bool "TTY driver to output user messages via printk"
 	depends on EXPERT
@@ -302,15 +300,12 @@ config NVRAM
 	  To compile this driver as a module, choose M here: the
 	  module will be called nvram.
 
-#
-# These legacy RTC drivers just cause too many conflicts with the generic
-# RTC framework ... let's not even try to coexist any more.
-#
 if RTC_LIB=n
 
 config RTC
 	tristate "Enhanced Real Time Clock Support (legacy PC RTC driver)"
-	depends on !PPC && !M68K && !FRV && !ARM && !SUPERH && !AVR32 && !BLACKFIN
+	depends on !PPC && !PARISC && !IA64 && !M68K && !SPARC && !FRV \
+			&& !ARM && !SUPERH && !AVR32 && !BLACKFIN
 	---help---
 	  If you say Y here and create a character special file /dev/rtc with
 	  major number 10 and minor number 135 using mknod ("man mknod"), you
@@ -334,9 +329,31 @@ config RTC
 	  To compile this driver as a module, choose M here: the
 	  module will be called rtc.
 
+config JS_RTC
+	tristate "Enhanced Real Time Clock Support"
+	depends on SPARC32 && PCI
+	---help---
+	  If you say Y here and create a character special file /dev/rtc with
+	  major number 10 and minor number 135 using mknod ("man mknod"), you
+	  will get access to the real time clock (or hardware clock) built
+	  into your computer.
+
+	  Every PC has such a clock built in. It can be used to generate
+	  signals from as low as 1Hz up to 8192Hz, and can also be used
+	  as a 24 hour alarm. It reports status information via the file
+	  /proc/driver/rtc and its behaviour is set by various ioctls on
+	  /dev/rtc.
+
+	  If you think you have a use for such a device (such as periodic data
+	  sampling), then say Y here, and read <file:Documentation/rtc.txt>
+	  for details.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called js-rtc.
+
 config GEN_RTC
 	tristate "Generic /dev/rtc emulation"
-	depends on RTC!=y && !ARM && !M32R && !FRV && !SUPERH && !AVR32 && !BLACKFIN
+	depends on RTC!=y && !IA64 && !ARM && !M32R && !MIPS && !SPARC && !FRV && !SUPERH && !AVR32 && !BLACKFIN
 	---help---
 	  If you say Y here and create a character special file /dev/rtc with
 	  major number 10 and minor number 135 using mknod ("man mknod"), you
@@ -540,6 +557,14 @@ config HPET_MMAP
 	  registers may also contain other things that shouldn't be
 	  exposed to the user.  If this applies to your hardware,
 	  say N here.
+
+config HANGCHECK_TIMER
+	tristate "Hangcheck timer"
+	depends on X86 || IA64 || PPC64
+	help
+	  The hangcheck-timer module detects when the system has gone
+	  out to lunch past a certain margin.  It can reboot the system
+	  or merely print a warning.
 
 config MMTIMER
 	tristate "MMTIMER Memory mapped RTC for SGI Altix"

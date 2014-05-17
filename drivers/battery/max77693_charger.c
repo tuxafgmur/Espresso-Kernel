@@ -17,8 +17,8 @@
 #define ENABLE 1
 #define DISABLE 0
 
-#define MAX77693_TERMINATION_CURRENT_MASK	0x7
-#define MAX77693_TOPOFF_TIME_MASK		0x38
+#define MAX77693_TERMINATION_CURRENT_MASK 0x7
+#define MAX77693_TOPOFF_TIME_MASK		   0x38
 
 static DEFINE_MUTEX(isr_lock);
 static DEFINE_MUTEX(init_lock);
@@ -120,7 +120,6 @@ static void max77693_set_termination_current(struct sec_charger_info *charger,
 
 	max77693_register_lock(charger, 0);
 
-	pr_info("%s: CHG_CNFG_03(0x%02x)\n", __func__, reg_data);
 	max77693_write_reg(charger->client,
 		MAX77693_CHG_REG_CHG_CNFG_03, reg_data);
 
@@ -155,8 +154,7 @@ static int max77693_get_input_current(struct sec_charger_info *charger)
 	int get_current = 0;
 
 	max77693_read_reg(charger->client,
-			MAX77693_CHG_REG_CHG_CNFG_09, &reg_data);
-	pr_debug("%s: CHG_CNFG_09(0x%02x)\n", __func__, reg_data);
+		MAX77693_CHG_REG_CHG_CNFG_09, &reg_data);
 
 	get_current = reg_data * 20;
 

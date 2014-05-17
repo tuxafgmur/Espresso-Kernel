@@ -155,17 +155,6 @@ static void omap44xx_hsotg_ed_correction(void)
 		val = min((val + (0x24<<8)), (val | (0x7F<<8))) | 0x8000;
 		__raw_writel(val, hsotg_base + 0x20B8);
 	}
-
-	/*
-	 * For 4460 and 4470 CPUs there is 10-15mV adjustable
-	 * improvement available via REF_GEN_TEST[26:24]=110
-	 */
-	if (is_omap446x() || is_omap447x()) {
-		val = __raw_readl(hsotg_base + 0x20D4);
-		val &= OMAP4_HSOTG_REF_GEN_TEST_MASK;
-		val |= (0x6<<24);
-		__raw_writel(val, hsotg_base + 0x20D4);
-	}
 }
 #endif
 int omap4430_phy_set_clk(struct device *dev, int on)

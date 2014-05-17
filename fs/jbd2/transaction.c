@@ -184,7 +184,7 @@ repeat:
 			goto repeat;
 		}
 
-		if (!journal->j_running_transaction) {
+		if (!journal->j_running_transaction && !journal->j_barrier_count) {
 			jbd2_get_transaction(journal, new_transaction);
 			new_transaction = NULL;
 		}
@@ -471,10 +471,10 @@ int jbd2__journal_restart(handle_t *handle, int nblocks, int gfp_mask)
 		   &transaction->t_outstanding_credits);
 	if (atomic_dec_and_test(&transaction->t_updates))
 		wake_up(&journal->j_wait_updates);
+	tid = transaction->t_tid;
 	spin_unlock(&transaction->t_handle_lock);
 
 	jbd_debug(2, "restarting handle %p\n", handle);
-	tid = transaction->t_tid;
 	need_to_start = !tid_geq(journal->j_commit_request, tid);
 	read_unlock(&journal->j_state_lock);
 	if (need_to_start)
@@ -518,8 +518,7 @@ void jbd2_journal_lock_updates(journal_t *journal)
 			break;
 
 		spin_lock(&transaction->t_handle_lock);
-		prepare_to_wait(&journal->j_wait_updates, &wait,
-				TASK_UNINTERRUPTIBLE);
+		prepare_to_wait(&journal->j_wait_updates, &wait, TASK_UNINTERRUPTIBLE);
 		if (!atomic_read(&transaction->t_updates)) {
 			spin_unlock(&transaction->t_handle_lock);
 			finish_wait(&journal->j_wait_updates, &wait);

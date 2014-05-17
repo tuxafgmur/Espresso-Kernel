@@ -23,7 +23,7 @@
 
 #include <asm/mach-types.h>
 
-#define VREG_GRP		0
+#define VREG_GRP			0
 #define MSK_TRANSITION_APP_SHIFT	0x5
 
 static u8 dev_on_group;
@@ -177,7 +177,7 @@ static struct twl4030_system_config twl6030_sys_config[] = {
 static __init void twl6030_process_system_config(void)
 {
 	u8 grp;
-	int r = 0;
+	int r;
 	bool i = false;
 
 	struct twl4030_system_config *sys_config;
@@ -246,7 +246,8 @@ static __init void twl6030_process_system_config(void)
 static __init void twl6030_program_map(unsigned long features)
 {
 	struct twl6030_resource_map *res;
-	int r = 0, i;
+	int r = 0;
+	int i;
 
 	if (features & TWL6032_SUBCLASS) {
 		/*

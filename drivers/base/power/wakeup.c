@@ -16,7 +16,7 @@
 
 #include "power.h"
 
-#define TIMEOUT		100
+#define TIMEOUT    100
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state

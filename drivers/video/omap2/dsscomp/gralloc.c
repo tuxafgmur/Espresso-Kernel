@@ -453,7 +453,6 @@ int dsscomp_gralloc_queue(struct dsscomp_setup_dispc_data *d,
 		if (oi->addressing == OMAP_DSS_BUFADDR_OVL_IX) {
 			unsigned int j = oi->ba;
 			if (j >= i) {
-				WARN(1, "Invalid clone layer (%u)", j);
 				goto skip_buffer;
 			}
 
@@ -469,7 +468,6 @@ int dsscomp_gralloc_queue(struct dsscomp_setup_dispc_data *d,
 			if (fb_ix >= num_registered_fb ||
 			    (oi->cfg.color_mode == OMAP_DSS_COLOR_NV12 &&
 			     fb_uv_ix >= num_registered_fb)) {
-				WARN(1, "display has no framebuffer");
 				goto skip_buffer;
 			}
 
@@ -480,7 +478,6 @@ int dsscomp_gralloc_queue(struct dsscomp_setup_dispc_data *d,
 			if (size + oi->ba > fbi->fix.smem_len ||
 			    (oi->cfg.color_mode == OMAP_DSS_COLOR_NV12 &&
 			     (size >> 1) + oi->uv > fbi_uv->fix.smem_len)) {
-				WARN(1, "image outside of framebuffer memory");
 				goto skip_buffer;
 			}
 
@@ -644,8 +641,6 @@ static void dsscomp_early_suspend(struct early_suspend *h)
 
 	int err, mgr_ix;
 
-	pr_info("DSSCOMP: %s\n", __func__);
-
 	/*dsscomp_gralloc_queue() expects all blanking mgrs set up in comp */
 	for (mgr_ix = 0 ; mgr_ix < cdev->num_mgrs ; mgr_ix++) {
 		struct omap_dss_device *dssdev = cdev->mgrs[mgr_ix]->device;
@@ -663,15 +658,10 @@ static void dsscomp_early_suspend(struct early_suspend *h)
 	/* wait until composition is displayed */
 	err = wait_event_timeout(early_suspend_wq, blank_complete,
 				 msecs_to_jiffies(500));
-	if (err == 0)
-		pr_warn("DSSCOMP: timeout blanking screen\n");
-	else
-		pr_info("DSSCOMP: blanked screen\n");
 }
 
 static void dsscomp_late_resume(struct early_suspend *h)
 {
-	pr_info("DSSCOMP: %s\n", __func__);
 	blanked = false;
 }
 
@@ -770,7 +760,6 @@ void dsscomp_gralloc_init(struct dsscomp_dev *cdev_)
 					tiler1d_slot_size(cdev_), 1, &phys,
 					NULL);
 			if (IS_ERR_OR_NULL(slot)) {
-				pr_err("could not allocate slot");
 				break;
 			}
 			slots[i].slot = slot;
@@ -779,7 +768,6 @@ void dsscomp_gralloc_init(struct dsscomp_dev *cdev_)
 			slots[i].page_map = vmalloc(sizeof(*slots[i].page_map) *
 						slots[i].size);
 			if (!slots[i].page_map) {
-				pr_err("could not allocate page_map");
 				tiler_free_block_area(slot);
 				break;
 			}
@@ -796,8 +784,6 @@ void dsscomp_gralloc_init(struct dsscomp_dev *cdev_)
 		gsync_cachep = kmem_cache_create("gsync_cache",
 					sizeof(struct dsscomp_gralloc_t), 0,
 						SLAB_HWCACHE_ALIGN, NULL);
-		if (!gsync_cachep)
-			pr_err("DSSCOMP: %s: can't create cache\n", __func__);
 	}
 
 	if (!clone_wq) {

@@ -666,7 +666,6 @@ static int fuse_readpages_fill(void *_data, struct page *page)
 		if (is_cma_pageblock(newpage)) {
 			page_cache_release(oldpage);
 			__free_page(newpage);
-			printk(KERN_ERR "[%s] still on cma pgblk\n", __func__);
 			return -ENOMEM;
 		}
 
@@ -678,8 +677,7 @@ static int fuse_readpages_fill(void *_data, struct page *page)
 		}
 
 		/*
-		 * Decrement the count on new page to make page cache the only
-		 * owner of it
+		 * Decrement the count on new page to make page cache the only owner of it
 		 */
 		lock_page(newpage);
 		put_page(newpage);
@@ -1341,13 +1339,14 @@ static int fuse_writepage_locked(struct page *page)
 
 	inc_bdi_stat(mapping->backing_dev_info, BDI_WRITEBACK);
 	inc_zone_page_state(tmp_page, NR_WRITEBACK_TEMP);
-	end_page_writeback(page);
 
 	spin_lock(&fc->lock);
 	list_add(&req->writepages_entry, &fi->writepages);
 	list_add_tail(&req->list, &fi->queued_writes);
 	fuse_flush_writepages(inode);
 	spin_unlock(&fc->lock);
+
+	end_page_writeback(page);
 
 	return 0;
 
@@ -1753,7 +1752,7 @@ static int fuse_verify_ioctl_iov(struct iovec *iov, size_t count)
 	size_t n;
 	u32 max = FUSE_MAX_PAGES_PER_REQ << PAGE_SHIFT;
 
-	for (n = 0; n < count; n++) {
+	for (n = 0; n < count; n++, iov++) {
 		if (iov->iov_len > (size_t) max)
 			return -ENOMEM;
 		max -= iov->iov_len;

@@ -54,7 +54,11 @@ static struct omap_sr_class_data class3_data = {
 static int __init sr_class3_init(void)
 {
 	/* Enable this class only for OMAP343x and OMAP443x */
+#if defined(CONFIG_OMAP4430_TOP_CPU) || defined(CONFIG_OMAP4430_TOP_GPU)
+	if (!cpu_is_omap343x())
+#else
 	if (!cpu_is_omap343x() && !cpu_is_omap443x())
+#endif
 		return -EINVAL;
 
 	pr_info("SmartReflex Class3 initialized\n");

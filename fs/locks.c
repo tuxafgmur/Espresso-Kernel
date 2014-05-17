@@ -315,7 +315,7 @@ static int flock_make_lock(struct file *filp, struct file_lock **lock,
 	return 0;
 }
 
-static int assign_type(struct file_lock *fl, int type)
+static int assign_type(struct file_lock *fl, long type)
 {
 	switch (type) {
 	case F_RDLCK:
@@ -452,7 +452,7 @@ static const struct lock_manager_operations lease_manager_ops = {
 /*
  * Initialize a lease, use the default lock manager operations
  */
-static int lease_init(struct file *filp, int type, struct file_lock *fl)
+static int lease_init(struct file *filp, long type, struct file_lock *fl)
  {
 	if (assign_type(fl, type) != 0)
 		return -EINVAL;
@@ -470,7 +470,7 @@ static int lease_init(struct file *filp, int type, struct file_lock *fl)
 }
 
 /* Allocate a file_lock initialised to this type of lease */
-static struct file_lock *lease_alloc(struct file *filp, int type)
+static struct file_lock *lease_alloc(struct file *filp, long type)
 {
 	struct file_lock *fl = locks_alloc_lock();
 	int error = -ENOMEM;
@@ -1195,6 +1195,9 @@ int __break_lease(struct inode *inode, unsigned int mode)
 
 	new_fl = lease_alloc(NULL, want_write ? F_WRLCK : F_RDLCK);
 
+	if (IS_ERR(new_fl))
+		return PTR_ERR(new_fl);
+
 	lock_flocks();
 
 	time_out_leases(inode);
@@ -1218,12 +1221,6 @@ int __break_lease(struct inode *inode, unsigned int mode)
 		future = F_RDLCK | F_INPROGRESS;
 	} else {
 		/* the existing lease was read-only, so we can read too. */
-		goto out;
-	}
-
-	if (IS_ERR(new_fl) && !i_have_this_lease
-			&& ((mode & O_NONBLOCK) == 0)) {
-		error = PTR_ERR(new_fl);
 		goto out;
 	}
 

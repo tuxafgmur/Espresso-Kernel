@@ -5353,8 +5353,6 @@ IMG_INT BridgedDispatchKM(PVRSRV_PER_PROCESS_DATA * psPerProc,
 		{
 			if(PVRSRVGetInitServerState(PVRSRV_INIT_SERVER_RUNNING))
 			{
-				PVR_DPF((PVR_DBG_ERROR, "%s: Initialisation is in progress",
-						 __FUNCTION__));
 				goto return_fault;
 			}
 			else
@@ -5368,8 +5366,6 @@ IMG_INT BridgedDispatchKM(PVRSRV_PER_PROCESS_DATA * psPerProc,
 					case PVRSRV_GET_BRIDGE_ID(PVRSRV_BRIDGE_INITSRV_DISCONNECT):
 						break;
 					default:
-						PVR_DPF((PVR_DBG_ERROR, "%s: Driver initialisation not completed yet.",
-								 __FUNCTION__));
 						goto return_fault;
 				}
 			}

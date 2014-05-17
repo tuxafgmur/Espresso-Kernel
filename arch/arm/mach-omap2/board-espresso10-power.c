@@ -44,22 +44,21 @@
 #define ADC_NUM_SAMPLES		5
 #define ADC_LIMIT_ERR_COUNT	5
 
-#define CHARGER_STATUS_FULL             0x1
-#define CHARGER_STATUS_CHARGERERR       0x2
-#define CHARGER_STATUS_USB_FAIL         0x3
-#define CHARGER_VBATT_UVLO              0x4
+#define CHARGER_STATUS_FULL		0x1
+#define CHARGER_STATUS_CHARGERERR	0x2
+#define CHARGER_STATUS_USB_FAIL		0x3
+#define CHARGER_VBATT_UVLO		0x4
 
-#define CABLE_DETECT_VALUE	1150
-#define HIGH_BLOCK_TEMP         500
-#define HIGH_BLOCK_TEMP_OMAP4460         610
-#define HIGH_RECOVER_TEMP       420
-#define LOW_BLOCK_TEMP          (-50)
-#define LOW_RECOVER_TEMP        0
+#define CABLE_DETECT_VALUE		1150
+#define HIGH_BLOCK_TEMP			500
+#define HIGH_RECOVER_TEMP		420
+#define LOW_BLOCK_TEMP			(-50)
+#define LOW_RECOVER_TEMP		0
 
-#define BB_HIGH_BLOCK_TEMP         480
-#define BB_HIGH_RECOVER_TEMP       440
-#define BB_LOW_BLOCK_TEMP          (-40)
-#define BB_LOW_RECOVER_TEMP        0
+#define BB_HIGH_BLOCK_TEMP		480
+#define BB_HIGH_RECOVER_TEMP		440
+#define BB_LOW_BLOCK_TEMP		(-40)
+#define BB_LOW_RECOVER_TEMP		0
 
 struct max17042_fuelgauge_callbacks *fuelgauge_callback;
 struct smb_charger_callbacks *charger_callback;
@@ -262,10 +261,8 @@ static int check_charger_type(void)
 			CABLE_TYPE_AC :
 			CABLE_TYPE_USB;
 
-	pr_info("%s : Charger type is [%s], adc = %d\n",
-		__func__,
-		cable_type == CABLE_TYPE_AC ? "TA" : "USB",
-		adc);
+	pr_info("%s : Charger type is [%s], adc = %d\n", __func__,
+		cable_type == CABLE_TYPE_AC ? "TA" : "USB", adc);
 
 #ifdef CONFIG_SAMSUNG_Y_CABLE
 	if (adc_val > 2606 && adc_val < 2855) {
@@ -404,11 +401,6 @@ void __init omap4_espresso10_charger_init(void)
 		battery_manager_pdata.high_recover_temp = BB_HIGH_RECOVER_TEMP;
 		battery_manager_pdata.low_block_temp = BB_LOW_BLOCK_TEMP;
 		battery_manager_pdata.low_recover_temp = BB_LOW_RECOVER_TEMP;
-	}
-	if (cpu_is_omap446x() && (board_type ==
-				SEC_MACHINE_ESPRESSO10_USA_BBY)) {
-		battery_manager_pdata.high_block_temp =
-			HIGH_BLOCK_TEMP_OMAP4460;
 	}
 
 	battery_manager_pdata.bootmode = sec_bootmode;

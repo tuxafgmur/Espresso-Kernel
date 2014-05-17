@@ -443,8 +443,6 @@ int hsi_read(struct hsi_device *dev, u32 *addr, unsigned int size)
 	}
 
 	if (unlikely(!dev->ch || !addr || (size <= 0))) {
-		dev_err(dev->device.parent, "Wrong parameters "
-			"hsi_device %p data %p count %d", dev, addr, size);
 		return -EINVAL;
 	}
 
@@ -459,24 +457,14 @@ int hsi_read(struct hsi_device *dev, u32 *addr, unsigned int size)
 	spin_lock_bh(&hsi_ctrl->lock);
 
 	if (hsi_ctrl->clock_change_ongoing) {
-		dev_warn(hsi_ctrl->dev, "HSI Fclock change ongoing, retry.\n");
 		spin_unlock_bh(&hsi_ctrl->lock);
 		return -EAGAIN;
 	}
-
-	if (pm_runtime_suspended(hsi_ctrl->dev) || !hsi_ctrl->clock_enabled)
-		dev_dbg(hsi_ctrl->dev,
-			"hsi_read with HSI clocks OFF, clock_enabled = %d\n",
-			hsi_ctrl->clock_enabled);
 
 	hsi_clocks_enable_channel(dev->device.parent, ch->channel_number,
 				__func__);
 
 	if (ch->read_data.addr != NULL) {
-		dev_err(hsi_ctrl->dev, "# Invalid request - Read "
-				"operation pending port %d channel %d\n",
-					ch->hsi_port->port_number,
-					ch->channel_number);
 		err = -EINVAL;
 		goto done;
 	}
@@ -513,15 +501,10 @@ int __hsi_write_cancel(struct hsi_channel *ch)
 		err = hsi_driver_cancel_write_interrupt(ch);
 	else if (ch->write_data.size > 1)
 		err = hsi_driver_cancel_write_dma(ch);
-	else
-		dev_dbg(hsi_ctrl->dev, "%s : Nothing to cancel %d\n", __func__,
-			ch->write_data.size);
 
 	/* Trash any frame still in the FIFO */
 	hsi_hst_fifo_flush_channel(hsi_ctrl, ch->hsi_port->port_number,
 				   ch->channel_number);
-
-	dev_dbg(hsi_ctrl->dev, "%s : %d\n", __func__, err);
 
 	return err;
 }
@@ -549,8 +532,6 @@ int hsi_write_cancel(struct hsi_device *dev)
 	}
 
 	hsi_ctrl = dev->ch->hsi_port->hsi_controller;
-
-	dev_dbg(hsi_ctrl->dev, "%s ch %d\n", __func__, dev->n_ch);
 
 	if (unlikely(!(dev->ch->flags & HSI_CH_OPEN))) {
 		dev_err(hsi_ctrl->dev, "HSI device NOT open\n");
@@ -580,15 +561,10 @@ int __hsi_read_cancel(struct hsi_channel *ch)
 		err = hsi_driver_cancel_read_interrupt(ch);
 	else if (ch->read_data.size > 1)
 		err = hsi_driver_cancel_read_dma(ch);
-	else
-		dev_dbg(hsi_ctrl->dev, "%s : Nothing to cancel %d\n", __func__,
-			ch->read_data.size);
 
 	/* Trash any frame still in the FIFO */
 	hsi_hsr_fifo_flush_channel(hsi_ctrl, ch->hsi_port->port_number,
 				   ch->channel_number);
-
-	dev_dbg(hsi_ctrl->dev, "%s : %d\n", __func__, err);
 
 	return err;
 }
@@ -617,8 +593,6 @@ int hsi_read_cancel(struct hsi_device *dev)
 	}
 
 	hsi_ctrl = dev->ch->hsi_port->hsi_controller;
-
-	dev_dbg(hsi_ctrl->dev, "%s ch %d\n", __func__, dev->n_ch);
 
 	if (unlikely(!(dev->ch->flags & HSI_CH_OPEN))) {
 		dev_err(hsi_ctrl->dev, "HSI device NOT open\n");
@@ -655,7 +629,6 @@ int hsi_poll(struct hsi_device *dev)
 
 	if (unlikely(!dev || !dev->ch))
 		return -EINVAL;
-	dev_dbg(dev->device.parent, "%s ch %d\n", __func__, dev->n_ch);
 
 	if (unlikely(!(dev->ch->flags & HSI_CH_OPEN))) {
 		dev_err(dev->device.parent, "HSI device NOT open\n");
@@ -696,7 +669,6 @@ int hsi_unpoll(struct hsi_device *dev)
 
 	if (unlikely(!dev || !dev->ch))
 		return -EINVAL;
-	dev_dbg(dev->device.parent, "%s ch %d\n", __func__, dev->n_ch);
 
 	if (unlikely(!(dev->ch->flags & HSI_CH_OPEN))) {
 		dev_err(dev->device.parent, "HSI device NOT open\n");
@@ -749,8 +721,7 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		     (!dev->ch) ||
 		     (!dev->ch->hsi_port) ||
 		     (!dev->ch->hsi_port->hsi_controller)) ||
-	    (!(dev->ch->flags & HSI_CH_OPEN))) {
-		pr_err(LOG_NAME "HSI IOCTL Invalid parameter\n");
+		     (!(dev->ch->flags & HSI_CH_OPEN))) {
 		return -EINVAL;
 	}
 
@@ -761,8 +732,6 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 	channel = ch->channel_number;
 	base = hsi_ctrl->base;
 
-	dev_dbg(hsi_ctrl->dev, "IOCTL: ch %d, command %d\n", channel, command);
-
 	spin_lock_bh(&hsi_ctrl->lock);
 	hsi_clocks_enable_channel(hsi_ctrl->dev, channel, __func__);
 
@@ -771,7 +740,6 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		/* Wake up request to Modem (typically OMAP initiated) */
 		/* Symetrical disable will be done in HSI_IOCTL_ACWAKE_DOWN */
 		if (ch->flags & HSI_CH_ACWAKE) {
-			dev_dbg(hsi_ctrl->dev, "Duplicate ACWAKE UP\n");
 			err = -EPERM;
 			goto out;
 		}
@@ -793,7 +761,6 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		/* following inactivity timeout) */
 		/* ACPU HSI block shall still be capable of receiving */
 		if (!(ch->flags & HSI_CH_ACWAKE)) {
-			dev_dbg(hsi_ctrl->dev, "Duplicate ACWAKE DOWN\n");
 			err = -EPERM;
 			goto out;
 		}
@@ -801,10 +768,6 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		acwake = hsi_inl(base, HSI_SYS_WAKE_REG(port));
 		if (unlikely(pport->acwake_status !=
 				(acwake & HSI_WAKE_MASK))) {
-			dev_warn(hsi_ctrl->dev,
-				"ACWAKE shadow register mismatch"
-				" acwake_status: 0x%x, HSI_SYS_WAKE_REG: 0x%x",
-				pport->acwake_status, acwake);
 			pport->acwake_status = acwake & HSI_WAKE_MASK;
 		}
 		/* SSI_TODO: add safety check for SSI also */
@@ -906,16 +869,12 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		}
 		fifo = hsi_fifo_get_id(hsi_ctrl, channel, port);
 		if (unlikely(fifo < 0)) {
-			dev_err(hsi_ctrl->dev, "No valid FIFO id found for "
-					       "channel %d.\n", channel);
 			err = -EFAULT;
 			goto out;
 		}
 		*(size_t *)arg = hsi_get_rx_fifo_occupancy(hsi_ctrl, fifo);
 		break;
 	case HSI_IOCTL_SET_WAKE_RX_3WIRES_MODE:
-		dev_info(hsi_ctrl->dev,
-			 "Entering RX wakeup in 3 wires mode (no CAWAKE)\n");
 		pport->wake_rx_3_wires_mode = 1;
 
 		/* HSI-C1BUG00085: ixxx: HSI wakeup issue in 3 wires mode
@@ -933,7 +892,6 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		hsi_driver_disable_interrupt(pport, HSI_CAWAKEDETECTED);
 		break;
 	case HSI_IOCTL_SET_WAKE_RX_4WIRES_MODE:
-		dev_info(hsi_ctrl->dev, "Entering RX wakeup in 4 wires mode\n");
 		pport->wake_rx_3_wires_mode = 0;
 
 		/* HSI-C1BUG00085: ixxx: HSI wakeup issue in 3 wires mode
@@ -956,11 +914,8 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		hsi_ctrl->hsi_fclk_req = *(unsigned int *)arg ?
 					HSI_FCLK_HI_SPEED : HSI_FCLK_LOW_SPEED;
 
-		if (hsi_ctrl->hsi_fclk_req == hsi_ctrl->hsi_fclk_current) {
-			dev_dbg(hsi_ctrl->dev, "HSI FClk already @%ldHz\n",
-				 hsi_ctrl->hsi_fclk_current);
+		if (hsi_ctrl->hsi_fclk_req == hsi_ctrl->hsi_fclk_current)
 			goto out;
-		}
 
 		if (hsi_is_controller_transfer_ongoing(hsi_ctrl)) {
 			err = -EBUSY;
@@ -975,13 +930,7 @@ int hsi_ioctl(struct hsi_device *dev, unsigned int command, void *arg)
 		err = pdata->device_scale(hsi_ctrl->dev, hsi_ctrl->dev,
 					  hsi_ctrl->hsi_fclk_req);
 		if (err < 0) {
-			dev_err(hsi_ctrl->dev, "%s: Cannot set HSI FClk to"
-				" %ldHz, err %d\n", __func__,
-				hsi_ctrl->hsi_fclk_req, err);
 		} else {
-			dev_info(hsi_ctrl->dev, "HSI FClk changed from %ldHz to"
-				 " %ldHz\n", hsi_ctrl->hsi_fclk_current,
-				 hsi_ctrl->hsi_fclk_req);
 			hsi_ctrl->hsi_fclk_current = hsi_ctrl->hsi_fclk_req;
 		}
 
@@ -1021,10 +970,8 @@ void hsi_close(struct hsi_device *dev)
 	struct hsi_dev *hsi_ctrl;
 
 	if (!dev || !dev->ch) {
-		pr_err(LOG_NAME "Trying to close wrong HSI device %p\n", dev);
 		return;
 	}
-	dev_dbg(dev->device.parent, "%s ch %d\n", __func__, dev->n_ch);
 
 	hsi_ctrl = dev->ch->hsi_port->hsi_controller;
 
@@ -1057,8 +1004,6 @@ void hsi_set_read_cb(struct hsi_device *dev,
 		     void (*read_cb) (struct hsi_device *dev,
 				      unsigned int size))
 {
-	dev_dbg(dev->device.parent, "%s ch %d\n", __func__, dev->n_ch);
-
 	dev->ch->read_done = read_cb;
 }
 EXPORT_SYMBOL(hsi_set_read_cb);
@@ -1075,8 +1020,6 @@ void hsi_set_write_cb(struct hsi_device *dev,
 		      void (*write_cb) (struct hsi_device *dev,
 					unsigned int size))
 {
-	dev_dbg(dev->device.parent, "%s ch %d\n", __func__, dev->n_ch);
-
 	dev->ch->write_done = write_cb;
 }
 EXPORT_SYMBOL(hsi_set_write_cb);
@@ -1093,8 +1036,6 @@ void hsi_set_port_event_cb(struct hsi_device *dev,
 {
 	struct hsi_port *port = dev->ch->hsi_port;
 	struct hsi_dev *hsi_ctrl = port->hsi_controller;
-
-	dev_dbg(hsi_ctrl->dev, "%s ch %d\n", __func__, dev->n_ch);
 
 	write_lock_bh(&dev->ch->rw_lock);
 	dev->ch->port_event = port_event_cb;

@@ -961,10 +961,8 @@ void wakeup_flusher_threads(long nr_pages)
 {
 	struct backing_dev_info *bdi;
 
-	if (!nr_pages) {
-		nr_pages = global_page_state(NR_FILE_DIRTY) +
-				global_page_state(NR_UNSTABLE_NFS);
-	}
+	if (!nr_pages)
+		nr_pages = get_nr_dirty_pages();
 
 	rcu_read_lock();
 	list_for_each_entry_rcu(bdi, &bdi_list, bdi_list) {
@@ -986,10 +984,6 @@ static noinline void block_dump___mark_inode_dirty(struct inode *inode)
 			spin_lock(&dentry->d_lock);
 			name = (const char *) dentry->d_name.name;
 		}
-		printk(KERN_DEBUG
-		       "%s(%d): dirtied inode %lu (%s) on %s\n",
-		       current->comm, task_pid_nr(current), inode->i_ino,
-		       name, inode->i_sb->s_id);
 		if (dentry) {
 			spin_unlock(&dentry->d_lock);
 			dput(dentry);
@@ -1082,9 +1076,6 @@ void __mark_inode_dirty(struct inode *inode, int flags)
 			bdi = inode_to_bdi(inode);
 
 			if (bdi_cap_writeback_dirty(bdi)) {
-				WARN(!test_bit(BDI_registered, &bdi->state),
-				     "bdi-%s not registered\n", bdi->name);
-
 				/*
 				 * If this is the first dirty inode for this
 				 * bdi, we have to wake-up the corresponding

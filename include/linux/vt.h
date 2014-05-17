@@ -2,18 +2,14 @@
 #define _LINUX_VT_H
 
 /*
- * These constants are also useful for user-level apps (e.g., VC
- * resizing).
+ * These constants are also useful for user-level apps (e.g., VC resizing).
  */
-#define MIN_NR_CONSOLES 1       /* must be at least 1 */
-#define MAX_NR_CONSOLES	63	/* serial lines start at 64 */
-#define MAX_NR_USER_CONSOLES 63	/* must be root to allocate above this */
-		/* Note: the ioctl VT_GETSTATE does not work for
-		   consoles 16 and higher (since it returns a short) */
+#define MIN_NR_CONSOLES		 1	/* must be at least 1 */
+#define MAX_NR_CONSOLES		11	/* serial lines start at 64 */
+#define MAX_NR_USER_CONSOLES	11	/* must be root to allocate above this */
 
 /* 0x56 is 'V', to avoid collision with termios and kd */
-
-#define VT_OPENQRY	0x5600	/* find available vt */
+#define VT_OPENQRY		0x5600	/* find available vt */
 
 struct vt_mode {
 	char mode;		/* vt mode */
@@ -24,9 +20,9 @@ struct vt_mode {
 };
 #define VT_GETMODE	0x5601	/* get mode of active vt */
 #define VT_SETMODE	0x5602	/* set mode of active vt */
-#define		VT_AUTO		0x00	/* auto vt switching */
-#define		VT_PROCESS	0x01	/* process controls switching */
-#define		VT_ACKACQ	0x02	/* acknowledge switch */
+#define	VT_AUTO		0x00	/* auto vt switching */
+#define	VT_PROCESS	0x01	/* process controls switching */
+#define	VT_ACKACQ	0x02	/* acknowledge switch */
 
 struct vt_stat {
 	unsigned short v_active;	/* active vt */
@@ -57,10 +53,10 @@ struct vt_consize {
 	unsigned short v_vcol;	/* number of pixel columns on screen */
 	unsigned short v_ccol;	/* number of pixel columns per character */
 };
-#define VT_RESIZEX      0x560A  /* set kernel's idea of screensize + more */
-#define VT_LOCKSWITCH   0x560B  /* disallow vt switching */
-#define VT_UNLOCKSWITCH 0x560C  /* allow vt switching */
-#define VT_GETHIFONTMASK 0x560D  /* return hi font mask */
+#define VT_RESIZEX		0x560A  /* set kernel's idea of screensize + more */
+#define VT_LOCKSWITCH		0x560B  /* disallow vt switching */
+#define VT_UNLOCKSWITCH		0x560C  /* allow vt switching */
+#define VT_GETHIFONTMASK	0x560D  /* return hi font mask */
 
 struct vt_event {
 	unsigned int event;

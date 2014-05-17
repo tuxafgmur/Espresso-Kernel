@@ -11,7 +11,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
  */
 
 #include <linux/init.h>
@@ -30,8 +29,8 @@
 #include <linux/platform_data/modem.h>
 #include "modem_prj.h"
 
-#define HDLC_START	0x7F
-#define HDLC_END	0x7E
+#define HDLC_START		0x7F
+#define HDLC_END		0x7E
 #define SIZE_OF_HDLC_START	1
 #define SIZE_OF_HDLC_END	1
 #define MAX_RXDATA_SIZE		(4096 - 512)
@@ -879,15 +878,7 @@ send_remain_data:
 	if (err < 0)
 		return err;
 
-	if (err != tx_size)
-		pr_err("[MODEM_IF] %s: WARNNING: wrong tx size: %s, format=%d "
-			"count=%d, tx_size=%d, return_size=%d, data_size=%d\n",
-			__func__, iod->name, iod->format, count, tx_size,
-			err, data_size);
-
 	if (tx_done_len < count) {
-		pr_debug("[MODEM_IF] Send remain data. tx_done_len=%d, count=%d, "
-			"data_size : %d\n", tx_done_len, count, data_size);
 		data_size = count - tx_done_len;
 		goto send_remain_data;
 	}

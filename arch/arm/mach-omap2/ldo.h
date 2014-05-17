@@ -25,7 +25,7 @@ struct omap_ldo_abb_ops {
 
 /*
  * NOTE: OMAP3630 calls this the ctrl register, while
- * OMAP4430, OMAP4460 is setup
+ * OMAP4430 is setup
  */
 #define OMAP_LDO_ABB_SETUP_SR2_WTCNT_VALUE_MASK	(0xFF << 8)
 #define OMAP_LDO_ABB_SETUP_ACTIVE_FBB_SEL_MASK	BIT(2)
@@ -48,7 +48,7 @@ struct omap_ldo_abb_setup_bits {
 
 /*
  * NOTE: OMAP3630 calls this the setup register, while
- * OMAP4430, OMAP4460 is ctrl
+ * OMAP4430 is ctrl
  */
 #define OMAP_LDO_ABB_CTRL_SR2_IN_TRANSITION_MASK	BIT(6)
 #define	OMAP_LDO_ABB_CTRL_SR2_STATUS_MASK		(0x3 << 3)

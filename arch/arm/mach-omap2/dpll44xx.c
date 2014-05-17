@@ -230,6 +230,7 @@ int omap4_prcm_freq_update(void)
 /* Use a very high retry count - we should not hit this condition */
 #define MAX_DPLL_WAIT_TRIES	1000000
 
+#define OMAP_1_9GHz	1900000000
 #define OMAP_1_5GHz	1500000000
 #define OMAP_1_2GHz	1200000000
 #define OMAP_1GHz	1000000000
@@ -296,130 +297,6 @@ const struct clkops clkops_omap4_dpllmx_ops = {
 	.allow_idle	= omap4_dpllmx_allow_gatectrl,
 	.deny_idle	= omap4_dpllmx_deny_gatectrl,
 };
-
-static void omap4460_mpu_dpll_update_children(unsigned long rate)
-{
-	u32 v;
-
-	/*
-	 * The interconnect frequency to EMIF should
-	 * be switched between MPU clk divide by 4 (for
-	 * frequencies higher than 920Mhz) and MPU clk divide
-	 * by 2 (for frequencies lower than or equal to 920Mhz)
-	 * Also the async bridge to ABE must be MPU clk divide
-	 * by 8 for MPU clk > 748Mhz and MPU clk divide by 4
-	 * for lower frequencies.
-	 */
-	v = __raw_readl(OMAP4430_CM_MPU_MPU_CLKCTRL);
-	if (rate > OMAP_920MHz)
-		v |= OMAP4460_CLKSEL_EMIF_DIV_MODE_MASK;
-	else
-		v &= ~OMAP4460_CLKSEL_EMIF_DIV_MODE_MASK;
-
-	if (rate > OMAP_748MHz)
-		v |= OMAP4460_CLKSEL_ABE_DIV_MODE_MASK;
-	else
-		v &= ~OMAP4460_CLKSEL_ABE_DIV_MODE_MASK;
-	__raw_writel(v, OMAP4430_CM_MPU_MPU_CLKCTRL);
-}
-
-int omap4460_mpu_dpll_set_rate(struct clk *clk, unsigned long rate)
-{
-	struct dpll_data *dd;
-	u32 v;
-	unsigned long dpll_rate;
-
-	if (!clk || !rate || !clk->parent)
-		return -EINVAL;
-
-	dd = clk->parent->dpll_data;
-
-	if (!dd)
-		return -EINVAL;
-
-	if (!clk->parent->set_rate)
-		return -EINVAL;
-
-	if (rate > clk->rate)
-		omap4460_mpu_dpll_update_children(rate);
-
-	/*
-	 * To obtain MPU DPLL frequency higher than 1GHz, On OMAP4470,
-	 * DCC (Duty Cycle Correction) needs to be enabled.
-	 * And needs to be kept disabled for < 1 Ghz.
-	 *
-	 * OMAP4460 has a HW issue with DCC so until proper WA is found
-	 * DCC shouldn't be used at any frequency.
-	 */
-	dpll_rate = omap2_get_dpll_rate(clk->parent);
-	if (!cpu_is_omap447x() || rate <= OMAP_1GHz) {
-		/* If DCC is enabled, disable it */
-		v = __raw_readl(dd->mult_div1_reg);
-		if (v & OMAP4460_DCC_EN_MASK) {
-			v &= ~OMAP4460_DCC_EN_MASK;
-			__raw_writel(v, dd->mult_div1_reg);
-		}
-
-		if (rate != dpll_rate)
-			clk->parent->set_rate(clk->parent, rate);
-	} else {
-		/*
-		 * On OMAP4470, the MPU clk for frequencies higher than 1Ghz
-		 * is sourced from CLKOUTX2_M3, instead of CLKOUT_M2, while
-		 * value of M3 is fixed to 1. Hence for frequencies higher
-		 * than 1 Ghz, lock the DPLL at half the rate so the
-		 * CLKOUTX2_M3 then matches the requested rate.
-		 */
-		if (rate != dpll_rate * 2)
-			clk->parent->set_rate(clk->parent, rate / 2);
-
-		v = __raw_readl(dd->mult_div1_reg);
-		v &= ~OMAP4460_DCC_COUNT_MAX_MASK;
-		v |= (5 << OMAP4460_DCC_COUNT_MAX_SHIFT);
-		__raw_writel(v, dd->mult_div1_reg);
-
-		v |= OMAP4460_DCC_EN_MASK;
-		__raw_writel(v, dd->mult_div1_reg);
-	}
-
-	if (rate < clk->rate)
-		omap4460_mpu_dpll_update_children(rate);
-
-	clk->rate = rate;
-
-	return 0;
-}
-
-long omap4460_mpu_dpll_round_rate(struct clk *clk, unsigned long rate)
-{
-	if (!clk || !rate || !clk->parent)
-		return -EINVAL;
-
-	if (clk->parent->round_rate)
-		return clk->parent->round_rate(clk->parent, rate);
-	else
-		return 0;
-}
-
-unsigned long omap4460_mpu_dpll_recalc(struct clk *clk)
-{
-	struct dpll_data *dd;
-	u32 v;
-
-	if (!clk || !clk->parent)
-		return -EINVAL;
-
-	dd = clk->parent->dpll_data;
-
-	if (!dd)
-		return -EINVAL;
-
-	v = __raw_readl(dd->mult_div1_reg);
-	if (v & OMAP4460_DCC_EN_MASK)
-		return omap2_get_dpll_rate(clk->parent) * 2;
-	else
-		return omap2_get_dpll_rate(clk->parent);
-}
 
 unsigned long omap4_dpll_regm4xen_recalc(struct clk *clk)
 {
@@ -642,65 +519,6 @@ static inline void omap4_dpll_restore_reg(struct omap4_dpll_regs *dpll_reg,
 					    dpll_reg->mod_inst, tuple->addr);
 }
 
-static void omap4_usb_dpll_restore(struct omap4_dpll_regs *dpll_reg)
-{
-	unsigned int clk_mode = 0;
-	int j = 0;
-
-	/*
-	 * On resume-from-off the default value of CM_CLKMODE_DPLL_USB::DPLL_EN
-	 * is 0x4(MN bypass mode).
-	 * The restore value is 0x1(low-power stop mode).
-	 * Issue observed with restoring the usb_dpll clock_mode value in the
-	 * resume-from-off-mode path.
-	 * When the previous value was restored USB_DPLL clock status was stuck
-	 * in running (CM_L3INIT_CLKSTCTRL::CLKACTIVITY_USB_DPLL_CLK).
-	 * To avoid this the below WA is applied move USB_DPLL to locked state.
-	 * Then Move the DPLL to LowPowerStop state
-	 */
-
-	clk_mode = dpll_reg->clkmode.val;
-	dpll_reg->clkmode.val = DPLL_LOCKED << OMAP4430_DPLL_EN_SHIFT;
-
-	omap4_dpll_restore_reg(dpll_reg, &dpll_reg->clkmode);
-	dpll_reg->clkmode.val = clk_mode;
-
-	while ((omap4_cminst_read_inst_reg(dpll_reg->mod_partition,
-						dpll_reg->mod_inst,
-						dpll_reg->idlest.addr)
-			& OMAP4430_ST_DPLL_CLK_MASK) !=
-					0x1 << OMAP4430_ST_DPLL_CLK_SHIFT
-						&& j < MAX_DPLL_WAIT_TRIES) {
-		j++;
-		udelay(1);
-	}
-
-	/* if we are unable to lock, warn and move on.. */
-	if (j == MAX_DPLL_WAIT_TRIES) {
-		pr_err("%s Failed to lock!\n", __func__);
-		omap4_dpll_dump_regs(dpll_reg);
-	} else {
-		j = 0;
-		/* Now that the DPLL is locked retore
-		 * the previous clock-mode state.
-		 */
-		omap4_dpll_restore_reg(dpll_reg, &dpll_reg->clkmode);
-		while ((omap4_cminst_read_inst_reg(dpll_reg->mod_partition,
-						dpll_reg->mod_inst,
-						dpll_reg->idlest.addr)
-				& OMAP4430_ST_DPLL_CLK_MASK) != 0x0
-					&& j < MAX_DPLL_WAIT_TRIES) {
-			j++;
-			udelay(1);
-		}
-		if (j == MAX_DPLL_WAIT_TRIES) {
-			pr_err("%s Failed to restore previous clock mode!\n",
-				__func__);
-			omap4_dpll_dump_regs(dpll_reg);
-		}
-	}
-}
-
 void omap4_dpll_resume_off(void)
 {
 	u32 i;
@@ -716,19 +534,11 @@ void omap4_dpll_resume_off(void)
 		omap4_dpll_restore_reg(dpll_reg, &dpll_reg->div_m7);
 		omap4_dpll_restore_reg(dpll_reg, &dpll_reg->clkdcoldo);
 
-		/* If it is 'usb' dpll and previous clkmode is not locked,
-		 * do not restore clkmode
-		 */
-		if (!strcmp(dpll_reg->name, "usb"))
-			omap4_usb_dpll_restore(dpll_reg);
-		else {
-			/* Restore clkmode after the above registers
-			 * are restored.
-			 */
-			omap4_dpll_restore_reg(dpll_reg, &dpll_reg->clkmode);
+		/* Restore clkmode after the above registers are restored */
+		omap4_dpll_restore_reg(dpll_reg, &dpll_reg->clkmode);
 
-			omap4_wait_dpll_lock(dpll_reg);
-		}
+		omap4_wait_dpll_lock(dpll_reg);
+
 		/* Restore autoidle settings after the dpll is locked */
 		omap4_dpll_restore_reg(dpll_reg, &dpll_reg->autoidle);
 	}
@@ -789,6 +599,4 @@ void omap4_dpll_abe_reconfigure(void)
 
 	if (i >= MAX_DPLL_WAIT_TRIES)
 		pr_err("Warm Reset WA: failed to lock the ABE DPLL\n");
-	else
-		pr_info("Warm Reset WA: succeeded to reconfigure the ABE DPLL\n");
 }

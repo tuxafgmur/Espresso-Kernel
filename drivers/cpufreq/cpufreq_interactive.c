@@ -13,6 +13,7 @@
  * GNU General Public License for more details.
  *
  * Author: Mike Chan (mike@android.com)
+ *
  */
 
 #include <linux/cpu.h>
@@ -29,7 +30,6 @@
 #include <linux/slab.h>
 #include <linux/input.h>
 #include <asm/cputime.h>
-
 #ifdef CONFIG_HAS_EARLYSUSPEND
 #include <linux/earlysuspend.h>
 #endif
@@ -69,11 +69,16 @@ static cpumask_t down_cpumask;
 static spinlock_t down_cpumask_lock;
 static struct mutex set_speed_lock;
 
-/* Hi speed to bump to from lo speed when load burst (default max) */
+/* Hi speed to bump to from low speed when load burst (default max) */
 static u64 hispeed_freq;
 
 /* Go to hi speed when CPU load at or above this value. */
+
+#ifdef CONFIG_OMAP4430_TOP_CPU
 #define DEFAULT_GO_HISPEED_LOAD 85
+#else
+#define DEFAULT_GO_HISPEED_LOAD 90
+#endif
 static unsigned long go_hispeed_load;
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
@@ -83,13 +88,17 @@ static unsigned long screen_off_differential;
 /*
  * The minimum amount of time to spend at a frequency before we can ramp down.
  */
+#ifdef CONFIG_OMAP4430_TOP_CPU
+#define DEFAULT_MIN_SAMPLE_TIME (40 * USEC_PER_MSEC)
+#else
 #define DEFAULT_MIN_SAMPLE_TIME (80 * USEC_PER_MSEC)
+#endif
 static unsigned long min_sample_time;
 
 /*
  * The sample rate of the timer used to increase frequency
  */
-#define DEFAULT_TIMER_RATE (20 * USEC_PER_MSEC)
+#define DEFAULT_TIMER_RATE (30 * USEC_PER_MSEC)
 static unsigned long timer_rate;
 
 /*
@@ -540,8 +549,7 @@ static void cpufreq_interactive_boost(void)
 
 /*
  * Pulsed boost on input event raises CPUs to hispeed_freq and lets
- * usual algorithm of min_sample_time  decide when to allow speed
- * to drop.
+ * usual algorithm of min_sample_time  decide when to allow speed  to drop.
  */
 
 static void cpufreq_interactive_input_event(struct input_handle *handle,
@@ -574,7 +582,6 @@ static int cpufreq_interactive_input_connect(struct input_handler *handler,
 	struct input_handle *handle;
 	int error;
 
-	pr_info("%s: connect to %s\n", __func__, dev->name);
 	handle = kzalloc(sizeof(struct input_handle), GFP_KERNEL);
 	if (!handle)
 		return -ENOMEM;
@@ -649,7 +656,7 @@ static ssize_t store_hispeed_freq(struct kobject *kobj,
 	return count;
 }
 
-static struct global_attr hispeed_freq_attr = __ATTR(hispeed_freq, 0644,
+static struct global_attr hispeed_freq_attr = __ATTR(hispeed_freq, 0664,
 		show_hispeed_freq, store_hispeed_freq);
 
 static ssize_t show_go_hispeed_load(struct kobject *kobj,
@@ -671,7 +678,7 @@ static ssize_t store_go_hispeed_load(struct kobject *kobj,
 	return count;
 }
 
-static struct global_attr go_hispeed_load_attr = __ATTR(go_hispeed_load, 0644,
+static struct global_attr go_hispeed_load_attr = __ATTR(go_hispeed_load, 0664,
 		show_go_hispeed_load, store_go_hispeed_load);
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
@@ -694,9 +701,7 @@ static ssize_t store_screen_off_differential(struct kobject *kobj,
 	return count;
 }
 static struct global_attr screen_off_differential_attr =
-	__ATTR(screen_off_differential,
-	0644, show_screen_off_differential,
-	store_screen_off_differential);
+	__ATTR(screen_off_differential,	0664, show_screen_off_differential,	store_screen_off_differential);
 #endif
 
 static ssize_t show_min_sample_time(struct kobject *kobj,
@@ -718,7 +723,7 @@ static ssize_t store_min_sample_time(struct kobject *kobj,
 	return count;
 }
 
-static struct global_attr min_sample_time_attr = __ATTR(min_sample_time, 0644,
+static struct global_attr min_sample_time_attr = __ATTR(min_sample_time, 0664,
 		show_min_sample_time, store_min_sample_time);
 
 static ssize_t show_above_hispeed_delay(struct kobject *kobj,
@@ -762,7 +767,7 @@ static ssize_t store_timer_rate(struct kobject *kobj,
 	return count;
 }
 
-static struct global_attr timer_rate_attr = __ATTR(timer_rate, 0644,
+static struct global_attr timer_rate_attr = __ATTR(timer_rate, 0664,
 		show_timer_rate, store_timer_rate);
 
 static ssize_t show_input_boost(struct kobject *kobj, struct attribute *attr,
@@ -842,6 +847,7 @@ static void cpufreq_early_suspend(struct early_suspend *h)
 
 static void cpufreq_late_resume(struct early_suspend *h)
 {
+
 	go_hispeed_load = save_go_hispeed_load;
 	return;
 }
@@ -927,7 +933,8 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		if (atomic_inc_return(&active_count) > 1)
 			return 0;
 
-		up_task = kthread_create(cpufreq_interactive_up_task, NULL, "kinteractiveup");
+		up_task = kthread_create(cpufreq_interactive_up_task, NULL,
+				"kinteractiveup");
 		if (IS_ERR(up_task))
 			return PTR_ERR(up_task);
 
@@ -941,7 +948,7 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 
 		rc = input_register_handler(&cpufreq_interactive_input_handler);
 		if (rc)
-			pr_warn("%s: failed to register input handler\n", __func__);
+			pr_warn("%s: failed to register input handler ", __func__);
 
 		idle_notifier_register(&cpufreq_interactive_idle_nb);
 
@@ -982,7 +989,7 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		up_task = NULL;
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
-		register_early_suspend(&interactive_early_suspend);
+		unregister_early_suspend(&interactive_early_suspend);
 		if (save_go_hispeed_load)
 			go_hispeed_load = save_go_hispeed_load;
 		save_go_hispeed_load = 0;

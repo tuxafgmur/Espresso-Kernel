@@ -308,8 +308,6 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	enter_lazy_tlb(mm, current);
 	local_flush_tlb_all();
 
-	printk("CPU%u: Booted secondary processor\n", cpu);
-
 	cpu_init();
 	preempt_disable();
 	trace_hardirqs_off();
@@ -340,7 +338,6 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	local_irq_enable();
 	local_fiq_enable();
 
-	printk(KERN_INFO"CPU%u: Booting Complete Secondary processor\n", cpu);
 	/*
 	 * OK, it's off to the idle thread for us
 	 */
@@ -470,8 +467,6 @@ asmlinkage void __exception_irq_entry do_local_timer(struct pt_regs *regs)
 	struct pt_regs *old_regs = set_irq_regs(regs);
 	int cpu = smp_processor_id();
 
-	sec_debug_irq_regs_log(cpu, regs);
-
 	if (local_timer_ack()) {
 		__inc_irq_stat(cpu, local_timer_irqs);
 		sec_debug_irq_log(0, do_local_timer, 1);
@@ -600,10 +595,8 @@ void smp_send_all_cpu_backtrace(void)
 	cpumask_copy(&backtrace_mask, cpu_online_mask);
 	cpu_clear(this_cpu, backtrace_mask);
 
-	pr_info("Backtrace for cpu %d (current):\n", this_cpu);
 	dump_stack();
 
-	pr_info("\nsending IPI to all other CPUs:\n");
 	smp_cross_call(&backtrace_mask, IPI_CPU_BACKTRACE);
 
 	/* Wait for up to 10 seconds for all other CPUs to do the backtrace */
@@ -647,7 +640,6 @@ void handle_IPI(int ipinr, struct pt_regs *regs)
 	if (ipinr >= IPI_TIMER && ipinr < IPI_TIMER + NR_IPI)
 		__inc_irq_stat(cpu, ipi_irqs[ipinr - IPI_TIMER]);
 
-	sec_debug_irq_regs_log(cpu, regs);
 	sec_debug_irq_log(ipinr, do_IPI, 1);
 
 	switch (ipinr) {

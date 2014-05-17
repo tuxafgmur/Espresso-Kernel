@@ -138,7 +138,7 @@ static int do_getname(const char __user *filename, char *page)
 
 static char *getname_flags(const char __user *filename, int flags, int *empty)
 {
-	char *tmp, *result;
+	char *tmp = NULL, *result;
 
 	result = ERR_PTR(-ENOMEM);
 	tmp = __getname();
@@ -1705,7 +1705,7 @@ static struct dentry *__lookup_hash(struct qstr *name,
  * needs parent already locked. Doesn't follow mounts.
  * SMP-safe.
  */
-static struct dentry *lookup_hash(struct nameidata *nd)
+struct dentry *lookup_hash(struct nameidata *nd)
 {
 	return __lookup_hash(&nd->last, nd->path.dentry, nd);
 }
@@ -2454,7 +2454,7 @@ SYSCALL_DEFINE4(mknodat, int, dfd, const char __user *, filename, int, mode,
 		unsigned, dev)
 {
 	int error;
-	char *tmp;
+	char *tmp = NULL;
 	struct dentry *dentry;
 	struct nameidata nd;
 

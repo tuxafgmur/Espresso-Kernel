@@ -118,27 +118,15 @@ static bool wm_hubs_dac_hp_direct(struct snd_soc_codec *codec)
 	reg = snd_soc_read(codec, WM8993_OUTPUT_MIXER1);
 	if (!(reg & WM8993_DACL_TO_HPOUT1L)) {
 		if (reg & ~WM8993_DACL_TO_MIXOUTL) {
-			dev_vdbg(codec->dev, "Analogue paths connected: %x\n",
-				 reg & ~WM8993_DACL_TO_HPOUT1L);
 			return false;
-		} else {
-			dev_vdbg(codec->dev, "HPL connected to mixer\n");
 		}
-	} else {
-		dev_vdbg(codec->dev, "HPL connected to DAC\n");
 	}
 
 	reg = snd_soc_read(codec, WM8993_OUTPUT_MIXER2);
 	if (!(reg & WM8993_DACR_TO_HPOUT1R)) {
 		if (reg & ~WM8993_DACR_TO_MIXOUTR) {
-			dev_vdbg(codec->dev, "Analogue paths connected: %x\n",
-				 reg & ~WM8993_DACR_TO_HPOUT1R);
 			return false;
-		} else {
-			dev_vdbg(codec->dev, "HPR connected to mixer\n");
 		}
-	} else {
-		dev_vdbg(codec->dev, "HPR connected to DAC\n");
 	}
 
 	return true;
@@ -637,8 +625,6 @@ void wm_hubs_update_class_w(struct snd_soc_codec *codec)
 
 	if (hubs->check_class_w_digital && !hubs->check_class_w_digital(codec))
 		enable = false;
-
-	dev_vdbg(codec->dev, "Class W %s\n", enable ? "enabled" : "disabled");
 
 	snd_soc_update_bits(codec, WM8993_CLASS_W_0,
 			    WM8993_CP_DYN_V | WM8993_CP_DYN_FREQ, enable);

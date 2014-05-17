@@ -49,21 +49,27 @@
 static uint32_t lmk_count = 0;
 #endif
 
-static uint32_t lowmem_debug_level = 2;
+static uint32_t lowmem_debug_level = 1;
+
 static int lowmem_adj[6] = {
 	0,
-	1,
-	6,
+	2,
+	4,
+	9,
 	12,
+	15,
 };
-static int lowmem_adj_size = 4;
+static int lowmem_adj_size = 6;
+
 static size_t lowmem_minfree[6] = {
 	3 * 512,	/* 6MB */
 	2 * 1024,	/* 8MB */
 	4 * 1024,	/* 16MB */
+	8 * 1024,	/* 32MB */
 	16 * 1024,	/* 64MB */
+	32 * 1024,	/* 128MB */
 };
-static int lowmem_minfree_size = 4;
+static int lowmem_minfree_size = 6;
 
 #ifdef CONFIG_ENHANCED_LMK_ROUTINE
 static struct task_struct *lowmem_deathpending[LOWMEM_DEATHPENDING_DEPTH] = {
@@ -73,12 +79,6 @@ static struct task_struct *lowmem_deathpending[LOWMEM_DEATHPENDING_DEPTH] = {
 static struct task_struct *lowmem_deathpending;
 #endif
 static unsigned long lowmem_deathpending_timeout;
-
-#define lowmem_print(level, x...)			\
-	do {						\
-		if (lowmem_debug_level >= (level))	\
-			printk(x);			\
-	} while (0)
 
 static int
 task_notify_func(struct notifier_block *self, unsigned long val, void *data);
@@ -167,17 +167,11 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			break;
 		}
 	}
-	if (sc->nr_to_scan > 0)
-		lowmem_print(3, "lowmem_shrink %lu, %x, ofree %d %d, ma %d\n",
-			     sc->nr_to_scan, sc->gfp_mask, other_free, other_file,
-			     min_adj);
 	rem = global_page_state(NR_ACTIVE_ANON) +
 		global_page_state(NR_ACTIVE_FILE) +
 		global_page_state(NR_INACTIVE_ANON) +
 		global_page_state(NR_INACTIVE_FILE);
 	if (sc->nr_to_scan <= 0 || min_adj == OOM_ADJUST_MAX + 1) {
-		lowmem_print(5, "lowmem_shrink %lu, %x, return %d\n",
-			     sc->nr_to_scan, sc->gfp_mask, rem);
 		return rem;
 	}
 
@@ -228,9 +222,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 
 			if (all_selected_oom < LOWMEM_DEATHPENDING_DEPTH)
 				all_selected_oom++;
-			lowmem_print(2, "select %d (%s), adj %d, size %d,"
-			     "to kill\n",
-			     p->pid, p->comm, oom_adj, tasksize);
 
 			break;
 		}
@@ -245,18 +236,12 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		selected = p;
 		selected_tasksize = tasksize;
 		selected_oom_adj = oom_adj;
-		lowmem_print(2, "select %d (%s), adj %d, size %d, to kill\n",
-			     p->pid, p->comm, oom_adj, tasksize);
 
 #endif
 	}
 #ifdef CONFIG_ENHANCED_LMK_ROUTINE
 	for (i = 0; i < LOWMEM_DEATHPENDING_DEPTH; i++) {
 		if (selected[i]) {
-			lowmem_print(1, "send sigkill to %d (%s), adj %d,"
-				     "size %d\n",
-				     selected[i]->pid, selected[i]->comm,
-				     selected_oom_adj[i], selected_tasksize[i]);
 			lowmem_deathpending[i] = selected[i];
 			lowmem_deathpending_timeout = jiffies + HZ;
 			force_sig(SIGKILL, selected[i]);
@@ -268,9 +253,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	}
 #else
 	if (selected) {
-		lowmem_print(1, "send sigkill to %d (%s), adj %d, size %d\n",
-			     selected->pid, selected->comm,
-			     selected_oom_adj, selected_tasksize);
 		lowmem_deathpending = selected;
 		lowmem_deathpending_timeout = jiffies + HZ;
 		force_sig(SIGKILL, selected);
@@ -280,8 +262,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 #endif
 	}
 #endif
-	lowmem_print(4, "lowmem_shrink %lu, %x, return %d\n",
-		     sc->nr_to_scan, sc->gfp_mask, rem);
 	read_unlock(&tasklist_lock);
 	return rem;
 }

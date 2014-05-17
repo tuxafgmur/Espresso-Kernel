@@ -98,12 +98,7 @@ void omap2_init_clk_clkdm(struct clk *clk)
 
 	clkdm = clkdm_lookup(clk->clkdm_name);
 	if (clkdm) {
-		pr_debug("clock: associated clk %s to clkdm %s\n",
-			 clk->name, clk->clkdm_name);
 		clk->clkdm = clkdm;
-	} else {
-		pr_debug("clock: could not associate clk %s to "
-			 "clkdm %s\n", clk->name, clk->clkdm_name);
 	}
 }
 
@@ -271,24 +266,14 @@ void omap2_clk_disable(struct clk *clk)
 	 * because kernel tries to access dss register without interface clock.
 	 * Until fix the issue, adds below log to debug.
 	 */
-	if (!strncmp(clk->name, "dss_fck", 7))
-		pr_info("%s: dss interface clock usecount = %d\n",
-						__func__, clk->usecount);
 
-	if (clk->usecount == 0) {
-		WARN(1, "clock: %s: omap2_clk_disable() called, but usecount "
-		     "already 0?", clk->name);
+	if (clk->usecount == 0)
 		return;
-	}
-
-	pr_debug("clock: %s: decrementing usecount\n", clk->name);
 
 	clk->usecount--;
 
 	if (clk->usecount > 0)
 		return;
-
-	pr_debug("clock: %s: disabling in hardware\n", clk->name);
 
 	if (clk->ops && clk->ops->disable) {
 		trace_clock_disable(clk->name, 0, smp_processor_id());
@@ -317,23 +302,15 @@ int omap2_clk_enable(struct clk *clk)
 {
 	int ret;
 
-	pr_debug("clock: %s: incrementing usecount\n", clk->name);
-
 	/* Sometimes, it fails to enable dss interface clock,
 	 * due to usecount mismatch, and it causes l3 bus error
 	 * because kernel tries to access dss register without interface clock.
 	 * Until fix the issue, adds below log to debug.
 	 */
-	if (!strncmp(clk->name, "dss_fck", 7))
-		pr_info("%s: dss interface clock usecount = %d\n",
-						__func__, clk->usecount);
-
 	clk->usecount++;
 
 	if (clk->usecount > 1)
 		return 0;
-
-	pr_debug("clock: %s: enabling in hardware\n", clk->name);
 
 	if (clk->parent) {
 		ret = omap2_clk_enable(clk->parent);
@@ -357,8 +334,7 @@ int omap2_clk_enable(struct clk *clk)
 		trace_clock_enable(clk->name, 1, smp_processor_id());
 		ret = clk->ops->enable(clk);
 		if (ret) {
-			WARN(1, "clock: %s: could not enable: %d\n",
-			     clk->name, ret);
+			WARN(1, "clock: %s: could not enable: %d\n", clk->name, ret);
 			goto oce_err3;
 		}
 	}
@@ -417,8 +393,6 @@ int omap2_clk_set_rate(struct clk *clk, unsigned long rate)
 {
 	int ret = -EINVAL;
 
-	pr_debug("clock: set_rate for clock %s to rate %ld\n", clk->name, rate);
-
 	/* dpll_ck, core_ck, virt_prcm_set; plus all clksel clocks */
 	if (clk->set_rate) {
 		trace_clock_set_rate(clk->name, rate, smp_processor_id());
@@ -472,7 +446,6 @@ void omap2_clk_disable_unused(struct clk *clk)
 	if ((regval32 & (1 << clk->enable_bit)) == v)
 		return;
 
-	pr_debug("Disabling unused clock \"%s\"\n", clk->name);
 	if (cpu_is_omap34xx()) {
 		omap2_clk_enable(clk);
 		omap2_clk_disable(clk);
@@ -559,12 +532,6 @@ void __init omap2_clk_print_new_rates(const char *hfclkin_ck_name,
 
 	hfclkin_rate = clk_get_rate(hfclkin_ck);
 
-	pr_info("Switched to new clocking rate (Crystal/Core/MPU): "
-		"%ld.%01ld/%ld/%ld MHz\n",
-		(hfclkin_rate / 1000000),
-		((hfclkin_rate / 100000) % 10),
-		(clk_get_rate(core_ck) / 1000000),
-		(clk_get_rate(mpu_ck) / 1000000));
 }
 
 /* Common data */

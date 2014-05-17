@@ -321,10 +321,6 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
 			char name[16];
 			pcm_debug_name(substream, name, sizeof(name));
 			xrun_log_show(substream);
-			snd_printd(KERN_ERR  "BUG: %s, pos = %ld, "
-				   "buffer size = %ld, period size = %ld\n",
-				   name, pos, runtime->buffer_size,
-				   runtime->period_size);
 		}
 		pos = 0;
 	}

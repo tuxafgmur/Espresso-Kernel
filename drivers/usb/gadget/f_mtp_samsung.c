@@ -1421,7 +1421,7 @@ mtp_complete_cancel_io(struct usb_ep *ep, struct usb_request *req)
 
 }
 
-static int mtp3sung_ctrlrequest(struct usb_composite_dev *cdev,
+static int mtpSsung_ctrlrequest(struct usb_composite_dev *cdev,
 				const struct usb_ctrlrequest *ctrl)
 {
 	struct mtpg_dev	*dev = the_mtpg;
@@ -1532,7 +1532,7 @@ static int mtp3sung_ctrlrequest(struct usb_composite_dev *cdev,
 	return value;
 }
 
-static int mtp3sung_bind_config(struct usb_configuration *c, bool ptp_config)
+static int mtpSsung_bind_config(struct usb_configuration *c, bool ptp_config)
 {
 	struct mtpg_dev	*mtpg = the_mtpg;
 	int		status = 0;
@@ -1571,7 +1571,7 @@ static int mtp3sung_bind_config(struct usb_configuration *c, bool ptp_config)
 	return usb_add_function(c, &mtpg->function);
 }
 
-static int mtp3sung_setup(void)
+static int mtpSsung_setup(void)
 {
 	struct mtpg_dev	*mtpg;
 	int		rc;
@@ -1625,7 +1625,7 @@ err_misc_register:
 	return rc;
 }
 
-static void mtp3sung_cleanup(void)
+static void mtpSsung_cleanup(void)
 {
 	struct mtpg_dev	*mtpg = the_mtpg;
 	printk(KERN_DEBUG "[%s:::%d]\n", __func__, __LINE__);

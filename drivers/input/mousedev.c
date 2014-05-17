@@ -1087,14 +1087,10 @@ static int __init mousedev_init(void)
 #ifdef CONFIG_INPUT_MOUSEDEV_PSAUX
 	error = misc_register(&psaux_mouse);
 	if (error)
-		pr_warning("could not register psaux device, error: %d\n",
-			   error);
+		pr_warning("could not register psaux device, error: %d\n", error);
 	else
 		psaux_registered = 1;
 #endif
-
-	pr_info("PS/2 mouse device common for all mice\n");
-
 	return 0;
 }
 

@@ -1,15 +1,16 @@
-Kernel to Samsung Galaxy Tab2 Stock
+Kernel Samsung Galaxy Tab2 Stock
 
 Copyright by their respective authors.
-Code not attributable to other is on my own authorship.
 
-Credits to Kernel-Team, Google, Samsung and anyone else with merits.
+Credits to Kernel-Team, Samsung, Google and everyone who has contributed.
 
-*** HOW TO COMPILE ***
+Only code not attributable to another is my own authorship.
+
+*****  HOW TO COMPILE  *****
 
 # Sets environment
-export DIRE=$PWD/SamKernel
-export KERNELDIR=$DIRE/Kernel
+export DIRE=$PWD/Dhollmen
+export KERNELDIR=$DIRE/Espresso-Kernel
 export ARCH=arm
 
 # Select toolchain you like to use
@@ -24,16 +25,13 @@ export ARM_CROSS_COMPILE=$CROSS_COMPILE
 mkdir -p $DIRE
 mkdir -p $DIRE/Modules
 mkdir -p $DIRE/Zimage
-mkdir -p $KERNELDIR
-mkdir -p $DIRE/PowerVRSGX
 
-# Get omaplfb sources
-cd $DIRE/PowerVRSGX
-git clone -b d-jb-mr2.0-release git://git.omapzoom.org/device/ti/proprietary-open.git
+cd $DIRE
 
 # Get kernel sources
-cd $KERNELDIR
 git clone https://github.com/Dhollmen/Espresso-Kernel
+
+cd $KERNELDIR
 
 # Copy config file for your tablet model
 cp ./arch/arm/configs/android_espresso10_omap4430_r02_user_defconfig
@@ -44,24 +42,19 @@ cp ./arch/arm/configs/android_espresso_omap4430_r04_user_defconfig
 make ARCH=arm -j<n>      ##  n = CPU cores + 1
 
 # Copy kernel image and modules
-rm -fr $DIRE/Modules/*
-cp ./arch/arm/boot/zImage $DIRE/Zimage/
+rm -f  $DIRE/Modules/*
+cp   ./arch/arm/boot/zImage  $DIRE/Zimage/
 find . -type f -name *.ko -exec cp {} $DIRE/Modules/ \;
 
-# Compile omaplfb
-cd 	$DIRE/PowerVRSGX
+rm -rf $DIRE/eurasia_km
+cp -a  ./pvrsgx $DIRE/eurasia_km
 
-rm -fr  eurasia_km
-tar -xzf proprietary-open/omap4/sgx_src/eurasia_km.tgz
-rm -rf eurasia_km/eurasiacon/binary*
+cd   $DIRE/eurasia_km/eurasiacon/build/linux2/omap4430_android/
+make TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.1
 
-cd eurasia_km/eurasiacon/build/linux2/omap4430_android/
-make ARCH=arm TARGET_PRODUCT="blaze_tablet" BUILD=release \
-	 TARGET_SGX=540 PLATFORM_VERSION=4.1
-
-# Copy and strip modules
+# Copy & strip modules
 cp  ../../../binary2_540_120_omap4430_android_release/target/pvrsrvkm_sgx540_120.ko \
-    $DIRE/Modules
+	$DIRE/Modules
 
 $"$CROSS_COMPILE"strip --strip-unneeded $DIRE/Modules/*.ko
 

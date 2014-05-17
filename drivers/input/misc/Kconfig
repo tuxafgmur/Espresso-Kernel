@@ -74,18 +74,6 @@ config INPUT_PCSPKR
 	  To compile this driver as a module, choose M here: the
 	  module will be called pcspkr.
 
-config INPUT_SPARCSPKR
-	tristate "SPARC Speaker support"
-	depends on PCI && SPARC64
-	help
-	  Say Y here if you want the standard Speaker on Sparc PCI systems
-	  to be used for bells and whistles.
-
-	  If unsure, say Y.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called sparcspkr.
-
 config INPUT_M68K_BEEP
 	tristate "M68k Beeper support"
 	depends on M68K
@@ -99,20 +87,6 @@ config INPUT_MAX8925_ONKEY
 
 	  To compile this driver as a module, choose M here: the module
 	  will be called max8925_onkey.
-
-config INPUT_APANEL
-	tristate "Fujitsu Lifebook Application Panel buttons"
-	depends on X86 && I2C && LEDS_CLASS
-	select INPUT_POLLDEV
-	select CHECK_SIGNATURE
-	help
-	 Say Y here for support of the Application Panel buttons, used on
-	 Fujitsu Lifebook. These are attached to the mainboard through
-	 an SMBus interface managed by the I2C Intel ICH (i801) driver,
-	 which you should also build for this kernel.
-
-	 To compile this driver as a module, choose M here: the module will
-	 be called apanel.
 
 config INPUT_IXP4XX_BEEPER
 	tristate "IXP4XX Beeper support"
@@ -135,32 +109,6 @@ config INPUT_COBALT_BTNS
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called cobalt_btns.
-
-config INPUT_WISTRON_BTNS
-	tristate "x86 Wistron laptop button interface"
-	depends on X86 && !X86_64
-	select INPUT_POLLDEV
-	select INPUT_SPARSEKMAP
-	select NEW_LEDS
-	select LEDS_CLASS
-	select CHECK_SIGNATURE
-	help
-	  Say Y here for support of Wistron laptop button interfaces, used on
-	  laptops of various brands, including Acer and Fujitsu-Siemens. If
-	  available, mail and wifi LEDs will be controllable via /sys/class/leds.
-
-	  To compile this driver as a module, choose M here: the module will
-	  be called wistron_btns.
-
-config INPUT_ATLAS_BTNS
-	tristate "x86 Atlas button interface"
-	depends on X86 && ACPI
-	help
-	  Say Y here for support of Atlas wallmount touchscreen buttons.
-	  The events will show up as scancodes F1 through F9 via evdev.
-
-	  To compile this driver as a module, choose M here: the module will
-	  be called atlas_btns.
 
 config INPUT_ATI_REMOTE
 	tristate "ATI / X10 USB RF remote control"
@@ -491,19 +439,6 @@ config INPUT_CMA3000_I2C
 	  To compile this driver as a module, choose M here: the
 	  module will be called cma3000_d0x_i2c.
 
-config INPUT_XEN_KBDDEV_FRONTEND
-	tristate "Xen virtual keyboard and mouse support"
-	depends on XEN_FBDEV_FRONTEND
-	default y
-	select XEN_XENBUS_FRONTEND
-	help
-	  This driver implements the front-end of the Xen virtual
-	  keyboard and mouse device driver.  It communicates with a back-end
-	  in another domain.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called xen-kbdfront.
-
 config INPUT_BMA180
        bool "BMA-180 Tri-axis accelerometer"
        depends on I2C && SYSFS
@@ -522,9 +457,11 @@ config GP2A_MODE_B
 	default n
 	help
 	  This option enables proximity mode B
+
 config INPUT_MPU6050
 	bool "Invensense MPU-6050 sensor"
 	default n
+
 config INPUT_MPU6050_POLLING
 	bool "MPU-6050 polling mode"
 	default n

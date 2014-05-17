@@ -481,8 +481,7 @@ core_initcall(alloc_frozen_cpus);
 /*
  * Prevent regular CPU hotplug from racing with the freezer, by disabling CPU
  * hotplug when tasks are about to be frozen. Also, don't allow the freezer
- * to continue until any currently running CPU hotplug operation gets
- * completed.
+ * to continue until any currently running CPU hotplug operation gets completed.
  * To modify the 'cpu_hotplug_disabled' flag, we need to acquire the
  * 'cpu_add_remove_lock'. And this same lock is also taken by the regular
  * CPU hotplug path and released only after it is complete. Thus, we

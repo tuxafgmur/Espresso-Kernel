@@ -796,11 +796,6 @@ int mmc_sd_setup_card(struct mmc_host *host, struct mmc_card *card,
 		for (retries = 1; retries <= 3; retries++) {
 			err = mmc_read_switch(card);
 			if (!err) {
-				if (retries > 1) {
-					printk(KERN_WARNING
-					       "%s: recovered\n",
-					       mmc_hostname(host));
-				}
 				break;
 			} else {
 				printk(KERN_WARNING
@@ -838,9 +833,7 @@ int mmc_sd_setup_card(struct mmc_host *host, struct mmc_card *card,
 			ro = host->ops->get_ro(host);
 
 		if (ro < 0) {
-			printk(KERN_WARNING "%s: host does not "
-				"support reading read-only "
-				"switch. assuming write-enable.\n",
+			printk(KERN_WARNING "%s: assuming write-enable host.\n",
 				mmc_hostname(host));
 		} else if (ro > 0) {
 			mmc_card_set_readonly(card);

@@ -1369,12 +1369,12 @@ static u8 twl_get_smps_mult(int id)
 
 static int __devinit twlreg_probe(struct platform_device *pdev)
 {
-	int				i;
-	struct twlreg_info		*info;
-	struct regulator_init_data	*initdata;
+	struct twlreg_info				*info;
+	struct regulator_init_data		*initdata;
 	struct regulation_constraints	*c;
-	struct regulator_dev		*rdev;
-	int ret = 0;
+	struct regulator_dev			*rdev;
+	int	i=0;
+	int ret=0;
 
 	for (i = 0, info = NULL; i < ARRAY_SIZE(twl_regs); i++) {
 		if (twl_regs[i].desc.id != pdev->id)

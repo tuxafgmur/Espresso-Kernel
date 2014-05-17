@@ -1,0 +1,6 @@
+#
+# DCA server configuration
+#
+
+config DCA
+	tristate

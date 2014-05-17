@@ -3,7 +3,6 @@
 #
 
 menu "Input device support"
-	depends on !S390
 
 config INPUT
 	tristate "Generic input layer (needed for keyboard, mouse, ...)" if EXPERT
@@ -28,15 +27,14 @@ if INPUT
 config INPUT_FF_MEMLESS
 	tristate "Support for memoryless force-feedback devices"
 	help
-	  Say Y here if you have memoryless force-feedback input device
-	  such as Logitech WingMan Force 3D, ThrustMaster FireStorm Dual
-	  Power 2, or similar. You will also need to enable hardware-specific
-	  driver.
+	  Say Y here if you have memoryless force-feedback input device such as
+	  Logitech WingMan Force 3D, ThrustMaster FireStorm Dual Power 2, or
+	  similar. You will also need to enable hardware-specific driver.
 
 	  If unsure, say N.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called ff-memless.
+	  To compile this driver as a module, choose M here:
+	  the module will be called ff-memless.
 
 config INPUT_POLLDEV
 	tristate "Polled input device skeleton"
@@ -48,8 +46,8 @@ config INPUT_POLLDEV
 
 	  If unsure, say N.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called input-polldev.
+	  To compile this driver as a module, choose M here:
+	  the module will be called input-polldev.
 
 config INPUT_SPARSEKMAP
 	tristate "Sparse keymap support library"
@@ -61,8 +59,8 @@ config INPUT_SPARSEKMAP
 
 	  If unsure, say N.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called sparse-keymap.
+	  To compile this driver as a module, choose M here:
+	  the module will be called sparse-keymap.
 
 comment "Userland interfaces"
 
@@ -71,15 +69,13 @@ config INPUT_MOUSEDEV
 	default y
 	help
 	  Say Y here if you want your mouse to be accessible as char devices
-	  13:32+ - /dev/input/mouseX and 13:63 - /dev/input/mice as an
-	  emulated IntelliMouse Explorer PS/2 mouse. That way, all user space
-	  programs (including SVGAlib, GPM and X) will be able to use your
-	  mouse.
+	  13:32+ - /dev/input/mouseX and 13:63 - /dev/input/mice as an emulated
+	  mouse. That way, all user space programs  will be able to use your mouse.
 
 	  If unsure, say Y.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called mousedev.
+	  To compile this driver as a module, choose M here:
+	  the module will be called mousedev.
 
 config INPUT_MOUSEDEV_PSAUX
 	bool "Provide legacy /dev/psaux device"
@@ -114,6 +110,7 @@ config INPUT_MOUSEDEV_SCREEN_Y
 
 config INPUT_JOYDEV
 	tristate "Joystick interface"
+	default y
 	help
 	  Say Y here if you want your joystick or gamepad to be
 	  accessible as char device 13:0+ - /dev/input/jsX device.
@@ -122,17 +119,18 @@ config INPUT_JOYDEV
 
 	  More information is available: <file:Documentation/input/joystick.txt>
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called joydev.
+	  To compile this driver as a module, choose M here:
+	  the module will be called joydev.
 
 config INPUT_EVDEV
 	tristate "Event interface"
+	default y
 	help
 	  Say Y here if you want your input device events be accessible
 	  under char device 13:64+ - /dev/input/eventX in a generic way.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called evdev.
+	  To compile this driver as a module, choose M here:
+	  the module will be called evdev.
 
 config INPUT_EVBUG
 	tristate "Event debugging"
@@ -145,8 +143,8 @@ config INPUT_EVBUG
 
 	  If unsure, say N.
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called evbug.
+	  To compile this driver as a module, choose M here:
+	  the module will be called evbug.
 
 config INPUT_APMPOWER
 	tristate "Input Power Event -> APM Bridge" if EXPERT
@@ -155,7 +153,9 @@ config INPUT_APMPOWER
 	  Say Y here if you want suspend key events to trigger a user
 	  requested suspend through APM. This is useful on embedded
 	  systems where such behaviour is desired without userspace
-	  interaction. If unsure, say N.
+	  interaction.
+
+	  If unsure, say N.
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called apm-power.
@@ -166,8 +166,8 @@ config INPUT_KEYRESET
 	---help---
 	  Say Y here if you want to reboot when some keys are pressed;
 
-	  To compile this driver as a module, choose M here: the
-	  module will be called keyreset.
+	  To compile this driver as a module, choose M here:
+	  the module will be called keyreset.
 
 comment "Input Device Drivers"
 

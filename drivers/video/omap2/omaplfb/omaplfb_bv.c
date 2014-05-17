@@ -480,9 +480,7 @@ void OMAPLFBDeInitBltFBs(OMAPLFB_DEVINFO *psDevInfo)
 	struct bvbuffdesc *pBufDesc;
 
 	if (!gbBvInterfacePresent)
-	{
 		return;
-	}
 
 	if (psPVRFBInfo->pvClearBuffer) {
 		kfree(psPVRFBInfo->pvClearBuffer);

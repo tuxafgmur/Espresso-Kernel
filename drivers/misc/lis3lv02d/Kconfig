@@ -4,7 +4,7 @@
 
 config SENSORS_LIS3_SPI
 	tristate "STMicroeletronics LIS3LV02Dx three-axis digital accelerometer (SPI)"
-	depends on !ACPI && SPI_MASTER && INPUT
+	depends on SPI_MASTER && INPUT
 	select SENSORS_LIS3LV02D
 	default n
 	help

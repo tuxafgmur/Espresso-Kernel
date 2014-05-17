@@ -558,8 +558,6 @@ static void omap4_micd_set_rate(struct snd_soc_codec *codec)
 
 	idle = !wm8994->jack_mic;
 
-	dev_info(codec->dev, "omap4_micd_set_rate\n");
-
 	sysclk = snd_soc_read(codec, WM8994_CLOCKING_1);
 	if (sysclk & WM8994_SYSCLK_SRC)
 		sysclk = wm8994->aifclk[1];
@@ -619,7 +617,6 @@ static void omap4_jackdet(void *data)
 #endif
 
 	earAdc = wm8994->pdata->get_earjack_adc();
-	dev_info(wm1811->codec->dev, "!!earAdc : %d\n", earAdc);
 
 	/*
 	 * If the measurement is showing a high impedence we've got a
@@ -693,8 +690,6 @@ static void omap4_wm8994_start_fll1(struct snd_soc_dai *aif1_dai)
 {
 	int ret;
 
-	dev_info(aif1_dai->dev, "Moving to audio clocking settings\n");
-
 	/* Switch the FLL */
 	ret = snd_soc_dai_set_pll(aif1_dai,
 				  WM8994_FLL1,
@@ -762,8 +757,6 @@ static int omap4_wm8994_aif2_hw_params(struct snd_pcm_substream *substream,
 	int prate;
 	/* The source of fll is actually the mclk. */
 	int mclk;
-
-	pr_info("%s: enter\n", __func__);
 
 	prate = params_rate(params);
 	switch (prate) {
@@ -1001,8 +994,6 @@ static ssize_t reselect_jack_store(struct device *dev,
 
 	reg = snd_soc_read(codec, WM8958_MIC_DETECT_3);
 	if (reg == 0x402) {
-		dev_info(codec->dev, "Detected open circuit\n");
-
 		snd_soc_update_bits(codec, WM8958_MICBIAS2,
 				    WM8958_MICB2_DISCH, WM8958_MICB2_DISCH);
 		/* Enable debounce while removed */

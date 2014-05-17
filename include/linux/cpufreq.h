@@ -280,7 +280,7 @@ __ATTR(_name, _perm, show_##_name, NULL)
 
 #define cpufreq_freq_attr_rw(_name)		\
 static struct freq_attr _name =			\
-__ATTR(_name, 0644, show_##_name, store_##_name)
+__ATTR(_name, 0664, show_##_name, store_##_name)
 
 struct global_attr {
 	struct attribute attr;
@@ -296,7 +296,7 @@ __ATTR(_name, 0444, show_##_name, NULL)
 
 #define define_one_global_rw(_name)		\
 static struct global_attr _name =		\
-__ATTR(_name, 0644, show_##_name, store_##_name)
+__ATTR(_name, 0664, show_##_name, store_##_name)
 
 /*********************************************************************
  *                        CPUFREQ 2.6. INTERFACE                     *
@@ -352,6 +352,15 @@ extern struct cpufreq_governor cpufreq_gov_conservative;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVE)
 extern struct cpufreq_governor cpufreq_gov_interactive;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_interactive)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_LULZACTIVE)
+extern struct cpufreq_governor cpufreq_gov_lulzactive;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_lulzactive)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ)
+extern struct cpufreq_governor cpufreq_gov_lulzactiveq;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_lulzactiveq)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_PEGASUSQ)
+extern struct cpufreq_governor cpufreq_gov_pegasusq;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_pegasusq)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_HOTPLUG)
 extern struct cpufreq_governor cpufreq_gov_hotplug;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_hotplug)
@@ -366,8 +375,7 @@ extern struct cpufreq_governor cpufreq_gov_hotplug;
 
 struct cpufreq_frequency_table {
 	unsigned int	index;     /* any */
-	unsigned int	frequency; /* kHz - doesn't need to be in ascending
-				    * order */
+	unsigned int	frequency; /* kHz - doesn't need to be in ascending order */
 };
 
 int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy,

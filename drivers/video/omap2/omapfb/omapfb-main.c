@@ -58,6 +58,11 @@ struct fb_options {
 	int width;
 	int height;
 };
+
+#ifdef CONFIG_FB_OMAP2_VSYNC_SEND_UEVENTS
+static int i_event_mode = 1;
+#endif
+
 static int fb_opt[MAX_FB_COUNT*ELEMENT_COUNT] = {	-1, -1, -1,
 							-1, -1, -1,
 							-1, -1, -1,
@@ -705,14 +710,12 @@ int check_fb_var(struct fb_info *fbi, struct fb_var_screeninfo *var)
 	u32 w = 0, h = 0;
 
 	r = omapfb_mode_to_dss_mode(var, &mode);
-	if (r) {
+	if (r)
 		return r;
-	}
 
 	for (i = 0; i < ofbi->num_overlays; ++i) {
-		if ((ofbi->overlays[i]->supported_modes & mode) == 0) {
+		if ((ofbi->overlays[i]->supported_modes & mode) == 0)
 			return -EINVAL;
-		}
 	}
 
 	if (var->rotate > 3)
@@ -2292,20 +2295,51 @@ static ssize_t omapfb_vsync_time(struct device *dev,
 static DEVICE_ATTR(vsync_time, S_IRUGO, omapfb_vsync_time, NULL);
 #endif
 
+#ifdef CONFIG_FB_OMAP2_VSYNC_SEND_UEVENTS
+static ssize_t omapfb_vsync_mode_show(struct device *dev,
+		struct device_attribute *attr, char *buf)
+{
+	int t_mode;
+
+	t_mode = sprintf(buf, "%d\n", i_event_mode);
+
+	return t_mode;
+}
+
+ssize_t omapfb_vsync_mode_store(struct device *dev,
+		struct device_attribute *attr, const char *buf, size_t size)
+{
+	int t_mode;
+
+	if (kstrtoint(buf, 0, &t_mode)) {
+		pr_err("failed storing vsync_mode value\n");
+		return i_event_mode;
+	}
+	if (t_mode == 0 || t_mode == 1)
+		i_event_mode = t_mode;
+
+	return t_mode;
+}
+static DEVICE_ATTR(vsync_mode, S_IRUGO | S_IWUSR, omapfb_vsync_mode_show,
+		   omapfb_vsync_mode_store);
+#endif
+
 static void omapfb_send_vsync_work(struct work_struct *work)
 {
 	struct omapfb2_device *fbdev =
 		container_of(work, typeof(*fbdev), vsync_work);
 
 #ifdef CONFIG_FB_OMAP2_VSYNC_SEND_UEVENTS
-	char buf[64];
-	char *envp[2];
+	if (i_event_mode == 1) {
+		char buf[64];
+		char *envp[2];
 
-	snprintf(buf, sizeof(buf), "VSYNC=%llu",
-		ktime_to_ns(fbdev->vsync_timestamp));
-	envp[0] = buf;
-	envp[1] = NULL;
-	kobject_uevent_env(&fbdev->dev->kobj, KOBJ_CHANGE, envp);
+		snprintf(buf, sizeof(buf), "VSYNC=%llu",
+			ktime_to_ns(fbdev->vsync_timestamp));
+		envp[0] = buf;
+		envp[1] = NULL;
+		kobject_uevent_env(&fbdev->dev->kobj, KOBJ_CHANGE, envp);
+	}
 #endif
 
 #ifdef CONFIG_FB_OMAP2_VSYNC_SYSFS
@@ -2340,7 +2374,6 @@ int omapfb_enable_vsync(struct omapfb2_device *fbdev, enum omap_channel ch,
 		r = omap_dispc_unregister_isr(omapfb_vsync_isr, fbdev,
 				masks[ch]);
 	return r;
-
 }
 
 static int omapfb_probe(struct platform_device *pdev)
@@ -2468,6 +2501,14 @@ static int omapfb_probe(struct platform_device *pdev)
 	}
 #endif
 
+#ifdef CONFIG_FB_OMAP2_VSYNC_SEND_UEVENTS
+	r = device_create_file(fbdev->dev, &dev_attr_vsync_mode);
+	if (r) {
+		dev_err(fbdev->dev, "failed to add sysfs entries\n");
+		goto cleanup;
+	}
+#endif
+
 	INIT_WORK(&fbdev->vsync_work, omapfb_send_vsync_work);
 	return 0;
 
@@ -2482,11 +2523,7 @@ static int omapfb_remove(struct platform_device *pdev)
 {
 	struct omapfb2_device *fbdev = platform_get_drvdata(pdev);
 
-	/* FIXME: wait till completion of pending events */
-	/* TODO: terminate vsync thread */
-
 	omapfb_remove_sysfs(fbdev);
-
 	omapfb_free_resources(fbdev);
 
 	return 0;

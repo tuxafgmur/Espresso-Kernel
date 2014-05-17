@@ -115,7 +115,6 @@ config MACH_OMAP_GENERIC
 config MACH_OMAP2_TUSB6010
 	bool
 	depends on ARCH_OMAP2 && SOC_OMAP2420
-	default y if MACH_NOKIA_N8X0
 
 config MACH_OMAP_H4
 	bool "OMAP 2420 H4 board"
@@ -216,36 +215,6 @@ config MACH_OMAP_3430SDP
 	default y
 	select OMAP_PACKAGE_CBB
 
-config MACH_NOKIA_N800
-       bool
-
-config MACH_NOKIA_N810
-       bool
-
-config MACH_NOKIA_N810_WIMAX
-       bool
-
-config MACH_NOKIA_N8X0
-	bool "Nokia N800/N810"
-	depends on SOC_OMAP2420
-	default y
-	select OMAP_PACKAGE_ZAC
-	select MACH_NOKIA_N800
-	select MACH_NOKIA_N810
-	select MACH_NOKIA_N810_WIMAX
-
-config MACH_NOKIA_RM680
-	bool "Nokia RM-680 board"
-	depends on ARCH_OMAP3
-	default y
-	select OMAP_PACKAGE_CBB
-
-config MACH_NOKIA_RX51
-	bool "Nokia RX-51 board"
-	depends on ARCH_OMAP3
-	default y
-	select OMAP_PACKAGE_CBB
-
 config MACH_OMAP_ZOOM2
 	bool "OMAP3 Zoom2 board"
 	depends on ARCH_OMAP3
@@ -340,23 +309,6 @@ config MACH_OMAP_BLAZE
          select OMAP_REBOOT_REASON
          select OMAP_RAM_CONSOLE
          select CDC_TCXO
-
-config MACH_OMAP4_PANDA
-	bool "OMAP4 Panda Board"
-	default y
-	depends on ARCH_OMAP4
-	select OMAP_PACKAGE_CBL
-	select OMAP_PACKAGE_CBS
-	select REGULATOR_FIXED_VOLTAGE
-
-config MACH_TUNA
-	bool "Tuna Board"
-	default y
-	depends on ARCH_OMAP4
-	select OMAP_PACKAGE_CBL
-	select OMAP_PACKAGE_CBS
-	select REGULATOR_FIXED_VOLTAGE
-	select OMAP_TPS6236X
 
 config OMAP3_EMU
 	bool "OMAP3 debugging peripherals"
@@ -459,10 +411,33 @@ config OMAP4_HSOTG_ED_CORRECTION
 	  Select this option to overrive HSOTG PHY settings in
 	  order to improve Eye Diagramm. On 4430 CPUs this should
 	  improve Eye Diagram at least 8%.
+
+config OMAP4430_TOP_CPU
+	bool "Enables OMAP 4430 CPU high frequency"
+	depends on ARCH_OMAP4
+	default y
+	help
+	  This config, set the CPU frequency in the boot at 1200 MHz,
+	  allowing raise ir later until overclock limit.
+
+config OMAP4430_TOP_GPU
+	bool "Enables OMAP 4430 GPU high frequency"
+	depends on ARCH_OMAP4
+	default y
+	help
+	  This config, set the GPU frequency in the boot at 384 MHz,
+	  allowing raise ir later until overclock limit.
+
+config OMAP4_VOLTAGE_LEVEL
+	bool "Enables OMAP4 Voltage level changes"
+ 	depends on ARCH_OMAP4
+	default n
+	help
+	   This config allows you to change the voltages
+	   used for a given frequency
+
 endmenu
 
 endif
 
 source arch/arm/mach-omap2/Kconfig.sec
-source arch/arm/mach-omap2/Kconfig.chn
-source arch/arm/mach-omap2/Kconfig.mid

@@ -16,7 +16,6 @@ config POWER_SUPPLY_DEBUG
 
 config PDA_POWER
 	tristate "Generic PDA/phone power driver"
-	depends on !S390
 	help
 	  Say Y here to enable generic power driver for PDAs and phones with
 	  one or two external power supplies (AC/USB) connected to main and
@@ -101,12 +100,6 @@ config CHARGER_BQ2415x
 	depends on TWL6030_BCI_BATTERY
 	help
 	  Say Y to enable support for BQ24156 battery charger.
-
-config BATTERY_OLPC
-	tristate "One Laptop Per Child battery"
-	depends on X86_32 && OLPC
-	help
-	  Say Y to enable support for the battery on the OLPC laptop.
 
 config BATTERY_TOSA
 	tristate "Sharp SL-6000 (tosa) battery"
@@ -262,12 +255,6 @@ config REMOVAL_BATTERY_MANAGER
 	  Charging(Discharging) by temperature, limit timer
 	  and fully charged.
 
-config BATTERY_Z2
-	tristate "Z2 battery driver"
-	depends on I2C && MACH_ZIPIT2
-	help
-	  Say Y to include support for the battery on the Zipit Z2.
-
 config BATTERY_S3C_ADC
 	tristate "Battery driver for Samsung ADC based monitoring"
 	depends on S3C_ADC
@@ -279,17 +266,6 @@ config CHARGER_PCF50633
 	depends on MFD_PCF50633
 	help
 	 Say Y to include support for NXP PCF50633 Main Battery Charger.
-
-config BATTERY_JZ4740
-	tristate "Ingenic JZ4740 battery"
-	depends on MACH_JZ4740
-	depends on MFD_JZ4740_ADC
-	help
-	  Say Y to enable support for the battery on Ingenic JZ4740 based
-	  boards.
-
-	  This driver can be build as a module. If so, the module will be
-	  called jz4740-battery.
 
 config BATTERY_INTEL_MID
 	tristate "Battery driver for Intel MID platforms"

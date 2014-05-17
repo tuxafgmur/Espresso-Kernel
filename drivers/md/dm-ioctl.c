@@ -1523,6 +1523,14 @@ static int copy_params(struct dm_ioctl __user *user, struct dm_ioctl **param)
 	if (copy_from_user(dmi, user, tmp.data_size))
 		goto bad;
 
+	/*
+	 * Abort if something changed the ioctl data while it was being copied.
+	 */
+	if (dmi->data_size != tmp.data_size) {
+		DMERR("rejecting ioctl: data size modified while processing parameters");
+		goto bad;
+	}
+
 	/* Wipe the user buffer so we do not return it to userspace */
 	if (secure_data && clear_user(user, tmp.data_size))
 		goto bad;
@@ -1695,9 +1703,8 @@ int __init dm_interface_init(void)
 		return r;
 	}
 
-	DMINFO("%d.%d.%d%s initialised: %s", DM_VERSION_MAJOR,
-	       DM_VERSION_MINOR, DM_VERSION_PATCHLEVEL, DM_VERSION_EXTRA,
-	       DM_DRIVER_EMAIL);
+	DMINFO("%d.%d.%d%s initialised", DM_VERSION_MAJOR,
+	       DM_VERSION_MINOR, DM_VERSION_PATCHLEVEL, DM_VERSION_EXTRA);
 	return 0;
 }
 

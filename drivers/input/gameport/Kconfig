@@ -39,16 +39,6 @@ config GAMEPORT_L4
 	  To compile this driver as a module, choose M here: the
 	  module will be called lightning.
 
-config GAMEPORT_EMU10K1
-	tristate "SB Live and Audigy gameport support"
-	depends on PCI
-	help
-	  Say Y here if you have a SoundBlaster Live! or SoundBlaster
-	  Audigy card and want to use its gameport.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called emu10k1-gp.
-
 config GAMEPORT_FM801
 	tristate "ForteMedia FM801 gameport support"
 	depends on PCI

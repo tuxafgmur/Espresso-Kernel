@@ -203,3 +203,6 @@ sed -n -e '/^\#define/ s/[^_]*__NR_\([^[:space:]]*\).*/\
 \#warning syscall \1 not implemented\
 \#endif/p' $1
 }
+
+(ignore_list && syscall_list $(dirname $0)/../arch/x86/include/asm/unistd_32.h) | \
+$* -E -x c - > /dev/null

@@ -159,9 +159,7 @@ static void __init sec_common_set_panic_string(void)
 #if defined(CONFIG_ARCH_OMAP3)
 	cpu_type = cpu_is_omap34xx() ? "OMAP3430" : "OMAP3630";
 #elif defined(CONFIG_ARCH_OMAP4)
-	cpu_type = cpu_is_omap443x() ? "OMAP4430" :
-		   cpu_is_omap446x() ? "OMAP4460" :
-		   cpu_is_omap447x() ? "OMAP4470" : "Unknown";
+	cpu_type = cpu_is_omap443x() ? "OMAP4430" : "Unknown";
 #endif /* CONFIG_ARCH_OMAP* */
 
 	snprintf(sec_panic_string, ARRAY_SIZE(sec_panic_string),
@@ -420,6 +418,9 @@ static int sec_common_update_reboot_reason(char mode, const char *cmd)
 	case 'j':		/* reboot mode = shutdown with JIG */
 		reason = REBOOTMODE_SHUTDOWN;
 		rebootflag = "POFF";
+		break;
+	case 'b':		/* reboot mode = bootloader */
+		reason = REBOOTMODE_DOWNLOAD;
 		break;
 	case 'd':		/* reboot mode = download */
 		reason = REBOOTMODE_DOWNLOAD;

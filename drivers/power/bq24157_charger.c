@@ -127,8 +127,7 @@ static int bq2415x_read_block(struct bq2415x_device_info *di, u8 *value,
 		count++;
 		ret = i2c_transfer(di->client->adapter, msg, 2);
 		if (ret != 2)
-			dev_err(di->dev,
-				"i2c_write failed to transfer all messages\n");
+			dev_err(di->dev, "i2c_write failed to transfer all messages\n");
 		} while (ret != 2 && count < 0xff);
 
 	if (ret != 2) {

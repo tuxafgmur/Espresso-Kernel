@@ -434,8 +434,8 @@ ppa_cp15_cpu1_configure:
 	/*
 	 * In HS devices CPU0's CP15 is configured at wakeup by PPA, CPU1 must
 	 * call PPA to configure it and CPU0 must be online for any PPA API to
-	 * work. In 4430 devices CPU1 this call also enables the access to SMP
-	 * bit, on 4460 devices, CPU1 will have SMP bit access by default.
+	 * work.
+	 * In 4430 devices CPU1 this call also enables the access to SMP bit
 	 */
 	mov	r0, #PPA_SERVICE_DEFAULT_POR_NS_SMP
 	adr	r3, ppa_zero_params		@ Pointer to parameters

@@ -551,7 +551,6 @@ int dss_check_overlay(struct omap_overlay *ovl, struct omap_dss_device *dssdev)
 	info = &ovl->info;
 
 	if (info->paddr == 0) {
-		DSSDBG("check_overlay failed: paddr 0\n");
 		return -EINVAL;
 	}
 
@@ -565,13 +564,6 @@ int dss_check_overlay(struct omap_overlay *ovl, struct omap_dss_device *dssdev)
 		dh = wb_info.height;
 	} else
 		dssdev->driver->get_resolution(dssdev, &dw, &dh);
-
-	DSSDBG("check_overlay %d: (%d,%d %dx%d -> %dx%d) disp (%dx%d)\n",
-			ovl->id,
-			info->pos_x, info->pos_y,
-			info->width, info->height,
-			info->out_width, info->out_height,
-			dw, dh);
 
 	if ((ovl->caps & OMAP_DSS_OVL_CAP_SCALE) == 0) {
 		outw = info->width;
@@ -590,26 +582,20 @@ int dss_check_overlay(struct omap_overlay *ovl, struct omap_dss_device *dssdev)
 
 	if (!info->wb_source) {
 		if (dw < info->pos_x + outw) {
-			DSSDBG("check_overlay failed 1: %d < %d + %d\n",
-					dw, info->pos_x, outw);
 			return -EINVAL;
 		}
 
 		if (dh < info->pos_y + outh) {
-			DSSDBG("check_overlay failed 2: %d < %d + %d\n",
-					dh, info->pos_y, outh);
 			return -EINVAL;
 		}
 	}
 
 	if ((ovl->supported_modes & info->color_mode) == 0) {
-		DSSERR("overlay doesn't support mode %d\n", info->color_mode);
 		return -EINVAL;
 	}
 
 	if ((info->zorder < OMAP_DSS_OVL_ZORDER_0) ||
 			(info->zorder > OMAP_DSS_OVL_ZORDER_3)) {
-		DSSERR("overlay doesn't support zorder %d\n", info->zorder);
 		return -EINVAL;
 	}
 
@@ -625,7 +611,6 @@ int dss_check_overlay(struct omap_overlay *ovl, struct omap_dss_device *dssdev)
 		if (dssdev->type == OMAP_DISPLAY_TYPE_DSI &&
 			dssdev->phy.dsi.type == OMAP_DSS_DSI_TYPE_CMD_MODE &&
 			cpu_is_omap44xx())  {
-			DSSWARN("too small frame on VID%d dropped\n", ovl->id);
 			return -EINVAL;
 		}
 	return 0;
@@ -649,13 +634,10 @@ static int omap_dss_set_manager(struct omap_overlay *ovl,
 		return -EINVAL;
 
 	if (ovl->manager) {
-		DSSERR("overlay '%s' already has a manager '%s'\n",
-				ovl->name, ovl->manager->name);
 		return -EINVAL;
 	}
 
 	if (ovl->info.enabled) {
-		DSSERR("overlay has to be disabled to change the manager\n");
 		return -EINVAL;
 	}
 
@@ -683,12 +665,10 @@ static int omap_dss_unset_manager(struct omap_overlay *ovl)
 	int r;
 
 	if (!ovl->manager) {
-		DSSERR("failed to detach overlay: manager not set\n");
 		return -EINVAL;
 	}
 
 	if (ovl->info.enabled) {
-		DSSERR("overlay has to be disabled to unset the manager\n");
 		return -EINVAL;
 	}
 

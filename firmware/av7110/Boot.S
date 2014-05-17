@@ -82,7 +82,7 @@ wait:	ldrh	r1, [r4]        // wait for flag!=0
 	moveq	r0, #2          // if 0, set flag to 2, else signal
 	strh	r0, [r4]        // that buffer is accepted by setting to 0
         beq wait
-
+	
 copyloop:
 	ldmia	r1!, {r5-r12}
 	stmia	r3!, {r5-r12}
@@ -98,6 +98,7 @@ copyloop:
 // destaddr at 0x2c0003fc
 
 flag:	.word	0x2c0003f8
+
 
 // buffer 1 is at 0x2c000400, buffer 2 at 0x2c001000
 

@@ -119,11 +119,9 @@ static struct clockdomain *emif_clkdm, *mpuss_clkdm;
  * To save power during both idle/suspend following approach taken:
  * 1) Enable WA during boot-up.
  * 2) Disable WA while attempting suspend and enable during resume.
- *
- * CDDS no: OMAP4460-1.0BUG00291 (OMAP official errata ID yet to be available).
  */
-#define OMAP4_PM_ERRATUM_LPDDR_CLK_IO_i736		BIT(5)
-#define LPDDR_WD_PULL_DOWN				0x02
+#define OMAP4_PM_ERRATUM_LPDDR_CLK_IO_i736	BIT(5)
+#define LPDDR_WD_PULL_DOWN			0x02
 
 /*
  * The OFF mode isn't fully supported for OMAP4430GP ES2.0 - ES2.2
@@ -204,8 +202,7 @@ void omap4_trigger_ioctrl(void)
 				OMAP4430_WUCLK_STATUS_SHIFT) == 1),
 			MAX_IOPAD_LATCH_TIME, i);
 	if (i == MAX_IOPAD_LATCH_TIME)
-		pr_err("%s: Max IO latch time reached for WUCLKIN enable\n",
-			__func__);
+		pr_err("%s: Max IO latch time reached for WUCLKIN enable\n", __func__);
 
 	/* Trigger WUCLKIN disable */
 	omap4_prminst_rmw_inst_reg_bits(OMAP4430_WUCLK_CTRL_MASK, 0x0,
@@ -219,8 +216,7 @@ void omap4_trigger_ioctrl(void)
 				OMAP4430_WUCLK_STATUS_SHIFT) == 0),
 			MAX_IOPAD_LATCH_TIME, i);
 	if (i == MAX_IOPAD_LATCH_TIME)
-		pr_err("%s: Max IO latch time reached for WUCLKIN disable\n",
-			__func__);
+		pr_err("%s: Max IO latch time reached for WUCLKIN disable\n", __func__);
 
 	return;
 }
@@ -271,8 +267,7 @@ void omap4_enter_sleep(unsigned int cpu, unsigned int power_state, bool suspend)
 			/* Enable MPU-EMIF Static Dependency around WFI */
 			if (clkdm_add_wkdep(mpuss_clkdm, emif_clkdm))
 				pr_err("%s: Failed to Add wkdep %s->%s\n",
-					__func__, mpuss_clkdm->name,
-					emif_clkdm->name);
+					__func__, mpuss_clkdm->name, emif_clkdm->name);
 			else
 				staticdep_wa_applied = 1;
 
@@ -402,8 +397,7 @@ abort_device_off:
 		/* Disable MPU-EMIF Static Dependency on WFI exit */
 		else if (clkdm_del_wkdep(mpuss_clkdm, emif_clkdm))
 			pr_err("%s: Failed to remove wkdep %s->%s\n",
-			__func__, mpuss_clkdm->name,
-			emif_clkdm->name);
+			__func__, mpuss_clkdm->name, emif_clkdm->name);
 		/* Configures MEMIF clockdomain back to HW_AUTO */
 		clkdm_allow_idle(emif_clkdm);
 	}
@@ -426,8 +420,7 @@ static void _print_wakeirq(int irq)
 	else if (!desc || !desc->action || !desc->action->name)
 		pr_info("Resume caused by IRQ %d\n", irq);
 	else
-		pr_info("Resume caused by IRQ %d, %s\n", irq,
-			desc->action->name);
+		pr_info("Resume caused by IRQ %d, %s\n", irq, desc->action->name);
 }
 
 static void _print_gpio_wakeirq(int irq)
@@ -512,8 +505,7 @@ static void _print_gpio_wakeirq(int irq)
 	goto out;
 
 punt:
-	pr_info("Resume caused by IRQ %d, unknown GPIO%d interrupt\n", irq,
-		bank + 1);
+	pr_info("Resume caused by IRQ %d, unknown GPIO%d interrupt\n", irq, bank + 1);
 
 out:
 	if (restoremod)
@@ -559,8 +551,7 @@ static void _print_prcm_wakeirq(int irq)
 
 	if (prcm_irqs1 & ~OMAP4430_IO_ST_MASK || !iopad_wake_found ||
 	    prcm_irqs2)
-		pr_info("Resume caused by IRQ %d, prcm: 0x%x 0x%x\n", irq,
-			prcm_irqs1, prcm_irqs2);
+		pr_info("Resume caused by IRQ %d, prcm: 0x%x 0x%x\n", irq, prcm_irqs1, prcm_irqs2);
 }
 
 static void omap4_print_wakeirq(void)
@@ -1430,8 +1421,7 @@ static void __init omap4_pm_setup_errata(void)
 static int __init omap4_pm_init(void)
 {
 	int ret = 0;
-	struct clockdomain *l3_1_clkdm, *l4wkup, *sdma_clkdm, *l3_init_clkdm, \
-								*l3_gfx_clkdm;
+	struct clockdomain *l3_1_clkdm, *l4wkup;
 	struct clockdomain *ducati_clkdm, *l3_2_clkdm;
 	struct clockdomain *l4_per, *l4_cfg, *ivahd_clkdm;
 
@@ -1475,14 +1465,6 @@ static int __init omap4_pm_init(void)
 	 * The hardware recommendation is to keep above dependencies.
 	 * Without this system locks up or randomly crashesh.
 	 *
-	 * On 4460:
-	 * The dynamic dependency between MPUSS -> MEMIF doesn't work
-	 * as expected if MPUSS OSWR is enabled in idle.
-	 * The dynamic dependency between MPUSS -> L4 PER & CFG
-	 * doesn't work as expected. The hardware recommendation is
-	 * to keep above dependencies. Without this system locks up or
-	 * randomly crashes.
-	 *
 	 * On 44xx:
 	 * The L4 wakeup depedency is added to workaround the OCP sync hardware
 	 * BUG with 32K synctimer which lead to incorrect timer value read
@@ -1499,96 +1481,31 @@ static int __init omap4_pm_init(void)
 	l4wkup = clkdm_lookup("l4_wkup_clkdm");
 	ivahd_clkdm = clkdm_lookup("ivahd_clkdm");
 
-	sdma_clkdm = clkdm_lookup("l3_dma_clkdm");
-	l3_init_clkdm = clkdm_lookup("l3_init_clkdm");
-
-	l3_gfx_clkdm = clkdm_lookup("l3_gfx_clkdm");
-
 	if ((!mpuss_clkdm) || (!emif_clkdm) || (!l3_1_clkdm) || (!l4wkup) ||
-		(!l3_2_clkdm) || (!ducati_clkdm) || (!l4_per) || \
-						(!l4_cfg) || (!l3_gfx_clkdm))
+		(!l3_2_clkdm) || (!ducati_clkdm) || (!l4_per) || (!l4_cfg))
 		goto err2;
 
 	/* if we cannot ever enable static dependency. */
 	if (is_pm44xx_erratum(MPU_EMIF_NO_DYNDEP_i688))
 		ret |= clkdm_add_wkdep(mpuss_clkdm, emif_clkdm);
 
-	if (cpu_is_omap443x()) {
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l3_1_clkdm);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l3_2_clkdm);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l3_1_clkdm);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l3_2_clkdm);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4_per);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4_cfg);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l4_per);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l4_cfg);
-		ret |= clkdm_add_wkdep(ducati_clkdm, emif_clkdm);
-		ret |= clkdm_add_wkdep(ivahd_clkdm, emif_clkdm);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4wkup);
-		ret |= clkdm_add_wkdep(l3_gfx_clkdm, emif_clkdm);
+	ret |= clkdm_add_wkdep(mpuss_clkdm, l3_1_clkdm);
+	ret |= clkdm_add_wkdep(mpuss_clkdm, l3_2_clkdm);
+	ret |= clkdm_add_wkdep(ducati_clkdm, l3_1_clkdm);
+	ret |= clkdm_add_wkdep(ducati_clkdm, l3_2_clkdm);
+	ret |= clkdm_add_wkdep(mpuss_clkdm, l4_per);
+	ret |= clkdm_add_wkdep(mpuss_clkdm, l4_cfg);
+	ret |= clkdm_add_wkdep(ducati_clkdm, l4_per);
+	ret |= clkdm_add_wkdep(ducati_clkdm, l4_cfg);
+	ret |= clkdm_add_wkdep(ducati_clkdm, emif_clkdm);
+	ret |= clkdm_add_wkdep(ivahd_clkdm, emif_clkdm);
+	ret |= clkdm_add_wkdep(mpuss_clkdm, l4wkup);
 
-		if (ret) {
-			pr_err("Failed to add MPUSS -> L3/EMIF, DUCATI -> L3"
-			       " and MPUSS -> L4* wakeup dependency\n");
-			goto err2;
-		}
-		pr_info("OMAP4 PM: Static dependency added between"
-			" MPUSS <-> EMIF, MPUSS <-> L4_PER/CFG"
-			" MPUSS <-> L3_MAIN_1.\n");
-		pr_info("OMAP4 PM: Static dependency added between"
-			" DUCATI <-> L4_PER/CFG and DUCATI <-> L3.\n");
-	} else if (cpu_is_omap446x() || cpu_is_omap447x()) {
-		/*
-		 * Static dependency between mpuss and emif can only be
-		 * disabled if OSWR is disabled to avoid a HW bug that occurs
-		 * when mpuss enters OSWR
-		 */
-		/*ret |= clkdm_add_wkdep(mpuss_clkdm, emif_clkdm);*/
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4_per);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4_cfg);
-
-		/* There appears to be a problem between the MPUSS and L3_1 */
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l3_1_clkdm);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l3_2_clkdm);
-		ret |= clkdm_add_wkdep(mpuss_clkdm, l4wkup);
-
-		/* There appears to be a problem between the Ducati and L3/L4 */
-		ret |= clkdm_add_wkdep(ducati_clkdm, l3_1_clkdm);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l3_2_clkdm);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l4_per);
-		ret |= clkdm_add_wkdep(ducati_clkdm, l4_cfg);
-
-		/* Adding all SDMA static dependencies and keeping
-		   only L3_2, before we clear.
-		*/
-		ret |=  clkdm_add_wkdep(sdma_clkdm, emif_clkdm);
-		ret |=  clkdm_add_wkdep(sdma_clkdm, l3_1_clkdm);
-		ret |=  clkdm_add_wkdep(sdma_clkdm, l3_init_clkdm);
-		ret |=  clkdm_add_wkdep(sdma_clkdm, l4wkup);
-		ret |=  clkdm_add_wkdep(sdma_clkdm, l4_per);
-		ret |=  clkdm_add_wkdep(sdma_clkdm, l4_cfg);
-
-		if (ret) {
-			pr_err("Failed to add MPUSS and DUCATI -> "
-			       "L4* and L3_1 wakeup dependency\n");
-			goto err2;
-		}
-		pr_info("OMAP4 PM: Static dependency added between"
-			" MPUSS and DUCATI <-> L4_PER/CFG and L3_1.\n");
-		/* clearing all SDMA static dependencies and keeping
-		   only L3_2.
-		*/
-		ret  =  clkdm_del_wkdep(sdma_clkdm, emif_clkdm);
-		ret |=  clkdm_del_wkdep(sdma_clkdm, l3_1_clkdm);
-		ret |=  clkdm_del_wkdep(sdma_clkdm, l3_init_clkdm);
-		ret |=  clkdm_del_wkdep(sdma_clkdm, l4wkup);
-		ret |=  clkdm_del_wkdep(sdma_clkdm, l4_per);
-		ret |=  clkdm_del_wkdep(sdma_clkdm, l4_cfg);
-
-		if (ret)
-			pr_err("Failed to Remove wkdep For SDMA\n");
+	if (ret) {
+		pr_err("Failed to add MPUSS -> L3/EMIF, DUCATI -> L3"
+			" and MPUSS -> L4* wakeup dependency\n");
+		goto err2;
 	}
-
 	(void) clkdm_for_each(clkdms_setup, NULL);
 
 	/* Get handles for VDD's for enabling/disabling SR */
@@ -1658,11 +1575,6 @@ static int __init omap4_pm_init(void)
 		unsigned int rate;
 
 		if (!oh || !oh->od || !oh->main_clk) {
-			pr_warn("%s: no hwmod or odev or clk for %s, [%d] "
-				"oh=%p od=%p clk=%p cannot add OPPs.\n",
-				__func__, init_devices[i], i, oh,
-				(oh) ? oh->od : NULL,
-				(oh) ? oh->main_clk :  NULL);
 			continue;
 		}
 

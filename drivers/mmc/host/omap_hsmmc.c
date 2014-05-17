@@ -43,8 +43,6 @@
 #include <plat/cpu.h>
 #include <plat/omap-pm.h>
 
-#define DEBUG_PRINT 0
-
 /* OMAP HSMMC Host Controller Registers */
 #define OMAP_HSMMC_SYSCONFIG	0x0010
 #define OMAP_HSMMC_SYSSTATUS	0x0014
@@ -335,21 +333,13 @@ static int omap_hsmmc_1_set_power(struct device *dev, int slot, int power_on,
 
 	if (power_on) {
 		if (host->external_ldo) {
-#if DEBUG_PRINT
-			printk(KERN_INFO "%s LDO enable\n",
-				mmc_hostname(host->mmc));
-#endif
 			gpio_set_value(host->gpio_for_ldo, 1);
-			}
+		}
 		else
 			ret = mmc_regulator_set_ocr(host->mmc, host->vcc, vdd);
 		}
 	else {
 		if (host->external_ldo) {
-#if DEBUG_PRINT
-			printk(KERN_INFO "%s LDO Disable\n",
-				mmc_hostname(host->mmc));
-#endif
 			gpio_set_value(host->gpio_for_ldo, 0);
 			}
 		else
@@ -375,9 +365,6 @@ static int omap_hsmmc_2_set_power(struct device *dev, int slot, int power_on,
 		mmc_slot(host).before_set_reg(dev, slot, power_on, vdd);
 
 	if (power_on) {
-#if DEBUG_PRINT
-		printk(KERN_INFO "%s LDO enable\n", mmc_hostname(host->mmc));
-#endif
 		if (host->external_ldo)
 			gpio_set_value(host->gpio_for_ldo, 1);
 		else {
@@ -386,9 +373,6 @@ static int omap_hsmmc_2_set_power(struct device *dev, int slot, int power_on,
 				ret = regulator_enable(host->vcc_aux);
 		}
 	} else {
-#if DEBUG_PRINT
-		printk(KERN_INFO "%s LDO Disable\n", mmc_hostname(host->mmc));
-#endif
 		if (host->external_ldo)
 			gpio_set_value(host->gpio_for_ldo, 0);
 		else {
@@ -610,7 +594,6 @@ static int omap_hsmmc_reg_get(struct omap_hsmmc_host *host)
 				regulator_disable(reg);
 			}
 		}
-		/*add delay to stabilize power*/
 		mdelay(50);
 	}
 
@@ -1291,9 +1274,6 @@ static void omap_hsmmc_do_irq(struct omap_hsmmc_host *host, int status)
 #endif
 
 	if (status & ERR) {
-
-		dev_warn(mmc_dev(host->mmc), "Status=%x cmd =%d\n",
-		status, (OMAP_HSMMC_READ(host->base, CMD) & 0x3F000000)>>24);
 
 #ifdef CONFIG_MMC_DEBUG
 		omap_hsmmc_report_irq(host, status);
@@ -2593,9 +2573,7 @@ static int __init omap_hsmmc_probe(struct platform_device *pdev)
 
 	spin_lock_init(&host->irq_lock);
 
-	/* wake lock init */
-	wake_lock_init(&host->wake_lock,
-		WAKE_LOCK_SUSPEND, "omaphsmmc_wake_lock");
+	wake_lock_init(&host->wake_lock, WAKE_LOCK_SUSPEND, "omaphsmmc_wake_lock");
 
 #ifdef CONFIG_MMC_SOFTWARE_TIMEOUT
 	init_timer(&host->sw_timer);

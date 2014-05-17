@@ -1,7 +1,6 @@
 /*
  * Contiguous Memory Allocator for DMA mapping framework
  * Copyright (c) 2010-2011 by Samsung Electronics.
- * Written by:
  *	Marek Szyprowski <m.szyprowski@samsung.com>
  *	Michal Nazarewicz <mina86@mina86.com>
  *
@@ -65,7 +64,6 @@ static long size_cmdline = -1;
 
 static int __init early_cma(char *p)
 {
-	pr_debug("%s(%s)\n", __func__, p);
 	size_cmdline = memparse(p, &p);
 	return 0;
 }
@@ -111,8 +109,6 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
 {
 	unsigned long selected_size = 0;
 
-	pr_debug("%s(limit %08lx)\n", __func__, (unsigned long)limit);
-
 	if (size_cmdline != -1) {
 		selected_size = size_cmdline;
 	} else {
@@ -128,9 +124,6 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
 	}
 
 	if (selected_size) {
-		pr_debug("%s: reserving %ld MiB for global area\n", __func__,
-			 selected_size / SZ_1M);
-
 		dma_declare_contiguous(NULL, selected_size, 0, limit);
 	}
 };
@@ -166,8 +159,6 @@ static __init struct cma *cma_create_area(unsigned long base_pfn,
 	struct cma *cma;
 	int ret = -ENOMEM;
 
-	pr_debug("%s(base %08lx, count %lx)\n", __func__, base_pfn, count);
-
 	cma = kmalloc(sizeof *cma, GFP_KERNEL);
 	if (!cma)
 		return ERR_PTR(-ENOMEM);
@@ -183,7 +174,6 @@ static __init struct cma *cma_create_area(unsigned long base_pfn,
 	if (ret)
 		goto error;
 
-	pr_debug("%s: returned %p\n", __func__, (void *)cma);
 	return cma;
 
 error:
@@ -204,8 +194,6 @@ static int __init cma_init_reserved_areas(void)
 {
 	struct cma_reserved *r = cma_reserved;
 	unsigned i = cma_reserved_count;
-
-	pr_debug("%s()\n", __func__);
 
 	for (; i; --i, ++r) {
 		struct cma *cma;
@@ -238,10 +226,6 @@ int __init dma_declare_contiguous(struct device *dev, unsigned long size,
 {
 	struct cma_reserved *r = &cma_reserved[cma_reserved_count];
 	unsigned long alignment;
-
-	pr_debug("%s(size %lx, base %08lx, limit %08lx)\n", __func__,
-		 (unsigned long)size, (unsigned long)base,
-		 (unsigned long)limit);
 
 	/* Sanity checks */
 	if (cma_reserved_count == ARRAY_SIZE(cma_reserved)) {
@@ -291,8 +275,6 @@ int __init dma_declare_contiguous(struct device *dev, unsigned long size,
 	r->size = size;
 	r->dev = dev;
 	cma_reserved_count++;
-	pr_info("CMA: reserved %ld MiB at %08lx\n", size / SZ_1M,
-		(unsigned long)base);
 
 	/* Architecture specific contiguous memory fixup. */
 	dma_contiguous_early_fixup(base, size);
@@ -321,9 +303,6 @@ static struct page *__dma_alloc_from_contiguous(struct device *dev, int count,
 	if (align > CONFIG_CMA_ALIGNMENT)
 		align = CONFIG_CMA_ALIGNMENT;
 
-	pr_debug("%s(cma %p, count %d, align %d)\n", __func__, (void *)cma,
-		 count, align);
-
 	if (!count)
 		return NULL;
 
@@ -350,8 +329,6 @@ static struct page *__dma_alloc_from_contiguous(struct device *dev, int count,
 		} else if (ret != -EBUSY && ret != -EAGAIN) {
 			goto error;
 		}
-		pr_debug("%s(): memory range at %p is busy, retrying\n",
-			 __func__, pfn_to_page(pfn));
 		/* try again with a bit different memory target */
 
 		/* FIXME: woojong.yoo@samsung.com
@@ -363,7 +340,6 @@ static struct page *__dma_alloc_from_contiguous(struct device *dev, int count,
 
 	mutex_unlock(&cma_mutex);
 
-	pr_debug("%s(): returned %p\n", __func__, pfn_to_page(pfn));
 	return pfn_to_page(pfn);
 error:
 	pr_err("%s(): returned error (%d)\n", __func__, ret);
@@ -392,9 +368,6 @@ static void do_dma_prepare_alloc(struct work_struct *work)
 
 	ctx->result = __dma_alloc_from_contiguous(ctx->dev, ctx->count,
 			ctx->align);
-	printk(KERN_INFO "%s[%d]: alloc %d pages for dev %s %s\n",
-		__func__, __LINE__, ctx->count, dev_name(ctx->dev),
-		ctx->result ? "succeeded" : "failed");
 }
 
 /**
@@ -494,12 +467,9 @@ bool dma_release_from_contiguous(struct device *dev, struct page *pages,
 	if (!cma || !pages)
 		return false;
 
-	pr_debug("%s(page %p)\n", __func__, (void *)pages);
-
 	pfn = page_to_pfn(pages);
 
 	if (pfn < cma->base_pfn || pfn >= cma->base_pfn + cma->count) {
-		pr_info("%s : return false\n", __func__);
 		return false;
 	}
 

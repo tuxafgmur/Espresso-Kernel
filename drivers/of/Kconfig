@@ -9,7 +9,7 @@ menu "Device Tree and Open Firmware support"
 
 config PROC_DEVICETREE
 	bool "Support for device tree in /proc"
-	depends on PROC_FS && !SPARC
+	depends on PROC_FS
 	help
 	  This option adds a device-tree directory under /proc which contains
 	  an image of the device tree that the kernel copies from Open
@@ -32,24 +32,22 @@ config OF_DYNAMIC
 
 config OF_ADDRESS
 	def_bool y
-	depends on !SPARC
 
 config OF_IRQ
 	def_bool y
-	depends on !SPARC
 
 config OF_DEVICE
 	def_bool y
 
 config OF_GPIO
 	def_bool y
-	depends on GPIOLIB && !SPARC
+	depends on GPIOLIB
 	help
 	  OpenFirmware GPIO accessors
 
 config OF_I2C
 	def_tristate I2C
-	depends on I2C && !SPARC
+	depends on I2C
 	help
 	  OpenFirmware I2C accessors
 
@@ -59,7 +57,7 @@ config OF_NET
 
 config OF_SPI
 	def_tristate SPI
-	depends on SPI && !SPARC
+	depends on SPI
 	help
 	  OpenFirmware SPI accessors
 
@@ -68,11 +66,5 @@ config OF_MDIO
 	depends on PHYLIB
 	help
 	  OpenFirmware MDIO bus (Ethernet PHY) accessors
-
-config OF_PCI
-	def_tristate PCI
-	depends on PCI && (PPC || MICROBLAZE || X86)
-	help
-	  OpenFirmware PCI bus accessors
 
 endmenu # OF

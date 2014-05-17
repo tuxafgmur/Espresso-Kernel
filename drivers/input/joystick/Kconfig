@@ -205,34 +205,6 @@ config JOYSTICK_ZHENHUA
 	  To compile this driver as a module, choose M here: the
 	  module will be called zhenhua.
 
-config JOYSTICK_DB9
-	tristate "Multisystem, Sega Genesis, Saturn joysticks and gamepads"
-	depends on PARPORT
-	help
-	  Say Y here if you have a Sega Master System gamepad, Sega Genesis
-	  gamepad, Sega Saturn gamepad, or a Multisystem -- Atari, Amiga,
-	  Commodore, Amstrad CPC joystick connected to your parallel port.
-	  For more information on how to use the driver please read
-	  <file:Documentation/input/joystick-parport.txt>.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called db9.
-
-config JOYSTICK_GAMECON
-	tristate "Multisystem, NES, SNES, N64, PSX joysticks and gamepads"
-	depends on PARPORT
-	select INPUT_FF_MEMLESS
-	---help---
-	  Say Y here if you have a Nintendo Entertainment System gamepad,
-	  Super Nintendo Entertainment System gamepad, Nintendo 64 gamepad,
-	  Sony PlayStation gamepad or a Multisystem -- Atari, Amiga,
-	  Commodore, Amstrad CPC joystick connected to your parallel port.
-	  For more information on how to use the driver please read
-	  <file:Documentation/input/joystick-parport.txt>.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called gamecon.
-
 config JOYSTICK_TURBOGRAFX
 	tristate "Multisystem joysticks via TurboGraFX device"
 	depends on PARPORT
@@ -304,18 +276,6 @@ config JOYSTICK_XPAD_LEDS
 	---help---
 	  This option enables support for the LED which surrounds the Big X on
 	  XBox 360 controller.
-
-config JOYSTICK_WALKERA0701
-	tristate "Walkera WK-0701 RC transmitter"
-	depends on HIGH_RES_TIMERS && PARPORT
-	help
-	  Say Y or M here if you have a Walkera WK-0701 transmitter which is
-	  supplied with a ready to fly Walkera helicopters such as HM36,
-	  HM37, HM60 and want to use it via parport as a joystick. More
-	  information is available: <file:Documentation/input/walkera0701.txt>
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called walkera0701.
 
 config JOYSTICK_MAPLE
 	tristate "Dreamcast control pad"

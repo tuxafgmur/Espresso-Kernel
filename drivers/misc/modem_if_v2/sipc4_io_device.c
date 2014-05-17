@@ -976,11 +976,6 @@ static ssize_t misc_write(struct file *filp, const char __user *buf,
 	if (err < 0)
 		return err;
 
-	if (err != tx_size)
-		mif_err("WARNNING: wrong tx size: %s, format=%d "
-			"count=%d, tx_size=%d, return_size=%d",
-			iod->name, iod->format, count, tx_size, err);
-
 	return count;
 }
 

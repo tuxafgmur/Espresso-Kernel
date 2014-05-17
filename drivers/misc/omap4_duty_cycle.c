@@ -2,7 +2,6 @@
  * Module to control max opp duty cycle
  *
  * Copyright (c) 2011 Texas Instrument
- * Contact: Eduardo Valentin <eduardo.valentin@ti.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

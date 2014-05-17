@@ -20,12 +20,7 @@ config BLK_DEV_FD
 	depends on ARCH_MAY_HAVE_PC_FDC
 	---help---
 	  If you want to use the floppy disk drive(s) of your PC under Linux,
-	  say Y. Information about this driver, especially important for IBM
-	  Thinkpad users, is contained in
-	  <file:Documentation/blockdev/floppy.txt>.
-	  That file also contains the location of the Floppy driver FAQ as
-	  well as location of the fdutils package used to configure additional
-	  parameters of the driver at run time.
+	  say Y.
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called floppy.
@@ -63,19 +58,6 @@ config AMIGA_Z2RAM
 	  To compile this driver as a module, choose M here: the
 	  module will be called z2ram.
 
-config BLK_DEV_XD
-	tristate "XT hard disk support"
-	depends on ISA && ISA_DMA_API
-	select CHECK_SIGNATURE
-	help
-	  Very old 8 bit hard disk controllers used in the IBM XT computer
-	  will be supported if you say Y here.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called xd.
-
-	  It's pretty unlikely that you have one of these: say N.
-
 config GDROM
 	tristate "SEGA Dreamcast GD-ROM drive"
 	depends on SH_DREAMCAST
@@ -86,70 +68,6 @@ config GDROM
 	  disks. Select this option to access any disks in your GD ROM drive.
 	  Most users will want to say "Y" here.
 	  You can also build this as a module which will be called gdrom.
-
-config BLK_CPQ_DA
-	tristate "Compaq SMART2 support"
-	depends on PCI && VIRT_TO_BUS
-	help
-	  This is the driver for Compaq Smart Array controllers.  Everyone
-	  using these boards should say Y here.  See the file
-	  <file:Documentation/blockdev/cpqarray.txt> for the current list of
-	  boards supported by this driver, and for further information on the
-	  use of this driver.
-
-config BLK_CPQ_CISS_DA
-	tristate "Compaq Smart Array 5xxx support"
-	depends on PCI
-	help
-	  This is the driver for Compaq Smart Array 5xxx controllers.
-	  Everyone using these boards should say Y here.
-	  See <file:Documentation/blockdev/cciss.txt> for the current list of
-	  boards supported by this driver, and for further information
-	  on the use of this driver.
-
-config CISS_SCSI_TAPE
-	bool "SCSI tape drive support for Smart Array 5xxx"
-	depends on BLK_CPQ_CISS_DA && PROC_FS
-	depends on SCSI=y || SCSI=BLK_CPQ_CISS_DA
-	help
-	  When enabled (Y), this option allows SCSI tape drives and SCSI medium
-	  changers (tape robots) to be accessed via a Compaq 5xxx array
-	  controller.  (See <file:Documentation/blockdev/cciss.txt> for more details.)
-
-	  "SCSI support" and "SCSI tape support" must also be enabled for this
-	  option to work.
-
-	  When this option is disabled (N), the SCSI portion of the driver
-	  is not compiled.
-
-config BLK_DEV_DAC960
-	tristate "Mylex DAC960/DAC1100 PCI RAID Controller support"
-	depends on PCI
-	help
-	  This driver adds support for the Mylex DAC960, AcceleRAID, and
-	  eXtremeRAID PCI RAID controllers.  See the file
-	  <file:Documentation/blockdev/README.DAC960> for further information
-	  about this driver.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called DAC960.
-
-config BLK_DEV_UMEM
-	tristate "Micro Memory MM5415 Battery Backed RAM support (EXPERIMENTAL)"
-	depends on PCI && EXPERIMENTAL
-	---help---
-	  Saying Y here will include support for the MM5415 family of
-	  battery backed (Non-volatile) RAM cards.
-	  <http://www.umem.com/>
-
-	  The cards appear as block devices that can be partitioned into
-	  as many as 15 partitions.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called umem.
-
-	  The umem driver has not yet been allocated a MAJOR number, so
-	  one is chosen dynamically.
 
 config BLK_DEV_UBD
 	bool "Virtual block device"
@@ -242,8 +160,6 @@ config BLK_DEV_CRYPTOLOOP
 	  instead, which can be configured to be on-disk compatible with the
 	  cryptoloop device.
 
-source "drivers/block/drbd/Kconfig"
-
 config BLK_DEV_NBD
 	tristate "Network block device support"
 	depends on NET
@@ -287,15 +203,6 @@ config BLK_DEV_OSD
 
 	  If unsure, say N.
 
-config BLK_DEV_SX8
-	tristate "Promise SATA SX8 support"
-	depends on PCI
-	---help---
-	  Saying Y or M here will enable support for the
-	  Promise SATA SX8 controllers.
-
-	  Use devices /dev/sx8/$N and /dev/sx8/$Np$M.
-
 config BLK_DEV_UB
 	tristate "Low Performance USB Block driver"
 	depends on USB
@@ -329,7 +236,7 @@ config BLK_DEV_RAM
 
 config BLK_DEV_RAM_COUNT
 	int "Default number of RAM disks"
-	default "16"
+	default "4"
 	depends on BLK_DEV_RAM
 	help
 	  The default value is 16 RAM disks. Change this if you know what you
@@ -341,8 +248,8 @@ config BLK_DEV_RAM_SIZE
 	depends on BLK_DEV_RAM
 	default "4096"
 	help
-	  The default value is 4096 kilobytes. Only change this if you know
-	  what you are doing.
+	  The default value is 4096 kilobytes.
+	  Only change this if you know what you are doing.
 
 config BLK_DEV_XIP
 	bool "Support XIP filesystems on RAM block device"
@@ -413,14 +320,7 @@ config MG_DISK_RES
 	  Define size of reserved area that usually used for boot. Unit is KB.
 	  All of the block device operation will be taken this value as start
 	  offset
-	  Examples:	1024 => 1 MB
-
-config SUNVDC
-	tristate "Sun Virtual Disk Client support"
-	depends on SUN_LDOMS
-	help
-	  Support for virtual disk devices as a client under Sun
-	  Logical Domains.
+	  Examples: 1024 => 1 MB
 
 config XILINX_SYSACE
 	tristate "Xilinx SystemACE support"
@@ -433,35 +333,6 @@ config VIRTIO_BLK
 	depends on EXPERIMENTAL && VIRTIO
 	---help---
 	  This is the virtual block driver for virtio.  It can be used with
-          lguest or QEMU based VMMs (like KVM).  Say Y or M.
-
-config BLK_DEV_HD
-	bool "Very old hard disk (MFM/RLL/IDE) driver"
-	depends on HAVE_IDE
-	depends on !ARM || ARCH_RPC || ARCH_SHARK || BROKEN
-	help
-	  This is a very old hard disk driver that lacks the enhanced
-	  functionality of the newer ones.
-
-	  It is required for systems with ancient MFM/RLL/ESDI drives.
-
-	  If unsure, say N.
-
-config BLK_DEV_RBD
-	tristate "Rados block device (RBD)"
-	depends on INET && EXPERIMENTAL && BLOCK
-	select CEPH_LIB
-	select LIBCRC32C
-	select CRYPTO_AES
-	select CRYPTO
-	default n
-	help
-	  Say Y here if you want include the Rados block device, which stripes
-	  a block device over objects stored in the Ceph distributed object
-	  store.
-
-	  More information at http://ceph.newdream.net/.
-
-	  If unsure, say N.
+          lguest or QEMU based VMMs (like KVM or Xen).  Say Y or M.
 
 endif # BLK_DEV

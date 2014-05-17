@@ -10,7 +10,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
  */
 
 #include <linux/init.h>
@@ -30,9 +29,9 @@
 #include "modem_prj.h"
 #include "modem_utils.h"
 
-#define SIPC5_CFG_MASK	0b11111000
-#define SIPC5_SIZE_OF_CFG	1
-#define SIPC5_CFG_PADDING_MASK	0b00000100
+#define SIPC5_CFG_MASK			0b11111000
+#define SIPC5_SIZE_OF_CFG		1
+#define SIPC5_CFG_PADDING_MASK		0b00000100
 #define SIPC5_CFG_EXT_FIELD_MASK	0b00000010
 #define SIPC5_CFG_CTL_FIELD_MASK	0b00000001
 
@@ -858,11 +857,6 @@ static ssize_t misc_write(struct file *filp, const char __user *buf,
 	err = ld->send(ld, iod, skb);
 	if (err < 0)
 		return err;
-
-	if (err != tx_size)
-		mif_err("WARNNING: wrong tx size: %s, format=%d "
-			"count=%d, tx_size=%d, return_size=%d",
-			iod->name, iod->format, count, tx_size, err);
 
 	return count;
 }

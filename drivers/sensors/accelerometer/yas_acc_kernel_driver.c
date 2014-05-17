@@ -224,7 +224,6 @@ static int accel_open_calibration(void)
 		S_IRUGO | S_IWUSR | S_IWGRP);
 
 	if (IS_ERR(cal_filp)) {
-		pr_err("%s: Can't open calibration file\n", __func__);
 		set_fs(old_fs);
 		err = PTR_ERR(cal_filp);
 		return err;
@@ -853,12 +852,6 @@ static int yas_acc_measure(struct yas_acc_driver *driver,
 	err = driver->measure(accel);
 	if (err != YAS_NO_ERROR)
 		return err;
-
-#if 0
-	pr_info("data(%10d %10d %10d) raw(%5d %5d %5d)\n",
-	       accel->xyz.v[0], accel->xyz.v[1], accel->xyz.v[2],
-	       accel->raw.v[0], accel->raw.v[1], accel->raw.v[2]);
-#endif
 
 	return err;
 }

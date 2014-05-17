@@ -382,11 +382,6 @@ static void __init omap4_check_revision(void)
 {
 	u32 idcode;
 	u8 rev;
-	/*
-	 * NOTE: OMAP4460+ uses ramp system for identification and hawkeye
-	 * variable is reused for the same. Since the values are unique
-	 * we continue to use the current system
-	 */
 	u16 hawkeye;
 
 	/*
@@ -434,28 +429,6 @@ static void __init omap4_check_revision(void)
 		default:
 			omap_revision = OMAP4430_REV_ES2_3;
 			omap_chip.oc |= CHIP_IS_OMAP4430ES2_3;
-		}
-		break;
-	case 0xb94e:
-		switch (rev) {
-		case 0:
-			omap_revision = OMAP4460_REV_ES1_0;
-			omap_chip.oc |= CHIP_IS_OMAP4460ES1_0;
-			break;
-		case 2:
-		default:
-			omap_revision = OMAP4460_REV_ES1_1;
-			omap_chip.oc |= CHIP_IS_OMAP4460ES1_1;
-			break;
-		}
-		break;
-	case 0xb975:
-		switch (rev) {
-		case 0:
-		default:
-			omap_revision = OMAP4470_REV_ES1_0;
-			omap_chip.oc |= CHIP_IS_OMAP4470ES1_0;
-			break;
 		}
 		break;
 	default:

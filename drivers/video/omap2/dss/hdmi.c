@@ -684,7 +684,7 @@ int omapdss_hdmi_register_hdcp_callbacks(void (*hdmi_start_frame_cb)(void),
 					 bool (*hdmi_power_on_cb)(void))
 {
 	if (!hdmi.dssdev) {
-		DSSERR("HDMI is not active\n");
+		DSSDBG("HDMI is not active\n");
 		return 0;
 	}
 
@@ -1000,7 +1000,6 @@ static int omapdss_hdmihw_probe(struct platform_device *pdev)
 			hdmi.dssdev = board_data->devices[r];
 	}
 	if (!hdmi.dssdev) {
-		DSSERR("can't get HDMI device\n");
 		return -EINVAL;
 	}
 

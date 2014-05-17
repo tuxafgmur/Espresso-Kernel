@@ -119,8 +119,8 @@ static int mipi_hsi_send(struct link_device *ld, struct io_device *iod,
 			mipi_err("write fail : %d\n", ret);
 			dev_kfree_skb_any(skb);
 			return ret;
-		}
-
+		} else
+			mipi_debug("write Done\n");
 		dev_kfree_skb_any(skb);
 		return ret;
 
@@ -143,8 +143,8 @@ static int mipi_hsi_send(struct link_device *ld, struct io_device *iod,
 			mipi_err("write fail : %d\n", ret);
 			dev_kfree_skb_any(skb);
 			return ret;
-		}
-
+		} else
+			mipi_debug("write Done\n");
 		dev_kfree_skb_any(skb);
 		return ret;
 
@@ -199,6 +199,9 @@ static void mipi_hsi_tx_work(struct work_struct *work)
 		if (fmt_skb) {
 			iod = *((struct io_device **)fmt_skb->cb);
 
+			mipi_debug("dequeue. fmt qlen : %d\n",
+						ld->sk_fmt_tx_q.qlen);
+
 			switch (iod->format) {
 			case IPC_FMT:
 				send_channel = HSI_FMT_CHANNEL;
@@ -222,8 +225,10 @@ static void mipi_hsi_tx_work(struct work_struct *work)
 			}
 			ret = if_hsi_protocol_send(mipi_ld, send_channel,
 					(u32 *)fmt_skb->data, fmt_skb->len);
-			if (ret < 0)
+			if (ret < 0) {
+				/* TODO: Re Enqueue */
 				mipi_err("write fail : %d\n", ret);
+			}
 
 			dev_kfree_skb_any(fmt_skb);
 		}
@@ -240,7 +245,6 @@ static void mipi_hsi_tx_raw_work(struct work_struct *work)
 	unsigned bulk_size;
 
 	while (ld->sk_raw_tx_q.qlen) {
-		mipi_debug("raw qlen:%d\n", ld->sk_raw_tx_q.qlen);
 
 		if (ld->com_state != COM_ONLINE) {
 			mipi_debug("raw CP not ready\n");
@@ -1325,7 +1329,6 @@ static int if_hsi_write(struct if_hsi_channel *channel, u32 *data,
 				HSI_WRITE_DONE_TIMEOUT) < 0) {
 		mipi_err("ch=%d, hsi_write_done timeout : %d\n",
 					channel->channel_id, size);
-
 		hsi_write_cancel(channel->dev);
 
 		spin_lock_irqsave(&channel->tx_state_lock, flags);
@@ -1531,8 +1534,11 @@ static void if_hsi_read_done(struct hsi_device *dev, unsigned int size)
 
 		ret = iod->recv(iod, &mipi_ld->ld, (char *)channel->rx_data,
 					channel->packet_size);
-		if (ret < 0)
+		if (ret < 0) {
 			mipi_err("recv call fail : %d\n", ret);
+			mipi_err("discard data: channel=%d, packet_size=%d\n",
+				channel->channel_id, channel->packet_size);
+		}
 
 		channel->packet_size = 0;
 

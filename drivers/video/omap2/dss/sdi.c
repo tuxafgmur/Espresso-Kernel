@@ -92,13 +92,8 @@ int omapdss_sdi_display_enable(struct omap_dss_device *dssdev)
 
 	pck = fck / lck_div / pck_div / 1000;
 
-	if (pck != t->pixel_clock) {
-		DSSWARN("Could not find exact pixel clock. Requested %d kHz, "
-				"got %lu kHz\n",
-				t->pixel_clock, pck);
-
+	if (pck != t->pixel_clock)
 		t->pixel_clock = pck;
-	}
 
 	dispc_set_lcd_timings(dssdev->manager->id, t);
 
@@ -153,8 +148,6 @@ EXPORT_SYMBOL(omapdss_sdi_display_disable);
 
 int sdi_init_display(struct omap_dss_device *dssdev)
 {
-	DSSDBG("SDI init\n");
-
 	if (sdi.vdds_sdi_reg == NULL) {
 		struct regulator *vdds_sdi;
 

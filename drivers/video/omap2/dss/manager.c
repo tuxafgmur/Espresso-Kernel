@@ -74,9 +74,6 @@ static ssize_t manager_display_store(struct omap_overlay_manager *mgr,
 	if (len > 0 && dssdev == NULL)
 		return -EINVAL;
 
-	if (dssdev)
-		DSSDBG("display %s found\n", dssdev->name);
-
 	if (mgr->device) {
 		r = mgr->unset_device(mgr);
 		if (r) {
@@ -815,8 +812,6 @@ static int dss_mgr_wait_for_go(struct omap_overlay_manager *mgr)
 		 * 3 - dirty = false, shadow_dirty = true
 		 * 4 - shadow_dirty = false */
 		if (i++ == 3) {
-			DSSERR("mgr(%d)->wait_for_go() not finishing\n",
-					mgr->id);
 			r = 0;
 			break;
 		}
@@ -828,7 +823,6 @@ static int dss_mgr_wait_for_go(struct omap_overlay_manager *mgr)
 			break;
 
 		if (r) {
-			DSSERR("mgr(%d)->wait_for_go() timeout\n", mgr->id);
 			break;
 		}
 	}
@@ -898,8 +892,6 @@ int dss_mgr_wait_for_go_ovl(struct omap_overlay *ovl)
 		 * 3 - dirty = false, shadow_dirty = true
 		 * 4 - shadow_dirty = false */
 		if (i++ == 3) {
-			DSSERR("ovl(%d)->wait_for_go() not finishing\n",
-					ovl->id);
 			r = 0;
 			break;
 		}
@@ -909,7 +901,6 @@ int dss_mgr_wait_for_go_ovl(struct omap_overlay *ovl)
 			break;
 
 		if (r) {
-			DSSERR("ovl(%d)->wait_for_go() timeout\n", ovl->id);
 			break;
 		}
 	}
@@ -1009,18 +1000,12 @@ static int configure_overlay(enum omap_plane plane)
 		/* check if this overlay is source for wb, ignore mgr sources
 		 * here */
 		wbc = &dss_cache.writeback_cache;
-		if (wbc->enabled && omap_dss_check_wb(wbc, plane, -1)) {
-			DSSDBG("wb->enabled=%d for plane:%d\n",
-						wbc->enabled, plane);
+		if (wbc->enabled && omap_dss_check_wb(wbc, plane, -1))
 			m2m_with_ovl = true;
-		}
 		/* check if this overlay is source for manager, which is source
 		 * for wb, ignore ovl sources */
-		if (wbc->enabled && omap_dss_check_wb(wbc, -1, c->channel)) {
-			DSSDBG("check wb mgr wb->enabled=%d for plane:%d\n",
-							wbc->enabled, plane);
+		if (wbc->enabled && omap_dss_check_wb(wbc, -1, c->channel))
 			m2m_with_mgr = true;
-		}
 	}
 
 	mc = &dss_cache.manager_cache[c->channel];
@@ -1310,8 +1295,6 @@ static int configure_dispc(void)
 
 	if (dss_has_feature(FEAT_OVL_WB)) {
 		/* Enable WB plane and source plane */
-		DSSDBG("configure manager wbc->shadow_dirty = %d",
-		wbc->shadow_dirty);
 		if (wbc->shadow_dirty && wbc->enabled) {
 			switch (wbc->source) {
 			case OMAP_WB_GFX:
@@ -1447,9 +1430,6 @@ int dss_setup_partial_planes(struct omap_dss_device *dssdev,
 	w = *wi;
 	h = *hi;
 
-	DSSDBG("dispc_setup_partial_planes %d,%d %dx%d\n",
-		*xi, *yi, *wi, *hi);
-
 	mgr = dssdev->manager;
 
 	if (!mgr) {
@@ -1534,10 +1514,6 @@ int dss_setup_partial_planes(struct omap_dss_device *dssdev,
 			h = y2 - y1;
 
 			make_even(&x, &w);
-
-			DSSDBG("changing upd area due to ovl(%d) "
-			       "scaling %d,%d %dx%d\n",
-				i, x, y, w, h);
 
 			area_changed = true;
 		}
@@ -1776,8 +1752,6 @@ static int omap_dss_mgr_blank(struct omap_overlay_manager *mgr,
 	int r, r_get, i;
 	bool update = false;
 
-	DSSDBG("omap_dss_mgr_blank(%s,wait=%d)\n", mgr->name, wait_for_go);
-
 	r_get = r = dispc_runtime_get();
 	/* still clear cache even if failed to get clocks, just don't config */
 
@@ -1840,11 +1814,8 @@ static int omap_dss_mgr_blank(struct omap_overlay_manager *mgr,
 		dss_cache.irq_enabled = true;
 	}
 
-	if (!r_get) {
+	if (!r_get)
 		r = configure_dispc();
-		if (r)
-			pr_info("mgr_blank while GO is set");
-	}
 
 	if (r_get || !wait_for_go) {
 		/* pretend that programming has happened */
@@ -1912,8 +1883,6 @@ static int omap_dss_mgr_apply(struct omap_overlay_manager *mgr)
 	unsigned long flags;
 	int r;
 
-	DSSDBG("omap_dss_mgr_apply(%s)\n", mgr->name);
-
 	r = dispc_runtime_get();
 	if (r)
 		return r;
@@ -1944,8 +1913,6 @@ static int omap_dss_mgr_apply(struct omap_overlay_manager *mgr)
 			goto done;
 		}
 
-		pr_info_ratelimited("cannot apply mgr(%s) on inactive device\n",
-								mgr->name);
 		r = -ENODEV;
 		goto done;
 	}

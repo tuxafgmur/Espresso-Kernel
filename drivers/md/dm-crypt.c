@@ -238,7 +238,7 @@ static int crypt_iv_plain_gen(struct crypt_config *cc, u8 *iv,
 			      struct dm_crypt_request *dmreq)
 {
 	memset(iv, 0, cc->iv_size);
-	*(u32 *)iv = cpu_to_le32(dmreq->iv_sector & 0xffffffff);
+	*(__le32 *)iv = cpu_to_le32(dmreq->iv_sector & 0xffffffff);
 
 	return 0;
 }
@@ -247,7 +247,7 @@ static int crypt_iv_plain64_gen(struct crypt_config *cc, u8 *iv,
 				struct dm_crypt_request *dmreq)
 {
 	memset(iv, 0, cc->iv_size);
-	*(u64 *)iv = cpu_to_le64(dmreq->iv_sector);
+	*(__le64 *)iv = cpu_to_le64(dmreq->iv_sector);
 
 	return 0;
 }
@@ -414,7 +414,7 @@ static int crypt_iv_essiv_gen(struct crypt_config *cc, u8 *iv,
 	struct crypto_cipher *essiv_tfm = this_crypt_config(cc)->iv_private;
 
 	memset(iv, 0, cc->iv_size);
-	*(u64 *)iv = cpu_to_le64(dmreq->iv_sector);
+	*(__le64 *)iv = cpu_to_le64(dmreq->iv_sector);
 	crypto_cipher_encrypt_one(essiv_tfm, iv, iv);
 
 	return 0;
@@ -1671,6 +1671,8 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 	}
 
 	ti->num_flush_requests = 1;
+	ti->discard_zeroes_data_unsupported = 1;
+
 	return 0;
 
 bad:

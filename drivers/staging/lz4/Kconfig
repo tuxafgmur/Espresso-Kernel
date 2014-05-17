@@ -1,0 +1,15 @@
+config LZ4_COMPRESS
+	tristate "LZ4 Compression"
+	default n
+	help
+		LZ4 is a lossless data compression algorithm that is focused on compression and decompression speed.
+		The algorithm gives a slightly worse compression ratio than the LZO algorithm.
+		However, compression speeds are similar to LZO, and several times faster than other algorithms.
+		In a worst case scenario, incompressible data gets increased by 0.4%.
+
+config LZ4_DECOMPRESS
+	tristate "LZ4 Decompression"
+	default n
+	help
+		LZ4 is a lossless data compression algorithm that is focused on compression and decompression speed.
+		The algorithm gives a decompression speeds that can be up to three times that of LZO.

@@ -1,7 +1,3 @@
-#
-#
-#
-
 menuconfig SAMSUNG_MODULES
 	tristate "Samsung Kernel Modules"
 	default n
